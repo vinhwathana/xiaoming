@@ -5,7 +5,7 @@ import 'package:xiaoming/widgets/mptc_grid_icons.dart';
 
 class MPTCGridViewBuilderWidget extends StatefulWidget {
   const MPTCGridViewBuilderWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

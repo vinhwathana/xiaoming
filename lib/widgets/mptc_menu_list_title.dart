@@ -7,7 +7,7 @@ import 'package:xiaoming/pages/mptc_profile2.dart';
 
 class MPTCMenuListTileWidget extends StatefulWidget {
   const MPTCMenuListTileWidget({
-    Key key,
+    Key? key,
   }) : super (key: key);
   @override
   _MPTCMenuListTileWidgetState createState() => _MPTCMenuListTileWidgetState();

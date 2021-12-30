@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:xiaoming/models/login.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class ForgetPassword extends StatefulWidget {
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
-class LogIn {
-  String email;
-}
-
 class _ForgetPasswordState extends State<ForgetPassword> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
-  LogIn _logIn = LogIn();
+  final LogIn _logIn = LogIn();
 
-  String _validateEmail(String value) {
-    return (value.contains('@') && value.contains('.'))? null : "Enter a valid email";
-  }
   void _submitLogin() {
-    if (_formStateKey.currentState.validate()) {
-      _formStateKey.currentState.save();
+    if (_formStateKey.currentState!.validate()) {
+      _formStateKey.currentState!.save();
       print('Email: ${_logIn.email}');
     }
   }
@@ -49,18 +44,22 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               suffixIcon: Icon(Icons.email),
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) => _validateEmail(value),
+                            validator: (value) => validateEmail(value!),
                             onSaved: (value) => _logIn.email = value,
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('យើងនឹងផ្ញើពាក្យសម្ចាត់ដើម្បីកំណត់តំណទៅអ៊ីមែលរបស់អ្នក'
-                              ,textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),),
+                              Text(
+                                'យើងនឹងផ្ញើពាក្យសម្ចាត់ដើម្បីកំណត់តំណទៅអ៊ីមែលរបស់អ្នក',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ],
                           ),
                           SizedBox(height: 35.0),
@@ -74,7 +73,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
-                              }, child: Text('ត្រឡប់ទៅចូលវិញ'))
+                              },
+                              child: Text('ត្រឡប់ទៅចូលវិញ'))
                         ],
                       ),
                     )),
@@ -92,7 +92,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
 class LogoTitleWidget extends StatelessWidget {
   const LogoTitleWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -110,9 +110,7 @@ class LogoTitleWidget extends StatelessWidget {
           'កំណត់ពាក្យសម្ចាត់ឡើងវិញ',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-              color: Colors.black87),
+              fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black87),
         ),
         SizedBox(height: 8.0),
       ],

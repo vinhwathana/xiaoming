@@ -1,35 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khmer_fonts/khmer_fonts.dart';
+import 'package:xiaoming/models/login.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class Signup extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
 }
 
-class LogIn {
-  String email;
-  String password;
-}
-
 class _SignupState extends State<Signup> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
   bool _secureText = true; // display eye and security icon
-  LogIn _logIn = LogIn();
-
-  String _validateEmail(String value) {
-    return (value.contains('@') && value.contains('.'))
-        ? null
-        : "Enter a valid email";
-  }
-
-  String _validatePassword(String value) {
-    return (value.length < 6) ? "Enter at least 6 char" : null;
-  }
+  final LogIn _logIn = LogIn();
 
   void _submitLogin() {
-    if (_formStateKey.currentState.validate()) {
-      _formStateKey.currentState.save();
+    if (_formStateKey.currentState!.validate()) {
+      _formStateKey.currentState!.save();
       print('Email: ${_logIn.email}');
       print('Password: ${_logIn.password}');
     }
@@ -60,7 +47,7 @@ class _SignupState extends State<Signup> {
                               suffixIcon: Icon(Icons.email),
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) => _validateEmail(value),
+                            validator: (value) => validateEmail(value!),
                             onSaved: (value) => _logIn.email = value,
                           ),
                           TextFormField(
@@ -83,7 +70,7 @@ class _SignupState extends State<Signup> {
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.blue)),
                             ),
-                            validator: (value) => _validatePassword(value),
+                            validator: (value) => validatePassword(value!),
                             onSaved: (value) => _logIn.password = value,
                             obscureText: _secureText,
                           ),
@@ -104,7 +91,7 @@ class _SignupState extends State<Signup> {
                                 )
                                 //labelText: 'ពាក្យសំងាត់',
                                 ),
-                            validator: (value) => _validatePassword(value),
+                            validator: (value) => validatePassword(value!),
                             onSaved: (value) => _logIn.password = value,
                             obscureText: _secureText,
                           ),
@@ -159,7 +146,7 @@ class _SignupState extends State<Signup> {
 
 class LogoTitleWidget extends StatelessWidget {
   const LogoTitleWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MPTCTextField extends StatelessWidget {
-  @required
   final String label;
-  @required
   final String value;
-  MPTCTextField({this.label, this.value});
+
+  MPTCTextField({required this.label, required this.value});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +13,10 @@ class MPTCTextField extends StatelessWidget {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width / 3,
-            child: Text(label, style: TextStyle(fontWeight: FontWeight.bold),),
+            child: Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           Expanded(child: Text(value)),
         ],

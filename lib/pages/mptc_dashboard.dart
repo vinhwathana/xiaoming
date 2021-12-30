@@ -4,15 +4,15 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/widgets/mptc_left_drawer.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  List<GenderData> _chartData;
-  TooltipBehavior _tooltipBehavior;
+  List<GenderData>? _chartData;
+  late final TooltipBehavior _tooltipBehavior;
   @override
   void initState() {
     _chartData = getChatData();
