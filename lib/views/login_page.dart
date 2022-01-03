@@ -18,6 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   bool _secureText = true; // display eye and security icon
   final LogIn _logIn = LogIn();
 
+  final emailCon = TextEditingController(),
+      passwordCon = TextEditingController();
+
   void _submitLogin() {
     if (_formStateKey.currentState!.validate()) {
       _formStateKey.currentState!.save();
@@ -44,13 +47,13 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           const LogoTitleWidget(),
           Form(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formStateKey,
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
                   children: [
                     TypeTextField(
+                      controller: emailCon,
                       hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
                       iconData: Icons.email,
                       keyboardType: TextInputType.emailAddress,
@@ -58,33 +61,34 @@ class _LoginPageState extends State<LoginPage> {
                       onSaved: (value) => _logIn.email = value,
                     ),
                     TypeTextField(
+                      controller: passwordCon,
                       hintText: 'ពាក្យសំងាត់',
                       iconData: Icons.email,
                       keyboardType: TextInputType.emailAddress,
-                      validator: (value) => validateEmail(value!),
+                      validator: (value) => validatePassword(value!),
                       onSaved: (value) => _logIn.email = value,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'ពាក្យសំងាត់',
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
-                          suffixIcon: IconButton(
-                            icon: Icon(_secureText
-                                ? Icons.remove_red_eye
-                                : Icons.security),
-                            onPressed: () {
-                              setState(() {
-                                _secureText = !_secureText;
-                              });
-                            },
-                          )
-                          //labelText: 'ពាក្យសំងាត់',
-                          ),
-                      validator: (value) => validatePassword(value!),
-                      onSaved: (value) => _logIn.password = value,
-                      obscureText: _secureText,
-                    ),
+                    // TextFormField(
+                    //   decoration: InputDecoration(
+                    //       hintText: 'ពាក្យសំងាត់',
+                    //       enabledBorder: UnderlineInputBorder(
+                    //           borderSide: BorderSide(color: Colors.blue)),
+                    //       suffixIcon: IconButton(
+                    //         icon: Icon(_secureText
+                    //             ? Icons.remove_red_eye
+                    //             : Icons.security),
+                    //         onPressed: () {
+                    //           setState(() {
+                    //             _secureText = !_secureText;
+                    //           });
+                    //         },
+                    //       )
+                    //       //labelText: 'ពាក្យសំងាត់',
+                    //       ),
+                    //   validator: (value) => validatePassword(value!),
+                    //   onSaved: (value) => _logIn.password = value,
+                    //   obscureText: _secureText,
+                    // ),
                     SizedBox(height: 35.0),
                     Container(
                         width: MediaQuery.of(context).size.width,
