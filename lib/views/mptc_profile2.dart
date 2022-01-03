@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoming/pages/mptc_education_info.dart';
-import 'package:xiaoming/pages/mptc_family_info.dart';
-import 'package:xiaoming/pages/mptc_krobkhan.dart';
-import 'package:xiaoming/pages/mptc_language.dart';
-import 'package:xiaoming/pages/mptc_merits.dart';
-import 'package:xiaoming/pages/mptc_personal_info.dart';
-import 'package:xiaoming/pages/mptc_statistics.dart';
-import 'package:xiaoming/pages/mptc_work_info.dart';
-import 'package:xiaoming/widgets/mptc_left_drawer.dart';
+import 'package:xiaoming/views/mptc_education_info.dart';
+import 'package:xiaoming/views/mptc_family_info.dart';
+import 'package:xiaoming/views/mptc_krobkhan.dart';
+import 'package:xiaoming/views/mptc_language.dart';
+import 'package:xiaoming/views/mptc_merits.dart';
+import 'package:xiaoming/views/mptc_personal_info.dart';
+import 'package:xiaoming/views/mptc_statistics.dart';
+import 'package:xiaoming/views/mptc_work_info.dart';
+import 'package:xiaoming/components/mptc_left_drawer.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);

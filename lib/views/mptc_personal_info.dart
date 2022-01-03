@@ -1,7 +1,7 @@
 //This is the main page for expansionTile
 import 'package:flutter/material.dart';
-import 'package:xiaoming/pages/mptc_family_info.dart';
-import 'package:xiaoming/pages/mptc_profile.dart';
+import 'package:xiaoming/views/mptc_family_info.dart';
+import 'package:xiaoming/views/mptc_profile.dart';
 
 class PersonalInfo extends StatefulWidget {
   @override

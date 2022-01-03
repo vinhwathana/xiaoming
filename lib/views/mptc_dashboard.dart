@@ -1,7 +1,7 @@
 //using tabbar to display personal information
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:xiaoming/widgets/mptc_left_drawer.dart';
+import 'package:xiaoming/components/mptc_left_drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

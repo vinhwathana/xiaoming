@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoming/pages/mptc_personal_info.dart';
-import 'package:xiaoming/pages/mptc_statistics.dart';
-import 'package:xiaoming/widgets/mptc_grid_icons.dart';
+import 'package:xiaoming/views/mptc_personal_info.dart';
+import 'package:xiaoming/views/mptc_statistics.dart';
+import 'package:xiaoming/components/mptc_grid_icons.dart';
 
 class MPTCGridViewBuilderWidget extends StatefulWidget {
   const MPTCGridViewBuilderWidget({

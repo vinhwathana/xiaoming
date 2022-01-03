@@ -1,6 +1,7 @@
 //This page provide profile information for individual user
 import 'package:flutter/material.dart';
-import 'package:xiaoming/widgets/mptc_textfield.dart';
+import 'package:xiaoming/components/mptc_textfield.dart';
+
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

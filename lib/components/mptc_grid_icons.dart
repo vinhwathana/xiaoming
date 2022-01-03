@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xiaoming/pages/mptc_personal_info.dart';
-import 'package:xiaoming/pages/mptc_statistics.dart';
+import 'package:xiaoming/views/mptc_personal_info.dart';
+import 'package:xiaoming/views/mptc_statistics.dart';
 class GridIcons {
   List<IconData> iconList = [];
   List<String> iconText = [];
