@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:xiaoming/components/type_textfield.dart';
+import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
-import 'package:xiaoming/views/mptc_dashboard2.dart';
+import 'package:xiaoming/services/authentication_service.dart';
+import 'package:xiaoming/views/chart_page.dart';
+import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/mptc_forgetpassword_hr.dart';
 import 'package:xiaoming/utils/constant.dart';
 
@@ -21,12 +25,22 @@ class _LoginPageState extends State<LoginPage> {
   final emailCon = TextEditingController(),
       passwordCon = TextEditingController();
 
-  void _submitLogin() {
+  final authService = AuthenticationService();
+
+  Future<void> _submitLogin() async {
     if (_formStateKey.currentState!.validate()) {
       _formStateKey.currentState!.save();
-      //TODO: Add Login Function
-      print('Email: ${_logIn.email}');
-      print('Password: ${_logIn.password}');
+      final username = emailCon.text.trim();
+      final password = passwordCon.text.trim();
+
+      final authModel = Authentication(
+        username: username,
+        password: password,
+      );
+      bool result = await authService.login(authModel);
+      if (result) {
+        Get.offAll(() => HomePage());
+      }
     }
   }
 
@@ -60,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (value) => validateEmail(value!),
                       onSaved: (value) => _logIn.email = value,
                     ),
+                    //TODO: obscure text function
                     TypeTextField(
                       controller: passwordCon,
                       hintText: 'ពាក្យសំងាត់',
@@ -94,17 +109,11 @@ class _LoginPageState extends State<LoginPage> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 18,
                         child: ElevatedButton(
-                            child: Text('ចូល'),
-                            onPressed: () {
-                              _submitLogin();
-                              // if (_logIn.email == 'root@root.com' &&
-                              //     _logIn.password == 'rootroot') {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Dashboard2()));
-                              //}
-                            })),
+                          child: Text('ចូល'),
+                          onPressed: () {
+                            _submitLogin();
+                          },
+                        )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

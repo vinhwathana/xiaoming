@@ -3,6 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/views/login_page.dart';
+import 'package:xiaoming/views/chart_page.dart';
+import 'package:xiaoming/views/home_page.dart';
+import 'package:xiaoming/views/mptc_profile2.dart';
+
+import 'controllers/initial_binding.dart';
+import 'views/landing_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -34,7 +40,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: const [
         DefaultMaterialLocalizations.delegate,
       ],
-      // initialBinding: InitialBinding(),
+      initialBinding: InitialBinding(),
       theme: ThemeData(
         primaryColor: const Color(0xFF003D7C),
         accentColor: const Color(0xFF003D7C),
@@ -64,7 +70,9 @@ class MyApp extends StatelessWidget {
           surface: Colors.white,
         ),
       ),
-      home: LoginPage(),
+      home: LandingPage(),
+      // home: HomePage(),
+
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => ProtectedRoute(

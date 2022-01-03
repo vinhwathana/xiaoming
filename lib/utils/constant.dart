@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 
+const String tokenKeyName = "token";
+
 String? validateEmail(String value) {
   if (value.isEmpty) {
     return "Empty field";

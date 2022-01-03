@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:xiaoming/components/mptc_gridview_builder.dart';
 import 'package:xiaoming/components/mptc_left_drawer.dart';
 
-class Dashboard2 extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _Dashboard2State createState() => _Dashboard2State();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _Dashboard2State extends State<Dashboard2> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

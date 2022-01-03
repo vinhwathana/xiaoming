@@ -23,7 +23,6 @@ class AuthenticationService {
         },
         body: payload,
       );
-
       if (response.statusCode == 200) {
         final responseJson = jsonDecode(response.body);
         final String token = responseJson['_token'];
@@ -31,9 +30,7 @@ class AuthenticationService {
             Get.find<AuthenticationController>();
         print(token);
         controller.updateToken(token);
-
         await storeToken(token);
-
         return true;
       } else if (response.statusCode == 401) {
         showToast("Unauthorized");

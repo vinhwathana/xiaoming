@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/mptc_left_drawer.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class ChartPage extends StatefulWidget {
+  const ChartPage({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _ChartPageState createState() => _ChartPageState();
 }
 
-class _HomeState extends State<Home> {
+class _ChartPageState extends State<ChartPage> {
   List<GenderData>? _chartData;
   late final TooltipBehavior _tooltipBehavior;
+
   @override
   void initState() {
     _chartData = getChatData();
@@ -23,7 +24,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -39,10 +39,11 @@ class _HomeState extends State<Home> {
             Container(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/2,
+              height: MediaQuery.of(context).size.height / 2,
               child: SfCircularChart(
-                title: ChartTitle(text: 'Gender',
-                textStyle: TextStyle(fontWeight: FontWeight.bold)),
+                title: ChartTitle(
+                    text: 'Gender',
+                    textStyle: TextStyle(fontWeight: FontWeight.bold)),
                 //legend: Legend(isVisible: true,),
                 tooltipBehavior: _tooltipBehavior,
                 palette: [Colors.pink, Colors.blue],
@@ -61,31 +62,48 @@ class _HomeState extends State<Home> {
             ),
             Divider(),
             Container(
-              padding: EdgeInsets.fromLTRB(30, 0 , 30, 0),
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Male',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                  Text('Female',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                  Text('Total',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                  Text(
+                    'Male',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    'Female',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    'Total',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  )
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(30, 20 , 30, 0),
+              padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('934',style: TextStyle(fontSize: 16),),
-                  Text('459',style: TextStyle(fontSize: 16),),
-                  Text('1393',style: TextStyle(fontSize: 16),)
+                  Text(
+                    '934',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    '459',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    '1393',
+                    style: TextStyle(fontSize: 16),
+                  )
                 ],
               ),
             ),
             Divider(),
           ],
         ),
-
       ),
     );
   }
@@ -101,5 +119,6 @@ class _HomeState extends State<Home> {
 
 class GenderData {
   GenderData(this.male);
+
   final int male;
 }
