@@ -6,8 +6,8 @@ import 'authentication_controller.dart';
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AuthenticationController(), fenix: true);
-    Get.lazyPut(() => InternetCheckController(), fenix: true);
-    Get.lazyPut(() => CheckLocationService(), fenix: true);
+    Get.lazyPut<AuthenticationController>(() => AuthenticationController(), fenix: true);
+    Get.lazyPut<InternetCheckController>(() => InternetCheckController(), fenix: true);
+    Get.lazyPut<CheckLocationService>(() => CheckLocationService(), fenix: true);
   }
 }

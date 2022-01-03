@@ -12,7 +12,7 @@ import 'package:xiaoming/utils/constant.dart';
 class AuthenticationService {
   final storage = FlutterSecureStorage();
 
-  Future<bool> login(Authentication authentication) async {
+  Future<String?> login(Authentication authentication) async {
     try {
       final uri = Uri.parse(api_url.authLogin);
       final payload = jsonEncode(authentication.toJson());
@@ -26,23 +26,19 @@ class AuthenticationService {
       if (response.statusCode == 200) {
         final responseJson = jsonDecode(response.body);
         final String token = responseJson['_token'];
-        final AuthenticationController controller =
-            Get.find<AuthenticationController>();
-        print(token);
-        controller.updateToken(token);
-        await storeToken(token);
-        return true;
+        return token;
       } else if (response.statusCode == 401) {
         showToast("Unauthorized");
       }
-      return false;
     } catch (e) {
       print(e);
-      return false;
     }
   }
 
   Future<void> storeToken(String token) async {
-    return await storage.write(key: "token", value: token);
+    return await storage.write(key: "$tokenKeyName", value: token);
   }
+
+
+
 }

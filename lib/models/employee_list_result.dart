@@ -14,7 +14,7 @@ class EmployeeListResult {
 
   int? statusCode;
   String? message;
-  Data? data;
+  Users? data;
 
   factory EmployeeListResult.fromJson(String str) =>
       EmployeeListResult.fromMap(json.decode(str));
@@ -25,7 +25,7 @@ class EmployeeListResult {
       EmployeeListResult(
         statusCode: json["statusCode"] == null ? null : json["statusCode"],
         message: json["message"] == null ? null : json["message"],
-        data: json["data"] == null ? null : Data.fromMap(json["data"]),
+        data: json["data"] == null ? null : Users.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -35,8 +35,8 @@ class EmployeeListResult {
       };
 }
 
-class Data {
-  Data({
+class Users {
+  Users({
     this.employeeId,
     this.officialInfo,
   });
@@ -44,11 +44,11 @@ class Data {
   int? employeeId;
   OfficialInfo? officialInfo;
 
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
+  factory Users.fromMap(Map<String, dynamic> json) => Users(
         employeeId: json["employeeId"] == null ? null : json["employeeId"],
         officialInfo: json["officialInfo"] == null
             ? null
@@ -59,6 +59,11 @@ class Data {
         "employeeId": employeeId == null ? null : employeeId,
         "officialInfo": officialInfo == null ? null : officialInfo!.toMap(),
       };
+
+  @override
+  String toString() {
+    return 'Users{employeeId: $employeeId, officialInfo: $officialInfo}';
+  }
 }
 
 class OfficialInfo {

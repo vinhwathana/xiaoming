@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MPTCTextField extends StatelessWidget {
+class ExpansionRow extends StatelessWidget {
   final String label;
   final String value;
 
-  MPTCTextField({required this.label, required this.value});
+  ExpansionRow({
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,9 @@ class MPTCTextField extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Expanded(child: Text(value)),
+          Expanded(
+            child: Text(value),
+          ),
         ],
       ),
     );

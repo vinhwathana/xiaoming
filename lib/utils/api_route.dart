@@ -6,7 +6,7 @@ const String authLogin = '$baseUrl/user/login'; // response : { _token }
 const String authLogout = '$baseUrl/user/logout';
 
 // ENDPOINT: USER
-const String userProfile = '$baseUrl/user/profile';
+const String userProfile = '$baseUrl/employees';
 
 // ENDPOINT: ATTENDANCE
 const String attCheckIn = '$baseUrl/IsInside/location';

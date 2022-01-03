@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/type_textfield.dart';
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
-import 'package:xiaoming/views/chart_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/mptc_forgetpassword_hr.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -37,11 +38,23 @@ class _LoginPageState extends State<LoginPage> {
         username: username,
         password: password,
       );
-      bool result = await authService.login(authModel);
-      if (result) {
-        Get.offAll(() => HomePage());
+      final token = await authService.login(authModel);
+      if (token != null) {
+        storeToken(token).then((_) {
+          Get.offAll(() => HomePage());
+        });
+      } else {
+        showToast("LoginFailed");
       }
     }
+  }
+
+  Future<void> storeToken(String token) async {
+    final controller = Get.put(AuthenticationController());
+    controller.accessToken = token;
+    final storage = FlutterSecureStorage();
+    await storage.write(key: "$tokenKeyName", value: token);
+
   }
 
   Widget highLevelWidget({required Widget child}) {
@@ -56,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return highLevelWidget(
       child: Column(
         children: <Widget>[
@@ -127,13 +141,11 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text('ចុះឈ្មោះ')),
                         Text(' || '),
                         TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ForgetPassword()));
-                            },
-                            child: Text('ភ្លេចលេខសំងាត់')),
+                          onPressed: () {
+                            Get.to(() => ForgetPassword());
+                          },
+                          child: Text('ភ្លេចលេខសំងាត់'),
+                        ),
                       ],
                     )
                   ],

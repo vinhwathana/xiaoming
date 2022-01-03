@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 import 'package:xiaoming/views/chart_page.dart';
 import 'package:xiaoming/views/home_page.dart';
@@ -15,6 +17,7 @@ void main() {
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: CompanyColors.blue,
       statusBarIconBrightness: Brightness.dark));
+
   runApp(MyApp());
 }
 
@@ -71,7 +74,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: LandingPage(),
-      // home: HomePage(),
+      // home: LoginPage(),
 
       // initialRoute: '/',
       // routes: {

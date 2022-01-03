@@ -1,14 +1,10 @@
 //This is the main page for expansionTile
 import 'package:flutter/material.dart';
 import 'package:xiaoming/views/mptc_family_info.dart';
-import 'package:xiaoming/views/mptc_profile.dart';
+import 'package:xiaoming/views/profile_expansion_card.dart';
 
-class PersonalInfo extends StatefulWidget {
-  @override
-  _PersonalInfoState createState() => _PersonalInfoState();
-}
+class PersonalInfo extends StatelessWidget {
 
-class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +19,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 child: ExpansionTile(
                   title: Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
                   children: [
-                    Profile(),
+                    ProfileExpansionCard(),
                   ],
                 ),
               ),
