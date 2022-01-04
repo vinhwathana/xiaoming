@@ -14,9 +14,19 @@ class UserController extends GetxController {
       print("response == null");
     }
     final decoded = jsonDecode(response!.body) as Map;
-    List<String> tempList = [];
+    final List<String> tempList = [];
     decoded["data"]["officialInfo"].keys.forEach((element) {
-      tempList.add(element.toString());
+      final value = decoded["data"]["officialInfo"][element];
+      if(value.runtimeType == String){
+        final valueAsString = value as String;
+        if(valueAsString.isNotEmpty){
+          tempList.add(element.toString());
+        }
+        return;
+      }
+      if (value != null) {
+        tempList.add(element.toString());
+      }
     });
     return tempList;
   }

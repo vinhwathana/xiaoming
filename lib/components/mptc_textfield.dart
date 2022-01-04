@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ExpansionRow extends StatelessWidget {
   final String label;
@@ -15,7 +16,7 @@ class ExpansionRow extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
+            width: Get.width / 3,
             child: Text(
               label,
               style: TextStyle(fontWeight: FontWeight.bold),

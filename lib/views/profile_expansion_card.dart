@@ -1,8 +1,11 @@
 //This page provide profile information for individual user
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/mptc_textfield.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/models/users.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class ProfileExpansionCard extends StatelessWidget {
@@ -17,13 +20,28 @@ class ProfileExpansionCard extends StatelessWidget {
             return LoginPage();
           }
           final List<String> keys = controller.getListOfKey();
-          print(keys);
+          final data = jsonDecode(controller.response!.body);
+
           return ListView.separated(
             shrinkWrap: true,
             itemCount: keys.length,
+            physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
+              // final enumSomething = EnumValue(
+              //   lovCode: "lovCode",
+              //   lovType: "lovType",
+              //   nameEn: "nameEn",
+              //   nameKh: "nameKh",
+              //   parentLov: "parentLov",
+              // );
+              // print(enumSomething.toString());
+
+              // print(
+              //     "${keys[index]} : ${data["data"]["officialInfo"][keys[index]].toString()}");
               return ExpansionRow(
-                  label: keys[index], value: 'Person Name');
+                label: keys[index],
+                value: data["data"]["officialInfo"][keys[index]].toString(),
+              );
             },
             separatorBuilder: (context, index) => Divider(),
           );

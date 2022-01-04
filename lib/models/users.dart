@@ -242,6 +242,11 @@ class OfficialInfo {
         "contactPhone": contactPhone == null ? null : contactPhone,
         "contactEmail": contactEmail == null ? null : contactEmail,
       };
+
+  @override
+  String toString() {
+    return 'OfficialInfo{officialId: $officialId, birthAddressProvince: $birthAddressProvince, birthAddressDistrict: $birthAddressDistrict, birthAddressCommune: $birthAddressCommune, birthAddressVillage: $birthAddressVillage, birthAddressDetail: $birthAddressDetail, maleSibling: $maleSibling, femaleSibling: $femaleSibling, internshipDate: $internshipDate, officialWorkingDate: $officialWorkingDate, physicalStatus: $physicalStatus, physicalStatusRemark: $physicalStatusRemark, profile: $profile, imageBase64: $imageBase64, attachmentList: $attachmentList, nationalId: $nationalId, firstNameKh: $firstNameKh, lastNameKh: $lastNameKh, firstNameEn: $firstNameEn, lastNameEn: $lastNameEn, dateOfBirth: $dateOfBirth, status: $status, gender: $gender, maritalStatus: $maritalStatus, race: $race, nationality: $nationality, currentAddressProvince: $currentAddressProvince, currentAddressDistrict: $currentAddressDistrict, currentAddressCommune: $currentAddressCommune, currentAddressVillage: $currentAddressVillage, currentAddressDetail: $currentAddressDetail, contactPhone: $contactPhone, contactEmail: $contactEmail}';
+  }
 }
 
 class AttachmentList {
@@ -347,11 +352,18 @@ class EnumValue {
         nameEn: json["nameEN"] == null ? null : json["nameEN"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "parentLov": parentLov,
-        "lovCode": lovCode == null ? null : lovCode,
-        "lovType": lovType == null ? null : lovType,
-        "nameKH": nameKh == null ? null : nameKh,
-        "nameEN": nameEn == null ? null : nameEn,
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      "parentLov": parentLov,
+      "lovCode": lovCode == null ? null : lovCode,
+      "lovType": lovType == null ? null : lovType,
+      "nameKH": nameKh == null ? null : nameKh,
+      "nameEN": nameEn == null ? null : nameEn,
+    };
+  }
+
+  @override
+  String toString() {
+    return '$nameKh / $nameEn}';
+  }
 }
