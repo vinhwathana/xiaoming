@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xiaoming/views/mptc_family_info.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
 
-class PersonalInfo extends StatelessWidget {
+class PersonalInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

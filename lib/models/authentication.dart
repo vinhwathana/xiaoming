@@ -50,4 +50,9 @@ class Authentication {
 
     return utf8.decode(base64Url.decode(output));
   }
+
+  @override
+  String toString() {
+    return 'Authentication{token: $token, username: $username, password: $password, deviceIdentifier: $deviceIdentifier}';
+  }
 }

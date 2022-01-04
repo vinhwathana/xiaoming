@@ -5,7 +5,7 @@ import 'package:xiaoming/components/mptc_grid_icons.dart';
 import 'package:xiaoming/components/mptc_left_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 
-import 'mptc_personal_info.dart';
+import 'personal_info_page.dart';
 import 'mptc_statistics.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,30 +26,29 @@ class HomePage extends StatelessWidget {
       ),
       drawer: const MPTCLeftDrawerWidget(),
       body: const SafeArea(
-        child: MPTCGridViewBuilderWidget(),
+        child: HomePageItemView(),
       ),
     );
   }
 }
 
-class MPTCGridViewBuilderWidget extends StatefulWidget {
-  const MPTCGridViewBuilderWidget({
+class HomePageItemView extends StatefulWidget {
+  const HomePageItemView({
     Key? key,
   }) : super(key: key);
 
   @override
-  _MPTCGridViewBuilderWidgetState createState() =>
-      _MPTCGridViewBuilderWidgetState();
+  _HomePageItemViewState createState() => _HomePageItemViewState();
 }
 
-class _MPTCGridViewBuilderWidgetState extends State<MPTCGridViewBuilderWidget> {
+class _HomePageItemViewState extends State<HomePageItemView> {
   final List<Widget> _listPages = [];
 
   @override
   void initState() {
     super.initState();
     _listPages
-      ..add(PersonalInfo())
+      ..add(PersonalInfoPage())
       ..add(Statistics())
       ..add(Statistics())
       ..add(Statistics());
@@ -74,7 +73,12 @@ class _MPTCGridViewBuilderWidgetState extends State<MPTCGridViewBuilderWidget> {
               borderRadius: BorderRadius.circular(20),
               color: Theme.of(context).primaryColor),
           margin: EdgeInsets.all(8.0),
-          child: InkWell(
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                Get.to(() => _listPages[index]);
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -94,9 +98,8 @@ class _MPTCGridViewBuilderWidgetState extends State<MPTCGridViewBuilderWidget> {
                   )
                 ],
               ),
-              onTap: () {
-                Get.to(() => _listPages[index]);
-              }),
+            ),
+          ),
         );
       },
     );

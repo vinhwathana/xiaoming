@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/controllers/authentication_controller.dart';
 
 const String tokenKeyName = "token";
 const String expiredToken =
@@ -49,4 +52,11 @@ Future<bool> onWillPop() {
 
 void requestFocus(BuildContext context) {
   FocusScope.of(context).requestFocus(FocusNode());
+}
+
+Future<void> storeToken(String token) async {
+  final controller = Get.put(AuthenticationController());
+  controller.accessToken = token;
+  final storage = FlutterSecureStorage();
+  return await storage.write(key: "$tokenKeyName", value: token);
 }

@@ -10,12 +10,13 @@ class AuthenticationController extends GetxController {
   final storage = FlutterSecureStorage();
   final authService = AuthenticationService();
 
-  void updateToken(String token) async {
+  Future<void> updateToken(String token) async {
     accessToken = token;
+    await storage.write(key: "$tokenKeyName", value: token);
     update();
   }
 
-  void clearToken() async {
+  Future<void> clearToken() async {
     accessToken = "";
     await storage.delete(key: "$tokenKeyName");
     update();

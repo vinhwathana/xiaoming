@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
+import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
@@ -38,23 +37,15 @@ class _LoginPageState extends State<LoginPage> {
         username: username,
         password: password,
       );
+
       final token = await authService.login(authModel);
       if (token != null) {
-        storeToken(token).then((_) {
-          Get.offAll(() => HomePage());
-        });
+        final controller = Get.find<AuthenticationController>();
+        await controller.updateToken(token);
       } else {
         showToast("LoginFailed");
       }
     }
-  }
-
-  Future<void> storeToken(String token) async {
-    final controller = Get.put(AuthenticationController());
-    controller.accessToken = token;
-    final storage = FlutterSecureStorage();
-    await storage.write(key: "$tokenKeyName", value: token);
-
   }
 
   Widget highLevelWidget({required Widget child}) {
@@ -69,7 +60,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return highLevelWidget(
       child: Column(
         children: <Widget>[
@@ -169,16 +159,18 @@ class LogoTitleWidget extends StatelessWidget {
       children: [
         Image(
           image: AssetImage("assets/images/mptc_logo.png"),
-          //color: Colors.orange,
           fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width / 3,
+          width: Get.width / 3,
         ),
         SizedBox(height: 16.0),
         Text(
           'ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមន្ត្រី',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black87),
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            color: Colors.black87,
+          ),
         ),
         SizedBox(height: 8.0),
       ],

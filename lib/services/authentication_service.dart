@@ -23,6 +23,7 @@ class AuthenticationService {
         },
         body: payload,
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final responseJson = jsonDecode(response.body);
         final String token = responseJson['_token'];
@@ -30,6 +31,7 @@ class AuthenticationService {
       } else if (response.statusCode == 401) {
         showToast("Unauthorized");
       }
+
     } catch (e) {
       print(e);
     }

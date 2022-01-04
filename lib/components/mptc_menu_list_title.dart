@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/login_page.dart';
-import 'package:xiaoming/views/mptc_personal_info.dart';
+import 'package:xiaoming/views/personal_info_page.dart';
 import 'package:xiaoming/views/mptc_profile2.dart';
 
 class MPTCMenuListTileWidget extends StatefulWidget {
@@ -35,7 +35,7 @@ class _MPTCMenuListTileWidgetState extends State<MPTCMenuListTileWidget> {
           onTap: (){
             Navigator.pop(context);
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PersonalInfo(),
+                MaterialPageRoute(builder: (context) => PersonalInfoPage(),
                 )
             );
           },
