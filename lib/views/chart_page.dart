@@ -1,7 +1,7 @@
 //using tabbar to display personal information
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:xiaoming/components/mptc_left_drawer.dart';
+import 'package:xiaoming/components/custom_drawer.dart';
 
 class ChartPage extends StatefulWidget {
   const ChartPage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _ChartPageState extends State<ChartPage> {
           ),
         ),
       ),
-      drawer: const MPTCLeftDrawerWidget(),
+      drawer: const CustomDrawer(),
       body: SafeArea(
         child: Column(
           children: [

@@ -5,9 +5,9 @@ import 'package:xiaoming/views/mptc_krobkhan.dart';
 import 'package:xiaoming/views/mptc_language.dart';
 import 'package:xiaoming/views/mptc_merits.dart';
 import 'package:xiaoming/views/personal_info_page.dart';
-import 'package:xiaoming/views/mptc_statistics.dart';
+import 'package:xiaoming/views/statistics_page.dart';
 import 'package:xiaoming/views/mptc_work_info.dart';
-import 'package:xiaoming/components/mptc_left_drawer.dart';
+import 'package:xiaoming/components/custom_drawer.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard>
             ],
           ),
         ),
-        drawer: const MPTCLeftDrawerWidget(),
+        drawer: const CustomDrawer(),
         body: SafeArea(
             child: TabBarView(
           children: [
@@ -67,7 +67,7 @@ class _DashboardState extends State<Dashboard>
             Language(),
             Krobkhan(),
             Merits(),
-            Statistics(),
+            StatisticsPage(),
           ],
         )),
       ),

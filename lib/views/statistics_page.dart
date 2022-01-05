@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Statistics extends StatefulWidget {
-  const Statistics({Key? key}) : super(key: key);
+class StatisticsPage extends StatefulWidget {
+  const StatisticsPage({Key? key}) : super(key: key);
 
   @override
-  _StatisticsState createState() => _StatisticsState();
+  _StatisticsPageState createState() => _StatisticsPageState();
 }
 
-class _StatisticsState extends State<Statistics> {
+class _StatisticsPageState extends State<StatisticsPage> {
   late final List<GenderData>? _chartData;
   late final TooltipBehavior _tooltipBehavior;
 

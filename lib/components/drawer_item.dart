@@ -5,15 +5,15 @@ import 'package:xiaoming/views/login_page.dart';
 import 'package:xiaoming/views/personal_info_page.dart';
 import 'package:xiaoming/views/mptc_profile2.dart';
 
-class MPTCMenuListTileWidget extends StatefulWidget {
-  const MPTCMenuListTileWidget({
+class DrawerItem extends StatefulWidget {
+  const DrawerItem({
     Key? key,
   }) : super (key: key);
   @override
-  _MPTCMenuListTileWidgetState createState() => _MPTCMenuListTileWidgetState();
+  _DrawerItemState createState() => _DrawerItemState();
 }
 
-class _MPTCMenuListTileWidgetState extends State<MPTCMenuListTileWidget> {
+class _DrawerItemState extends State<DrawerItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
