@@ -94,11 +94,6 @@ class _LandingPageState extends State<LandingPage> {
                   print("Get token to check with server if it is expired");
                   return GetBuilder<AuthenticationController>(
                     builder: (controller) {
-                      // if (authController.accessToken == null ||
-                      //     authController.accessToken!.isEmpty) {
-                      //   print("Token Expired need user to login");
-                      //   return LoginPage();
-                      // }
                       return FutureBuilder<http.Response?>(
                         future: userService.getUserProfile(),
                         builder: (context, snapshot) {

@@ -1,17 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/utils/constant.dart';
 
 class AuthenticationService {
-  final storage = FlutterSecureStorage();
-
   Future<String?> login(Authentication authentication) async {
     try {
       final uri = Uri.parse(api_url.authLogin);
@@ -31,16 +25,28 @@ class AuthenticationService {
       } else if (response.statusCode == 401) {
         showToast("Unauthorized");
       }
-
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> storeToken(String token) async {
-    return await storage.write(key: "$tokenKeyName", value: token);
+  Future<bool> signOut({required String token}) async {
+    try {
+      final uri = Uri.parse(api_url.authLogout);
+      final response = await http.post(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
-
-
-
 }

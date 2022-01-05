@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class InternetCheckController extends GetxController{
-  final connectionStatus = ConnectivityResult.none.obs;
+  final connectionStatus = ConnectivityResult.wifi.obs;
   final Connectivity connectivity = Connectivity();
 
   @override

@@ -2,10 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/components/drawer_item.dart';
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/big_image.dart';
+import 'package:xiaoming/views/home_page.dart';
+import 'package:xiaoming/views/landing_page.dart';
+import 'package:xiaoming/views/login_page.dart';
+import 'package:xiaoming/views/personal_info_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -17,7 +22,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  Widget userProfile(){
+  Widget userProfile() {
     return GetBuilder<UserController>(
       builder: (controller) {
         if (controller.users != null &&
@@ -29,7 +34,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           return InkWell(
             onTap: () {
               Get.to(
-                    () => BigImagePage(
+                () => BigImagePage(
                   imageBase64: user.imageBase64!,
                   imageProvider: MemoryImage(
                     base64Decode(user.imageBase64!),
@@ -40,15 +45,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             child: CircleAvatar(
               radius: 45,
               backgroundColor: Colors.white,
-              foregroundImage:
-              MemoryImage(base64Decode(user.imageBase64!)),
+              foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
             ),
           );
         }
         return InkWell(
           onTap: () {
             Get.to(
-                  () => BigImagePage(
+              () => BigImagePage(
                 imageBase64: dummyNetworkImage,
                 imageProvider: NetworkImage(
                   dummyNetworkImage,
@@ -88,9 +92,90 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
           ),
           Divider(),
-          const DrawerItem(),
+          const _DrawerItem(),
         ],
       ),
+    );
+  }
+}
+
+class _DrawerItem extends StatefulWidget {
+  const _DrawerItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _DrawerItemState createState() => _DrawerItemState();
+}
+
+class _DrawerItemState extends State<_DrawerItem> {
+  bool isVisible = false;
+  void onSignOut() {
+    setState(() {
+      isVisible = true;
+    });
+    final authService = AuthenticationService();
+    final authController = Get.find<AuthenticationController>();
+    final token = authController.accessToken!;
+    authService.signOut(token: token).then((value) {
+      setState(() {
+        isVisible = false;
+      });
+      if (value) {
+        Get.offAll(() => LandingPage(), transition: Transition.rightToLeft);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(Icons.home),
+          title: Text('ទំព័រដើម'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.person),
+          title: Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PersonalInfoPage(),
+                ));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.calendar_today),
+          title: Text('វត្តមាន'),
+        ),
+        ListTile(
+          leading: Icon(Icons.insert_drive_file),
+          title: Text('ឯកសារ'),
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.logout),
+          title: Text('ចាកចេញ'),
+          trailing: Visibility(
+            visible: isVisible,
+            child: CircularProgressIndicator(),
+          ),
+          onTap: () {
+            onSignOut();
+          },
+        )
+      ],
     );
   }
 }

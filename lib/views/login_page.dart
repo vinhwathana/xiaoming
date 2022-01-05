@@ -124,25 +124,14 @@ class _LoginPageState extends State<LoginPage> {
                               _submitLogin();
                             },
                           )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signup()));
-                              },
-                              child: Text('ចុះឈ្មោះ')),
-                          Text(' || '),
-                          TextButton(
-                            onPressed: () {
-                              Get.to(() => ForgetPassword());
-                            },
-                            child: Text('ភ្លេចលេខសំងាត់'),
-                          ),
-                        ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(() => ForgetPassword());
+                        },
+                        child: Text('ភ្លេចលេខសំងាត់'),
                       )
                     ],
                   ),

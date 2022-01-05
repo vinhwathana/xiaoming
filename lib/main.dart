@@ -91,6 +91,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: LandingPage(),
+      opaqueRoute: Get.isOpaqueRouteDefault,
       // home: LoginPage(),
 
       // initialRoute: '/',
