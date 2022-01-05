@@ -10,8 +10,8 @@ class CompanyColors {
 
   static MaterialColor blue = generateMaterialColor(_bluePrimaryValue);
 
-  static final Color _yellowPrimaryValue = hexToColor("#ef7c00");
-  static MaterialColor yellow = generateMaterialColor(_yellowPrimaryValue);
+  static final Color yellowPrimaryValue = hexToColor("#ef7c00");
+  static MaterialColor yellow = generateMaterialColor(yellowPrimaryValue);
 }
 
 Color hexToColor(String code) {

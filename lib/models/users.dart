@@ -292,17 +292,17 @@ class AttachmentList {
 }
 
 class Address {
-  Address({
-    this.parentsCode,
-    this.addressCode,
-    this.addressNameKh,
-    this.addressNameEn,
+  const Address({
+    required this.parentsCode,
+    required this.addressCode,
+    required this.addressNameKh,
+    required this.addressNameEn,
   });
 
-  String? parentsCode;
-  String? addressCode;
-  String? addressNameKh;
-  String? addressNameEn;
+  final String parentsCode;
+  final String addressCode;
+  final String addressNameKh;
+  final String addressNameEn;
 
   factory Address.fromJson(String str) => Address.fromMap(json.decode(str));
 
@@ -318,27 +318,27 @@ class Address {
       );
 
   Map<String, dynamic> toMap() => {
-        "parentsCode": parentsCode == null ? null : parentsCode,
-        "addressCode": addressCode == null ? null : addressCode,
-        "addressNameKH": addressNameKh == null ? null : addressNameKh,
-        "addressNameEN": addressNameEn == null ? null : addressNameEn,
+        "parentsCode": parentsCode,
+        "addressCode": addressCode,
+        "addressNameKH": addressNameKh,
+        "addressNameEN": addressNameEn,
       };
 }
 
 class EnumValue {
   EnumValue({
     this.parentLov,
-    this.lovCode,
-    this.lovType,
-    this.nameKh,
-    this.nameEn,
+    required this.lovCode,
+    required this.lovType,
+    required this.nameKh,
+    required this.nameEn,
   });
 
   String? parentLov;
-  String? lovCode;
-  String? lovType;
-  String? nameKh;
-  String? nameEn;
+  final String lovCode;
+  final String lovType;
+  final String nameKh;
+  final String nameEn;
 
   factory EnumValue.fromJson(String str) => EnumValue.fromMap(json.decode(str));
 
@@ -355,15 +355,15 @@ class EnumValue {
   Map<String, dynamic> toMap() {
     return {
       "parentLov": parentLov,
-      "lovCode": lovCode == null ? null : lovCode,
-      "lovType": lovType == null ? null : lovType,
-      "nameKH": nameKh == null ? null : nameKh,
-      "nameEN": nameEn == null ? null : nameEn,
+      "lovCode": lovCode,
+      "lovType": lovType,
+      "nameKH": nameKh,
+      "nameEN": nameEn,
     };
   }
 
   @override
   String toString() {
-    return '$nameKh / $nameEn}';
+    return '$nameKh / $nameEn';
   }
 }

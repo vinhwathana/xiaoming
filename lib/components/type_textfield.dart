@@ -10,6 +10,7 @@ class TypeTextField extends StatelessWidget {
     this.iconData,
     this.keyboardType,
     required this.controller,
+    this.autofillHints,
   }) : super(key: key);
   final String? hintText;
   final TextInputType? keyboardType;
@@ -17,12 +18,14 @@ class TypeTextField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final void Function(String? value)? onSaved;
   final TextEditingController controller;
+  final Iterable<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      autofillHints: autofillHints,
       decoration: InputDecoration(
         hintText: '$hintText',
         enabledBorder: UnderlineInputBorder(

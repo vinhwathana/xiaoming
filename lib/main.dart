@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:khmer_date/khmer_date.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/login_page.dart';
-import 'package:xiaoming/views/chart_page.dart';
-import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/mptc_profile2.dart';
 
 import 'controllers/initial_binding.dart';
+import 'language/khmer_cupertino_localization_delegate.dart';
+import 'services/localization_service.dart';
 import 'views/landing_page.dart';
 
 void main() {
@@ -21,7 +19,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // late Map<int, Color> color = {
   //   50: Color.fromRGBO(51, 153, 255, .1),
   //   100: Color.fromRGBO(51, 153, 255, .2),
@@ -37,12 +35,30 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    LocalizationService().getLocale();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
-      title: 'MPTC Officials information system',
+      title: 'MPTC Officials Information System',
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      translations: LocalizationService(),
       localizationsDelegates: const [
-        DefaultMaterialLocalizations.delegate,
+        // DefaultMaterialLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        KhmerCupertinoLocalizations.delegate,
       ],
+      supportedLocales: const [Locale('en'), Locale('km')],
       initialBinding: InitialBinding(),
       theme: ThemeData(
         primaryColor: const Color(0xFF003D7C),
@@ -57,6 +73,7 @@ class MyApp extends StatelessWidget {
           color: Color(0xFF003D7C),
           elevation: 0,
         ),
+        iconTheme: IconThemeData(color: CompanyColors.yellow),
         colorScheme: const ColorScheme(
           primary: Color(0xFF003D7C),
           primaryVariant: Color(0xFF003D7C),

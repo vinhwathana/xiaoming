@@ -52,7 +52,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(padding: const EdgeInsets.all(16.0), child: child),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: child,
+          ),
         ),
       ),
     );
@@ -68,77 +71,81 @@ class _LoginPageState extends State<LoginPage> {
               key: _formStateKey,
               child: Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    TypeTextField(
-                      controller: emailCon,
-                      hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
-                      iconData: Icons.email,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) => validateEmail(value!),
-                      onSaved: (value) => _logIn.email = value,
-                    ),
-                    //TODO: obscure text function
-                    TypeTextField(
-                      controller: passwordCon,
-                      hintText: 'ពាក្យសំងាត់',
-                      iconData: Icons.email,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) => validatePassword(value!),
-                      onSaved: (value) => _logIn.email = value,
-                    ),
-                    // TextFormField(
-                    //   decoration: InputDecoration(
-                    //       hintText: 'ពាក្យសំងាត់',
-                    //       enabledBorder: UnderlineInputBorder(
-                    //           borderSide: BorderSide(color: Colors.blue)),
-                    //       suffixIcon: IconButton(
-                    //         icon: Icon(_secureText
-                    //             ? Icons.remove_red_eye
-                    //             : Icons.security),
-                    //         onPressed: () {
-                    //           setState(() {
-                    //             _secureText = !_secureText;
-                    //           });
-                    //         },
-                    //       )
-                    //       //labelText: 'ពាក្យសំងាត់',
-                    //       ),
-                    //   validator: (value) => validatePassword(value!),
-                    //   onSaved: (value) => _logIn.password = value,
-                    //   obscureText: _secureText,
-                    // ),
-                    SizedBox(height: 35.0),
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 18,
-                        child: ElevatedButton(
-                          child: Text('ចូល'),
-                          onPressed: () {
-                            _submitLogin();
-                          },
-                        )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
+                child: AutofillGroup(
+                  child: Column(
+                    children: [
+                      TypeTextField(
+                        controller: emailCon,
+                        hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
+                        iconData: Icons.email,
+                        autofillHints: [AutofillHints.email],
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) => validateEmail(value!),
+                        onSaved: (value) => _logIn.email = value,
+                      ),
+                      //TODO: obscure text function
+                      TypeTextField(
+                        controller: passwordCon,
+                        hintText: 'ពាក្យសំងាត់',
+                        iconData: Icons.email,
+                        autofillHints: [AutofillHints.password],
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) => validatePassword(value!),
+                        onSaved: (value) => _logIn.email = value,
+                      ),
+                      // TextFormField(
+                      //   decoration: InputDecoration(
+                      //       hintText: 'ពាក្យសំងាត់',
+                      //       enabledBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.blue)),
+                      //       suffixIcon: IconButton(
+                      //         icon: Icon(_secureText
+                      //             ? Icons.remove_red_eye
+                      //             : Icons.security),
+                      //         onPressed: () {
+                      //           setState(() {
+                      //             _secureText = !_secureText;
+                      //           });
+                      //         },
+                      //       )
+                      //       //labelText: 'ពាក្យសំងាត់',
+                      //       ),
+                      //   validator: (value) => validatePassword(value!),
+                      //   onSaved: (value) => _logIn.password = value,
+                      //   obscureText: _secureText,
+                      // ),
+                      SizedBox(height: 35.0),
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height / 18,
+                          child: ElevatedButton(
+                            child: Text('ចូល'),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Signup()));
+                              _submitLogin();
                             },
-                            child: Text('ចុះឈ្មោះ')),
-                        Text(' || '),
-                        TextButton(
-                          onPressed: () {
-                            Get.to(() => ForgetPassword());
-                          },
-                          child: Text('ភ្លេចលេខសំងាត់'),
-                        ),
-                      ],
-                    )
-                  ],
+                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Signup()));
+                              },
+                              child: Text('ចុះឈ្មោះ')),
+                          Text(' || '),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(() => ForgetPassword());
+                            },
+                            child: Text('ភ្លេចលេខសំងាត់'),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )),
         ],

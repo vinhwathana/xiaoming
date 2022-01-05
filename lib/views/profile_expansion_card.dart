@@ -3,13 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khmer_date/khmer_date.dart';
 import 'package:xiaoming/components/mptc_textfield.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/users.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class ProfileExpansionCard extends StatelessWidget {
   // final userService = UsersS
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,64 +22,87 @@ class ProfileExpansionCard extends StatelessWidget {
           if (controller.users == null) {
             return LoginPage();
           }
-          final List<String> keys = controller.getListOfKey();
-          final data = jsonDecode(controller.response!.body);
-
-          return ListView.separated(
-            shrinkWrap: true,
-            itemCount: keys.length,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              // final enumSomething = EnumValue(
-              //   lovCode: "lovCode",
-              //   lovType: "lovType",
-              //   nameEn: "nameEn",
-              //   nameKh: "nameKh",
-              //   parentLov: "parentLov",
-              // );
-              // print(enumSomething.toString());
-
-              // print(
-              //     "${keys[index]} : ${data["data"]["officialInfo"][keys[index]].toString()}");
-              return ExpansionRow(
-                label: keys[index],
-                value: data["data"]["officialInfo"][keys[index]].toString(),
-              );
-            },
-            separatorBuilder: (context, index) => Divider(),
+          final user = controller.users!.value.officialInfo!;
+          return Column(
+            children: [
+              ExpansionRow(
+                  label: 'គោត្តនាម និង នាម',
+                  value: "${user.firstNameKh} ${user.lastNameKh}"),
+              Divider(),
+              ExpansionRow(label: 'ភេទ', value: user.gender ?? "(No Gender)"),
+              Divider(),
+              ExpansionRow(
+                  label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
+                  value: formatDateTime(user.dateOfBirth!)),
+              Divider(),
+              ExpansionRow(label: 'ជនជាតិ', value: user.race!.nameKh),
+              Divider(),
+              ExpansionRow(label: 'សញ្ជាតិ', value: user.nationality!.nameKh),
+              Divider(),
+              ExpansionRow(
+                  label: 'ទីកន្លែងកំណើត',
+                  value: '${generateAddress(
+                    province: user.birthAddressProvince,
+                    commune: user.birthAddressCommune,
+                    district: user.birthAddressDistrict,
+                    village: user.birthAddressVillage,
+                  )}'),
+              Divider(),
+              ExpansionRow(
+                  label: 'ស្ថានភាពគ្រួសារ',
+                  value: decideEnumValue(user.maritalStatus)),
+              Divider(),
+              ExpansionRow(
+                  label: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+                  value: '${generateAddress(
+                    province: user.currentAddressProvince,
+                    commune: user.currentAddressCommune,
+                    district: user.currentAddressDistrict,
+                    village: user.currentAddressVillage,
+                  )}'),
+              Divider(),
+              ExpansionRow(
+                  label: 'លេខទូរស័ព្ទ',
+                  value: formatPhoneNumber(user.contactPhone)),
+              Divider(),
+              ExpansionRow(
+                  label: 'អត្តលេខ',
+                  value: KhmerDate.khmerNumber(user.officialId ?? "")),
+              Divider(),
+              ExpansionRow(label: 'ថ្ងៃបម្រើការងារ', value: formatDateTime(user.internshipDate)),
+              Divider(),
+              ExpansionRow(label: 'ថ្ងៃតាំងស៊ប់', value: formatDateTime(user.officialWorkingDate)),
+            ],
           );
+          // final List<String> keys = controller.getListOfKey();
+          // final data = jsonDecode(controller.response!.body);
+          //
+          // return ListView.separated(
+          //   shrinkWrap: true,
+          //   itemCount: keys.length,
+          //   physics: NeverScrollableScrollPhysics(),
+          //   itemBuilder: (context, index) {
+          //     // final enumSomething = EnumValue(
+          //     //   lovCode: "lovCode",
+          //     //   lovType: "lovType",
+          //     //   nameEn: "nameEn",
+          //     //   nameKh: "nameKh",
+          //     //   parentLov: "parentLov",
+          //     // );
+          //     // print(enumSomething.toString());
+          //
+          //     // print(
+          //     //     "${keys[index]} : ${data["data"]["officialInfo"][keys[index]].toString()}");
+          //     return ExpansionRow(
+          //       label: keys[index],
+          //       value: data["data"]["officialInfo"][keys[index]].toString(),
+          //     );
+          //   },
+          //   separatorBuilder: (context, index) => Divider(),
+          // );
         },
       ),
-      // child: Column(
-      //   children: [
-      //
-      //     Divider(),
-      //     MPTCTextField(label: 'ភេទ', value: 'ប្រុស'),
-      //     Divider(),
-      //     MPTCTextField(label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត', value: '០៦/០៦/១៩៩៧'),
-      //     Divider(),
-      //     MPTCTextField(label: 'ជនជាតិ', value: 'ខ្មែរ'),
-      //     Divider(),
-      //     MPTCTextField(label: 'សញ្ជាតិ', value: 'ខ្មែរ'),
-      //     Divider(),
-      //     MPTCTextField(
-      //         label: 'ទីកន្លែងកំណើត', value: 'គីរីចុងកោះ គីរីវង់ តាកែវ'),
-      //     Divider(),
-      //     MPTCTextField(label: 'ស្ថានភាពគ្រួសារ', value: 'នៅលីវ'),
-      //     Divider(),
-      //     MPTCTextField(
-      //         label: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
-      //         value: 'ព្រែកតានូ ២ ចាក់អង្រែលើ មានជ័យ ភ្នំពេញ'),
-      //     Divider(),
-      //     MPTCTextField(label: 'លេខទូរស័ព្ទ', value: '០៩៣ ៥៣៣ ០៧០'),
-      //     Divider(),
-      //     MPTCTextField(label: 'អត្តលេខ', value: '១៩៧២១០០០៨៦'),
-      //     Divider(),
-      //     MPTCTextField(label: 'ថ្ងៃបម្រើការងារ', value: '០១/០៦/២០២០'),
-      //     Divider(),
-      //     MPTCTextField(label: 'ថ្ងៃតាំងស៊ប់', value: '០១/០៦/២០២១'),
-      //   ],
-      // ),
+      // child:
     );
   }
 }

@@ -1,9 +1,14 @@
 //Homepage dashboard for gridview
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/mptc_grid_icons.dart';
 import 'package:xiaoming/components/mptc_left_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
+import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/big_image.dart';
 
 import 'personal_info_page.dart';
 import 'mptc_statistics.dart';
@@ -15,13 +20,63 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
         actions: [
-          IconButton(
-            onPressed: () {
-              final controller = Get.find<AuthenticationController>();
-              print(controller.accessToken);
+          GetBuilder<UserController>(
+            builder: (controller) {
+              if (controller.users != null &&
+                  controller.users!.value.officialInfo != null) {
+                final user = controller.users!.value.officialInfo;
+                if (user!.imageBase64 == null) {
+                  return Container();
+                }
+                return InkWell(
+                  onTap: () {
+                    Get.to(
+                      () => BigImagePage(
+                        imageBase64: user.imageBase64!,
+                        imageProvider: MemoryImage(
+                          base64Decode(user.imageBase64!),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: user.imageBase64!,
+                    child: CircleAvatar(
+                      foregroundImage:
+                          MemoryImage(base64Decode(user.imageBase64!)),
+                    ),
+                  ),
+                );
+              }
+              return InkWell(
+                onTap: () {
+                  Get.to(
+                    () => BigImagePage(
+                      imageBase64: dummyNetworkImage,
+                      imageProvider: NetworkImage(
+                        dummyNetworkImage,
+                      ),
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: dummyNetworkImage,
+                  child: CircleAvatar(
+                    foregroundImage: NetworkImage(
+                      dummyNetworkImage,
+                    ),
+                  ),
+                ),
+              );
             },
-            icon: Icon(Icons.analytics),
           ),
+          // IconButton(
+          //   onPressed: () {
+          //     final controller = Get.find<AuthenticationController>();
+          //     print(controller.accessToken);
+          //   },
+          //   icon: Icon(Icons.analytics),
+          // ),
         ],
       ),
       drawer: const MPTCLeftDrawerWidget(),

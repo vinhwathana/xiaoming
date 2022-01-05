@@ -11,7 +11,6 @@ class UserService{
     final authController = Get.find<AuthenticationController>();
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
-      showToast("Access Token null");
       return null;
     }
     try {
