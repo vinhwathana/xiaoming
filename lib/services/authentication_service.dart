@@ -49,4 +49,40 @@ class AuthenticationService {
       return false;
     }
   }
+
+  Future<bool> recoveryUserPassword(String email) async {
+    try {
+      final uri = Uri.parse(api_url.recoverUserPassword);
+      final response = await http.post(uri,
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer $expiredToken',
+            HttpHeaders.contentTypeHeader: 'application/json',
+          },
+          body: jsonEncode({
+            "email": "$email",
+          }));
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<void> changePasswordWithOTP(String otp) async {
+    final uri = Uri.parse(api_url.recoverUserPassword);
+    final response = await http.post(
+      uri,
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $expiredToken',
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      // body: {
+      //   "email": "$email",
+      // }
+    );
+  }
 }

@@ -53,13 +53,13 @@ class _MyAppState extends State<MyApp> {
       fallbackLocale: LocalizationService.fallbackLocale,
       translations: LocalizationService(),
       localizationsDelegates: const [
-        // DefaultMaterialLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         KhmerCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('en'), Locale('km')],
       initialBinding: InitialBinding(),
+
       theme: ThemeData(
         primaryColor: const Color(0xFF003D7C),
         accentColor: const Color(0xFF003D7C),
@@ -91,7 +91,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: LandingPage(),
-      opaqueRoute: Get.isOpaqueRouteDefault,
       // home: LoginPage(),
 
       // initialRoute: '/',

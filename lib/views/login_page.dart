@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
@@ -7,7 +8,7 @@ import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/mptc_forgetpassword_hr.dart';
+import 'package:xiaoming/views/forget_password_page.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 import 'mptc_signup_hr.dart';
@@ -19,7 +20,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
-  bool _secureText = true; // display eye and security icon
+  bool isObscureText = true; // display eye and security icon
   final LogIn _logIn = LogIn();
 
   final emailCon = TextEditingController(),
@@ -78,42 +79,22 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailCon,
                         hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
                         iconData: Icons.email,
-                        autofillHints: [AutofillHints.email],
+                        autofillHints: [AutofillHints.username],
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => validateEmail(value!),
                         onSaved: (value) => _logIn.email = value,
                       ),
-                      //TODO: obscure text function
                       TypeTextField(
                         controller: passwordCon,
                         hintText: 'ពាក្យសំងាត់',
-                        iconData: Icons.email,
                         autofillHints: [AutofillHints.password],
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.visiblePassword,
                         validator: (value) => validatePassword(value!),
                         onSaved: (value) => _logIn.email = value,
+                        hasObscureText: true,
+                        onEditingComplete: () =>
+                            TextInput.finishAutofillContext(),
                       ),
-                      // TextFormField(
-                      //   decoration: InputDecoration(
-                      //       hintText: 'ពាក្យសំងាត់',
-                      //       enabledBorder: UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: Colors.blue)),
-                      //       suffixIcon: IconButton(
-                      //         icon: Icon(_secureText
-                      //             ? Icons.remove_red_eye
-                      //             : Icons.security),
-                      //         onPressed: () {
-                      //           setState(() {
-                      //             _secureText = !_secureText;
-                      //           });
-                      //         },
-                      //       )
-                      //       //labelText: 'ពាក្យសំងាត់',
-                      //       ),
-                      //   validator: (value) => validatePassword(value!),
-                      //   onSaved: (value) => _logIn.password = value,
-                      //   obscureText: _secureText,
-                      // ),
                       SizedBox(height: 35.0),
                       Container(
                           width: MediaQuery.of(context).size.width,
@@ -129,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Get.to(() => ForgetPassword());
+                          Get.to(() => ForgetPasswordPage());
                         },
                         child: Text('ភ្លេចលេខសំងាត់'),
                       )
