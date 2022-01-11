@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
         actions: [
-          userProfile(),
+          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
         ],
       ),
       drawer: const CustomDrawer(),

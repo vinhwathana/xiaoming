@@ -83,13 +83,32 @@ class _CustomDrawerState extends State<CustomDrawer> {
           SizedBox(
             height: 7,
           ),
-          Text(
-            'វិញ វឌ្ឍនា',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+          GetBuilder<UserController>(
+            builder: (controller) {
+              final user = controller.users?.value;
+              if (user != null &&
+                  user.officialInfo != null &&
+                  (user.officialInfo!.firstNameKh != null ||
+                      user.officialInfo!.lastNameKh != null)) {
+                return Text(
+                  '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                );
+              }
+              return Text(
+                // 'វិញ វឌ្ឍនា',
+                "",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              );
+            },
           ),
           Divider(),
           const _DrawerItem(),
@@ -110,6 +129,7 @@ class _DrawerItem extends StatefulWidget {
 
 class _DrawerItemState extends State<_DrawerItem> {
   bool isVisible = false;
+
   void onSignOut() {
     setState(() {
       isVisible = true;
