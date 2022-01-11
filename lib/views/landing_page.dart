@@ -101,7 +101,8 @@ class _LandingPageState extends State<LandingPage> {
                           if (snapshot.hasData) {
                             final response = snapshot.data;
                             if (response == null ||
-                                response.statusCode == 401) {
+                                response.statusCode != 200) {
+                              print(response?.statusCode ?? null);
                               print("Landing Page: invalid Token");
                               controller.clearToken();
                               return LoginPage();

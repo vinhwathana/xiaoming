@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/verify_otp_page.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   @override
@@ -23,12 +25,18 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       setState(() {
         isVisible = true;
       });
+
+      setState(() {
+        isVisible = false;
+      });
       authService.recoveryUserPassword(email).then((value) {
         setState(() {
           isVisible = false;
         });
         if (value) {
-          Get.back();
+          Get.to(() => VerifyOtpPage(
+            email: email,
+          ));
         } else {
           showToast("Error Occurred");
         }
@@ -114,34 +122,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       appBar: AppBar(
         title: Text(''),
       ),
-    );
-  }
-}
-
-class LogoTitleWidget extends StatelessWidget {
-  const LogoTitleWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image(
-          image: AssetImage("assets/images/mptc_logo.png"),
-          //color: Colors.orange,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width / 3,
-        ),
-        SizedBox(height: 16.0),
-        Text(
-          'កំណត់ពាក្យសម្ចាត់ឡើងវិញ',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black87),
-        ),
-        SizedBox(height: 8.0),
-      ],
     );
   }
 }

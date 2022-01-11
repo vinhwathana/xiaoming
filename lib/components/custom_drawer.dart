@@ -6,7 +6,7 @@ import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/big_image.dart';
+import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/login_page.dart';

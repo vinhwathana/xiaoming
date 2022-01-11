@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class TypeTextField extends StatefulWidget {
   const TypeTextField({
@@ -14,6 +15,8 @@ class TypeTextField extends StatefulWidget {
     this.hasObscureText,
     this.labelText,
     this.onEditingComplete,
+    this.maxLength,
+    this.enableInteractiveSelection = true,
   }) : super(key: key);
   final String? hintText;
   final TextInputType? keyboardType;
@@ -25,7 +28,8 @@ class TypeTextField extends StatefulWidget {
   final bool? hasObscureText;
   final String? labelText;
   final Function()? onEditingComplete;
-
+  final int? maxLength;
+  final bool enableInteractiveSelection;
   @override
   State<TypeTextField> createState() => _TypeTextFieldState();
 }
@@ -47,6 +51,8 @@ class _TypeTextFieldState extends State<TypeTextField> {
       controller: widget.controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofillHints: widget.autofillHints,
+      maxLength: widget.maxLength,
+      enableInteractiveSelection: widget.enableInteractiveSelection,
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: '${widget.hintText}',
@@ -72,7 +78,7 @@ class _TypeTextFieldState extends State<TypeTextField> {
       validator: widget.validator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return "Empty field";
+              return "emptyField".tr;
             } else {
               return null;
             }

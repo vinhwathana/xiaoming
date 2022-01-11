@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/utils/constant.dart';
 
@@ -117,35 +118,3 @@ class _SignupState extends State<Signup> {
   }
 }
 
-class LogoTitleWidget extends StatelessWidget {
-  const LogoTitleWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      Image(
-        image: AssetImage("assets/images/mptc_logo.png"),
-        //color: Colors.orange,
-        fit: BoxFit.cover,
-        width: MediaQuery.of(context).size.width / 3,
-      ),
-      SizedBox(height: 16.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'បំពេញពាក្យចុះឈ្មោះ',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-                color: Colors.black87),
-          ),
-          SizedBox(height: 8.0),
-        ],
-      ),
-    ]);
-  }
-}

@@ -55,7 +55,7 @@ class AuthenticationService {
       final uri = Uri.parse(api_url.recoverUserPassword);
       final response = await http.post(uri,
           headers: {
-            HttpHeaders.authorizationHeader: 'Bearer $expiredToken',
+            HttpHeaders.authorizationHeader: 'Bearer $changePasswordToken',
             HttpHeaders.contentTypeHeader: 'application/json',
           },
           body: jsonEncode({
@@ -64,6 +64,8 @@ class AuthenticationService {
       print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
+      }else if(response.statusCode == 400){
+        showToast("អ៊ីមែលមិនត្រឹមត្រូវ");
       }
       return false;
     } catch (e) {
@@ -72,17 +74,24 @@ class AuthenticationService {
     }
   }
 
-  Future<void> changePasswordWithOTP(String otp) async {
-    final uri = Uri.parse(api_url.recoverUserPassword);
+  Future<http.Response> changePasswordWithOTP(
+      String email, String password, String otp) async {
+    final uri = Uri.parse(api_url.changeUserPassword);
     final response = await http.post(
       uri,
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $expiredToken',
+        HttpHeaders.authorizationHeader: 'Bearer $changePasswordToken',
         HttpHeaders.contentTypeHeader: 'application/json',
       },
-      // body: {
-      //   "email": "$email",
-      // }
+      body: jsonEncode({
+        "email": "$email",
+        "password": "$password",
+        "otpCode": "$otp",
+      }),
     );
+    return response;
+    // "email": "sannchesda8981@gmail.com",
+    // "password": "376893",
+    // "otpCode": "376893"
   }
 }

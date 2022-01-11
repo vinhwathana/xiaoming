@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
-import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/forget_password_page.dart';
 import 'package:xiaoming/utils/constant.dart';
 
+import 'forget_password_page.dart';
 import 'mptc_signup_hr.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _submitLogin() async {
     if (_formStateKey.currentState!.validate()) {
-      _formStateKey.currentState!.save();
       final username = emailCon.text.trim();
       final password = passwordCon.text.trim();
 
@@ -43,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
       if (token != null) {
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
-      } else {
-        showToast("LoginFailed");
+      }else {
+        showToast("tokenNull");
       }
     }
   }
@@ -67,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     return highLevelWidget(
       child: Column(
         children: <Widget>[
-          const LogoTitleWidget(),
+          LogoTitleWidget(),
           Form(
               key: _formStateKey,
               child: Padding(
@@ -124,33 +122,4 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class LogoTitleWidget extends StatelessWidget {
-  const LogoTitleWidget({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Image(
-          image: AssetImage("assets/images/mptc_logo.png"),
-          fit: BoxFit.cover,
-          width: Get.width / 3,
-        ),
-        SizedBox(height: 16.0),
-        Text(
-          'ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមន្ត្រី',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: Colors.black87,
-          ),
-        ),
-        SizedBox(height: 8.0),
-      ],
-    );
-  }
-}
