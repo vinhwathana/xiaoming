@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:khmer_date/khmer_date.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/views/data_grid_view.dart';
 
 import 'controllers/initial_binding.dart';
 import 'language/khmer_cupertino_localization_delegate.dart';
@@ -44,9 +45,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     LocalizationService().getLocale();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: 'MPTC Officials Information System',
       locale: LocalizationService.locale,
@@ -91,7 +92,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: LandingPage(),
-      // home: LoginPage(),
+      // home: DataGridView(),
 
       // initialRoute: '/',
       // routes: {

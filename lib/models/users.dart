@@ -78,11 +78,11 @@ class OfficialInfo {
   int? femaleSibling;
   DateTime? internshipDate;
   DateTime? officialWorkingDate;
-  EnumValue? physicalStatus;
+  ListValue? physicalStatus;
   String? physicalStatusRemark;
   String? profile;
   String? imageBase64;
-  List<AttachmentList>? attachmentList;
+  List<Attachment>? attachmentList;
   String? nationalId;
   String? firstNameKh;
   String? lastNameKh;
@@ -91,9 +91,9 @@ class OfficialInfo {
   DateTime? dateOfBirth;
   String? status;
   String? gender;
-  EnumValue? maritalStatus;
-  EnumValue? race;
-  EnumValue? nationality;
+  ListValue? maritalStatus;
+  ListValue? race;
+  ListValue? nationality;
   Address? currentAddressProvince;
   Address? currentAddressDistrict;
   Address? currentAddressCommune;
@@ -135,7 +135,7 @@ class OfficialInfo {
             : DateTime.parse(json["officialWorkingDate"]),
         physicalStatus: json["physicalStatus"] == null
             ? null
-            : EnumValue.fromMap(json["physicalStatus"]),
+            : ListValue.fromMap(json["physicalStatus"]),
         physicalStatusRemark: json["physicalStatusRemark"] == null
             ? null
             : json["physicalStatusRemark"],
@@ -143,8 +143,8 @@ class OfficialInfo {
         imageBase64: json["imageBase64"],
         attachmentList: json["attachmentList"] == null
             ? null
-            : List<AttachmentList>.from(
-                json["attachmentList"].map((x) => AttachmentList.fromMap(x))),
+            : List<Attachment>.from(
+                json["attachmentList"].map((x) => Attachment.fromMap(x))),
         nationalId: json["nationalId"] == null ? null : json["nationalId"],
         firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
         lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
@@ -157,11 +157,11 @@ class OfficialInfo {
         gender: json["gender"] == null ? null : json["gender"],
         maritalStatus: json["maritalStatus"] == null
             ? null
-            : EnumValue.fromMap(json["maritalStatus"]),
-        race: json["race"] == null ? null : EnumValue.fromMap(json["race"]),
+            : ListValue.fromMap(json["maritalStatus"]),
+        race: json["race"] == null ? null : ListValue.fromMap(json["race"]),
         nationality: json["nationality"] == null
             ? null
-            : EnumValue.fromMap(json["nationality"]),
+            : ListValue.fromMap(json["nationality"]),
         currentAddressProvince: json["currentAddressProvince"] == null
             ? null
             : Address.fromMap(json["currentAddressProvince"]),
@@ -249,8 +249,185 @@ class OfficialInfo {
   }
 }
 
-class AttachmentList {
-  AttachmentList({
+class FamilyInfos {
+  FamilyInfos({
+    this.familyInfos,
+  });
+
+  List<FamilyInfo>? familyInfos;
+
+  factory FamilyInfos.fromJson(String str) =>
+      FamilyInfos.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory FamilyInfos.fromMap(Map<String, dynamic> json) => FamilyInfos(
+        familyInfos: json["familyInfos"] == null
+            ? null
+            : List<FamilyInfo>.from(
+                json["familyInfos"].map((x) => FamilyInfo.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "familyInfos": familyInfos == null
+            ? null
+            : List<dynamic>.from(familyInfos!.map((x) => x.toMap())),
+      };
+}
+
+class FamilyInfo {
+  FamilyInfo({
+    this.id,
+    this.relation,
+    this.job,
+    this.workPlace,
+    this.isGovernmentOfficial,
+    this.attachmentList,
+    this.nationalId,
+    this.firstNameKh,
+    this.lastNameKh,
+    this.firstNameEn,
+    this.lastNameEn,
+    this.dateOfBirth,
+    this.status,
+    this.gender,
+    this.maritalStatus,
+    this.race,
+    this.nationality,
+    this.currentAddressProvince,
+    this.currentAddressDistrict,
+    this.currentAddressCommune,
+    this.currentAddressVillage,
+    this.currentAddressDetail,
+    this.contactPhone,
+    this.contactEmail,
+  });
+
+  int? id;
+  ListValue? relation;
+  ListValue? job;
+  String? workPlace;
+  bool? isGovernmentOfficial;
+  List<Attachment>? attachmentList;
+  String? nationalId;
+  String? firstNameKh;
+  String? lastNameKh;
+  String? firstNameEn;
+  String? lastNameEn;
+  DateTime? dateOfBirth;
+  String? status;
+  String? gender;
+  ListValue? maritalStatus;
+  ListValue? race;
+  ListValue? nationality;
+  Address? currentAddressProvince;
+  Address? currentAddressDistrict;
+  Address? currentAddressCommune;
+  Address? currentAddressVillage;
+  String? currentAddressDetail;
+  String? contactPhone;
+  String? contactEmail;
+
+  factory FamilyInfo.fromJson(String str) =>
+      FamilyInfo.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory FamilyInfo.fromMap(Map<String, dynamic> json) => FamilyInfo(
+        id: json["id"] == null ? null : json["id"],
+        relation: json["relation"] == null
+            ? null
+            : ListValue.fromMap(json["relation"]),
+        job: json["job"] == null ? null : ListValue.fromMap(json["job"]),
+        workPlace: json["workPlace"] == null ? null : json["workPlace"],
+        isGovernmentOfficial: json["isGovermentOfficial"] == null
+            ? null
+            : json["isGovermentOfficial"],
+        attachmentList: json["attachmentList"] == null
+            ? null
+            : List<Attachment>.from(json["attachmentList"].map((x) => x)),
+        nationalId: json["nationalId"] == null ? null : json["nationalId"],
+        firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
+        lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
+        firstNameEn: json["firstNameEN"] == null ? null : json["firstNameEN"],
+        lastNameEn: json["lastNameEN"] == null ? null : json["lastNameEN"],
+        dateOfBirth: json["dateOfBirth"] == null
+            ? null
+            : DateTime.parse(json["dateOfBirth"]),
+        status: json["status"] == null ? null : json["status"],
+        gender: json["gender"] == null ? null : json["gender"],
+        maritalStatus: json["maritalStatus"] == null
+            ? null
+            : ListValue.fromMap(json["maritalStatus"]),
+        race: json["race"] == null ? null : ListValue.fromMap(json["race"]),
+        nationality: json["nationality"] == null
+            ? null
+            : ListValue.fromMap(json["nationality"]),
+        currentAddressProvince: json["currentAddressProvince"] == null
+            ? null
+            : Address.fromMap(json["currentAddressProvince"]),
+        currentAddressDistrict: json["currentAddressDistrict"] == null
+            ? null
+            : Address.fromMap(json["currentAddressDistrict"]),
+        currentAddressCommune: json["currentAddressCommune"] == null
+            ? null
+            : Address.fromMap(json["currentAddressCommune"]),
+        currentAddressVillage: json["currentAddressVillage"] == null
+            ? null
+            : Address.fromMap(json["currentAddressVillage"]),
+        currentAddressDetail: json["currentAddressDetail"] == null
+            ? null
+            : json["currentAddressDetail"],
+        contactPhone:
+            json["contactPhone"] == null ? null : json["contactPhone"],
+        contactEmail:
+            json["contactEmail"] == null ? null : json["contactEmail"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
+        "relation": relation == null ? null : relation!.toMap(),
+        "job": job == null ? null : job!.toMap(),
+        "workPlace": workPlace == null ? null : workPlace,
+        "isGovermentOfficial":
+            isGovernmentOfficial == null ? null : isGovernmentOfficial,
+        "attachmentList": attachmentList == null
+            ? null
+            : List<dynamic>.from(attachmentList!.map((x) => x)),
+        "nationalId": nationalId == null ? null : nationalId,
+        "firstNameKH": firstNameKh == null ? null : firstNameKh,
+        "lastNameKH": lastNameKh == null ? null : lastNameKh,
+        "firstNameEN": firstNameEn == null ? null : firstNameEn,
+        "lastNameEN": lastNameEn == null ? null : lastNameEn,
+        "dateOfBirth": dateOfBirth == null
+            ? null
+            : "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
+        "status": status == null ? null : status,
+        "gender": gender == null ? null : gender,
+        "maritalStatus": maritalStatus == null ? null : maritalStatus!.toMap(),
+        "race": race == null ? null : race!.toMap(),
+        "nationality": nationality == null ? null : nationality!.toMap(),
+        "currentAddressProvince": currentAddressProvince == null
+            ? null
+            : currentAddressProvince!.toMap(),
+        "currentAddressDistrict": currentAddressDistrict == null
+            ? null
+            : currentAddressDistrict!.toMap(),
+        "currentAddressCommune": currentAddressCommune == null
+            ? null
+            : currentAddressCommune!.toMap(),
+        "currentAddressVillage": currentAddressVillage == null
+            ? null
+            : currentAddressVillage!.toMap(),
+        "currentAddressDetail":
+            currentAddressDetail == null ? null : currentAddressDetail,
+        "contactPhone": contactPhone == null ? null : contactPhone,
+        "contactEmail": contactEmail == null ? null : contactEmail,
+      };
+}
+
+class Attachment {
+  Attachment({
     this.id,
     this.attachmentType,
     this.entityId,
@@ -266,12 +443,12 @@ class AttachmentList {
   String? extension;
   String? filePath;
 
-  factory AttachmentList.fromJson(String str) =>
-      AttachmentList.fromMap(json.decode(str));
+  factory Attachment.fromJson(String str) =>
+      Attachment.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory AttachmentList.fromMap(Map<String, dynamic> json) => AttachmentList(
+  factory Attachment.fromMap(Map<String, dynamic> json) => Attachment(
         id: json["id"] == null ? null : json["id"],
         attachmentType:
             json["attachmentType"] == null ? null : json["attachmentType"],
@@ -325,8 +502,8 @@ class Address {
       };
 }
 
-class EnumValue {
-  EnumValue({
+class ListValue {
+  ListValue({
     this.parentLov,
     required this.lovCode,
     required this.lovType,
@@ -340,11 +517,11 @@ class EnumValue {
   final String nameKh;
   final String nameEn;
 
-  factory EnumValue.fromJson(String str) => EnumValue.fromMap(json.decode(str));
+  factory ListValue.fromJson(String str) => ListValue.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory EnumValue.fromMap(Map<String, dynamic> json) => EnumValue(
+  factory ListValue.fromMap(Map<String, dynamic> json) => ListValue(
         parentLov: json["parentLov"],
         lovCode: json["lovCode"] == null ? null : json["lovCode"],
         lovType: json["lovType"] == null ? null : json["lovType"],

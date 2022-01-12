@@ -11,9 +11,74 @@ import 'package:xiaoming/models/users.dart';
 const String tokenKeyName = "token";
 const String expiredToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhbm5jaGVzZGE4OTgxQGdtYWlsLmNvbSIsIlVzZXJJZCI6Ijg4NSIsIk1pbmlzdHJ5Q29kZSI6IjIwIiwiT2ZmaWNpYWxJZCI6IjAxMjM0NTY3ODAiLCJFbXBsb3llZUlkIjoiIiwiRW1wbG95ZWVJZF9OZXciOiIxNzMwIiwiRW1haWwiOiJzYW5uY2hlc2RhODk4MUBnbWFpbC5jb20iLCJDaGFuZ2VQYXNzd29yZCI6IlRydWUiLCJuYmYiOjE2NDEyMDA1ODksImV4cCI6MTY0MTIwNTk4OSwiaWF0IjoxNjQxMjAwNTg5fQ.o3EcOZtV5u-XO2PZD5BQ9zOBYF004n-WadypCGtFsSc";
-const String changePasswordToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhbm5jaGVzZGE4OTgxQGdtYWlsLmNvbSIsIlVzZXJJZCI6Ijg4NSIsIk1pbmlzdHJ5Q29kZSI6IjIwIiwiT2ZmaWNpYWxJZCI6IjAxMjM0NTY3ODAiLCJFbXBsb3llZUlkIjoiIiwiRW1wbG95ZWVJZF9OZXciOiIxNzMwIiwiRW1haWwiOiJzYW5uY2hlc2RhODk4MUBnbWFpbC5jb20iLCJDaGFuZ2VQYXNzd29yZCI6IlRydWUiLCJuYmYiOjE2NDE0NTE0OTIsImV4cCI6MTY0MTQ1Njg5MiwiaWF0IjoxNjQxNDUxNDkyfQ.X7AP9noqOB-CB07kDvtHEhNrcjsy0WQENDNuC2BHM2c";
+const String changePasswordToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhbm5jaGVzZGE4OTgxQGdtYWlsLmNvbSIsIlVzZXJJZCI6Ijg4NSIsIk1pbmlzdHJ5Q29kZSI6IjIwIiwiT2ZmaWNpYWxJZCI6IjAxMjM0NTY3ODAiLCJFbXBsb3llZUlkIjoiIiwiRW1wbG95ZWVJZF9OZXciOiIxNzMwIiwiRW1haWwiOiJzYW5uY2hlc2RhODk4MUBnbWFpbC5jb20iLCJDaGFuZ2VQYXNzd29yZCI6IlRydWUiLCJuYmYiOjE2NDE0NTE0OTIsImV4cCI6MTY0MTQ1Njg5MiwiaWF0IjoxNjQxNDUxNDkyfQ.X7AP9noqOB-CB07kDvtHEhNrcjsy0WQENDNuC2BHM2c";
 
 const String dummyNetworkImage = "https://wallpaperaccess.com/full/1313700.jpg";
+
+final dummyFamilyInfo = FamilyInfo(
+  relation: ListValue(
+    lovCode: "005002",
+    lovType: "RELATION",
+    nameKh: "កូន",
+    nameEn: "Son",
+  ),
+  firstNameEn: "Sann",
+  lastNameEn: "Chesda",
+  firstNameKh: "សាន់",
+  lastNameKh: "ចេស្តា",
+  dateOfBirth: DateTime.now(),
+  gender: "M",
+  maritalStatus: ListValue(
+    lovCode: "005002",
+    lovType: "RELATION",
+    nameKh: "កូន",
+    nameEn: "Son",
+  ),
+  status: "AL",
+  race: ListValue(
+    lovCode: "002001",
+    lovType: "RACE",
+    nameKh: "ខ្មែរ",
+    nameEn: "Khmer",
+  ),
+  nationality: ListValue(
+    lovCode: "003001",
+    lovType: "NATIONALITY",
+    nameKh: "ខ្មែរ",
+    nameEn: "Khmer",
+  ),
+  job: ListValue(
+    lovCode: "006007",
+    lovType: "JOB",
+    nameKh: "ពាណិជ្ជករ",
+    nameEn: "",
+  ),
+  currentAddressProvince: Address(
+    parentsCode: "",
+    addressCode: "05",
+    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
+    addressNameEn: "Kampong Speu Province",
+  ),
+  currentAddressDistrict: Address(
+    parentsCode: "",
+    addressCode: "05",
+    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
+    addressNameEn: "Kampong Speu Province",
+  ),
+  currentAddressCommune: Address(
+    parentsCode: "",
+    addressCode: "05",
+    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
+    addressNameEn: "Kampong Speu Province",
+  ),
+  currentAddressVillage: Address(
+    parentsCode: "",
+    addressCode: "05",
+    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
+    addressNameEn: "Kampong Speu Province",
+  ),
+);
 
 String? validateEmail(String value) {
   if (value.isEmpty) {
@@ -92,7 +157,7 @@ String generateAddress({
   return "${village?.addressNameKh ?? ""} ${commune?.addressNameKh ?? ""} ${district?.addressNameKh ?? ""} ${province?.addressNameKh ?? ""}";
 }
 
-String decideEnumValue(EnumValue? value) {
+String decideEnumValue(ListValue? value) {
   if (value == null) {
     return "";
   }

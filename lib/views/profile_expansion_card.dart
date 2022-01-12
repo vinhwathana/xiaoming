@@ -11,8 +11,6 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class ProfileExpansionCard extends StatelessWidget {
-  // final userService = UsersS
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,32 +72,6 @@ class ProfileExpansionCard extends StatelessWidget {
               ExpansionRow(label: 'ថ្ងៃតាំងស៊ប់', value: formatDateTime(user.officialWorkingDate)),
             ],
           );
-          // final List<String> keys = controller.getListOfKey();
-          // final data = jsonDecode(controller.response!.body);
-          //
-          // return ListView.separated(
-          //   shrinkWrap: true,
-          //   itemCount: keys.length,
-          //   physics: NeverScrollableScrollPhysics(),
-          //   itemBuilder: (context, index) {
-          //     // final enumSomething = EnumValue(
-          //     //   lovCode: "lovCode",
-          //     //   lovType: "lovType",
-          //     //   nameEn: "nameEn",
-          //     //   nameKh: "nameKh",
-          //     //   parentLov: "parentLov",
-          //     // );
-          //     // print(enumSomething.toString());
-          //
-          //     // print(
-          //     //     "${keys[index]} : ${data["data"]["officialInfo"][keys[index]].toString()}");
-          //     return ExpansionRow(
-          //       label: keys[index],
-          //       value: data["data"]["officialInfo"][keys[index]].toString(),
-          //     );
-          //   },
-          //   separatorBuilder: (context, index) => Divider(),
-          // );
         },
       ),
       // child:
