@@ -44,9 +44,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     LocalizationService().getLocale();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: 'MPTC Officials Information System',
       locale: LocalizationService.locale,

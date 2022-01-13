@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       if (token != null) {
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
-      }else {
+      } else {
         showToast("tokenNull");
       }
     }
@@ -77,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailCon,
                         hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
                         iconData: Icons.email,
-                        autofillHints: [AutofillHints.username],
+                        autofillHints: [
+                          AutofillHints.username,
+                          AutofillHints.email
+                        ],
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => validateEmail(value!),
                         onSaved: (value) => _logIn.email = value,
@@ -91,7 +94,9 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) => _logIn.email = value,
                         hasObscureText: true,
                         onEditingComplete: () =>
-                            TextInput.finishAutofillContext(),
+                            TextInput.finishAutofillContext(
+                          shouldSave: true,
+                        ),
                       ),
                       SizedBox(height: 35.0),
                       Container(
@@ -121,5 +126,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
