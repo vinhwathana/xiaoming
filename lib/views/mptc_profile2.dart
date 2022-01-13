@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoming/views/mptc_education_info.dart';
-import 'package:xiaoming/views/family_info_expansion_card.dart';
+import 'package:xiaoming/views/family_info_page.dart';
 import 'package:xiaoming/views/mptc_krobkhan.dart';
 import 'package:xiaoming/views/mptc_language.dart';
 import 'package:xiaoming/views/mptc_merits.dart';
@@ -61,7 +61,7 @@ class _DashboardState extends State<Dashboard>
             child: TabBarView(
           children: [
             PersonalInfoPage(),
-            FamilyInfoExpansionCard(),
+            FamilyInfoPage(),
             WorkInfo(),
             EducationInfo(),
             Language(),

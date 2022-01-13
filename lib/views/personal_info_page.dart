@@ -1,10 +1,10 @@
 //This is the main page for expansionTile
 import 'package:flutter/material.dart';
-import 'package:xiaoming/views/family_info_expansion_card.dart';
+import 'package:get/get.dart';
+import 'package:xiaoming/views/family_info_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
 
 class PersonalInfoPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,54 +23,111 @@ class PersonalInfoPage extends StatelessWidget {
                   ],
                 ),
               ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('ព័ត៌មានគ្រួសារ'),
+              //     children: [
+              //       FamilyInfoExpansionCard(),
+              //     ],
+              //   ),
+              // ),
+
               Card(
-                child: ExpansionTile(
+                child: ListTile(
                   title: Text('ព័ត៌មានគ្រួសារ'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "ព័ត៌មានគ្រួសារ"),
                 ),
               ),
               Card(
-                child: ExpansionTile(
+                child: ListTile(
+                  title: Text('មុខងារបន្ថែម'),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "មុខងារបន្ថែម"),
+                ),
+              ),
+              Card(
+                child: ListTile(
                   title: Text('ប្រវត្តិការងារ'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "ប្រវត្តិការងារ"),
                 ),
               ),
               Card(
-                child: ExpansionTile(
+                child: ListTile(
                   title: Text('ប្រវត្តិការរសិក្សា'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "ប្រវត្តិការរសិក្សា"),
                 ),
               ),
               Card(
-                child: ExpansionTile(
+                child: ListTile(
                   title: Text('ភាសា'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "ភាសា"),
                 ),
               ),
               Card(
-                child: ExpansionTile(
+                child: ListTile(
                   title: Text('កាំបៀវត្ស'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "កាំបៀវត្ស"),
                 ),
               ),
               Card(
-                child: ExpansionTile(
+                child: ListTile(
                   title: Text('ឥស្សរិយយស្ស'),
-                  children: [
-                    FamilyInfoExpansionCard(),
-                  ],
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => FamilyInfoPage(),
+                      arguments: "ឥស្សរិយយស្ស"),
                 ),
               ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('ប្រវត្តិការងារ'),
+              //     children: [
+              //       FamilyInfoPage(),
+              //     ],
+              //   ),
+              // ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('ប្រវត្តិការរសិក្សា'),
+              //     children: [
+              //       FamilyInfoPage(),
+              //     ],
+              //   ),
+              // ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('ភាសា'),
+              //     children: [
+              //       FamilyInfoPage(),
+              //     ],
+              //   ),
+              // ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('កាំបៀវត្ស'),
+              //     children: [
+              //       FamilyInfoPage(),
+              //     ],
+              //   ),
+              // ),
+              // Card(
+              //   child: ExpansionTile(
+              //     title: Text('ឥស្សរិយយស្ស'),
+              //     children: [
+              //       FamilyInfoPage(),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

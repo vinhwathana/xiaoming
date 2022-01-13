@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:khmer_date/khmer_date.dart';
 import 'package:xiaoming/components/expansion_row.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/users.dart';
+import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 

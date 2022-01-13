@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:khmer_date/khmer_date.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/models/users.dart';
+import 'package:xiaoming/models/user.dart';
 
 const String tokenKeyName = "token";
 const String expiredToken =

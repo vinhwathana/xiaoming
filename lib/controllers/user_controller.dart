@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/models/employee_list_result.dart';
-import 'package:xiaoming/models/users.dart';
+import 'package:xiaoming/models/user.dart';
 
 class UserController extends GetxController {
-  Rx<Users>? users;
+  Rx<User>? users;
   http.Response? response;
 
   List<String> getListOfKey(/*String responseBody*/) {

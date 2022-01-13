@@ -1,33 +1,64 @@
 import 'dart:convert';
 
-class Users {
-  Users({
+class User {
+  User({
     this.employeeId,
     this.officialInfo,
+    this.familyInfos,
+    this.workHistories,
+    required this.additionalPositions,
+    required this.educations,
+    required this.languages,
+    required this.krobKhans,
+    required this.merits,
   });
 
   int? employeeId;
   OfficialInfo? officialInfo;
+  List<FamilyInfo>? familyInfos;
+  List<WorkHistory>? workHistories;
+  List<AdditionalPosition>? additionalPositions;
+  List<Education>? educations;
+  List<Language>? languages;
+  List<KrobKhan>? krobKhans;
+  List<Merit>? merits;
 
-  factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
-
-  String toJson() => jsonEncode(toMap());
-
-  factory Users.fromMap(Map<String, dynamic> json) => Users(
-        employeeId: json["employeeId"] == null ? null : json["employeeId"],
-        officialInfo: json["officialInfo"] == null
-            ? null
-            : OfficialInfo.fromMap(json["officialInfo"]),
+  factory User.fromMap(Map<String, dynamic> json) => User(
+        employeeId: json["employeeId"],
+        officialInfo: OfficialInfo.fromMap(json["officialInfo"]),
+        familyInfos: List<FamilyInfo>.from(
+            json["familyInfos"].map((x) => FamilyInfo.fromMap(x))),
+        workHistories: List<WorkHistory>.from(
+            json["workHistories"].map((x) => WorkHistory.fromMap(x))),
+        additionalPositions: List<AdditionalPosition>.from(
+            json["additionalPositions"]
+                .map((x) => AdditionalPosition.fromMap(x))),
+        educations: List<Education>.from(
+            json["educations"].map((x) => Education.fromMap(x))),
+        languages: List<Language>.from(
+            json["languages"].map((x) => Language.fromMap(x))),
+        krobKhans: List<KrobKhan>.from(
+            json["krobKhans"].map((x) => KrobKhan.fromMap(x))),
+        merits: List<Merit>.from(json["merits"].map((x) => Merit.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "employeeId": employeeId == null ? null : employeeId,
-        "officialInfo": officialInfo == null ? null : officialInfo!.toMap(),
+        "employeeId": employeeId,
+        "officialInfo": officialInfo!.toMap(),
+        "familyInfos": List<dynamic>.from(familyInfos!.map((x) => x.toMap())),
+        "workHistories":
+            List<dynamic>.from(workHistories!.map((x) => x.toMap())),
+        "additionalPositions":
+            List<dynamic>.from(additionalPositions!.map((x) => x.toMap())),
+        "educations": List<dynamic>.from(educations!.map((x) => x.toMap())),
+        "languages": List<dynamic>.from(languages!.map((x) => x.toMap())),
+        "krobKhans": List<dynamic>.from(krobKhans!.map((x) => x.toMap())),
+        "merits": List<dynamic>.from(merits!.map((x) => x.toMap())),
       };
 
   @override
   String toString() {
-    return 'Users{employeeId: $employeeId, officialInfo: $officialInfo}';
+    return 'User{employeeId: $employeeId, officialInfo: $officialInfo, familyInfos: $familyInfos, workHistories: $workHistories, additionalPositions: $additionalPositions, educations: $educations, languages: $languages, krobKhans: $krobKhans, merits: $merits}';
   }
 }
 
@@ -249,32 +280,6 @@ class OfficialInfo {
   }
 }
 
-class FamilyInfos {
-  FamilyInfos({
-    this.familyInfos,
-  });
-
-  List<FamilyInfo>? familyInfos;
-
-  factory FamilyInfos.fromJson(String str) =>
-      FamilyInfos.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory FamilyInfos.fromMap(Map<String, dynamic> json) => FamilyInfos(
-        familyInfos: json["familyInfos"] == null
-            ? null
-            : List<FamilyInfo>.from(
-                json["familyInfos"].map((x) => FamilyInfo.fromMap(x))),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "familyInfos": familyInfos == null
-            ? null
-            : List<dynamic>.from(familyInfos!.map((x) => x.toMap())),
-      };
-}
-
 class FamilyInfo {
   FamilyInfo({
     this.id,
@@ -423,6 +428,507 @@ class FamilyInfo {
             currentAddressDetail == null ? null : currentAddressDetail,
         "contactPhone": contactPhone == null ? null : contactPhone,
         "contactEmail": contactEmail == null ? null : contactEmail,
+      };
+
+  @override
+  String toString() {
+    return 'FamilyInfo{id: $id, relation: $relation, job: $job, workPlace: $workPlace, isGovernmentOfficial: $isGovernmentOfficial, attachmentList: $attachmentList, nationalId: $nationalId, firstNameKh: $firstNameKh, lastNameKh: $lastNameKh, firstNameEn: $firstNameEn, lastNameEn: $lastNameEn, dateOfBirth: $dateOfBirth, status: $status, gender: $gender, maritalStatus: $maritalStatus, race: $race, nationality: $nationality, currentAddressProvince: $currentAddressProvince, currentAddressDistrict: $currentAddressDistrict, currentAddressCommune: $currentAddressCommune, currentAddressVillage: $currentAddressVillage, currentAddressDetail: $currentAddressDetail, contactPhone: $contactPhone, contactEmail: $contactEmail}';
+  }
+}
+
+class AdditionalPosition {
+  AdditionalPosition({
+    required this.id,
+    required this.ministry,
+    required this.startDate,
+    required this.isStartDateYear,
+    required this.endDate,
+    required this.isEndDateYear,
+    required this.ongoing,
+    required this.organization,
+    required this.workStatus,
+    required this.position,
+    required this.positionEqual,
+    required this.remark,
+    required this.attachmentList,
+  });
+
+  int id;
+  Ministry ministry;
+  DateTime startDate;
+  bool isStartDateYear;
+  DateTime endDate;
+  bool isEndDateYear;
+  bool ongoing;
+  List<Organization> organization;
+  MaritalStatus workStatus;
+  String position;
+  MaritalStatus positionEqual;
+  String remark;
+  List<dynamic> attachmentList;
+
+  factory AdditionalPosition.fromMap(Map<String, dynamic> json) =>
+      AdditionalPosition(
+        id: json["id"],
+        ministry: Ministry.fromMap(json["ministry"]),
+        startDate: DateTime.parse(json["startDate"]),
+        isStartDateYear: json["isStartDateYear"],
+        endDate: DateTime.parse(json["endDate"]),
+        isEndDateYear: json["isEndDateYear"],
+        ongoing: json["ongoing"],
+        organization: List<Organization>.from(
+            json["organization"].map((x) => Organization.fromMap(x))),
+        workStatus: MaritalStatus.fromMap(json["workStatus"]),
+        position: json["position"],
+        positionEqual: MaritalStatus.fromMap(json["positionEqual"]),
+        remark: json["remark"],
+        attachmentList:
+            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "ministry": ministry.toMap(),
+        "startDate":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "isStartDateYear": isStartDateYear,
+        "endDate":
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+        "isEndDateYear": isEndDateYear,
+        "ongoing": ongoing,
+        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
+        "workStatus": workStatus.toMap(),
+        "position": position,
+        "positionEqual": positionEqual.toMap(),
+        "remark": remark,
+        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+      };
+}
+
+class Ministry {
+  Ministry({
+    required this.code,
+    required this.nameKh,
+    required this.nameEn,
+    required this.description,
+  });
+
+  String code;
+  String nameKh;
+  String nameEn;
+  String description;
+
+  factory Ministry.fromMap(Map<String, dynamic> json) => Ministry(
+        code: json["code"],
+        nameKh: json["nameKH"],
+        nameEn: json["nameEN"],
+        description: json["description"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "code": code,
+        "nameKH": nameKh,
+        "nameEN": nameEn,
+        "description": description,
+      };
+}
+
+class Organization {
+  Organization({
+    required this.id,
+    required this.parent,
+    required this.ministry,
+    required this.organizationType,
+    required this.region,
+    required this.nameKh,
+    required this.nameEn,
+    required this.description,
+  });
+
+  int? id;
+  Organization? parent;
+  Ministry? ministry;
+  MaritalStatus organizationType;
+  MaritalStatus region;
+  String nameKh;
+  String nameEn;
+  String description;
+
+  factory Organization.fromMap(Map<String, dynamic> json) => Organization(
+        id: json["id"],
+        parent: json["parent"] == null
+            ? null
+            : Organization.fromMap(json["parent"]),
+        ministry: json["ministry"] == null ? null : json["ministry"],
+        organizationType: MaritalStatus.fromMap(json["organizationType"]),
+        region: MaritalStatus.fromMap(json["region"]),
+        nameKh: json["nameKH"],
+        nameEn: json["nameEN"],
+        description: json["description"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "parent": parent == null ? null : parent!.toMap(),
+        "ministry": ministry,
+        "organizationType": organizationType.toMap(),
+        "region": region.toMap(),
+        "nameKH": nameKh,
+        "nameEN": nameEn,
+        "description": description,
+      };
+}
+
+class MaritalStatus {
+  MaritalStatus({
+    required this.parentLov,
+    required this.lovCode,
+    required this.lovType,
+    required this.nameKh,
+    required this.nameEn,
+  });
+
+  dynamic parentLov;
+  String lovCode;
+  String lovType;
+  String nameKh;
+  String nameEn;
+
+  factory MaritalStatus.fromMap(Map<String, dynamic> json) => MaritalStatus(
+        parentLov: json["parentLov"],
+        lovCode: json["lovCode"],
+        lovType: json["lovType"],
+        nameKh: json["nameKH"],
+        nameEn: json["nameEN"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "parentLov": parentLov,
+        "lovCode": lovCode,
+        "lovType": lovType,
+        "nameKH": nameKh,
+        "nameEN": nameEn,
+      };
+}
+
+class Education {
+  Education({
+    required this.id,
+    required this.startDate,
+    required this.isStartDateYear,
+    required this.endDate,
+    required this.isEndDateYear,
+    required this.educationType,
+    required this.educationLevel,
+    required this.certificationType,
+    required this.specialize,
+    required this.schoolName,
+    required this.isAbroad,
+    required this.country,
+    required this.city,
+    required this.attachmentList,
+    required this.remark,
+  });
+
+  int id;
+  DateTime startDate;
+  bool isStartDateYear;
+  DateTime endDate;
+  bool isEndDateYear;
+  MaritalStatus educationType;
+  MaritalStatus educationLevel;
+  MaritalStatus certificationType;
+  MaritalStatus specialize;
+  String schoolName;
+  bool isAbroad;
+  MaritalStatus country;
+  String city;
+  List<dynamic> attachmentList;
+  String remark;
+
+  factory Education.fromMap(Map<String, dynamic> json) => Education(
+        id: json["id"],
+        startDate: DateTime.parse(json["startDate"]),
+        isStartDateYear: json["isStartDateYear"],
+        endDate: DateTime.parse(json["endDate"]),
+        isEndDateYear: json["isEndDateYear"],
+        educationType: MaritalStatus.fromMap(json["educationType"]),
+        educationLevel: MaritalStatus.fromMap(json["educationLevel"]),
+        certificationType: MaritalStatus.fromMap(json["certificationType"]),
+        specialize: MaritalStatus.fromMap(json["specialize"]),
+        schoolName: json["schoolName"],
+        isAbroad: json["isAbroad"],
+        country: MaritalStatus.fromMap(json["country"]),
+        city: json["city"],
+        attachmentList:
+            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+        remark: json["remark"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "startDate":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "isStartDateYear": isStartDateYear,
+        "endDate":
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+        "isEndDateYear": isEndDateYear,
+        "educationType": educationType.toMap(),
+        "educationLevel": educationLevel.toMap(),
+        "certificationType": certificationType.toMap(),
+        "specialize": specialize.toMap(),
+        "schoolName": schoolName,
+        "isAbroad": isAbroad,
+        "country": country.toMap(),
+        "city": city,
+        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+        "remark": remark,
+      };
+}
+
+class KrobKhan {
+  KrobKhan({
+    required this.id,
+    required this.officialType,
+    required this.startDate,
+    required this.endDate,
+    required this.ongoing,
+    required this.krobKhanType,
+    required this.level,
+    required this.rank,
+    required this.upgradedBy,
+    required this.attachmentList,
+  });
+
+  int id;
+  MaritalStatus officialType;
+  DateTime startDate;
+  DateTime endDate;
+  bool ongoing;
+  MaritalStatus krobKhanType;
+  MaritalStatus level;
+  MaritalStatus rank;
+  MaritalStatus upgradedBy;
+  List<dynamic> attachmentList;
+
+  factory KrobKhan.fromMap(Map<String, dynamic> json) => KrobKhan(
+        id: json["id"],
+        officialType: MaritalStatus.fromMap(json["officialType"]),
+        startDate: DateTime.parse(json["startDate"]),
+        endDate: DateTime.parse(json["endDate"]),
+        ongoing: json["ongoing"],
+        krobKhanType: MaritalStatus.fromMap(json["krobKhanType"]),
+        level: MaritalStatus.fromMap(json["level"]),
+        rank: MaritalStatus.fromMap(json["rank"]),
+        upgradedBy: MaritalStatus.fromMap(json["upgradedBy"]),
+        attachmentList:
+            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "officialType": officialType.toMap(),
+        "startDate":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "endDate":
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+        "ongoing": ongoing,
+        "krobKhanType": krobKhanType.toMap(),
+        "level": level.toMap(),
+        "rank": rank.toMap(),
+        "upgradedBy": upgradedBy.toMap(),
+        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+      };
+}
+
+class Language {
+  Language({
+    required this.id,
+    required this.languageName,
+    required this.reading,
+    required this.listening,
+    required this.writing,
+    required this.speaking,
+    required this.attachmentList,
+  });
+
+  int id;
+  MaritalStatus languageName;
+  MaritalStatus reading;
+  MaritalStatus listening;
+  MaritalStatus writing;
+  MaritalStatus speaking;
+  List<Attachment> attachmentList;
+
+  factory Language.fromMap(Map<String, dynamic> json) => Language(
+        id: json["id"],
+        languageName: MaritalStatus.fromMap(json["languageName"]),
+        reading: MaritalStatus.fromMap(json["reading"]),
+        listening: MaritalStatus.fromMap(json["listening"]),
+        writing: MaritalStatus.fromMap(json["writing"]),
+        speaking: MaritalStatus.fromMap(json["speaking"]),
+        attachmentList: List<Attachment>.from(
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "languageName": languageName.toMap(),
+        "reading": reading.toMap(),
+        "listening": listening.toMap(),
+        "writing": writing.toMap(),
+        "speaking": speaking.toMap(),
+        "attachmentList":
+            List<dynamic>.from(attachmentList.map((x) => x.toMap())),
+      };
+}
+
+class Merit {
+  Merit({
+    required this.id,
+    required this.meritType,
+    required this.medalType,
+    required this.rank,
+    required this.recievedDate,
+    required this.remark,
+    required this.attachmentList,
+  });
+
+  int id;
+  MaritalStatus meritType;
+  MaritalStatus medalType;
+  MaritalStatus rank;
+  DateTime recievedDate;
+  String remark;
+  List<dynamic> attachmentList;
+
+  factory Merit.fromMap(Map<String, dynamic> json) => Merit(
+        id: json["id"],
+        meritType: MaritalStatus.fromMap(json["meritType"]),
+        medalType: MaritalStatus.fromMap(json["medalType"]),
+        rank: MaritalStatus.fromMap(json["rank"]),
+        recievedDate: DateTime.parse(json["recievedDate"]),
+        remark: json["remark"],
+        attachmentList:
+            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "meritType": meritType.toMap(),
+        "medalType": medalType.toMap(),
+        "rank": rank.toMap(),
+        "recievedDate":
+            "${recievedDate.year.toString().padLeft(4, '0')}-${recievedDate.month.toString().padLeft(2, '0')}-${recievedDate.day.toString().padLeft(2, '0')}",
+        "remark": remark,
+        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+      };
+}
+
+class WorkHistory {
+  WorkHistory({
+    required this.id,
+    required this.ministry,
+    required this.startDate,
+    required this.isStartDateYear,
+    required this.endDate,
+    required this.isEndDateYear,
+    required this.ongoing,
+    required this.organization,
+    required this.workStatus,
+    required this.position,
+    required this.positionEqual,
+    required this.remark,
+    required this.attachmentList,
+  });
+
+  int id;
+  Ministry ministry;
+  DateTime startDate;
+  bool isStartDateYear;
+  String endDate;
+  bool isEndDateYear;
+  bool ongoing;
+  List<Organization> organization;
+  MaritalStatus workStatus;
+  Position position;
+  dynamic positionEqual;
+  String remark;
+  List<dynamic> attachmentList;
+
+  factory WorkHistory.fromMap(Map<String, dynamic> json) => WorkHistory(
+        id: json["id"],
+        ministry: Ministry.fromMap(json["ministry"]),
+        startDate: DateTime.parse(json["startDate"]),
+        isStartDateYear: json["isStartDateYear"],
+        endDate: json["endDate"],
+        isEndDateYear: json["isEndDateYear"],
+        ongoing: json["ongoing"],
+        organization: List<Organization>.from(
+            json["organization"].map((x) => Organization.fromMap(x))),
+        workStatus: MaritalStatus.fromMap(json["workStatus"]),
+        position: Position.fromMap(json["position"]),
+        positionEqual: json["positionEqual"],
+        remark: json["remark"],
+        attachmentList:
+            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "ministry": ministry.toMap(),
+        "startDate":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "isStartDateYear": isStartDateYear,
+        "endDate": endDate,
+        "isEndDateYear": isEndDateYear,
+        "ongoing": ongoing,
+        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
+        "workStatus": workStatus.toMap(),
+        "position": position.toMap(),
+        "positionEqual": positionEqual,
+        "remark": remark,
+        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+      };
+}
+
+class Position {
+  Position({
+    required this.id,
+    required this.ministryCode,
+    required this.upperPositionId,
+    required this.title,
+    required this.levelOrder,
+    required this.description,
+    required this.status,
+  });
+
+  int id;
+  String ministryCode;
+  int upperPositionId;
+  String title;
+  int levelOrder;
+  String description;
+  String status;
+
+  factory Position.fromMap(Map<String, dynamic> json) => Position(
+        id: json["id"],
+        ministryCode: json["ministryCode"],
+        upperPositionId: json["upperPositionId"],
+        title: json["title"],
+        levelOrder: json["levelOrder"],
+        description: json["description"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "ministryCode": ministryCode,
+        "upperPositionId": upperPositionId,
+        "title": title,
+        "levelOrder": levelOrder,
+        "description": description,
+        "status": status,
       };
 }
 

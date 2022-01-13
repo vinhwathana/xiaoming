@@ -1,7 +1,6 @@
-
 import 'dart:convert';
 
-import 'users.dart';
+import 'user.dart';
 
 class EmployeeListResult {
   EmployeeListResult({
@@ -12,7 +11,7 @@ class EmployeeListResult {
 
   int? statusCode;
   String? message;
-  Users? data;
+  User? data;
 
   factory EmployeeListResult.fromJson(String str) =>
       EmployeeListResult.fromMap(json.decode(str));
@@ -23,7 +22,7 @@ class EmployeeListResult {
       EmployeeListResult(
         statusCode: json["statusCode"] == null ? null : json["statusCode"],
         message: json["message"] == null ? null : json["message"],
-        data: json["data"] == null ? null : Users.fromMap(json["data"]),
+        data: json["data"] == null ? null : User.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -32,4 +31,3 @@ class EmployeeListResult {
         "data": data == null ? null : data!.toMap(),
       };
 }
-
