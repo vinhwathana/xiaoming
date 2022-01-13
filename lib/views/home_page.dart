@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
@@ -71,7 +72,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+          IconButton(
+            onPressed: () async {
+              final storage = FlutterSecureStorage();
+              await storage
+                  .read(key: tokenKeyName)
+                  .then((value) => print(value));
+            },
+            icon: Icon(Icons.settings),
+          ),
         ],
       ),
       drawer: const CustomDrawer(),

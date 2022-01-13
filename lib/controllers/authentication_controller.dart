@@ -13,12 +13,14 @@ class AuthenticationController extends GetxController {
   Future<void> updateToken(String token) async {
     accessToken = token;
     await storage.write(key: "$tokenKeyName", value: token);
+    print("Token saved");
     update();
   }
 
   Future<void> clearToken() async {
     accessToken = "";
     await storage.delete(key: "$tokenKeyName");
+    print("Token cleared");
     update();
   }
 

@@ -40,7 +40,7 @@ class _DataGridViewState extends State<DataGridView> {
   @override
   Widget build(BuildContext context) {
     return SfDataGrid(
-
+      shrinkWrapColumns: true,
       source: employeeDataSource,
       onQueryRowHeight: (details) {
         return details.getIntrinsicRowHeight(details.rowIndex);

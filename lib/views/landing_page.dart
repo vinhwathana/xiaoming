@@ -82,8 +82,9 @@ class _LandingPageState extends State<LandingPage> {
               future: storage.read(key: "$tokenKeyName"),
               builder: (context, snapshot) {
                 print("Check user token is expire or not");
-                if (snapshot.hasData || snapshot.data == null) {
+                if (snapshot.hasData) {
                   final token = snapshot.data;
+
                   if (token == null) {
                     authController.clearToken();
                     print("Saved Token null");
@@ -104,7 +105,7 @@ class _LandingPageState extends State<LandingPage> {
                                 response.statusCode != 200) {
                               print(response?.statusCode ?? null);
                               print("Landing Page: invalid Token");
-                              controller.clearToken();
+                              // controller.clearToken();
                               return LoginPage();
                             }
 
@@ -130,8 +131,13 @@ class _LandingPageState extends State<LandingPage> {
                     },
                   );
                 }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("Welcome"),
                 );
               },
             );
