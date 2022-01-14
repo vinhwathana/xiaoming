@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:xiaoming/views/personal_info/additional_position_page.dart';
 import 'package:xiaoming/views/personal_info/education_info_page.dart';
 import 'package:xiaoming/views/personal_info/family_info_page.dart';
+import 'package:xiaoming/views/personal_info/language_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
 
@@ -73,7 +74,7 @@ class PersonalInfoPage extends StatelessWidget {
                   title: Text('ភាសា'),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () =>
-                      Get.to(() => FamilyInfoPage(), arguments: "ភាសា"),
+                      Get.to(() => LanguageInfoPage(), arguments: "ភាសា"),
                 ),
               ),
               Card(

@@ -136,11 +136,12 @@ class FamilyInfoDataSource extends DataGridSource {
             columnName: 'មុខរបរ',
             value: e.job?.nameKh ?? "N/A",
           ),
+          // Village , Commune , District , Province
           DataGridCell<String>(
             columnName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
-            value: "${e.currentAddressProvince!.addressNameKh} "
-                "${e.currentAddressProvince!.addressNameKh} "
-                "${e.currentAddressProvince!.addressNameKh} "
+            value: "${e.currentAddressVillage!.addressNameKh} "
+                "${e.currentAddressCommune!.addressNameKh} "
+                "${e.currentAddressDistrict!.addressNameKh} "
                 "${e.currentAddressProvince!.addressNameKh}",
           ),
         ],
