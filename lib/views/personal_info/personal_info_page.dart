@@ -6,6 +6,7 @@ import 'package:xiaoming/views/personal_info/education_info_page.dart';
 import 'package:xiaoming/views/personal_info/family_info_page.dart';
 import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
 import 'package:xiaoming/views/personal_info/language_info_page.dart';
+import 'package:xiaoming/views/personal_info/merit_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
 
@@ -95,7 +96,7 @@ class PersonalInfoPage extends StatelessWidget {
                   title: Text('ឥស្សរិយយស្ស'),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () =>
-                      Get.to(() => FamilyInfoPage(), arguments: "ឥស្សរិយយស្ស"),
+                      Get.to(() => MeritInfoPage(), arguments: "ឥស្សរិយយស្ស"),
                 ),
               ),
               // Card(
