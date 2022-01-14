@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class AdditionalPositionPage extends StatelessWidget {
   @override
@@ -102,11 +103,11 @@ class AdditionalPositionDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: e.startDate.toString(),
+            value: formatDateTime(e.startDate),
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: e.endDate.toString(),
+            value: formatDateTime(e.endDate),
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',

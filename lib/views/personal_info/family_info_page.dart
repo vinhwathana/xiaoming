@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class FamilyInfoPage extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class FamilyInfoPage extends StatelessWidget {
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding:EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
             child: FamilyInfoTable(),
           ),
@@ -36,30 +37,23 @@ class FamilyInfoTable extends StatefulWidget {
 class _FamilyInfoTableState extends State<FamilyInfoTable> {
   final userController = Get.find<UserController>();
   late final List<FamilyInfo> familyInfos;
-  late FamilyInfoDataSource employeeDataSource;
+  late FamilyInfoDataSource familyInfoDataSource;
 
   @override
   void initState() {
     super.initState();
     familyInfos = getFamilyInfo();
-    employeeDataSource = FamilyInfoDataSource(familyInfos: familyInfos);
-    // print(userController.users!.value.familyInfos.toString());
+    familyInfoDataSource = FamilyInfoDataSource(familyInfos: familyInfos);
   }
 
   List<FamilyInfo> getFamilyInfo() {
     return userController.users!.value.familyInfos!;
-    // return [
-    //   dummyFamilyInfo,
-    //   dummyFamilyInfo,
-    //   dummyFamilyInfo,
-    //   dummyFamilyInfo,
-    //   dummyFamilyInfo,
-    //   dummyFamilyInfo,
-    // ];
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     "ទំនាក់ទំនង",
@@ -77,7 +71,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
   @override
   Widget build(BuildContext context) {
     return SfDataGrid(
-      source: employeeDataSource,
+      source: familyInfoDataSource,
       onQueryRowHeight: (details) {
         return details.getIntrinsicRowHeight(details.rowIndex);
       },
@@ -96,7 +90,6 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
                   ),
                 )));
       }),
-
       columnWidthMode: ColumnWidthMode.fitByColumnName,
     );
   }
@@ -117,7 +110,7 @@ class FamilyInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
-            value: e.dateOfBirth.toString(),
+            value: formatDateTime(e.dateOfBirth),
           ),
           DataGridCell<String>(
             columnName: 'ភេទ',

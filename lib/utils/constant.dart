@@ -136,12 +136,13 @@ String formatDateTime(DateTime? date) {
   if (date == null) {
     return "";
   }
-  final intToMonth = DateFormat('dd/MM/yyyy');
-  final formattedData = intToMonth.format(date);
-  if (Get.locale == Locale('en', 'US')) {
-    return formattedData;
-  }
-  return KhmerDate.khmerNumber(formattedData);
+  final intToMonth = DateFormat('dd-MM-yyyy');
+  final formattedDate = intToMonth.format(date);
+  return formattedDate;
+  // if (Get.locale == Locale('en', 'US')) {
+  //   return formattedDate;
+  // }
+  // return KhmerDate.khmerNumber(formattedDate);
 }
 
 String generateAddress({

@@ -461,9 +461,9 @@ class AdditionalPosition {
   bool isEndDateYear;
   bool ongoing;
   List<Organization> organization;
-  MaritalStatus workStatus;
+  ListValue workStatus;
   String position;
-  MaritalStatus positionEqual;
+  ListValue positionEqual;
   String remark;
   List<dynamic> attachmentList;
 
@@ -478,9 +478,9 @@ class AdditionalPosition {
         ongoing: json["ongoing"],
         organization: List<Organization>.from(
             json["organization"].map((x) => Organization.fromMap(x))),
-        workStatus: MaritalStatus.fromMap(json["workStatus"]),
+        workStatus: ListValue.fromMap(json["workStatus"]),
         position: json["position"],
-        positionEqual: MaritalStatus.fromMap(json["positionEqual"]),
+        positionEqual: ListValue.fromMap(json["positionEqual"]),
         remark: json["remark"],
         attachmentList:
             List<dynamic>.from(json["attachmentList"].map((x) => x)),
@@ -548,8 +548,8 @@ class Organization {
   int? id;
   Organization? parent;
   Ministry? ministry;
-  MaritalStatus organizationType;
-  MaritalStatus region;
+  ListValue organizationType;
+  ListValue region;
   String nameKh;
   String nameEn;
   String description;
@@ -560,8 +560,8 @@ class Organization {
             ? null
             : Organization.fromMap(json["parent"]),
         ministry: json["ministry"] == null ? null : json["ministry"],
-        organizationType: MaritalStatus.fromMap(json["organizationType"]),
-        region: MaritalStatus.fromMap(json["region"]),
+        organizationType: ListValue.fromMap(json["organizationType"]),
+        region: ListValue.fromMap(json["region"]),
         nameKh: json["nameKH"],
         nameEn: json["nameEN"],
         description: json["description"],
@@ -579,37 +579,37 @@ class Organization {
       };
 }
 
-class MaritalStatus {
-  MaritalStatus({
-    required this.parentLov,
-    required this.lovCode,
-    required this.lovType,
-    required this.nameKh,
-    required this.nameEn,
-  });
-
-  dynamic parentLov;
-  String lovCode;
-  String lovType;
-  String nameKh;
-  String nameEn;
-
-  factory MaritalStatus.fromMap(Map<String, dynamic> json) => MaritalStatus(
-        parentLov: json["parentLov"],
-        lovCode: json["lovCode"],
-        lovType: json["lovType"],
-        nameKh: json["nameKH"],
-        nameEn: json["nameEN"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "parentLov": parentLov,
-        "lovCode": lovCode,
-        "lovType": lovType,
-        "nameKH": nameKh,
-        "nameEN": nameEn,
-      };
-}
+// class MaritalStatus {
+//   MaritalStatus({
+//     required this.parentLov,
+//     required this.lovCode,
+//     required this.lovType,
+//     required this.nameKh,
+//     required this.nameEn,
+//   });
+//
+//   dynamic parentLov;
+//   String lovCode;
+//   String lovType;
+//   String nameKh;
+//   String nameEn;
+//
+//   factory MaritalStatus.fromMap(Map<String, dynamic> json) => MaritalStatus(
+//         parentLov: json["parentLov"],
+//         lovCode: json["lovCode"],
+//         lovType: json["lovType"],
+//         nameKh: json["nameKH"],
+//         nameEn: json["nameEN"],
+//       );
+//
+//   Map<String, dynamic> toMap() => {
+//         "parentLov": parentLov,
+//         "lovCode": lovCode,
+//         "lovType": lovType,
+//         "nameKH": nameKh,
+//         "nameEN": nameEn,
+//       };
+// }
 
 class Education {
   Education({
@@ -635,13 +635,13 @@ class Education {
   bool isStartDateYear;
   DateTime endDate;
   bool isEndDateYear;
-  MaritalStatus educationType;
-  MaritalStatus educationLevel;
-  MaritalStatus certificationType;
-  MaritalStatus specialize;
+  ListValue educationType;
+  ListValue educationLevel;
+  ListValue certificationType;
+  ListValue specialize;
   String schoolName;
   bool isAbroad;
-  MaritalStatus country;
+  ListValue country;
   String city;
   List<dynamic> attachmentList;
   String remark;
@@ -652,13 +652,13 @@ class Education {
         isStartDateYear: json["isStartDateYear"],
         endDate: DateTime.parse(json["endDate"]),
         isEndDateYear: json["isEndDateYear"],
-        educationType: MaritalStatus.fromMap(json["educationType"]),
-        educationLevel: MaritalStatus.fromMap(json["educationLevel"]),
-        certificationType: MaritalStatus.fromMap(json["certificationType"]),
-        specialize: MaritalStatus.fromMap(json["specialize"]),
+        educationType: ListValue.fromMap(json["educationType"]),
+        educationLevel: ListValue.fromMap(json["educationLevel"]),
+        certificationType: ListValue.fromMap(json["certificationType"]),
+        specialize: ListValue.fromMap(json["specialize"]),
         schoolName: json["schoolName"],
         isAbroad: json["isAbroad"],
-        country: MaritalStatus.fromMap(json["country"]),
+        country: ListValue.fromMap(json["country"]),
         city: json["city"],
         attachmentList:
             List<dynamic>.from(json["attachmentList"].map((x) => x)),
@@ -701,26 +701,26 @@ class KrobKhan {
   });
 
   int id;
-  MaritalStatus officialType;
+  ListValue officialType;
   DateTime startDate;
   DateTime endDate;
   bool ongoing;
-  MaritalStatus krobKhanType;
-  MaritalStatus level;
-  MaritalStatus rank;
-  MaritalStatus upgradedBy;
+  ListValue krobKhanType;
+  ListValue level;
+  ListValue rank;
+  ListValue upgradedBy;
   List<dynamic> attachmentList;
 
   factory KrobKhan.fromMap(Map<String, dynamic> json) => KrobKhan(
         id: json["id"],
-        officialType: MaritalStatus.fromMap(json["officialType"]),
+        officialType: ListValue.fromMap(json["officialType"]),
         startDate: DateTime.parse(json["startDate"]),
         endDate: DateTime.parse(json["endDate"]),
         ongoing: json["ongoing"],
-        krobKhanType: MaritalStatus.fromMap(json["krobKhanType"]),
-        level: MaritalStatus.fromMap(json["level"]),
-        rank: MaritalStatus.fromMap(json["rank"]),
-        upgradedBy: MaritalStatus.fromMap(json["upgradedBy"]),
+        krobKhanType: ListValue.fromMap(json["krobKhanType"]),
+        level: ListValue.fromMap(json["level"]),
+        rank: ListValue.fromMap(json["rank"]),
+        upgradedBy: ListValue.fromMap(json["upgradedBy"]),
         attachmentList:
             List<dynamic>.from(json["attachmentList"].map((x) => x)),
       );
@@ -753,20 +753,20 @@ class Language {
   });
 
   int id;
-  MaritalStatus languageName;
-  MaritalStatus reading;
-  MaritalStatus listening;
-  MaritalStatus writing;
-  MaritalStatus speaking;
+  ListValue languageName;
+  ListValue reading;
+  ListValue listening;
+  ListValue writing;
+  ListValue speaking;
   List<Attachment> attachmentList;
 
   factory Language.fromMap(Map<String, dynamic> json) => Language(
         id: json["id"],
-        languageName: MaritalStatus.fromMap(json["languageName"]),
-        reading: MaritalStatus.fromMap(json["reading"]),
-        listening: MaritalStatus.fromMap(json["listening"]),
-        writing: MaritalStatus.fromMap(json["writing"]),
-        speaking: MaritalStatus.fromMap(json["speaking"]),
+        languageName: ListValue.fromMap(json["languageName"]),
+        reading: ListValue.fromMap(json["reading"]),
+        listening: ListValue.fromMap(json["listening"]),
+        writing: ListValue.fromMap(json["writing"]),
+        speaking: ListValue.fromMap(json["speaking"]),
         attachmentList: List<Attachment>.from(
             json["attachmentList"].map((x) => Attachment.fromMap(x))),
       );
@@ -795,18 +795,18 @@ class Merit {
   });
 
   int id;
-  MaritalStatus meritType;
-  MaritalStatus medalType;
-  MaritalStatus rank;
+  ListValue meritType;
+  ListValue medalType;
+  ListValue rank;
   DateTime recievedDate;
   String remark;
   List<dynamic> attachmentList;
 
   factory Merit.fromMap(Map<String, dynamic> json) => Merit(
         id: json["id"],
-        meritType: MaritalStatus.fromMap(json["meritType"]),
-        medalType: MaritalStatus.fromMap(json["medalType"]),
-        rank: MaritalStatus.fromMap(json["rank"]),
+        meritType: ListValue.fromMap(json["meritType"]),
+        medalType: ListValue.fromMap(json["medalType"]),
+        rank: ListValue.fromMap(json["rank"]),
         recievedDate: DateTime.parse(json["recievedDate"]),
         remark: json["remark"],
         attachmentList:
@@ -846,11 +846,11 @@ class WorkHistory {
   Ministry ministry;
   DateTime startDate;
   bool isStartDateYear;
-  String endDate;
+  String? endDate;
   bool isEndDateYear;
   bool ongoing;
   List<Organization> organization;
-  MaritalStatus workStatus;
+  ListValue workStatus;
   Position position;
   dynamic positionEqual;
   String remark;
@@ -866,7 +866,7 @@ class WorkHistory {
         ongoing: json["ongoing"],
         organization: List<Organization>.from(
             json["organization"].map((x) => Organization.fromMap(x))),
-        workStatus: MaritalStatus.fromMap(json["workStatus"]),
+        workStatus: ListValue.fromMap(json["workStatus"]),
         position: Position.fromMap(json["position"]),
         positionEqual: json["positionEqual"],
         remark: json["remark"],

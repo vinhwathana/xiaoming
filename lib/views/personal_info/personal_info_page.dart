@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/views/personal_info/additional_position_page.dart';
+import 'package:xiaoming/views/personal_info/education_info_page.dart';
 import 'package:xiaoming/views/personal_info/family_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
@@ -63,7 +64,7 @@ class PersonalInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: Text('ប្រវត្តិការរសិក្សា'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => FamilyInfoPage(),
+                  onTap: () => Get.to(() => EducationInfoPage(),
                       arguments: "ប្រវត្តិការរសិក្សា"),
                 ),
               ),

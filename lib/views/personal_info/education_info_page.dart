@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 
-class WorkHistoryPage extends StatelessWidget {
+class EducationInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,7 @@ class WorkHistoryPage extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: WorkHistoryTable(),
+            child: EducationInfoTable(),
           ),
         ),
       ),
@@ -28,44 +27,50 @@ class WorkHistoryPage extends StatelessWidget {
   }
 }
 
-class WorkHistoryTable extends StatefulWidget {
-  const WorkHistoryTable({Key? key}) : super(key: key);
+class EducationInfoTable extends StatefulWidget {
+  const EducationInfoTable({Key? key}) : super(key: key);
 
   @override
-  _WorkHistoryTableState createState() => _WorkHistoryTableState();
+  _EducationInfoTableState createState() => _EducationInfoTableState();
 }
 
-class _WorkHistoryTableState extends State<WorkHistoryTable> {
+class _EducationInfoTableState extends State<EducationInfoTable> {
   final userController = Get.find<UserController>();
-  late final List<WorkHistory> workHistories;
-  late WorkHistoryDataSource workHistoryDataSource;
+  late final List<Education> educations;
+  late EducationInfoDataSource educationInfoDataSource;
 
   @override
   void initState() {
     super.initState();
-    workHistories = getWorkHistory();
-    workHistoryDataSource = WorkHistoryDataSource(workHistories: workHistories);
+    educations = getEducationInfo();
+    educationInfoDataSource =
+        EducationInfoDataSource(educationInfos: educations);
+    // print(userController.users!.value.familyInfos.toString());
   }
 
-  List<WorkHistory> getWorkHistory() {
-    return userController.users!.value.workHistories!;
+  List<Education> getEducationInfo() {
+    return userController.users!.value.educations!;
   }
 
   final textStyle =
       TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
 
   final List<String> headerTitles = [
-    "មុខតំណែងបច្ចុប្បន្ន",
-    'នាំចាប់ផ្តើម',
+    'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
-    'ក្រសួង',
-    'អង្គភាព',
+    'វត្គឬកំរិតសិក្សា',
+    'ថ្នាក់សិក្សា',
+    'ជំនាញ',
+    'សញ្ញាប័ត្រ',
+    'គ្រឹះស្ថានសិក្សា',
+    'រាជធានី/ខេត្ត',
+    'ប្រទេស',
   ];
 
   @override
   Widget build(BuildContext context) {
     return SfDataGrid(
-      source: workHistoryDataSource,
+      source: educationInfoDataSource,
       onQueryRowHeight: (details) {
         return details.getIntrinsicRowHeight(details.rowIndex);
       },
@@ -74,7 +79,7 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
             columnName: '${headerTitles[index]}',
             label: Container(
                 padding: EdgeInsets.all(12.0),
-                alignment: Alignment.center,
+                alignment: Alignment.centerRight,
                 child: Text(
                   '${headerTitles[index]}',
                   style: TextStyle(
@@ -84,45 +89,61 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
                   ),
                 )));
       }),
-      columnWidthMode: ColumnWidthMode.auto,
+      columnWidthMode: ColumnWidthMode.fitByColumnName,
     );
   }
 }
 
-class WorkHistoryDataSource extends DataGridSource {
-  WorkHistoryDataSource({required List<WorkHistory> workHistories}) {
-    _workHistories = workHistories.map<DataGridRow>((e) {
+class EducationInfoDataSource extends DataGridSource {
+  EducationInfoDataSource({required List<Education> educationInfos}) {
+    _educationInfos = educationInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
-          DataGridCell<String>(
-            columnName: 'មុខតំណែងបច្ចុប្បន្ន',
-            value: e.position.title,
-          ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
             value: formatDateTime(e.startDate),
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: e.endDate,
+            value: formatDateTime(e.endDate),
           ),
           DataGridCell<String>(
-            columnName: 'ក្រសួង',
-            value: e.ministry.nameKh,
+            columnName: 'វត្គឬកំរិតសិក្សា',
+            value: e.educationType.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	អង្គភាព',
-            value: e.organization[0].nameKh,
+            columnName: 'ថ្នាក់សិក្សា',
+            value: e.educationLevel.nameKh,
+          ),
+          DataGridCell<String>(
+            columnName: 'ជំនាញ',
+            value: e.specialize.nameKh,
+          ),
+          DataGridCell<String>(
+            columnName: 'សញ្ញាប័ត្រ',
+            value: e.certificationType.nameKh,
+          ),
+          DataGridCell<String>(
+            columnName: 'គ្រឹះស្ថានសិក្សា',
+            value: e.schoolName,
+          ),
+          DataGridCell<String>(
+            columnName: 'រាជធានី/ខេត្ត',
+            value: e.city,
+          ),
+          DataGridCell<String>(
+            columnName: 'ប្រទេស',
+            value: e.country.nameKh,
           ),
         ],
       );
     }).toList();
   }
 
-  List<DataGridRow> _workHistories = [];
+  List<DataGridRow> _educationInfos = [];
 
   @override
-  List<DataGridRow> get rows => _workHistories;
+  List<DataGridRow> get rows => _educationInfos;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
@@ -134,7 +155,7 @@ class WorkHistoryDataSource extends DataGridSource {
           //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
           //     ? Alignment.centerRight
           //     : Alignment.centerLeft,
-          alignment: Alignment.centerLeft,
+          // color: Colors.red,
           padding: EdgeInsets.all(8.0),
           child: Center(
             child: Text(
@@ -144,7 +165,6 @@ class WorkHistoryDataSource extends DataGridSource {
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,
               ),
-              textAlign: TextAlign.start,
             ),
           ),
         );
