@@ -18,8 +18,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
-  bool isObscureText = true; // display eye and security icon
   final LogIn _logIn = LogIn();
+  bool isVisible = false;
 
   final emailCon = TextEditingController(),
       passwordCon = TextEditingController();
@@ -27,6 +27,10 @@ class _LoginPageState extends State<LoginPage> {
   final authService = AuthenticationService();
 
   Future<void> _submitLogin() async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    setState(() {
+      isVisible = true;
+    });
     if (_formStateKey.currentState!.validate()) {
       final username = emailCon.text.trim();
       final password = passwordCon.text.trim();
@@ -44,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         showToast("tokenNull");
       }
     }
+
   }
 
   Widget highLevelWidget({required Widget child}) {
@@ -65,10 +70,21 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           LogoTitleWidget(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Visibility(
+              visible: isVisible,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: Center(
+              child: CircularProgressIndicator(),
+            )),
+          ),
           Form(
               key: _formStateKey,
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: AutofillGroup(
                   child: Column(
                     children: [
@@ -97,14 +113,21 @@ class _LoginPageState extends State<LoginPage> {
                           shouldSave: true,
                         ),
                       ),
-                      SizedBox(height: 35.0),
+                      SizedBox(
+                        height: 35,
+                      ),
+
                       Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 18,
                           child: ElevatedButton(
                             child: Text('ចូល'),
                             onPressed: () {
-                              _submitLogin();
+                              _submitLogin().then((value) {
+                                setState(() {
+                                  isVisible = false;
+                                });
+                              });
                             },
                           )),
                       SizedBox(
