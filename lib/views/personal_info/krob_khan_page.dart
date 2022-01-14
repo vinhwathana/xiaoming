@@ -7,7 +7,7 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 
-class LanguageInfoPage extends StatelessWidget {
+class KrobKhanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +19,7 @@ class LanguageInfoPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            // color: Colors.red,
-            child: LanguageInfoTable(),
+            child: KrobKhanTable(),
           ),
         ),
       ),
@@ -28,44 +27,44 @@ class LanguageInfoPage extends StatelessWidget {
   }
 }
 
-class LanguageInfoTable extends StatefulWidget {
-  const LanguageInfoTable({Key? key}) : super(key: key);
+class KrobKhanTable extends StatefulWidget {
+  const KrobKhanTable({Key? key}) : super(key: key);
 
   @override
-  _LanguageInfoTableState createState() => _LanguageInfoTableState();
+  _KrobKhanTableState createState() => _KrobKhanTableState();
 }
 
-class _LanguageInfoTableState extends State<LanguageInfoTable> {
+class _KrobKhanTableState extends State<KrobKhanTable> {
   final userController = Get.find<UserController>();
-  late final List<Language> languageInfos;
-  late LanguageDataSource languageInfoDataSource;
+  late final List<KrobKhan> krobKhans;
+  late KrobKhanDataSource workHistoryDataSource;
 
   @override
   void initState() {
     super.initState();
-    languageInfos = getLanguageInfo();
-    languageInfoDataSource = LanguageDataSource(languages: languageInfos);
+    krobKhans = getKrobKhan();
+    workHistoryDataSource = KrobKhanDataSource(krobKhans: krobKhans);
   }
 
-  List<Language> getLanguageInfo() {
-    return userController.users!.value.languages!;
+  List<KrobKhan> getKrobKhan() {
+    return userController.users!.value.krobKhans!;
   }
 
   final textStyle =
       TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
 
   final List<String> headerTitles = [
-    "ភាសា",
-    'អាន',
-    'សរសេរ',
-    'សរសេរ',
-    'និយាយ',
+    "កាំប្រាក់",
+    'ឆ្នាំចាប់ផ្តើម',
+    'ឆ្នាំបញ្ចប់',
+    'ឡើងតាម',
+    'ប្រភេទ',
   ];
 
   @override
   Widget build(BuildContext context) {
     return SfDataGrid(
-      source: languageInfoDataSource,
+      source: workHistoryDataSource,
       onQueryRowHeight: (details) {
         return details.getIntrinsicRowHeight(details.rowIndex);
       },
@@ -89,40 +88,40 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
   }
 }
 
-class LanguageDataSource extends DataGridSource {
-  LanguageDataSource({required List<Language> languages}) {
-    _languages = languages.map<DataGridRow>((e) {
+class KrobKhanDataSource extends DataGridSource {
+  KrobKhanDataSource({required List<KrobKhan> krobKhans}) {
+    _krobKhans = krobKhans.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
-            columnName: 'ភាសា',
-            value: e.languageName.nameKh,
+            columnName: 'កាំប្រាក់',
+            value: "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
           ),
           DataGridCell<String>(
-            columnName: 'អាន',
-            value: e.reading.nameKh,
+            columnName: 'ឆ្នាំចាប់ផ្តើម',
+            value: formatDateTime(e.startDate),
           ),
           DataGridCell<String>(
-            columnName: 'សរសេរ',
-            value: e.reading.nameKh,
+            columnName: 'ឆ្នាំបញ្ចប់',
+            value: formatDateTime(e.endDate),
           ),
           DataGridCell<String>(
-            columnName: 'សរសេរ',
-            value: e.writing.nameKh,
+            columnName: 'ឡើងតាម',
+            value: e.upgradedBy.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	និយាយ',
-            value: e.listening.nameKh,
+            columnName: '	ប្រភេទ',
+            value: e.officialType.nameKh,
           ),
         ],
       );
     }).toList();
   }
 
-  List<DataGridRow> _languages = [];
+  List<DataGridRow> _krobKhans = [];
 
   @override
-  List<DataGridRow> get rows => _languages;
+  List<DataGridRow> get rows => _krobKhans;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {

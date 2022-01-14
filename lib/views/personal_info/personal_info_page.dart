@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:xiaoming/views/personal_info/additional_position_page.dart';
 import 'package:xiaoming/views/personal_info/education_info_page.dart';
 import 'package:xiaoming/views/personal_info/family_info_page.dart';
+import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
 import 'package:xiaoming/views/personal_info/language_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
@@ -73,16 +74,20 @@ class PersonalInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: Text('ភាសា'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () =>
-                      Get.to(() => LanguageInfoPage(), arguments: "ភាសា"),
+                  onTap: () => Get.to(
+                    () => LanguageInfoPage(),
+                    arguments: "ភាសា",
+                  ),
                 ),
               ),
               Card(
                 child: ListTile(
                   title: Text('កាំបៀវត្ស'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () =>
-                      Get.to(() => FamilyInfoPage(), arguments: "កាំបៀវត្ស"),
+                  onTap: () => Get.to(
+                    () => KrobKhanPage(),
+                    arguments: "កាំបៀវត្ស",
+                  ),
                 ),
               ),
               Card(
