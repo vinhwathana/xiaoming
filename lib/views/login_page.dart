@@ -10,7 +10,6 @@ import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 import 'forget_password_page.dart';
-import 'mptc_signup_hr.dart';
 
 class LoginPage extends StatefulWidget {
   @override
