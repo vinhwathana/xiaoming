@@ -1,8 +1,9 @@
 //This is the main page for expansionTile
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/views/additional_position_page.dart';
-import 'package:xiaoming/views/family_info_page.dart';
+import 'package:xiaoming/views/personal_info/additional_position_page.dart';
+import 'package:xiaoming/views/personal_info/family_info_page.dart';
+import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/views/profile_expansion_card.dart';
 
 class PersonalInfoPage extends StatelessWidget {
@@ -43,20 +44,21 @@ class PersonalInfoPage extends StatelessWidget {
               ),
               Card(
                 child: ListTile(
+                  title: Text('ប្រវត្តិការងារ'),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () => Get.to(() => WorkHistoryPage(),
+                      arguments: "ប្រវត្តិការងារ"),
+                ),
+              ),
+              Card(
+                child: ListTile(
                   title: Text('មុខងារបន្ថែម'),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () => Get.to(() => AdditionalPositionPage(),
                       arguments: "មុខងារបន្ថែម"),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  title: Text('ប្រវត្តិការងារ'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => FamilyInfoPage(),
-                      arguments: "ប្រវត្តិការងារ"),
-                ),
-              ),
+
               Card(
                 child: ListTile(
                   title: Text('ប្រវត្តិការរសិក្សា'),
@@ -69,24 +71,24 @@ class PersonalInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: Text('ភាសា'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => FamilyInfoPage(),
-                      arguments: "ភាសា"),
+                  onTap: () =>
+                      Get.to(() => FamilyInfoPage(), arguments: "ភាសា"),
                 ),
               ),
               Card(
                 child: ListTile(
                   title: Text('កាំបៀវត្ស'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => FamilyInfoPage(),
-                      arguments: "កាំបៀវត្ស"),
+                  onTap: () =>
+                      Get.to(() => FamilyInfoPage(), arguments: "កាំបៀវត្ស"),
                 ),
               ),
               Card(
                 child: ListTile(
                   title: Text('ឥស្សរិយយស្ស'),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => FamilyInfoPage(),
-                      arguments: "ឥស្សរិយយស្ស"),
+                  onTap: () =>
+                      Get.to(() => FamilyInfoPage(), arguments: "ឥស្សរិយយស្ស"),
                 ),
               ),
               // Card(

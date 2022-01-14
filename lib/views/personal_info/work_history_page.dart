@@ -6,7 +6,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
 
-class AdditionalPositionPage extends StatelessWidget {
+class WorkHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class AdditionalPositionPage extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: AdditionalPositionTable(),
+            child: WorkHistoryTable(),
           ),
         ),
       ),
@@ -27,29 +27,29 @@ class AdditionalPositionPage extends StatelessWidget {
   }
 }
 
-class AdditionalPositionTable extends StatefulWidget {
-  const AdditionalPositionTable({Key? key}) : super(key: key);
+class WorkHistoryTable extends StatefulWidget {
+  const WorkHistoryTable({Key? key}) : super(key: key);
 
   @override
-  _AdditionalPositionTableState createState() =>
-      _AdditionalPositionTableState();
+  _WorkHistoryTableState createState() =>
+      _WorkHistoryTableState();
 }
 
-class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
+class _WorkHistoryTableState extends State<WorkHistoryTable> {
   final userController = Get.find<UserController>();
-  late final List<AdditionalPosition> additionalPositions;
-  late AdditionalPositionDataSource employeeDataSource;
+  late final List<WorkHistory> workHistories;
+  late WorkHistoryDataSource workHistoryDataSource;
 
   @override
   void initState() {
     super.initState();
-    additionalPositions = getAdditionalPosition();
-    employeeDataSource =
-        AdditionalPositionDataSource(additionalPositions: additionalPositions);
+    workHistories = getWorkHistory();
+    workHistoryDataSource =
+        WorkHistoryDataSource(workHistories: workHistories);
   }
 
-  List<AdditionalPosition> getAdditionalPosition() {
-    return userController.users!.value.additionalPositions!;
+  List<WorkHistory> getWorkHistory() {
+    return userController.users!.value.workHistories!;
   }
 
   final textStyle =
@@ -66,7 +66,7 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
   @override
   Widget build(BuildContext context) {
     return SfDataGrid(
-      source: employeeDataSource,
+      source: workHistoryDataSource,
       onQueryRowHeight: (details) {
         return details.getIntrinsicRowHeight(details.rowIndex);
       },
@@ -90,18 +90,18 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
   }
 }
 
-class AdditionalPositionDataSource extends DataGridSource {
-  AdditionalPositionDataSource(
-      {required List<AdditionalPosition> additionalPositions}) {
-    _additionalPositions = additionalPositions.map<DataGridRow>((e) {
+class WorkHistoryDataSource extends DataGridSource {
+  WorkHistoryDataSource(
+      {required List<WorkHistory> workHistories}) {
+    _workHistories = workHistories.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
             columnName: 'មុខតំណែងបច្ចុប្បន្ន',
-            value: e.position,
+            value: e.position.title,
           ),
           DataGridCell<String>(
-            columnName: 'នាំចាប់ផ្តើម',
+            columnName: 'ឆ្នាំចាប់ផ្តើម',
             value: e.startDate.toString(),
           ),
           DataGridCell<String>(
@@ -121,10 +121,10 @@ class AdditionalPositionDataSource extends DataGridSource {
     }).toList();
   }
 
-  List<DataGridRow> _additionalPositions = [];
+  List<DataGridRow> _workHistories = [];
 
   @override
-  List<DataGridRow> get rows => _additionalPositions;
+  List<DataGridRow> get rows => _workHistories;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {

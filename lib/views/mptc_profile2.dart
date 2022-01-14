@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:xiaoming/views/mptc_education_info.dart';
-import 'package:xiaoming/views/family_info_page.dart';
+import 'package:xiaoming/views/personal_info/family_info_page.dart';
 import 'package:xiaoming/views/mptc_krobkhan.dart';
 import 'package:xiaoming/views/mptc_language.dart';
 import 'package:xiaoming/views/mptc_merits.dart';
-import 'package:xiaoming/views/personal_info_page.dart';
+import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 import 'package:xiaoming/views/statistics_page.dart';
-import 'package:xiaoming/views/mptc_work_info.dart';
+import 'package:xiaoming/views/personal_info/work_history_page.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 
 class Dashboard extends StatefulWidget {
@@ -62,7 +62,7 @@ class _DashboardState extends State<Dashboard>
           children: [
             PersonalInfoPage(),
             FamilyInfoPage(),
-            WorkInfo(),
+            WorkHistoryPage(),
             EducationInfo(),
             Language(),
             Krobkhan(),

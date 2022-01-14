@@ -10,7 +10,7 @@ import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/login_page.dart';
-import 'package:xiaoming/views/personal_info_page.dart';
+import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({

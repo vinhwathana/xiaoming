@@ -10,7 +10,7 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance_page.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 
-import 'personal_info_page.dart';
+import 'personal_info/personal_info_page.dart';
 import 'statistics_page.dart';
 
 class HomePage extends StatelessWidget {
