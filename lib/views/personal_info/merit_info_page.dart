@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/models/offical_info/merit.dart';
 import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 
