@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
 import 'package:xiaoming/models/user.dart';
@@ -54,6 +55,7 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
     workHistoryDataSource = WorkHistoryDataSource(
       workHistories: workHistories,
       onClickAttachment: (List<Attachment?>? attachments) {},
+      context: context,
     );
   }
 
@@ -70,6 +72,7 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
     'ឆ្នាំបញ្ចប់',
     'ក្រសួង',
     'អង្គភាព',
+    'File',
   ];
 
   @override
@@ -103,6 +106,7 @@ class WorkHistoryDataSource extends DataGridSource {
   WorkHistoryDataSource({
     required this.workHistories,
     required this.onClickAttachment,
+    required this.context,
   }) {
     _workHistories = workHistories.map<DataGridRow>((e) {
       return DataGridRow(
@@ -138,6 +142,7 @@ class WorkHistoryDataSource extends DataGridSource {
 
   final List<WorkHistory> workHistories;
   final Function(List<Attachment?>? attachments) onClickAttachment;
+  final BuildContext context;
   List<DataGridRow> _workHistories = [];
 
   @override
@@ -160,28 +165,8 @@ class WorkHistoryDataSource extends DataGridSource {
           }
           return IconButton(
             onPressed: () async {
-              if (attachmentList == null) {
-                return;
-              }
-              await fileService
-                  .getFile(attachmentList[0]?.id.toString() ?? "")
-                  .then((response) async {
-                if (response == null) {
-                  return;
-                }
-                if (response.statusCode == 200) {
-                  final bytes = response.bodyBytes;
-                  final fileName = attachmentList[0]?.fileName;
-
-                  //Find applicationDirectory
-                  final documentsDir =
-                      (await getApplicationDocumentsDirectory()).path;
-                  //Create file with file name in the Application dir
-                  final file = await File('$documentsDir/$fileName').create();
-                  file.writeAsBytesSync(bytes);
-                  await OpenFile.open(file.path);
-                }
-              });
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
             },
             padding: EdgeInsets.all(0),
             icon: Icon(Icons.description),
