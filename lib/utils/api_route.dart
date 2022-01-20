@@ -12,3 +12,6 @@ const String userProfile = '$baseUrl/employees';
 
 // ENDPOINT: ATTENDANCE
 const String attCheckIn = '$baseUrl/IsInside/location';
+
+//FILE UPLOAD
+const String getFile = "$baseUrl/file-upload/get-file";

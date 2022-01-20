@@ -1,9 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/mptc_profile_item.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
+import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class FamilyInfoPage extends StatelessWidget {
@@ -39,11 +46,39 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
   late final List<FamilyInfo> familyInfos;
   late FamilyInfoDataSource familyInfoDataSource;
 
+  final fileService = FileService();
+
   @override
   void initState() {
     super.initState();
     familyInfos = getFamilyInfo();
-    familyInfoDataSource = FamilyInfoDataSource(familyInfos: familyInfos);
+    familyInfoDataSource = FamilyInfoDataSource(
+      familyInfos: familyInfos,
+      onClickAttachment: (attachment) async {
+        if (attachment == null) {
+          return;
+        }
+        await fileService
+            .getFile(attachment[0]?.id.toString() ?? "")
+            .then((response) async {
+          if (response == null) {
+            return;
+          }
+          if (response.statusCode == 200) {
+            final bytes = response.bodyBytes;
+            final fileName = attachment[0]?.fileName;
+
+            //Find applicationDirectory
+            final documentsDir =
+                (await getApplicationDocumentsDirectory()).path;
+            //Create file with file name in the Application dir
+            final file = await File('$documentsDir/$fileName').create();
+            file.writeAsBytesSync(bytes);
+            await OpenFile.open(file.path);
+          }
+        });
+      },
+    );
   }
 
   List<FamilyInfo> getFamilyInfo() {
@@ -66,6 +101,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
     'សញ្ជាតិ',
     'មុខរបរ',
     'អាស័យដ្ឋានបច្ចុប្បន្ន',
+    'File',
   ];
 
   @override
@@ -77,18 +113,20 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
-            label: Container(
-                padding: EdgeInsets.all(12.0),
-                alignment: Alignment.centerRight,
-                child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "KhmerOSBattambong",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
+          columnName: '${headerTitles[index]}',
+          columnWidthMode: ColumnWidthMode.auto,
+          label: Container(
+              padding: EdgeInsets.all(12.0),
+              alignment: Alignment.center,
+              child: Text(
+                '${headerTitles[index]}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "KhmerOSBattambong",
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+        );
       }),
       columnWidthMode: ColumnWidthMode.fitByColumnName,
     );
@@ -96,7 +134,10 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
 }
 
 class FamilyInfoDataSource extends DataGridSource {
-  FamilyInfoDataSource({required List<FamilyInfo> familyInfos}) {
+  FamilyInfoDataSource({
+    required this.familyInfos,
+    required this.onClickAttachment,
+  }) {
     _familyInfos = familyInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
@@ -144,11 +185,17 @@ class FamilyInfoDataSource extends DataGridSource {
                 "${e.currentAddressDistrict!.addressNameKh} "
                 "${e.currentAddressProvince!.addressNameKh}",
           ),
+          DataGridCell<int>(
+            columnName: 'File',
+            value: familyInfos.indexOf(e),
+          ),
         ],
       );
     }).toList();
   }
 
+  final Function(List<Attachment?>? attachments) onClickAttachment;
+  final List<FamilyInfo> familyInfos;
   List<DataGridRow> _familyInfos = [];
 
   @override
@@ -157,27 +204,40 @@ class FamilyInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        return Container(
-          // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
-          //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
-          //     ? Alignment.centerRight
-          //     : Alignment.centerLeft,
-          // color: Colors.red,
-          padding: EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              dataGridCell.value.toString(),
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "File") {
+            final index = dataGridCell.value;
+            final attachmentList = familyInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                onClickAttachment(attachmentList);
+              },
+              padding: EdgeInsets.all(0),
+              icon: Icon(Icons.description),
+            );
+          }
+          return Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.center,
+            child: Center(
+              child: Text(
+                dataGridCell.value.toString(),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'KhmerOSBattambong',
+                  height: 1.5,
+                ),
               ),
             ),
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }

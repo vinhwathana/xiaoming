@@ -313,7 +313,7 @@ class FamilyInfo {
   ListValue? job;
   String? workPlace;
   bool? isGovernmentOfficial;
-  List<Attachment>? attachmentList;
+  List<Attachment?>? attachmentList;
   String? nationalId;
   String? firstNameKh;
   String? lastNameKh;
@@ -350,7 +350,10 @@ class FamilyInfo {
             : json["isGovermentOfficial"],
         attachmentList: json["attachmentList"] == null
             ? null
-            : List<Attachment>.from(json["attachmentList"].map((x) => x)),
+            : List<Attachment?>.from(json["attachmentList"].map((x) {
+              print(x==null);
+              return Attachment.fromMap(x);
+        })),
         nationalId: json["nationalId"] == null ? null : json["nationalId"],
         firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
         lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
@@ -972,6 +975,11 @@ class Attachment {
         "extension": extension == null ? null : extension,
         "filePath": filePath == null ? null : filePath,
       };
+
+  @override
+  String toString() {
+    return 'Attachment{id: $id, attachmentType: $attachmentType, entityId: $entityId, fileName: $fileName, extension: $extension, filePath: $filePath}';
+  }
 }
 
 class Address {

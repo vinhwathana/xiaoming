@@ -50,6 +50,7 @@ dependencies:
   photo_view: ^0.13.0
   syncfusion_flutter_datagrid: ^19.4.42
   syncfusion_flutter_charts: ^19.4.42
+  open_file: ^3.2.1
 
 
 dev_dependencies:
