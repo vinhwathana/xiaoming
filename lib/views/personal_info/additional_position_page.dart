@@ -20,7 +20,6 @@ class AdditionalPositionPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            // color: Colors.red,
             child: AdditionalPositionTable(),
           ),
         ),
@@ -46,8 +45,10 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
   void initState() {
     super.initState();
     additionalPositions = getAdditionalPosition();
-    additionalPositionDataSource =
-        AdditionalPositionDataSource(additionalPositions: additionalPositions);
+    additionalPositionDataSource = AdditionalPositionDataSource(
+      additionalPositions: additionalPositions,
+      context: context,
+    );
   }
 
   List<AdditionalPosition> getAdditionalPosition() {
@@ -63,6 +64,7 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
     'ឆ្នាំបញ្ចប់',
     'ក្រសួង',
     'អង្គភាព',
+    "ឯកសារភ្ជាប់"
   ];
 
   @override
@@ -94,7 +96,7 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
 
 class AdditionalPositionDataSource extends DataGridSource {
   AdditionalPositionDataSource(
-      {required List<AdditionalPosition> additionalPositions}) {
+      {required this.additionalPositions, required this.context}) {
     _additionalPositions = additionalPositions.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
@@ -115,14 +117,20 @@ class AdditionalPositionDataSource extends DataGridSource {
             value: e.ministry.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	អង្គភាព',
+            columnName: 'អង្គភាព',
             value: e.organization[0].nameKh,
+          ),
+          DataGridCell<int>(
+            columnName: 'ឯកសារភ្ជាប់',
+            value: additionalPositions.indexOf(e),
           ),
         ],
       );
     }).toList();
   }
 
+  final List<AdditionalPosition> additionalPositions;
+  final BuildContext context;
   List<DataGridRow> _additionalPositions = [];
 
   @override
@@ -133,11 +141,16 @@ class AdditionalPositionDataSource extends DataGridSource {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
+        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+          final index = dataGridCell.value as int;
+          final attachmentList = additionalPositions[index].attachmentList;
+          if (attachmentList == null ||
+              attachmentList.isEmpty ||
+              attachmentList.length == 0) {
+            return Container();
+          }
+        }
         return Container(
-          // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
-          //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
-          //     ? Alignment.centerRight
-          //     : Alignment.centerLeft,
           padding: EdgeInsets.all(8.0),
           child: Center(
             child: Text(

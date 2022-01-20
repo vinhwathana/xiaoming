@@ -1,3 +1,4 @@
+import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
 import 'package:xiaoming/models/utils/ministry.dart';
 import 'package:xiaoming/models/utils/organization.dart';
@@ -31,7 +32,7 @@ class AdditionalPosition {
   String position;
   ListValue positionEqual;
   String remark;
-  List<dynamic> attachmentList;
+  List<Attachment?>? attachmentList;
 
   factory AdditionalPosition.fromMap(Map<String, dynamic> json) =>
       AdditionalPosition(
@@ -48,8 +49,8 @@ class AdditionalPosition {
         position: json["position"],
         positionEqual: ListValue.fromMap(json["positionEqual"]),
         remark: json["remark"],
-        attachmentList:
-            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+        attachmentList: List<Attachment>.from(
+            json["attachmentList"].map((x) => Attachment.fromJson(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -67,6 +68,7 @@ class AdditionalPosition {
         "position": position,
         "positionEqual": positionEqual.toMap(),
         "remark": remark,
-        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+        "attachmentList":
+            List<dynamic>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
 }
