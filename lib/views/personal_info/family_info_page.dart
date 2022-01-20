@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/components/mptc_profile_item.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/family_info.dart';
@@ -56,30 +57,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
     familyInfos = getFamilyInfo();
     familyInfoDataSource = FamilyInfoDataSource(
       familyInfos: familyInfos,
-      onClickAttachment: (attachment) async {
-        if (attachment == null) {
-          return;
-        }
-        await fileService
-            .getFile(attachment[0]?.id.toString() ?? "")
-            .then((response) async {
-          if (response == null) {
-            return;
-          }
-          if (response.statusCode == 200) {
-            final bytes = response.bodyBytes;
-            final fileName = attachment[0]?.fileName;
-
-            //Find applicationDirectory
-            final documentsDir =
-                (await getApplicationDocumentsDirectory()).path;
-            //Create file with file name in the Application dir
-            final file = await File('$documentsDir/$fileName').create();
-            file.writeAsBytesSync(bytes);
-            await OpenFile.open(file.path);
-          }
-        });
-      },
+      context: context,
     );
   }
 
@@ -103,7 +81,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
     'សញ្ជាតិ',
     'មុខរបរ',
     'អាស័យដ្ឋានបច្ចុប្បន្ន',
-    'File',
+    'ឯកសារភ្ជាប់',
   ];
 
   @override
@@ -138,7 +116,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
 class FamilyInfoDataSource extends DataGridSource {
   FamilyInfoDataSource({
     required this.familyInfos,
-    required this.onClickAttachment,
+    required this.context,
   }) {
     _familyInfos = familyInfos.map<DataGridRow>((e) {
       return DataGridRow(
@@ -188,7 +166,7 @@ class FamilyInfoDataSource extends DataGridSource {
                 "${e.currentAddressProvince!.addressNameKh}",
           ),
           DataGridCell<int>(
-            columnName: 'File',
+            columnName: 'ឯកសារភ្ជាប់',
             value: familyInfos.indexOf(e),
           ),
         ],
@@ -196,8 +174,8 @@ class FamilyInfoDataSource extends DataGridSource {
     }).toList();
   }
 
-  final Function(List<Attachment?>? attachments) onClickAttachment;
   final List<FamilyInfo> familyInfos;
+  final BuildContext context;
   List<DataGridRow> _familyInfos = [];
 
   @override
@@ -208,7 +186,7 @@ class FamilyInfoDataSource extends DataGridSource {
     return DataGridRowAdapter(
       cells: row.getCells().map<Widget>(
         (dataGridCell) {
-          if (dataGridCell.columnName == "File") {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
             final index = dataGridCell.value;
             final attachmentList = familyInfos[index].attachmentList;
             if (attachmentList == null ||
@@ -218,7 +196,8 @@ class FamilyInfoDataSource extends DataGridSource {
             }
             return IconButton(
               onPressed: () {
-                onClickAttachment(attachmentList);
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
               },
               padding: EdgeInsets.all(0),
               icon: Icon(Icons.description),
