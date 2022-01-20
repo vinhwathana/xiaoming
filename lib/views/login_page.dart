@@ -47,6 +47,10 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         showToast("tokenNull");
       }
+    }else{
+      setState(() {
+        isVisible = false;
+      });
     }
 
   }
@@ -123,11 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             child: Text('ចូល'),
                             onPressed: () {
-                              _submitLogin().then((value) {
-                                setState(() {
-                                  isVisible = false;
-                                });
-                              });
+                              _submitLogin();
                             },
                           )),
                       SizedBox(

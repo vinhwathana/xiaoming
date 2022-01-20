@@ -494,7 +494,7 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.40"
+    version: "19.4.42"
   syncfusion_flutter_core:
     dependency: transitive
     description:

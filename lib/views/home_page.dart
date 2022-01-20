@@ -68,24 +68,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              final storage = FlutterSecureStorage();
-              await storage
-                  .read(key: tokenKeyName)
-                  .then((value) => print(value));
-            },
-            icon: Icon(Icons.settings),
-          ),
-        ],
-      ),
-      drawer: const CustomDrawer(),
-      body: const SafeArea(
-        child: HomePageGridView(),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                final storage = FlutterSecureStorage();
+                await storage
+                    .read(key: tokenKeyName)
+                    .then((value) => print(value));
+              },
+              icon: Icon(Icons.settings),
+            ),
+          ],
+        ),
+        drawer: const CustomDrawer(),
+        body: const SafeArea(
+          child: HomePageGridView(),
+        ),
       ),
     );
   }
