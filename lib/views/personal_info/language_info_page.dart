@@ -76,6 +76,7 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
             columnName: '${headerTitles[index]}',
+            columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
                 padding: EdgeInsets.all(12.0),
                 alignment: Alignment.center,

@@ -94,9 +94,9 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
           columnName: '${headerTitles[index]}',
-          columnWidthMode: ColumnWidthMode.auto,
+          columnWidthMode: ColumnWidthMode.fitByColumnName,
           label: Container(
-              padding: EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(8.0),
               alignment: Alignment.center,
               child: Text(
                 '${headerTitles[index]}',
@@ -108,7 +108,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
               )),
         );
       }),
-      columnWidthMode: ColumnWidthMode.fitByColumnName,
+      columnWidthMode: ColumnWidthMode.auto,
     );
   }
 }

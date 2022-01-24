@@ -33,9 +33,10 @@ class ProfileExpansionCard extends StatelessWidget {
                   label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
                   value: formatDateTime(user.dateOfBirth!)),
               Divider(),
-              ExpansionRow(label: 'ជនជាតិ', value: user.race!.nameKh),
+              ExpansionRow(label: 'ជនជាតិ', value: user.race?.nameKh ?? ""),
               Divider(),
-              ExpansionRow(label: 'សញ្ជាតិ', value: user.nationality!.nameKh),
+              ExpansionRow(
+                  label: 'សញ្ជាតិ', value: user.nationality?.nameKh ?? ""),
               Divider(),
               ExpansionRow(
                   label: 'ទីកន្លែងកំណើត',
