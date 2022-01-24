@@ -1,3 +1,4 @@
+import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
 
 class Education {
@@ -32,7 +33,7 @@ class Education {
   bool isAbroad;
   ListValue country;
   String city;
-  List<dynamic> attachmentList;
+  List<Attachment?>? attachmentList;
   String remark;
 
   factory Education.fromMap(Map<String, dynamic> json) => Education(
@@ -49,8 +50,8 @@ class Education {
         isAbroad: json["isAbroad"],
         country: ListValue.fromMap(json["country"]),
         city: json["city"],
-        attachmentList:
-            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+        attachmentList: List<Attachment?>.from(
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
         remark: json["remark"],
       );
 
@@ -70,7 +71,7 @@ class Education {
         "isAbroad": isAbroad,
         "country": country.toMap(),
         "city": city,
-        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+        "attachmentList": List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
         "remark": remark,
       };
 }

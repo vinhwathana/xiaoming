@@ -1,3 +1,4 @@
+import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
 
 class Merit {
@@ -17,7 +18,7 @@ class Merit {
   ListValue rank;
   DateTime recievedDate;
   String remark;
-  List<dynamic> attachmentList;
+  List<Attachment?>? attachmentList;
 
   factory Merit.fromMap(Map<String, dynamic> json) => Merit(
         id: json["id"],
@@ -26,8 +27,8 @@ class Merit {
         rank: ListValue.fromMap(json["rank"]),
         recievedDate: DateTime.parse(json["recievedDate"]),
         remark: json["remark"],
-        attachmentList:
-            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+        attachmentList: List<Attachment?>.from(
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -38,6 +39,7 @@ class Merit {
         "recievedDate":
             "${recievedDate.year.toString().padLeft(4, '0')}-${recievedDate.month.toString().padLeft(2, '0')}-${recievedDate.day.toString().padLeft(2, '0')}",
         "remark": remark,
-        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+        "attachmentList":
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
 }

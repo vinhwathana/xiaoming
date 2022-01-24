@@ -72,12 +72,8 @@ class FamilyInfo {
         isGovernmentOfficial: json["isGovermentOfficial"] == null
             ? null
             : json["isGovermentOfficial"],
-        attachmentList: json["attachmentList"] == null
-            ? null
-            : List<Attachment?>.from(json["attachmentList"].map((x) {
-                print(x == null);
-                return Attachment.fromMap(x);
-              })),
+        attachmentList: List<Attachment?>.from(
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
         nationalId: json["nationalId"] == null ? null : json["nationalId"],
         firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
         lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
@@ -123,9 +119,7 @@ class FamilyInfo {
         "workPlace": workPlace == null ? null : workPlace,
         "isGovermentOfficial":
             isGovernmentOfficial == null ? null : isGovernmentOfficial,
-        "attachmentList": attachmentList == null
-            ? null
-            : List<dynamic>.from(attachmentList!.map((x) => x)),
+        "attachmentList": List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
         "nationalId": nationalId == null ? null : nationalId,
         "firstNameKH": firstNameKh == null ? null : firstNameKh,
         "lastNameKH": lastNameKh == null ? null : lastNameKh,

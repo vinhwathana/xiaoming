@@ -1,3 +1,4 @@
+import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
 
 class KrobKhan {
@@ -23,7 +24,7 @@ class KrobKhan {
   ListValue level;
   ListValue rank;
   ListValue upgradedBy;
-  List<dynamic> attachmentList;
+  List<Attachment?>? attachmentList;
 
   factory KrobKhan.fromMap(Map<String, dynamic> json) => KrobKhan(
         id: json["id"],
@@ -35,8 +36,8 @@ class KrobKhan {
         level: ListValue.fromMap(json["level"]),
         rank: ListValue.fromMap(json["rank"]),
         upgradedBy: ListValue.fromMap(json["upgradedBy"]),
-        attachmentList:
-            List<dynamic>.from(json["attachmentList"].map((x) => x)),
+        attachmentList: List<Attachment?>.from(
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -51,6 +52,7 @@ class KrobKhan {
         "level": level.toMap(),
         "rank": rank.toMap(),
         "upgradedBy": upgradedBy.toMap(),
-        "attachmentList": List<dynamic>.from(attachmentList.map((x) => x)),
+        "attachmentList":
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
 }

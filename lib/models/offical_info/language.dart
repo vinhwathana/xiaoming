@@ -18,7 +18,7 @@ class Language {
   ListValue listening;
   ListValue writing;
   ListValue speaking;
-  List<Attachment> attachmentList;
+  List<Attachment?>? attachmentList;
 
   factory Language.fromMap(Map<String, dynamic> json) => Language(
         id: json["id"],
@@ -27,7 +27,7 @@ class Language {
         listening: ListValue.fromMap(json["listening"]),
         writing: ListValue.fromMap(json["writing"]),
         speaking: ListValue.fromMap(json["speaking"]),
-        attachmentList: List<Attachment>.from(
+        attachmentList: List<Attachment?>.from(
             json["attachmentList"].map((x) => Attachment.fromMap(x))),
       );
 
@@ -39,6 +39,6 @@ class Language {
         "writing": writing.toMap(),
         "speaking": speaking.toMap(),
         "attachmentList":
-            List<dynamic>.from(attachmentList.map((x) => x.toMap())),
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
 }
