@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/merit.dart';
 import 'package:xiaoming/models/user.dart';
@@ -45,7 +46,10 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
   void initState() {
     super.initState();
     meritInfos = getMeritInfo();
-    meritInfoDataSource = MeritInfoDataSource(meritInfos: meritInfos);
+    meritInfoDataSource = MeritInfoDataSource(
+      meritInfos: meritInfos,
+      context: context,
+    );
   }
 
   List<Merit> getMeritInfo() {
@@ -61,6 +65,7 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
     'ថ្នាក់',
     'កាលបរិច្ឆេទទទួល',
     'សំគាល់',
+    'ឯកសារភ្ជាប់',
   ];
 
   @override
@@ -85,13 +90,16 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
                   ),
                 )));
       }),
-      columnWidthMode: ColumnWidthMode.fitByColumnName,
+      columnWidthMode: ColumnWidthMode.auto,
     );
   }
 }
 
 class MeritInfoDataSource extends DataGridSource {
-  MeritInfoDataSource({required List<Merit> meritInfos}) {
+  MeritInfoDataSource({
+    required this.meritInfos,
+    required this.context,
+  }) {
     _meritInfos = meritInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
@@ -115,11 +123,17 @@ class MeritInfoDataSource extends DataGridSource {
             columnName: '	សំគាល់',
             value: e.remark,
           ),
+          DataGridCell<int>(
+            columnName: 'ឯកសារភ្ជាប់',
+            value: meritInfos.indexOf(e),
+          ),
         ],
       );
     }).toList();
   }
 
+  final List<Merit> meritInfos;
+  final BuildContext context;
   List<DataGridRow> _meritInfos = [];
 
   @override
@@ -130,11 +144,24 @@ class MeritInfoDataSource extends DataGridSource {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
+        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+          final index = dataGridCell.value;
+          final attachmentList = meritInfos[index].attachmentList;
+          if (attachmentList == null ||
+              attachmentList.isEmpty ||
+              attachmentList.length == 0) {
+            return Container();
+          }
+          return IconButton(
+            onPressed: () {
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
+            },
+            padding: EdgeInsets.all(0),
+            icon: Icon(Icons.description),
+          );
+        }
         return Container(
-          // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
-          //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
-          //     ? Alignment.centerRight
-          //     : Alignment.centerLeft,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.all(8.0),
           child: Center(

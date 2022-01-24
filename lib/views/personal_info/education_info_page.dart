@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/education.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -43,17 +44,20 @@ class _EducationInfoTableState extends State<EducationInfoTable> {
   void initState() {
     super.initState();
     educations = getEducationInfo();
-    educationInfoDataSource =
-        EducationInfoDataSource(educationInfos: educations);
-    // print(userController.users!.value.familyInfos.toString());
+    educationInfoDataSource = EducationInfoDataSource(
+      educationInfos: educations,
+      context: context,
+    );
   }
 
   List<Education> getEducationInfo() {
     return userController.users!.value.educations!;
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     'ឆ្នាំចាប់ផ្តើម',
@@ -65,6 +69,7 @@ class _EducationInfoTableState extends State<EducationInfoTable> {
     'គ្រឹះស្ថានសិក្សា',
     'រាជធានី/ខេត្ត',
     'ប្រទេស',
+    "ឯកសារភ្ជាប់",
   ];
 
   @override
@@ -95,7 +100,10 @@ class _EducationInfoTableState extends State<EducationInfoTable> {
 }
 
 class EducationInfoDataSource extends DataGridSource {
-  EducationInfoDataSource({required List<Education> educationInfos}) {
+  EducationInfoDataSource({
+    required this.educationInfos,
+    required this.context,
+  }) {
     _educationInfos = educationInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
@@ -135,11 +143,17 @@ class EducationInfoDataSource extends DataGridSource {
             columnName: 'ប្រទេស',
             value: e.country.nameKh,
           ),
+          DataGridCell<int>(
+            columnName: 'ឯកសារភ្ជាប់',
+            value: educationInfos.indexOf(e),
+          ),
         ],
       );
     }).toList();
   }
 
+  final List<Education> educationInfos;
+  final BuildContext context;
   List<DataGridRow> _educationInfos = [];
 
   @override
@@ -150,12 +164,24 @@ class EducationInfoDataSource extends DataGridSource {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
+        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+          final index = dataGridCell.value;
+          final attachmentList = educationInfos[index].attachmentList;
+          if (attachmentList == null ||
+              attachmentList.isEmpty ||
+              attachmentList.length == 0) {
+            return Container();
+          }
+          return IconButton(
+            onPressed: () {
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
+            },
+            padding: EdgeInsets.all(0),
+            icon: Icon(Icons.description),
+          );
+        }
         return Container(
-          // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
-          //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
-          //     ? Alignment.centerRight
-          //     : Alignment.centerLeft,
-          // color: Colors.red,
           padding: EdgeInsets.all(8.0),
           child: Center(
             child: Text(

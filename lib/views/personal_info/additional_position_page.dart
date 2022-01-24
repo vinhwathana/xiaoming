@@ -55,8 +55,10 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
     return userController.users!.value.additionalPositions!;
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     "មុខតំណែងបច្ចុប្បន្ន",

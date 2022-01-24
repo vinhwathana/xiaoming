@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/language.dart';
+
 class LanguageInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,10 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
   void initState() {
     super.initState();
     languageInfos = getLanguageInfo();
-    languageInfoDataSource = LanguageDataSource(languages: languageInfos);
+    languageInfoDataSource = LanguageDataSource(
+      languageInfos: languageInfos,
+      context: context,
+    );
   }
 
   List<Language> getLanguageInfo() {
@@ -58,6 +63,7 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
     'សរសេរ',
     'សរសេរ',
     'និយាយ',
+    'ឯកសារភ្ជាប់',
   ];
 
   @override
@@ -88,8 +94,11 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
 }
 
 class LanguageDataSource extends DataGridSource {
-  LanguageDataSource({required List<Language> languages}) {
-    _languages = languages.map<DataGridRow>((e) {
+  LanguageDataSource({
+    required this.languageInfos,
+    required this.context,
+  }) {
+    _languageInfos = languageInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
@@ -112,21 +121,44 @@ class LanguageDataSource extends DataGridSource {
             columnName: '	និយាយ',
             value: e.listening.nameKh,
           ),
+          DataGridCell<int>(
+            columnName: 'ឯកសារភ្ជាប់',
+            value: languageInfos.indexOf(e),
+          ),
         ],
       );
     }).toList();
   }
 
-  List<DataGridRow> _languages = [];
+  final List<Language> languageInfos;
+  final BuildContext context;
+  List<DataGridRow> _languageInfos = [];
 
   @override
-  List<DataGridRow> get rows => _languages;
+  List<DataGridRow> get rows => _languageInfos;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
+        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+          final index = dataGridCell.value;
+          final attachmentList = languageInfos[index].attachmentList;
+          if (attachmentList == null ||
+              attachmentList.isEmpty ||
+              attachmentList.length == 0) {
+            return Container();
+          }
+          return IconButton(
+            onPressed: () {
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
+            },
+            padding: EdgeInsets.all(0),
+            icon: Icon(Icons.description),
+          );
+        }
         return Container(
           // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
           //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')

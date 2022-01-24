@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/krob_khan.dart';
-import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class KrobKhanPage extends StatelessWidget {
@@ -44,15 +44,20 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
   void initState() {
     super.initState();
     krobKhans = getKrobKhan();
-    workHistoryDataSource = KrobKhanDataSource(krobKhans: krobKhans);
+    workHistoryDataSource = KrobKhanDataSource(
+      krobKhanInfos: krobKhans,
+      context: context,
+    );
   }
 
   List<KrobKhan> getKrobKhan() {
     return userController.users!.value.krobKhans!;
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     "កាំប្រាក់",
@@ -60,6 +65,7 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
     'ឆ្នាំបញ្ចប់',
     'ឡើងតាម',
     'ប្រភេទ',
+    'ឯកសារភ្ជាប់',
   ];
 
   @override
@@ -90,13 +96,17 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
 }
 
 class KrobKhanDataSource extends DataGridSource {
-  KrobKhanDataSource({required List<KrobKhan> krobKhans}) {
-    _krobKhans = krobKhans.map<DataGridRow>((e) {
+  KrobKhanDataSource({
+    required this.krobKhanInfos,
+    required this.context,
+  }) {
+    _krobKhanInfos = krobKhanInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
             columnName: 'កាំប្រាក់',
-            value: "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
+            value:
+                "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
@@ -114,26 +124,45 @@ class KrobKhanDataSource extends DataGridSource {
             columnName: '	ប្រភេទ',
             value: e.officialType.nameKh,
           ),
+          DataGridCell<int>(
+            columnName: 'ឯកសារភ្ជាប់',
+            value: krobKhanInfos.indexOf(e),
+          ),
         ],
       );
     }).toList();
   }
 
-  List<DataGridRow> _krobKhans = [];
+  final List<KrobKhan> krobKhanInfos;
+  final BuildContext context;
+  List<DataGridRow> _krobKhanInfos = [];
 
   @override
-  List<DataGridRow> get rows => _krobKhans;
+  List<DataGridRow> get rows => _krobKhanInfos;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
+        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+          final index = dataGridCell.value;
+          final attachmentList = krobKhanInfos[index].attachmentList;
+          if (attachmentList == null ||
+              attachmentList.isEmpty ||
+              attachmentList.length == 0) {
+            return Container();
+          }
+          return IconButton(
+            onPressed: () {
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
+            },
+            padding: EdgeInsets.all(0),
+            icon: Icon(Icons.description),
+          );
+        }
         return Container(
-          // alignment: (dataGridCell.columnName == 'ទំនាក់ទំនង' ||
-          //         dataGridCell.columnName == 'អាស័យដ្ឋានបច្ចុប្បន្ន')
-          //     ? Alignment.centerRight
-          //     : Alignment.centerLeft,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.all(8.0),
           child: Center(
