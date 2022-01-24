@@ -67,9 +67,13 @@ class ProfileExpansionCard extends StatelessWidget {
                   label: 'អត្តលេខ',
                   value: KhmerDate.khmerNumber(user.officialId ?? "")),
               Divider(),
-              ExpansionRow(label: 'ថ្ងៃបម្រើការងារ', value: formatDateTime(user.internshipDate)),
+              ExpansionRow(
+                  label: 'ថ្ងៃបម្រើការងារ',
+                  value: formatDateTime(user.internshipDate)),
               Divider(),
-              ExpansionRow(label: 'ថ្ងៃតាំងស៊ប់', value: formatDateTime(user.officialWorkingDate)),
+              ExpansionRow(
+                  label: 'ថ្ងៃតាំងស៊ប់',
+                  value: formatDateTime(user.officialWorkingDate)),
             ],
           );
         },

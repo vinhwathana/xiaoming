@@ -8,7 +8,7 @@ import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
 import 'package:xiaoming/views/personal_info/language_info_page.dart';
 import 'package:xiaoming/views/personal_info/merit_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_page.dart';
-import 'package:xiaoming/views/profile_expansion_card.dart';
+import 'package:xiaoming/views/personal_info/profile_expansion_card.dart';
 
 class PersonalInfoPage extends StatelessWidget {
   @override
