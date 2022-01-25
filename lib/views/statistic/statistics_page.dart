@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
-import 'package:xiaoming/components/mptc_profile_item.dart';
-import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/services/statistic_service.dart';
-import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/family_info_page.dart';
+import 'package:xiaoming/views/statistic/certificate_skill_statistic_page.dart';
 import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -77,7 +72,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
         body: SafeArea(
           child: TabBarView(
             children: <Widget>[
-              pieChart(),
+              CertificateSkillStatisticPage(),
               pieChart(),
               CertificateStatisticPage(
                 org: org,
@@ -174,17 +169,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   }
 }
 
-class ChartData {
-  ChartData(this.x, this.y, this.y1, this.y2);
-
-  final String x;
-  final double? y;
-  final double? y1;
-  final double? y2;
-}
-
 class GenderData {
   GenderData(this.male);
-
   final int male;
 }
