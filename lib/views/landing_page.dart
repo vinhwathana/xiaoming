@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -9,9 +8,7 @@ import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/internet_check_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/employee_list_result.dart';
 import 'package:xiaoming/services/authentication_service.dart';
-import 'package:xiaoming/services/localization_service.dart';
 import 'package:xiaoming/services/users_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/home_page.dart';
@@ -82,7 +79,7 @@ class _LandingPageState extends State<LandingPage> {
               future: storage.read(key: "$tokenKeyName"),
               builder: (context, snapshot) {
                 print("Check user token is expire or not");
-                if (snapshot.hasData) {
+                if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
                   final token = snapshot.data;
 
                   if (token == null) {
