@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/components/mptc_profile_item.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/services/statistic_service.dart';
+import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/personal_info/family_info_page.dart';
+import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
 
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -16,113 +20,80 @@ class StatisticsPage extends StatefulWidget {
 
 class _StatisticsPageState extends State<StatisticsPage> {
   List<GenderData>? _chartData;
-  late final TooltipBehavior _tooltipBehavior;
-  final statService = StatisticService();
-  final filterDialogController = Get.put(FilterDialogController());
+
   String dept = "00";
   String org = "00";
+  String degree = "P";
+
+  final tabs = <Tab>[
+    Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
+    Tab(text: "ជំនាញ"),
+    Tab(text: "កម្រិតសញ្ញាបត្រ"),
+    Tab(text: "ភេទ"),
+    Tab(text: "ឥស្សរិយយស្ស"),
+    Tab(text: "កាំបៀវត្ស"),
+  ];
 
   @override
   void initState() {
     _chartData = getChatData();
-    _tooltipBehavior = TooltipBehavior(
-      enable: true,
-    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ស្ថិតិ: កម្រិតសញ្ញាបត្រ'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.dialog(
-                FilterDialog(
-                  showDegreeField: false,
-                  onConfirm: (org, dept, degree) {
-                    setState(() {
-                      this.org = org;
-                      this.dept = dept;
-                    });
-                  },
-                ),
-                useSafeArea: true,
-                transitionCurve: Curves.ease,
-              );
-            },
-            icon: Icon(Icons.filter_list),
+    return DefaultTabController(
+      length: tabs.length,
+      initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('ស្ថិតិ'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.dialog(
+                  FilterDialog(
+                    showDegreeField: false,
+                    onConfirm: (org, dept, degree) {
+                      setState(() {
+                        this.org = org;
+                        this.dept = dept;
+                        this.degree = degree;
+                      });
+                    },
+                  ),
+                  useSafeArea: true,
+                  transitionCurve: Curves.ease,
+                );
+              },
+              icon: Icon(Icons.filter_list),
+            ),
+          ],
+          bottom: TabBar(
+            tabs: tabs,
+            isScrollable: true,
           ),
-        ],
-      ),
-      body: SafeArea(
-        child: barChart(),
-      ),
-    );
-  }
-
-  Widget barChart() {
-    return FutureBuilder<List<CertificateData>?>(
-      future: statService.getCertificates("$org", "$dept"),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final certificateData = snapshot.data;
-          if (certificateData == null || certificateData.length == 0) {
-            return Center(child: Text("No Data Available"));
-          }
-          int max = certificateData[0].numberOfCertificate;
-          certificateData.forEach((element) {
-            if (max < element.numberOfCertificate) {
-              max = element.numberOfCertificate;
-            }
-          });
-          return SfCartesianChart(
-            primaryXAxis: CategoryAxis(
-              labelStyle: TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+        ),
+        body: SafeArea(
+          child: TabBarView(
+            children: <Widget>[
+              pieChart(),
+              pieChart(),
+              CertificateStatisticPage(
+                org: org,
+                dept: dept,
               ),
-            ),
-            primaryYAxis: NumericAxis(
-              maximum: max.toDouble(),
-              labelFormat: '{value}',
-            ),
-            tooltipBehavior: _tooltipBehavior,
-            series: <BarSeries<CertificateData, String>>[
-              BarSeries(
-                name: "កម្រិតសញ្ញាបត្រ",
-                dataSource: certificateData,
-                xValueMapper: (datum, index) => datum.certificateName,
-                yValueMapper: (datum, index) => datum.numberOfCertificate,
-                pointColorMapper: (datum, index) => datum.color,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                ),
-                enableTooltip: true,
-              ),
+              pieChart(),
+              pieChart(),
+              pieChart(),
             ],
-          );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+          ),
+        ),
+      ),
     );
   }
 
-  List<CertificateData> barSeries() {
-    return [
-      CertificateData('Jan', 12, Colors.red),
-      CertificateData('Feb', 23, Colors.black),
-      CertificateData('Mar', 34, Colors.amberAccent),
-      CertificateData('Apr', 45, Colors.cyanAccent),
-      CertificateData('Jun', 56, Colors.greenAccent),
-      CertificateData('Jul', 67, Colors.purpleAccent),
-    ];
-  }
-
-  Widget pieChartWidget() {
+  Widget pieChart() {
     return Column(
       children: [
         Container(
@@ -201,18 +172,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
     ];
     return chartData;
   }
-}
-
-class CertificateData {
-  const CertificateData(
-    this.certificateName,
-    this.numberOfCertificate,
-    this.color,
-  );
-
-  final String certificateName;
-  final int numberOfCertificate;
-  final Color color;
 }
 
 class ChartData {

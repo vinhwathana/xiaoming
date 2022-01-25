@@ -1,18 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
-import 'package:xiaoming/components/mptc_profile_item.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/family_info.dart';
-import 'package:xiaoming/models/user.dart';
-import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
