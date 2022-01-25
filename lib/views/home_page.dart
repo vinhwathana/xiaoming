@@ -77,13 +77,12 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () async {
-                Get.dialog(
-                  FilterDialog(
-                    onChange: () {},
-                  ),
-                  useSafeArea: true,
-                  transitionCurve: Curves.easeInOut,
-                );
+                // Get.dialog(
+                //   FilterDialog(
+                //     onChange: () {},
+                //   ),
+                //   useSafeArea: true,
+                // );
               },
               icon: Icon(Icons.settings),
             ),

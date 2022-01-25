@@ -9,10 +9,12 @@ import 'package:xiaoming/models/statistic/result_organization.dart';
 class FilterDialog extends StatefulWidget {
   const FilterDialog({
     Key? key,
-    this.onChange,
+    required this.onConfirm,
+    this.showDegreeField = false,
   }) : super(key: key);
 
-  final Function()? onChange;
+  final Function(String org, String dept, String degree) onConfirm;
+  final bool showDegreeField;
 
   @override
   _FilterDialogState createState() => _FilterDialogState();
@@ -24,25 +26,38 @@ class _FilterDialogState extends State<FilterDialog>
   late final Animation<Offset> slideAnimation;
   final departmentTextCon = TextEditingController(),
       organizationTextCon = TextEditingController();
-  final filterDialogController = Get.put(FilterDialogController());
+  final filterDialogController = Get.find<FilterDialogController>();
 
   @override
   void initState() {
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-    slideAnimation = Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset.zero)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.decelerate));
+    slideAnimation = Tween<Offset>(
+      begin: Offset(0.0, -4.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    ));
     controller.addListener(() {
       setState(() {});
     });
+    controller.reverseDuration = Duration(milliseconds: 200);
     controller.forward();
     super.initState();
   }
 
-  void popBack() {
-    controller.reverse();
+  Future<void> popBack() async {
+    await controller.reverse();
     Get.back();
     controller.dispose();
+  }
+
+  void confirmData(){
+    final selectedOrg = filterDialogController.getSelectedOrganizationId();
+    final selectedDept = filterDialogController.getSelectedDepartmentId();
+    final selectedDegree = filterDialogController.getSelectedDegreeKey();
+    widget.onConfirm(selectedOrg ?? "00", selectedDept ?? "00", selectedDegree);
   }
 
   @override
@@ -56,9 +71,7 @@ class _FilterDialogState extends State<FilterDialog>
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: GestureDetector(
-            onTap: () {
-              ;
-            },
+            onTap: () {},
             child: Container(
               padding: const EdgeInsets.all(12.0),
               // height: Get.height / 2.7,
@@ -86,7 +99,8 @@ class _FilterDialogState extends State<FilterDialog>
                           Text("Filter Data"),
                           RawMaterialButton(
                             onPressed: () {
-                              // Get.back();
+                              confirmData();
+                              popBack();
                             },
                             child: Icon(
                               Icons.check,
@@ -141,6 +155,7 @@ class _FilterDialogState extends State<FilterDialog>
                       SizedBox(
                         height: 20,
                       ),
+
                       DropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "នាយកដ្ឋាន",
@@ -154,24 +169,30 @@ class _FilterDialogState extends State<FilterDialog>
                         },
                         controller: departmentTextCon,
                       ),
+
                       SizedBox(
                         height: 20,
                       ),
-                      DropdownTextField(
-                        labelText: "ប្រភេទវិញ្ញាបនបត្រ",
-                        listString: controller.degrees.keys.toList(),
-                        onChange: (value) {
-                          if (value == null) {
-                            return;
-                          }
-                          controller.selectedDegrees = value.toString();
-                        },
-                        currentSelectedValue: controller.selectedDegrees,
-                        controller: departmentTextCon,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      )
+                      if (widget.showDegreeField)
+                        Column(
+                          children: [
+                            DropdownTextField(
+                              labelText: "ប្រភេទវិញ្ញាបនបត្រ",
+                              listString: controller.degrees.keys.toList(),
+                              onChange: (value) {
+                                if (value == null) {
+                                  return;
+                                }
+                                controller.selectedDegrees = value.toString();
+                              },
+                              currentSelectedValue: controller.selectedDegrees,
+                              controller: departmentTextCon,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
                     ],
                   );
                 },

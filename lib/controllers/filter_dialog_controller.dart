@@ -1,15 +1,20 @@
 import 'package:get/get.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/utils/organization.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class FilterDialogController extends GetxController {
   final organizations = [].obs;
   final departments = [].obs;
   final orgRegion = "00";
+  final statService = StatisticService();
+  late String selectedDegrees = degrees.keys.first;
+  String? selectedOrganization;
+  String? selectedDepartment;
 
-  RadioValue selectedRadioValue = RadioValue.all;
   String selectedOrgRegion = "00";
+  RadioValue selectedRadioValue = RadioValue.all;
   final List<RadioValue> radioValues = [
     RadioValue.all,
     RadioValue.nation,
@@ -26,11 +31,29 @@ class FilterDialogController extends GetxController {
     "បរិញ្ញាបត្រ": "B",
     "បរិញ្ញាបត្ររង": "U",
   };
-  late String selectedDegrees = degrees.keys.first;
-  String? selectedOrganization;
-  String? selectedDepartment;
 
-  final statService = StatisticService();
+  String? getSelectedOrganizationId() {
+    if (selectedOrganization == null) {
+      return null;
+    }
+    return organizations
+        .cast<Datum>()
+        .firstWhere((element) => element.displayText == selectedOrganization)
+        .id
+        .toString();
+  }
+
+  String? getSelectedDepartmentId() {
+    return departments
+        .cast<Datum>()
+        .firstWhere((element) => element.displayText == selectedDepartment)
+        .id
+        .toString();
+  }
+
+  String getSelectedDegreeKey() {
+    return degrees["$selectedDegrees"] ?? degrees.keys.first;
+  }
 
   void updateOrgRegion(RadioValue value) {
     selectedRadioValue = value;

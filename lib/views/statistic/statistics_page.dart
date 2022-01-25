@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/components/mptc_profile_item.dart';
+import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   List<GenderData>? _chartData;
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
+  final filterDialogController = Get.put(FilterDialogController());
   String dept = "00";
   String org = "00";
 
@@ -33,16 +35,22 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ស្ថិតិ:កម្រិតសញ្ញាបត្រ'),
+        title: Text('ស្ថិតិ: កម្រិតសញ្ញាបត្រ'),
         actions: [
           IconButton(
             onPressed: () {
               Get.dialog(
                 FilterDialog(
-                  onChange: () {},
+                  showDegreeField: false,
+                  onConfirm: (org, dept, degree) {
+                    setState(() {
+                      this.org = org;
+                      this.dept = dept;
+                    });
+                  },
                 ),
                 useSafeArea: true,
-                transitionCurve: Curves.easeInOut,
+                transitionCurve: Curves.ease,
               );
             },
             icon: Icon(Icons.filter_list),
@@ -55,8 +63,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
     );
   }
 
-
-
   Widget barChart() {
     return FutureBuilder<List<CertificateData>?>(
       future: statService.getCertificates("$org", "$dept"),
@@ -64,7 +70,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
         if (snapshot.hasData) {
           final certificateData = snapshot.data;
           if (certificateData == null || certificateData.length == 0) {
-            return Text("No Data");
+            return Center(child: Text("No Data Available"));
           }
           int max = certificateData[0].numberOfCertificate;
           certificateData.forEach((element) {
