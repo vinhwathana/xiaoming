@@ -43,11 +43,11 @@ const String statSkillByDegree = "$baseUrl/statistics/skillbydegree";
 const String statSkills = "$baseUrl/statistics/skills";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statGetMerit = "$baseUrl/CountMeritByOrg/getcount_merit_by_org";
+const String statMerit = "$baseUrl/CountMeritByOrg/getcount_merit_by_org";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statGetGender = "$baseUrl/CountStaff/getcountstaff";
+const String statStaff = "$baseUrl/CountStaff/getcountstaff";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statGetKrobKhan =
+const String statKrobKhan =
     "$baseUrl/CountKrobkhanByOrg/getcount_krob_khan_by_org";

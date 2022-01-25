@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
-import 'package:xiaoming/views/statistic/certificate_skill_statistic_page.dart';
+import 'package:xiaoming/utils/api_route.dart';
+import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
 import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
+import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
 
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -72,13 +74,16 @@ class _StatisticsPageState extends State<StatisticsPage> {
         body: SafeArea(
           child: TabBarView(
             children: <Widget>[
-              CertificateSkillStatisticPage(),
+              SkillByDegreeStatisticPage(),
               pieChart(),
               CertificateStatisticPage(
                 org: org,
                 dept: dept,
               ),
-              pieChart(),
+              StaffStatisticPage(
+                org: org,
+                dept: dept,
+              ),
               pieChart(),
               pieChart(),
             ],
@@ -171,5 +176,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
 class GenderData {
   GenderData(this.male);
+
   final int male;
 }
