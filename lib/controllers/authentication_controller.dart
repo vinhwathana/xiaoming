@@ -34,6 +34,16 @@ class AuthenticationController extends GetxController {
     return employeeId;
   }
 
+  String? getUserMinistryCode() {
+    if (accessToken == null) {
+      showToast("Access token null");
+      return null;
+    }
+    final data = parseJwt(accessToken!);
+    final ministryCode = data["MinistryCode"];
+    return ministryCode;
+  }
+
   Map<String, dynamic> parseJwt(String token) {
     final parts = token.split('.');
     if (parts.length != 3) {

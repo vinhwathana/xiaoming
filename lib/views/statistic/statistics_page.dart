@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/components/mptc_profile_item.dart';
+import 'package:xiaoming/services/statistic_service.dart';
 
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -14,11 +16,16 @@ class StatisticsPage extends StatefulWidget {
 class _StatisticsPageState extends State<StatisticsPage> {
   List<GenderData>? _chartData;
   late final TooltipBehavior _tooltipBehavior;
+  final statService = StatisticService();
+  String dept = "00";
+  String org = "00";
 
   @override
   void initState() {
     _chartData = getChatData();
-    _tooltipBehavior = TooltipBehavior(enable: true);
+    _tooltipBehavior = TooltipBehavior(
+      enable: true,
+    );
     super.initState();
   }
 
@@ -26,38 +33,71 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ស្ថិតិ'),
+        title: Text('ស្ថិតិ:កម្រិតសញ្ញាបត្រ'),
         actions: [
           IconButton(
             onPressed: () {
-              Get.dialog(FiltersDialog());
+              Get.dialog(
+                FilterDialog(
+                  onChange: () {},
+                ),
+                useSafeArea: true,
+                transitionCurve: Curves.easeInOut,
+              );
             },
             icon: Icon(Icons.filter_list),
           ),
         ],
       ),
       body: SafeArea(
-        child: SfCartesianChart(
-          primaryXAxis: CategoryAxis(),
-          series: <BarSeries<CertificateData, String>>[
-            BarSeries(
-              dataSource: <CertificateData>[
-                CertificateData('Jan', 12, Colors.red),
-                CertificateData('Feb', 23, Colors.black),
-                CertificateData('Mar', 34, Colors.amberAccent),
-                CertificateData('Apr', 45, Colors.cyanAccent),
-                CertificateData('Jun', 56, Colors.greenAccent),
-                CertificateData('Jul', 67, Colors.purpleAccent),
-              ],
-              xValueMapper: (datum, index) => datum.certificateName,
-              yValueMapper: (datum, index) => datum.numberOfCertificate,
-              pointColorMapper: (datum, index) => datum.color,
-              // dataLabelMapper: (datum, index) => index.T,
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-            ),
-          ],
-        ),
+        child: barChart(),
       ),
+    );
+  }
+
+
+
+  Widget barChart() {
+    return FutureBuilder<List<CertificateData>?>(
+      future: statService.getCertificates("$org", "$dept"),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final certificateData = snapshot.data;
+          if (certificateData == null || certificateData.length == 0) {
+            return Text("No Data");
+          }
+          int max = certificateData[0].numberOfCertificate;
+          certificateData.forEach((element) {
+            if (max < element.numberOfCertificate) {
+              max = element.numberOfCertificate;
+            }
+          });
+          return SfCartesianChart(
+            primaryXAxis: CategoryAxis(),
+            primaryYAxis: NumericAxis(
+              maximum: max.toDouble(),
+              labelFormat: '{value}',
+            ),
+            tooltipBehavior: _tooltipBehavior,
+            series: <BarSeries<CertificateData, String>>[
+              BarSeries(
+                name: "NameOfSeries",
+                dataSource: certificateData,
+                xValueMapper: (datum, index) => datum.certificateName,
+                yValueMapper: (datum, index) => datum.numberOfCertificate,
+                pointColorMapper: (datum, index) => datum.color,
+                dataLabelSettings: DataLabelSettings(
+                  isVisible: true,
+                ),
+                enableTooltip: true,
+              ),
+            ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 
@@ -83,7 +123,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             // title: ChartTitle(text: 'ភេទ',
             // textStyle: TextStyle(fontWeight: FontWeight.bold)),
             //legend: Legend(isVisible: true,),
-            tooltipBehavior: _tooltipBehavior,
+            // tooltipBehavior: _tooltipBehavior,
             palette: [Colors.pink, Colors.blue],
             series: <CircularSeries>[
               PieSeries<GenderData, int>(
@@ -154,10 +194,14 @@ class _StatisticsPageState extends State<StatisticsPage> {
 }
 
 class CertificateData {
-  CertificateData(this.certificateName, this.numberOfCertificate, this.color);
+  const CertificateData(
+    this.certificateName,
+    this.numberOfCertificate,
+    this.color,
+  );
 
   final String certificateName;
-  final double numberOfCertificate;
+  final int numberOfCertificate;
   final Color color;
 }
 

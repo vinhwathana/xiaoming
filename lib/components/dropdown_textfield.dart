@@ -15,6 +15,7 @@ class DropdownTextField extends StatefulWidget {
     this.currentSelectedValue,
     required this.listString,
     this.onClickTextField,
+    this.autoValidateMode = AutovalidateMode.onUserInteraction,
     required this.onChange,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class DropdownTextField extends StatefulWidget {
   final List<String> listString;
   final Function()? onClickTextField;
   final Function(Object? value)? onChange;
+  final AutovalidateMode autoValidateMode;
 
   @override
   _DropdownTextFieldState createState() => _DropdownTextFieldState();
@@ -69,40 +71,40 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
     return SizedBox(
         width: double.infinity,
         child: DropdownButtonFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: widget.autoValidateMode,
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           focusNode: _focus,
           decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.all(20),
-              // contentPadding: EdgeInsets.symmetric(
-              //     vertical: Get.locale == Locale('en', 'US') ? 23 : 20),
-              labelStyle:
-                  TextStyle(fontSize: 16, color: CompanyColors.yellow, height: 2
-                      // color: CompanyColors.yellow,
-                      ),
-              labelText:
-                  (widget.currentSelectedValue != null) ? widget.labelText : "",
-              prefixText: widget.prefixText,
-              border: const OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: CompanyColors.blue, width: 1.0),
-              ),
-              prefixIcon: widget.icon == null
-                  ? null
-                  : Icon(
-                      widget.icon,
-                      color: CompanyColors.yellow,
+            contentPadding: const EdgeInsets.all(20),
+            labelStyle:
+                TextStyle(fontSize: 16, color: CompanyColors.yellow, height: 2
+                    // color: CompanyColors.yellow,
                     ),
-              counterStyle: const TextStyle(fontSize: 12, height: 1)),
+            labelText:
+                (widget.currentSelectedValue != null) ? widget.labelText : "",
+            prefixText: widget.prefixText,
+            border: const OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: CompanyColors.blue, width: 1.0),
+            ),
+            prefixIcon: widget.icon == null
+                ? null
+                : Icon(
+                    widget.icon,
+                    color: CompanyColors.yellow,
+                  ),
+            counterStyle: const TextStyle(fontSize: 12, height: 1),
+          ),
           isExpanded: true,
           hint: Text(
             widget.labelText,
-            style: TextStyle(fontSize: 16, color: decideColor(), height: 1.5
-                // Get.locale == Locale('en', 'US') ? 1 : 1.5
-                ),
+            style: TextStyle(
+              fontSize: 16,
+              color: decideColor(),
+              height: 1.5,
+            ),
           ),
           value: widget.currentSelectedValue,
           items: widget.listString.map((String value) {
@@ -114,7 +116,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
                   value,
                   style: TextStyle(
                     color: Colors.black,
-                    height: 1,
+                    height: 1.5,
                   ),
                 ),
               ),

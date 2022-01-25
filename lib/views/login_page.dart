@@ -9,7 +9,7 @@ import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
-import 'forget_password_page.dart';
+import 'forgot_password/forget_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override

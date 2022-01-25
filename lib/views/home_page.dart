@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
+import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance_page.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 
 import 'personal_info/personal_info_page.dart';
-import 'statistics_page.dart';
+import 'statistic/statistics_page.dart';
 
 class HomePage extends StatelessWidget {
   Widget userProfile() {
@@ -76,10 +77,13 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () async {
-                final storage = FlutterSecureStorage();
-                await storage
-                    .read(key: tokenKeyName)
-                    .then((value) => print(value));
+                Get.dialog(
+                  FilterDialog(
+                    onChange: () {},
+                  ),
+                  useSafeArea: true,
+                  transitionCurve: Curves.easeInOut,
+                );
               },
               icon: Icon(Icons.settings),
             ),

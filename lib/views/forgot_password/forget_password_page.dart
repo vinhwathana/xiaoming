@@ -5,7 +5,7 @@ import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/verify_otp_page.dart';
+import 'package:xiaoming/views/forgot_password/verify_otp_page.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   @override

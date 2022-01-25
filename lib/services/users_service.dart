@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'package:xiaoming/utils/constant.dart';
 
 class UserService{
   Future<http.Response?> getUserProfile() async {
