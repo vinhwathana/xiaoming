@@ -79,7 +79,11 @@ class _StatisticsPageState extends State<StatisticsPage> {
             }
           });
           return SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
+            primaryXAxis: CategoryAxis(
+              labelStyle: TextStyle(
+                fontFamily: 'KhmerOSBattambong',
+              ),
+            ),
             primaryYAxis: NumericAxis(
               maximum: max.toDouble(),
               labelFormat: '{value}',
@@ -87,7 +91,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             tooltipBehavior: _tooltipBehavior,
             series: <BarSeries<CertificateData, String>>[
               BarSeries(
-                name: "NameOfSeries",
+                name: "កម្រិតសញ្ញាបត្រ",
                 dataSource: certificateData,
                 xValueMapper: (datum, index) => datum.certificateName,
                 yValueMapper: (datum, index) => datum.numberOfCertificate,

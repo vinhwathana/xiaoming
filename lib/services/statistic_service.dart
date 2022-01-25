@@ -100,7 +100,6 @@ class StatisticService {
         // });
         return resultOrganizations.data;
       }
-
     } catch (e) {
       return null;
     }
@@ -137,19 +136,26 @@ class StatisticService {
         certificateStatistic.forEach((e) {
           certificateData.add(
             CertificateData(
-                e.certName,
-                e.total,
-                Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0)),
+              degreesTranslation[e.certName] ?? "",
+              e.total,
+              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0),
+            ),
           );
         });
-
         return certificateData;
       }
-
       return null;
     } catch (e) {
       return null;
     }
   }
+
+  final Map<String, String> degreesTranslation = {
+    "phd": "បណ្ឌិត",
+    "master": "អនុបណ្ឌិត",
+    "bachelor": "បរិញ្ញាបត្រ",
+    "under_bachelor": "បរិញ្ញាបត្ររង",
+    "engineer": "វិស្វករ",
+  };
 }

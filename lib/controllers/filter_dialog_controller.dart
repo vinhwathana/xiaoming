@@ -44,6 +44,9 @@ class FilterDialogController extends GetxController {
   }
 
   String? getSelectedDepartmentId() {
+    if (selectedDepartment == null) {
+      return null;
+    }
     return departments
         .cast<Datum>()
         .firstWhere((element) => element.displayText == selectedDepartment)

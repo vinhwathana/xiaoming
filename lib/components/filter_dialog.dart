@@ -53,7 +53,7 @@ class _FilterDialogState extends State<FilterDialog>
     controller.dispose();
   }
 
-  void confirmData(){
+  void confirmData() {
     final selectedOrg = filterDialogController.getSelectedOrganizationId();
     final selectedDept = filterDialogController.getSelectedDepartmentId();
     final selectedDegree = filterDialogController.getSelectedDegreeKey();
@@ -92,25 +92,26 @@ class _FilterDialogState extends State<FilterDialog>
 
                   return Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Filter Data"),
-                          RawMaterialButton(
-                            onPressed: () {
-                              confirmData();
-                              popBack();
-                            },
-                            child: Icon(
-                              Icons.check,
-                              size: 28,
-                            ),
-                            padding: EdgeInsets.all(0),
-                            shape: CircleBorder(),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Text("Filter Data"),
+                      //     RawMaterialButton(
+                      //       onPressed: () {
+                      //         confirmData();
+                      //         popBack();
+                      //       },
+                      //       child: Icon(
+                      //         Icons.check,
+                      //         size: 28,
+                      //       ),
+                      //       padding: EdgeInsets.all(0),
+                      //       shape: CircleBorder(),
+                      //     )
+                      //   ],
+                      // ),
                       //3 Radio Buttons
                       Row(
                         children: List.generate(
@@ -193,6 +194,18 @@ class _FilterDialogState extends State<FilterDialog>
                             )
                           ],
                         ),
+
+                      Container(
+                        width: double.maxFinite,
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            confirmData();
+                            popBack();
+                          },
+                          child: Text("ស្វែងរក"),
+                        ),
+                      ),
                     ],
                   );
                 },

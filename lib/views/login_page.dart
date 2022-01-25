@@ -47,11 +47,10 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         showToast("tokenNull");
       }
-    }else{
-      setState(() {
-        isVisible = false;
-      });
     }
+    setState(() {
+      isVisible = false;
+    });
 
   }
 
