@@ -11,10 +11,12 @@ class StaffStatisticPage extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.chartTitle,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String chartTitle;
 
   @override
   _StaffStatisticPageState createState() => _StaffStatisticPageState();
@@ -72,9 +74,16 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                   width: Get.width,
                   height: Get.height / 2,
                   child: SfCircularChart(
+                    title: ChartTitle(
+                      text: widget.chartTitle,
+                      textStyle: TextStyle(
+                        fontFamily: 'KhmerOSBattambong',
+                      ),
+                    ),
                     tooltipBehavior: _tooltipBehavior,
                     series: <CircularSeries>[
                       PieSeries<ChartModel, dynamic>(
+                        name: widget.chartTitle,
                         dataSource: staffData,
                         xValueMapper: (datum, index) => datum.name,
                         yValueMapper: (ChartModel data, _) => data.amount.toInt(),

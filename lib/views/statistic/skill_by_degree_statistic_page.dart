@@ -18,10 +18,12 @@ class SkillByDegreeStatisticPage extends StatefulWidget {
     required this.org,
     required this.dept,
     required this.degree,
+    required this.chartTitle,
   }) : super(key: key);
   final String dept;
   final String org;
   final String degree;
+  final String chartTitle;
 
   @override
   _SkillByDegreeStatisticPageState createState() =>
@@ -79,6 +81,12 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                   child: Container(
                     height: Get.height / 2,
                     child: SfCartesianChart(
+                      title: ChartTitle(
+                        text: widget.chartTitle,
+                        textStyle: TextStyle(
+                          fontFamily: 'KhmerOSBattambong',
+                        ),
+                      ),
                       primaryXAxis: CategoryAxis(
                         labelStyle: TextStyle(
                           fontFamily: 'KhmerOSBattambong',
@@ -91,7 +99,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                       tooltipBehavior: _tooltipBehavior,
                       series: <BarSeries<ChartModel, String>>[
                         BarSeries(
-                          name: "កម្រិតសញ្ញាបត្រ និង ជំនាញ",
+                          name: widget.chartTitle,
                           dataSource: certificateData,
                           xValueMapper: (datum, index) => datum.name,
                           yValueMapper: (datum, index) => datum.amount,

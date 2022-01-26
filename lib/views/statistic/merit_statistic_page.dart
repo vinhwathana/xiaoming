@@ -12,10 +12,12 @@ class MeritStatisticPage extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.chartTitle,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String chartTitle;
 
   @override
   _MeritStatisticPageState createState() => _MeritStatisticPageState();
@@ -72,6 +74,12 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                   child: Container(
                     height: Get.height,
                     child: SfCartesianChart(
+                      title: ChartTitle(
+                        text: widget.chartTitle,
+                        textStyle: TextStyle(
+                          fontFamily: 'KhmerOSBattambong',
+                        ),
+                      ),
                       primaryXAxis: CategoryAxis(
                         labelStyle: TextStyle(
                           fontFamily: 'KhmerOSBattambong',
@@ -84,7 +92,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                       tooltipBehavior: _tooltipBehavior,
                       series: <BarSeries<ChartModel, String>>[
                         BarSeries(
-                          name: "កម្រិតសញ្ញាបត្រ",
+                          name: widget.chartTitle,
                           dataSource: meritData,
                           xValueMapper: (datum, index) => datum.name,
                           yValueMapper: (datum, index) => datum.amount,
