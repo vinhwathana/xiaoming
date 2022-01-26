@@ -152,7 +152,7 @@ class TwoColumnDataGridSource extends DataGridSource {
       cells: row.getCells().map<Widget>(
             (dataGridCell) {
           return Container(
-            padding: EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
               dataGridCell.value.toString(),

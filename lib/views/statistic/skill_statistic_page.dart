@@ -70,7 +70,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                   margin: EdgeInsets.all(8),
                   elevation: 3,
                   child: Container(
-                    height: Get.height / 2,
+                    height: Get.height / 1.5,
                     child: SfCartesianChart(
                       primaryXAxis: CategoryAxis(
                         labelStyle: TextStyle(
@@ -121,7 +121,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
                           columnName: '${headerTitles[index]}',
-                          columnWidthMode: ColumnWidthMode.fitByColumnName,
+                          columnWidthMode: ColumnWidthMode.auto,
                           label: Container(
                               padding: EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
@@ -137,7 +137,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                           allowSorting: true,
                         );
                       }),
-                      columnWidthMode: ColumnWidthMode.fitByCellValue,
+                      columnWidthMode: ColumnWidthMode.auto,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
                     ),

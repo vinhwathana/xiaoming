@@ -119,9 +119,9 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                         firstColumnName: headerTitles[0],
                         secondColumnName: headerTitles[1],
                       ),
-                      onQueryRowHeight: (details) {
-                        return details.getIntrinsicRowHeight(details.rowIndex);
-                      },
+                      // onQueryRowHeight: (details) {
+                      //   return details.getIntrinsicRowHeight(details.rowIndex);
+                      // },
                       shrinkWrapRows: true,
                       verticalScrollPhysics: NeverScrollableScrollPhysics(),
                       horizontalScrollPhysics: NeverScrollableScrollPhysics(),

@@ -117,6 +117,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                       },
                       shrinkWrapRows: true,
                       verticalScrollPhysics: NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics: NeverScrollableScrollPhysics(),
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
                           columnName: '${headerTitles[index]}',
@@ -136,7 +137,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                           allowSorting: true,
                         );
                       }),
-                      columnWidthMode: ColumnWidthMode.fitByCellValue,
+                      columnWidthMode: ColumnWidthMode.fitByColumnName,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
                     ),

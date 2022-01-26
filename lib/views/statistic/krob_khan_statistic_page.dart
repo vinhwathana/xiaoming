@@ -105,15 +105,16 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                       firstColumnName: headerTitles[0],
                       secondColumnName: headerTitles[1],
                     ),
-                    onQueryRowHeight: (details) {
-                      return details.getIntrinsicRowHeight(details.rowIndex);
-                    },
+                    // onQueryRowHeight: (details) {
+                    //   return details.getIntrinsicRowHeight(details.rowIndex);
+                    // },
                     shrinkWrapRows: true,
                     verticalScrollPhysics: NeverScrollableScrollPhysics(),
+                    horizontalScrollPhysics: NeverScrollableScrollPhysics(),
                     columns: List.generate(headerTitles.length, (index) {
                       return GridColumn(
                         columnName: '${headerTitles[index]}',
-                        columnWidthMode: ColumnWidthMode.fitByColumnName,
+                        columnWidthMode: ColumnWidthMode.auto,
                         label: Container(
                             padding: EdgeInsets.all(8.0),
                             alignment: Alignment.centerLeft,
@@ -129,7 +130,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                         allowSorting: true,
                       );
                     }),
-                    columnWidthMode: ColumnWidthMode.fitByCellValue,
+                    columnWidthMode: ColumnWidthMode.auto,
                     allowSorting: true,
                     sortingGestureType: SortingGestureType.tap,
                   ),
