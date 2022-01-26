@@ -18,9 +18,9 @@ class StaffStatisticPage extends StatefulWidget {
 }
 
 class _StaffStatisticPageState extends State<StaffStatisticPage> {
-  // List<StaffData>? _chartData;
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
+
   @override
   void initState() {
     _tooltipBehavior = TooltipBehavior(
@@ -48,7 +48,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> {
         }
 
         final staffData = snapshot.data;
-        if(staffData == null || staffData.length == 0){
+        if (staffData == null || staffData.length == 0) {
           return Center(child: Text("No Data Available"));
         }
 
@@ -131,13 +131,13 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> {
     );
   }
 
-  // List<StaffData> getChatData() {
-  //   final List<StaffData> chartData = [
-  //     StaffData("ប្រុស", 12, Colors.green),
-  //     StaffData("ស្រី", 23, Colors.deepPurpleAccent),
-  //   ];
-  //   return chartData;
-  // }
+// List<StaffData> getChatData() {
+//   final List<StaffData> chartData = [
+//     StaffData("ប្រុស", 12, Colors.green),
+//     StaffData("ស្រី", 23, Colors.deepPurpleAccent),
+//   ];
+//   return chartData;
+// }
 }
 
 class StaffData {

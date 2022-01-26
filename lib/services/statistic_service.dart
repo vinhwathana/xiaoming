@@ -11,8 +11,6 @@ import 'package:xiaoming/models/statistic/result_organization.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
 import 'dart:math' as math;
-
-import 'package:xiaoming/views/statistic/chart_page.dart';
 import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
 
 class StatisticService {

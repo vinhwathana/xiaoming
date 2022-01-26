@@ -18,17 +18,18 @@ class CertificateStatisticPage extends StatefulWidget {
   final String org;
 
   @override
-  _CertificateStatisticPageState createState() => _CertificateStatisticPageState();
+  _CertificateStatisticPageState createState() =>
+      _CertificateStatisticPageState();
 }
 
 class _CertificateStatisticPageState extends State<CertificateStatisticPage> {
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
-  final filterDialogController = Get.put(FilterDialogController());
   final List<String> headerTitles = [
     "កម្រិតសញ្ញាបត្រ",
     "រាប់តែចំនួនសរុប",
   ];
+
   @override
   void initState() {
     _tooltipBehavior = TooltipBehavior(
@@ -75,7 +76,6 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage> {
                     maximum: max.toDouble(),
                     labelFormat: '{value}',
                   ),
-
                   tooltipBehavior: _tooltipBehavior,
                   series: <BarSeries<CertificateData, String>>[
                     BarSeries(
@@ -104,6 +104,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage> {
                     source: TableDataSource(
                       certificateData: certificateData,
                     ),
+                    shrinkWrapRows: true,
                     columns: List.generate(headerTitles.length, (index) {
                       return GridColumn(
                         columnName: '${headerTitles[index]}',
@@ -138,49 +139,6 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage> {
       },
     );
   }
-
-  List<CertificateData> barSeries() {
-    return [
-      CertificateData('Jan', 12, Colors.red),
-      CertificateData('Feb', 23, Colors.black),
-      CertificateData('Mar', 34, Colors.amberAccent),
-      CertificateData('Apr', 45, Colors.cyanAccent),
-      CertificateData('Jun', 56, Colors.greenAccent),
-      CertificateData('Jul', 67, Colors.purpleAccent),
-    ];
-  }
-
-
-
-  // Widget dataTable() {
-  //   return SfDataGrid(
-  //     source: TableDataSource(
-  //       certificateData: barSeries(),
-  //     ),
-  //     onQueryRowHeight: (details) {
-  //       return details.getIntrinsicRowHeight(details.rowIndex);
-  //     },
-  //     columns: List.generate(headerTitles.length, (index) {
-  //       return GridColumn(
-  //         columnName: '${headerTitles[index]}',
-  //         columnWidthMode: ColumnWidthMode.fitByColumnName,
-  //         label: Container(
-  //             padding: EdgeInsets.all(8.0),
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               '${headerTitles[index]}',
-  //               style: TextStyle(
-  //                 color: Colors.black,
-  //                 fontFamily: "KhmerOSBattambong",
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             )),
-  //       );
-  //     }),
-  //     columnWidthMode: ColumnWidthMode.auto,
-  //
-  //   );
-  // }
 }
 
 class TableDataSource extends DataGridSource {
@@ -230,8 +188,6 @@ class TableDataSource extends DataGridSource {
       ).toList(),
     );
   }
-
-
 }
 
 class CertificateData {

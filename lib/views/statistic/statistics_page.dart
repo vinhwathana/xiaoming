@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
+import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/utils/api_route.dart';
 import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
 import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
@@ -16,8 +17,7 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  List<GenderData>? _chartData;
-
+  final filterDialogController = Get.put(FilterDialogController());
   String dept = "00";
   String org = "00";
   String degree = "P";
@@ -30,12 +30,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
     Tab(text: "ឥស្សរិយយស្ស"),
     Tab(text: "កាំបៀវត្ស"),
   ];
-
-  @override
-  void initState() {
-    _chartData = getChatData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +68,14 @@ class _StatisticsPageState extends State<StatisticsPage> {
         body: SafeArea(
           child: TabBarView(
             children: <Widget>[
-              SkillByDegreeStatisticPage(),
-              pieChart(),
+              SkillByDegreeStatisticPage(
+                org: org,
+                dept: dept,
+              ),
+              SkillByDegreeStatisticPage(
+                org: org,
+                dept: dept,
+              ),
               CertificateStatisticPage(
                 org: org,
                 dept: dept,
@@ -84,93 +84,19 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 org: org,
                 dept: dept,
               ),
-              pieChart(),
-              pieChart(),
+              SkillByDegreeStatisticPage(
+                org: org,
+                dept: dept,
+              ),
+              SkillByDegreeStatisticPage(
+                org: org,
+                dept: dept,
+              ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget pieChart() {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 2,
-          child: SfCircularChart(
-            // title: ChartTitle(text: 'ភេទ',
-            // textStyle: TextStyle(fontWeight: FontWeight.bold)),
-            //legend: Legend(isVisible: true,),
-            // tooltipBehavior: _tooltipBehavior,
-            palette: [Colors.pink, Colors.blue],
-            series: <CircularSeries>[
-              PieSeries<GenderData, int>(
-                  dataSource: _chartData,
-                  xValueMapper: (GenderData data, _) => data.male,
-                  yValueMapper: (GenderData data, _) => data.male,
-                  dataLabelSettings: DataLabelSettings(
-                    isVisible: true,
-                    textStyle: TextStyle(fontSize: 20),
-                  ),
-                  enableTooltip: true),
-            ],
-          ),
-        ),
-        Divider(),
-        Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'ប្រុស',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              Text(
-                'ស្រី',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              Text(
-                'សរុប',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              )
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '934',
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                '459',
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                '1393',
-                style: TextStyle(fontSize: 16),
-              )
-            ],
-          ),
-        ),
-        Divider(),
-      ],
-    );
-  }
-
-  List<GenderData> getChatData() {
-    final List<GenderData> chartData = [
-      GenderData(459),
-      GenderData(934),
-    ];
-    return chartData;
   }
 }
 
