@@ -48,12 +48,12 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
   }
 
   Widget skillChart() {
-    return FutureBuilder<List<BarChartModel>?>(
+    return FutureBuilder<List<ChartModel>?>(
       future: statService.getMerits("${widget.org}", "${widget.dept}"),
       builder: (context, snapshot) {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
-          final List<BarChartModel>? meritData = snapshot.data;
+          final List<ChartModel>? meritData = snapshot.data;
           if (meritData == null || meritData.length == 0) {
             return Center(child: Text("No Data Available"));
           }
@@ -82,7 +82,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                         labelFormat: '{value}',
                       ),
                       tooltipBehavior: _tooltipBehavior,
-                      series: <BarSeries<BarChartModel, String>>[
+                      series: <BarSeries<ChartModel, String>>[
                         BarSeries(
                           name: "កម្រិតសញ្ញាបត្រ",
                           dataSource: meritData,
@@ -107,8 +107,10 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                       sortIconColor: Colors.black,
                     ),
                     child: SfDataGrid(
-                      source: TableDataSource(
-                        certificateData: meritData,
+                      source: TwoColumnDataGridSource(
+                        tableData: meritData,
+                        firstColumnName: headerTitles[0],
+                        secondColumnName: headerTitles[1],
                       ),
                       onQueryRowHeight: (details) {
                         return details.getIntrinsicRowHeight(details.rowIndex);
@@ -154,52 +156,52 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
   @override
   bool get wantKeepAlive => true;
 }
-
-class TableDataSource extends DataGridSource {
-  TableDataSource({
-    required this.certificateData,
-  }) {
-    _certificateData = certificateData.map<DataGridRow>((e) {
-      return DataGridRow(
-        cells: [
-          DataGridCell<String>(
-            columnName: 'កម្រិតសញ្ញាបត្រ',
-            value: e.name,
-          ),
-          DataGridCell<int>(
-            columnName: 'រាប់តែចំនួនសរុប',
-            value: e.amount.toInt(),
-          ),
-        ],
-      );
-    }).toList();
-  }
-
-  final List<BarChartModel> certificateData;
-  List<DataGridRow> _certificateData = [];
-
-  @override
-  List<DataGridRow> get rows => _certificateData;
-
-  @override
-  DataGridRowAdapter? buildRow(DataGridRow row) {
-    return DataGridRowAdapter(
-      cells: row.getCells().map<Widget>(
-        (dataGridCell) {
-          return Container(
-            padding: EdgeInsets.all(12.0),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              dataGridCell.value.toString(),
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-  }
-}
+//
+// class TableDataSource extends DataGridSource {
+//   TableDataSource({
+//     required this.certificateData,
+//   }) {
+//     _certificateData = certificateData.map<DataGridRow>((e) {
+//       return DataGridRow(
+//         cells: [
+//           DataGridCell<String>(
+//             columnName: 'កម្រិតសញ្ញាបត្រ',
+//             value: e.name,
+//           ),
+//           DataGridCell<int>(
+//             columnName: 'រាប់តែចំនួនសរុប',
+//             value: e.amount.toInt(),
+//           ),
+//         ],
+//       );
+//     }).toList();
+//   }
+//
+//   final List<BarChartModel> certificateData;
+//   List<DataGridRow> _certificateData = [];
+//
+//   @override
+//   List<DataGridRow> get rows => _certificateData;
+//
+//   @override
+//   DataGridRowAdapter? buildRow(DataGridRow row) {
+//     return DataGridRowAdapter(
+//       cells: row.getCells().map<Widget>(
+//         (dataGridCell) {
+//           return Container(
+//             padding: EdgeInsets.all(12.0),
+//             alignment: Alignment.centerLeft,
+//             child: Text(
+//               dataGridCell.value.toString(),
+//               style: TextStyle(
+//                 color: Colors.black,
+//                 fontFamily: 'KhmerOSBattambong',
+//                 height: 1.5,
+//               ),
+//             ),
+//           );
+//         },
+//       ).toList(),
+//     );
+//   }
+// }

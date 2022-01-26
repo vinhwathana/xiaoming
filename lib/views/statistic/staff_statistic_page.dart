@@ -47,7 +47,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
   }
 
   Widget certificateSkillChart() {
-    return FutureBuilder<List<PieChartModel>?>(
+    return FutureBuilder<List<ChartModel>?>(
       future: statService.getStaffCount(widget.org, widget.dept),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -74,10 +74,10 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                   child: SfCircularChart(
                     tooltipBehavior: _tooltipBehavior,
                     series: <CircularSeries>[
-                      PieSeries<PieChartModel, dynamic>(
+                      PieSeries<ChartModel, dynamic>(
                         dataSource: staffData,
                         xValueMapper: (datum, index) => datum.name,
-                        yValueMapper: (PieChartModel data, _) => data.amount.toInt(),
+                        yValueMapper: (ChartModel data, _) => data.amount.toInt(),
                         pointColorMapper: (datum, index) => datum.color,
                         dataLabelSettings: DataLabelSettings(
                           isVisible: true,
@@ -97,8 +97,8 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                     sortIconColor: Colors.black,
                   ),
                   child: SfDataGrid(
-                    source: TableDataSource(
-                      certificateData: staffData ?? [],
+                    source: StaffTableDataSource(
+                      certificateData: staffData,
                     ),
                     onQueryRowHeight: (details) {
                       return details.getIntrinsicRowHeight(details.rowIndex);
@@ -188,8 +188,8 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
   bool get wantKeepAlive => true;
 }
 
-class TableDataSource extends DataGridSource {
-  TableDataSource({
+class StaffTableDataSource extends DataGridSource {
+  StaffTableDataSource({
     required this.certificateData,
   }) {
     _certificateData = certificateData.map<DataGridRow>((e) {
@@ -208,7 +208,7 @@ class TableDataSource extends DataGridSource {
     }).toList();
   }
 
-  final List<PieChartModel> certificateData;
+  final List<ChartModel> certificateData;
   List<DataGridRow> _certificateData = [];
 
   @override

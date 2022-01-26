@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
@@ -117,8 +118,59 @@ class _StatisticsPageState extends State<StatisticsPage>
 // bool get wantKeepAlive => true;
 }
 
-class BarChartModel {
-  const BarChartModel(
+class TwoColumnDataGridSource extends DataGridSource {
+  TwoColumnDataGridSource({
+    required this.tableData,
+    required String firstColumnName,
+    required String secondColumnName,
+  }) {
+    _tableData = tableData.map<DataGridRow>((e) {
+      return DataGridRow(
+        cells: [
+          DataGridCell<String>(
+            columnName: firstColumnName,
+            value: e.name,
+          ),
+          DataGridCell<int>(
+            columnName: secondColumnName,
+            value: e.amount.toInt(),
+          ),
+        ],
+      );
+    }).toList();
+  }
+
+  final List<ChartModel> tableData;
+  List<DataGridRow> _tableData = [];
+
+  @override
+  List<DataGridRow> get rows => _tableData;
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow row) {
+    return DataGridRowAdapter(
+      cells: row.getCells().map<Widget>(
+            (dataGridCell) {
+          return Container(
+            padding: EdgeInsets.all(12.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              dataGridCell.value.toString(),
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
+            ),
+          );
+        },
+      ).toList(),
+    );
+  }
+}
+
+class ChartModel {
+  const ChartModel(
     this.name,
     this.amount,
     this.color,
@@ -129,10 +181,10 @@ class BarChartModel {
   final Color color;
 }
 
-class PieChartModel {
-  const PieChartModel(this.name, this.amount, this.color);
-
-  final String name;
-  final double amount;
-  final Color color;
-}
+// class PieChartModel {
+//   const PieChartModel(this.name, this.amount, this.color);
+//
+//   final String name;
+//   final double amount;
+//   final Color color;
+// }

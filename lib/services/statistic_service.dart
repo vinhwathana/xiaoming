@@ -106,7 +106,7 @@ class StatisticService {
     }
   }
 
-  Future<List<BarChartModel>?> getSkillByDegree(
+  Future<List<ChartModel>?> getSkillByDegree(
     String org,
     String dept,
     String degree,
@@ -140,10 +140,10 @@ class StatisticService {
         final skillByDegreeStatistic =
             skillByDegreeStatisticFromMap(response.body);
 
-        final List<BarChartModel> certificateData = [];
+        final List<ChartModel> certificateData = [];
         skillByDegreeStatistic.forEach((e) {
           certificateData.add(
-            BarChartModel(
+            ChartModel(
               e.categoryName,
               e.total.toDouble(),
               Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -159,7 +159,7 @@ class StatisticService {
     }
   }
 
-  Future<List<BarChartModel>?> getSkills(
+  Future<List<ChartModel>?> getSkills(
     String org,
     String dept,
   ) async {
@@ -190,10 +190,10 @@ class StatisticService {
       if (response.statusCode == 200) {
         final skillStatistic = skillByDegreeStatisticFromMap(response.body);
 
-        final List<BarChartModel> certificateData = [];
+        final List<ChartModel> certificateData = [];
         skillStatistic.forEach((e) {
           certificateData.add(
-            BarChartModel(
+            ChartModel(
               e.categoryName,
               e.total.toDouble(),
               Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -209,7 +209,7 @@ class StatisticService {
     }
   }
 
-  Future<List<BarChartModel>?> getCertificates(
+  Future<List<ChartModel>?> getCertificates(
     String org,
     String dept,
   ) async {
@@ -236,10 +236,10 @@ class StatisticService {
       if (response.statusCode == 200) {
         final certificateStatistic = certificateStatisticFromMap(response.body);
 
-        final List<BarChartModel> certificateData = [];
+        final List<ChartModel> certificateData = [];
         certificateStatistic.forEach((e) {
           certificateData.add(
-            BarChartModel(
+            ChartModel(
               degreesTranslation[e.certName] ?? "",
               e.total.toDouble(),
               Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -255,7 +255,7 @@ class StatisticService {
     }
   }
 
-  Future<List<PieChartModel>?> getStaffCount(
+  Future<List<ChartModel>?> getStaffCount(
     String org,
     String dept,
   ) async {
@@ -286,14 +286,14 @@ class StatisticService {
       if (response.statusCode == 200) {
         final genderStatistic = staffStatisticFromMap(response.body);
 
-        final List<PieChartModel> staffData = [];
+        final List<ChartModel> staffData = [];
 
         final femaleAmount = double.parse(genderStatistic.female);
         final maleAmount = double.parse(genderStatistic.total) - femaleAmount;
 
-        staffData.add(PieChartModel("ប្រុស", maleAmount, Colors.green));
+        staffData.add(ChartModel("ប្រុស", maleAmount, Colors.green));
         staffData
-            .add(PieChartModel("ស្រី", femaleAmount, Colors.deepPurpleAccent));
+            .add(ChartModel("ស្រី", femaleAmount, Colors.deepPurpleAccent));
         return staffData;
       }
       return null;
@@ -302,7 +302,7 @@ class StatisticService {
     }
   }
 
-  Future<List<BarChartModel>?> getMerits(
+  Future<List<ChartModel>?> getMerits(
     String org,
     String dept,
   ) async {
@@ -329,10 +329,10 @@ class StatisticService {
       if (response.statusCode == 200) {
         final meritStatistic = meritStatisticFromMap(response.body);
 
-        final List<BarChartModel> certificateData = [];
+        final List<ChartModel> certificateData = [];
         meritStatistic.forEach((e) {
           certificateData.add(
-            BarChartModel(
+            ChartModel(
               e.meritKh,
               double.parse(e.count),
               Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -348,7 +348,7 @@ class StatisticService {
     }
   }
 
-  Future<List<PieChartModel>?> getKrobKhans(
+  Future<List<ChartModel>?> getKrobKhans(
     String org,
     String dept,
   ) async {
@@ -379,9 +379,9 @@ class StatisticService {
       if (response.statusCode == 200) {
         final krobKhanStatistic = krobKhanStatisticFromMap(response.body);
 
-        final List<PieChartModel> krobKhanData = [];
+        final List<ChartModel> krobKhanData = [];
         krobKhanData.add(
-          PieChartModel(
+          ChartModel(
             "ក",
             double.parse(krobKhanStatistic.a),
             Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -389,7 +389,7 @@ class StatisticService {
           ),
         );
         krobKhanData.add(
-          PieChartModel(
+          ChartModel(
             "ខ",
             double.parse(krobKhanStatistic.b),
             Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -397,7 +397,7 @@ class StatisticService {
           ),
         );
         krobKhanData.add(
-          PieChartModel(
+          ChartModel(
             "គ",
             double.parse(krobKhanStatistic.c),
             Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -405,7 +405,7 @@ class StatisticService {
           ),
         );
         krobKhanData.add(
-          PieChartModel(
+          ChartModel(
             "គ្មាន",
             double.parse(krobKhanStatistic.noKrobkhan),
             Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
@@ -413,7 +413,7 @@ class StatisticService {
           ),
         );
         krobKhanData.add(
-          PieChartModel(
+          ChartModel(
             "ចូលនិវត្តន៍",
             double.parse(krobKhanStatistic.retire),
             Color((math.Random().nextDouble() * 0xFFFFFF).toInt())

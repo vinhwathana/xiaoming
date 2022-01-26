@@ -7,6 +7,11 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/views/statistic/statistics_page.dart';
 import 'certificate_statistic_page.dart';
 
+final List<String> headerTitles = [
+  "ជំនាញ",
+  "រាប់តែចំនួនសរុប",
+];
+
 class SkillByDegreeStatisticPage extends StatefulWidget {
   const SkillByDegreeStatisticPage({
     Key? key,
@@ -27,10 +32,6 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     with AutomaticKeepAliveClientMixin {
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
-  final List<String> headerTitles = [
-    "កម្រិតសញ្ញាបត្រ",
-    "រាប់តែចំនួនសរុប",
-  ];
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
   }
 
   Widget skillByDegreeChart() {
-    return FutureBuilder<List<BarChartModel>?>(
+    return FutureBuilder<List<ChartModel>?>(
       future: statService.getSkillByDegree(
         widget.org,
         widget.dept,
@@ -59,7 +60,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
       builder: (context, snapshot) {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
-          final List<BarChartModel>? certificateData = snapshot.data;
+          final List<ChartModel>? certificateData = snapshot.data;
           if (certificateData == null || certificateData.length == 0) {
             return Center(child: Text("No Data Available"));
           }
@@ -88,7 +89,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                         labelFormat: '{value}',
                       ),
                       tooltipBehavior: _tooltipBehavior,
-                      series: <BarSeries<BarChartModel, String>>[
+                      series: <BarSeries<ChartModel, String>>[
                         BarSeries(
                           name: "កម្រិតសញ្ញាបត្រ និង ជំនាញ",
                           dataSource: certificateData,
@@ -113,8 +114,10 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                       sortIconColor: Colors.black,
                     ),
                     child: SfDataGrid(
-                      source: TableDataSource(
-                        certificateData: certificateData,
+                      source: TwoColumnDataGridSource(
+                        tableData: certificateData,
+                        firstColumnName: headerTitles[0],
+                        secondColumnName: headerTitles[1],
                       ),
                       onQueryRowHeight: (details) {
                         return details.getIntrinsicRowHeight(details.rowIndex);
@@ -125,7 +128,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
                           columnName: '${headerTitles[index]}',
-                          columnWidthMode: ColumnWidthMode.fitByColumnName,
+                          columnWidthMode: ColumnWidthMode.auto,
                           label: Container(
                               padding: EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
@@ -141,7 +144,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                           allowSorting: true,
                         );
                       }),
-                      columnWidthMode: ColumnWidthMode.fitByColumnName,
+                      columnWidthMode: ColumnWidthMode.fitByCellValue,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
                     ),
