@@ -6,12 +6,14 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/statistic/certificate_statistic.dart';
+import 'package:xiaoming/models/statistic/krob_khan_statistic.dart';
+import 'package:xiaoming/models/statistic/merit_statistic.dart';
+import 'package:xiaoming/models/statistic/skill_by_degree_statistic.dart';
 import 'package:xiaoming/models/statistic/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/result_organization.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
 import 'dart:math' as math;
-import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class StatisticService {
   final authController = Get.find<AuthenticationController>();
@@ -104,53 +106,7 @@ class StatisticService {
     }
   }
 
-  Future<List<CertificateData>?> getCertificates(
-    String org,
-    String dept,
-  ) async {
-    if (authController.accessToken == null ||
-        authController.accessToken!.isEmpty) {
-      return null;
-    }
-    final String? ministryCode = authController.getUserMinistryCode();
-    if (ministryCode == null) {
-      return null;
-    }
-
-    try {
-      final uri = Uri.parse(
-          "${api_url.statCertificate}?MinistryCode=$ministryCode&Org=$org&Dept=$dept");
-      final response = await http.get(
-        uri,
-        headers: {
-          HttpHeaders.authorizationHeader:
-              "Bearer ${authController.accessToken!}",
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final certificateStatistic = certificateStatisticFromMap(response.body);
-
-        final List<CertificateData> certificateData = [];
-        certificateStatistic.forEach((e) {
-          certificateData.add(
-            CertificateData(
-              degreesTranslation[e.certName] ?? "",
-              e.total,
-              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
-            ),
-          );
-        });
-        return certificateData;
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<List<CertificateData>?> getSkillByDegree(
+  Future<List<BarChartModel>?> getSkillByDegree(
     String org,
     String dept,
     String degree,
@@ -181,14 +137,15 @@ class StatisticService {
       );
 
       if (response.statusCode == 200) {
-        final certificateStatistic = certificateStatisticFromMap(response.body);
+        final skillByDegreeStatistic =
+            skillByDegreeStatisticFromMap(response.body);
 
-        final List<CertificateData> certificateData = [];
-        certificateStatistic.forEach((e) {
+        final List<BarChartModel> certificateData = [];
+        skillByDegreeStatistic.forEach((e) {
           certificateData.add(
-            CertificateData(
-              degreesTranslation[e.certName] ?? "",
-              e.total,
+            BarChartModel(
+              e.categoryName,
+              e.total.toDouble(),
               Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
                   .withOpacity(1.0),
             ),
@@ -202,7 +159,103 @@ class StatisticService {
     }
   }
 
-  Future<List<StaffData>?> getStaffCount(
+  Future<List<BarChartModel>?> getSkills(
+    String org,
+    String dept,
+  ) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statSkills}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final skillStatistic = skillByDegreeStatisticFromMap(response.body);
+
+        final List<BarChartModel> certificateData = [];
+        skillStatistic.forEach((e) {
+          certificateData.add(
+            BarChartModel(
+              e.categoryName,
+              e.total.toDouble(),
+              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0),
+            ),
+          );
+        });
+        return certificateData;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<BarChartModel>?> getCertificates(
+    String org,
+    String dept,
+  ) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+          "${api_url.statCertificate}?MinistryCode=$ministryCode&Org=$org&Dept=$dept");
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final certificateStatistic = certificateStatisticFromMap(response.body);
+
+        final List<BarChartModel> certificateData = [];
+        certificateStatistic.forEach((e) {
+          certificateData.add(
+            BarChartModel(
+              degreesTranslation[e.certName] ?? "",
+              e.total.toDouble(),
+              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0),
+            ),
+          );
+        });
+        return certificateData;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<PieChartModel>?> getStaffCount(
     String org,
     String dept,
   ) async {
@@ -233,14 +286,141 @@ class StatisticService {
       if (response.statusCode == 200) {
         final genderStatistic = staffStatisticFromMap(response.body);
 
-        final List<StaffData> staffData = [];
+        final List<PieChartModel> staffData = [];
 
-        final femaleAmount = int.parse(genderStatistic.female);
-        final maleAmount = int.parse(genderStatistic.total) - femaleAmount;
+        final femaleAmount = double.parse(genderStatistic.female);
+        final maleAmount = double.parse(genderStatistic.total) - femaleAmount;
 
-        staffData.add(StaffData("ប្រុស", maleAmount, Colors.green));
-        staffData.add(StaffData("ស្រី", femaleAmount, Colors.deepPurpleAccent));
+        staffData.add(PieChartModel("ប្រុស", maleAmount, Colors.green));
+        staffData
+            .add(PieChartModel("ស្រី", femaleAmount, Colors.deepPurpleAccent));
         return staffData;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<BarChartModel>?> getMerits(
+    String org,
+    String dept,
+  ) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+          "${api_url.statMerit}?MinistryCode=$ministryCode&Org=$org&Dept=$dept");
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final meritStatistic = meritStatisticFromMap(response.body);
+
+        final List<BarChartModel> certificateData = [];
+        meritStatistic.forEach((e) {
+          certificateData.add(
+            BarChartModel(
+              e.meritKh,
+              double.parse(e.count),
+              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0),
+            ),
+          );
+        });
+        return certificateData;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<PieChartModel>?> getKrobKhans(
+    String org,
+    String dept,
+  ) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statKrobKhan}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final krobKhanStatistic = krobKhanStatisticFromMap(response.body);
+
+        final List<PieChartModel> krobKhanData = [];
+        krobKhanData.add(
+          PieChartModel(
+            "ក",
+            double.parse(krobKhanStatistic.a),
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+          ),
+        );
+        krobKhanData.add(
+          PieChartModel(
+            "ខ",
+            double.parse(krobKhanStatistic.b),
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+          ),
+        );
+        krobKhanData.add(
+          PieChartModel(
+            "គ",
+            double.parse(krobKhanStatistic.c),
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+          ),
+        );
+        krobKhanData.add(
+          PieChartModel(
+            "គ្មាន",
+            double.parse(krobKhanStatistic.noKrobkhan),
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+          ),
+        );
+        krobKhanData.add(
+          PieChartModel(
+            "ចូលនិវត្តន៍",
+            double.parse(krobKhanStatistic.retire),
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0),
+          ),
+        );
+        return krobKhanData;
       }
       return null;
     } catch (e) {
@@ -255,4 +435,12 @@ class StatisticService {
     "under_bachelor": "បរិញ្ញាបត្ររង",
     "engineer": "វិស្វករ",
   };
+  final List<String> krobKhans = [
+    "ទាំងអស់",
+    "ក",
+    "ខ",
+    "គ",
+    "គ្មាន",
+    "ចូលនិវត្តន៍",
+  ];
 }

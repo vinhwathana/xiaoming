@@ -7,8 +7,8 @@ import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/views/statistic/statistics_page.dart';
 
-class CertificateStatisticPage extends StatefulWidget {
-  const CertificateStatisticPage({
+class MeritStatisticPage extends StatefulWidget {
+  const MeritStatisticPage({
     Key? key,
     required this.org,
     required this.dept,
@@ -18,11 +18,10 @@ class CertificateStatisticPage extends StatefulWidget {
   final String org;
 
   @override
-  _CertificateStatisticPageState createState() =>
-      _CertificateStatisticPageState();
+  _MeritStatisticPageState createState() => _MeritStatisticPageState();
 }
 
-class _CertificateStatisticPageState extends State<CertificateStatisticPage>
+class _MeritStatisticPageState extends State<MeritStatisticPage>
     with AutomaticKeepAliveClientMixin {
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
@@ -45,20 +44,21 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return certificateSkillChart();
+    return skillChart();
   }
 
-  Widget certificateSkillChart() {
+  Widget skillChart() {
     return FutureBuilder<List<BarChartModel>?>(
-      future: statService.getCertificates("${widget.org}", "${widget.dept}"),
+      future: statService.getMerits("${widget.org}", "${widget.dept}"),
       builder: (context, snapshot) {
-        if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
-          final List<BarChartModel>? certificateData = snapshot.data;
-          if (certificateData == null || certificateData.length == 0) {
+        if (snapshot.hasData ||
+            snapshot.connectionState == ConnectionState.done) {
+          final List<BarChartModel>? meritData = snapshot.data;
+          if (meritData == null || meritData.length == 0) {
             return Center(child: Text("No Data Available"));
           }
-          double max = certificateData[0].amount;
-          certificateData.forEach((element) {
+          double max = meritData[0].amount;
+          meritData.forEach((element) {
             if (max < element.amount) {
               max = element.amount;
             }
@@ -70,7 +70,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                   margin: EdgeInsets.all(8),
                   elevation: 3,
                   child: Container(
-                    height: Get.height/2,
+                    height: Get.height,
                     child: SfCartesianChart(
                       primaryXAxis: CategoryAxis(
                         labelStyle: TextStyle(
@@ -85,7 +85,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                       series: <BarSeries<BarChartModel, String>>[
                         BarSeries(
                           name: "កម្រិតសញ្ញាបត្រ",
-                          dataSource: certificateData,
+                          dataSource: meritData,
                           xValueMapper: (datum, index) => datum.name,
                           yValueMapper: (datum, index) => datum.amount,
                           pointColorMapper: (datum, index) => datum.color,
@@ -108,14 +108,13 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                     ),
                     child: SfDataGrid(
                       source: TableDataSource(
-                        certificateData: certificateData,
+                        certificateData: meritData,
                       ),
                       onQueryRowHeight: (details) {
                         return details.getIntrinsicRowHeight(details.rowIndex);
                       },
                       shrinkWrapRows: true,
                       verticalScrollPhysics: NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: NeverScrollableScrollPhysics(),
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
                           columnName: '${headerTitles[index]}',
@@ -135,7 +134,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                           allowSorting: true,
                         );
                       }),
-                      columnWidthMode: ColumnWidthMode.auto,
+                      columnWidthMode: ColumnWidthMode.fitByCellValue,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
                     ),

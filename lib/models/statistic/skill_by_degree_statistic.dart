@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-List<CertificateSkillStatistic> certificateSkillStatisticFromMap(String str) =>
-    List<CertificateSkillStatistic>.from(
-        json.decode(str).map((x) => CertificateSkillStatistic.fromMap(x)));
+List<SkillByDegreeStatistic> skillByDegreeStatisticFromMap(String str) =>
+    List<SkillByDegreeStatistic>.from(
+        json.decode(str).map((x) => SkillByDegreeStatistic.fromMap(x)));
 
-String certificateSkillStatisticToMap(List<CertificateSkillStatistic> data) =>
+String skillByDegreeStatisticToMap(List<SkillByDegreeStatistic> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
 
-class CertificateSkillStatistic {
-  CertificateSkillStatistic({
+class SkillByDegreeStatistic {
+  SkillByDegreeStatistic({
     required this.categoryName,
     required this.categoryNameEn,
     required this.total,
@@ -18,8 +18,8 @@ class CertificateSkillStatistic {
   final String categoryNameEn;
   final int total;
 
-  factory CertificateSkillStatistic.fromMap(Map<String, dynamic> json) =>
-      CertificateSkillStatistic(
+  factory SkillByDegreeStatistic.fromMap(Map<String, dynamic> json) =>
+      SkillByDegreeStatistic(
         categoryName: json["category_name"],
         categoryNameEn: json["category_name_en"],
         total: json["total"],

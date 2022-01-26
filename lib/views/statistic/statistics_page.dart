@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/utils/api_route.dart';
+import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
+import 'package:xiaoming/views/statistic/krob_khan_statistic_page.dart';
+import 'package:xiaoming/views/statistic/merit_statistic_page.dart';
 import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
 import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
+import 'package:xiaoming/views/statistic/skill_statistic_page.dart';
 import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -16,11 +18,16 @@ class StatisticsPage extends StatefulWidget {
   _StatisticsPageState createState() => _StatisticsPageState();
 }
 
-class _StatisticsPageState extends State<StatisticsPage> {
+class _StatisticsPageState extends State<StatisticsPage>
+    with SingleTickerProviderStateMixin {
   final filterDialogController = Get.put(FilterDialogController());
   String dept = "00";
   String org = "00";
   String degree = "P";
+  late final tabController = TabController(
+    length: tabs.length,
+    vsync: this,
+  );
 
   final tabs = <Tab>[
     Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
@@ -41,10 +48,14 @@ class _StatisticsPageState extends State<StatisticsPage> {
           title: Text('ស្ថិតិ'),
           actions: [
             IconButton(
+              onPressed: () => setState(() {}),
+              icon: Icon(Icons.refresh),
+            ),
+            IconButton(
               onPressed: () {
                 Get.dialog(
                   FilterDialog(
-                    showDegreeField: false,
+                    showDegreeField: (tabController.index == 0),
                     onConfirm: (org, dept, degree) {
                       setState(() {
                         this.org = org;
@@ -61,18 +72,21 @@ class _StatisticsPageState extends State<StatisticsPage> {
             ),
           ],
           bottom: TabBar(
+            controller: tabController,
             tabs: tabs,
             isScrollable: true,
           ),
         ),
         body: SafeArea(
           child: TabBarView(
+            controller: tabController,
             children: <Widget>[
               SkillByDegreeStatisticPage(
                 org: org,
                 dept: dept,
+                degree: degree,
               ),
-              SkillByDegreeStatisticPage(
+              SkillStatisticPage(
                 org: org,
                 dept: dept,
               ),
@@ -84,11 +98,11 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 org: org,
                 dept: dept,
               ),
-              SkillByDegreeStatisticPage(
+              MeritStatisticPage(
                 org: org,
                 dept: dept,
               ),
-              SkillByDegreeStatisticPage(
+              KrobKhanStatisticPage(
                 org: org,
                 dept: dept,
               ),
@@ -98,10 +112,27 @@ class _StatisticsPageState extends State<StatisticsPage> {
       ),
     );
   }
+
+// @override
+// bool get wantKeepAlive => true;
 }
 
-class GenderData {
-  GenderData(this.male);
+class BarChartModel {
+  const BarChartModel(
+    this.name,
+    this.amount,
+    this.color,
+  );
 
-  final int male;
+  final String name;
+  final double amount;
+  final Color color;
+}
+
+class PieChartModel {
+  const PieChartModel(this.name, this.amount, this.color);
+
+  final String name;
+  final double amount;
+  final Color color;
 }
