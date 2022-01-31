@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 
 class TypeTextField extends StatefulWidget {
   const TypeTextField({
@@ -30,6 +31,7 @@ class TypeTextField extends StatefulWidget {
   final Function()? onEditingComplete;
   final int? maxLength;
   final bool enableInteractiveSelection;
+
   @override
   State<TypeTextField> createState() => _TypeTextFieldState();
 }
@@ -56,8 +58,8 @@ class _TypeTextFieldState extends State<TypeTextField> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: '${widget.hintText}',
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: CompanyColors.blue),
         ),
         suffixIcon: widget.hasObscureText == null
             ? Icon(widget.iconData)

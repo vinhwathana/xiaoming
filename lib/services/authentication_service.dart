@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/utils/constant.dart';
@@ -90,8 +92,30 @@ class AuthenticationService {
       }),
     );
     return response;
-    // "email": "sannchesda8981@gmail.com",
-    // "password": "376893",
-    // "otpCode": "376893"
+  }
+
+  Future<http.Response?> changePassword(
+      String email, String oldPassword, String newPassword) async {
+    final uri = Uri.parse(api_url.changePassword);
+    final authController = Get.find<AuthenticationController>();
+    final accessToken = authController.accessToken;
+    try{
+      final response = await http.post(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $accessToken',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: jsonEncode({
+          "username": email,
+          "password": oldPassword,
+          "newpassword": newPassword
+        }),
+      );
+      return response;
+    }catch (e){
+      return null;
+    }
+
   }
 }

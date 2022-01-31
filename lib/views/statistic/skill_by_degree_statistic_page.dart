@@ -42,6 +42,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
         fontFamily: 'KhmerOSBattambong',
       ),
     );
+
     super.initState();
   }
 
@@ -71,6 +72,11 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
               max = element.amount;
             }
           }
+          final dataGridData = TwoColumnDataGridSource(
+            tableData: certificateData,
+            firstColumnName: headerTitles[0],
+            secondColumnName: headerTitles[1],
+          );
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -121,14 +127,11 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                       sortIconColor: Colors.black,
                     ),
                     child: SfDataGrid(
-                      source: TwoColumnDataGridSource(
-                        tableData: certificateData,
-                        firstColumnName: headerTitles[0],
-                        secondColumnName: headerTitles[1],
-                      ),
+                      source: dataGridData,
                       // onQueryRowHeight: (details) {
                       //   return details.getIntrinsicRowHeight(details.rowIndex);
                       // },
+
                       shrinkWrapRows: true,
                       verticalScrollPhysics: const NeverScrollableScrollPhysics(),
                       horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
@@ -148,6 +151,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               )),
+                          visible: true,
                           allowSorting: true,
                         );
                       }),

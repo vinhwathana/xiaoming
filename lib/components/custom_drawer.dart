@@ -7,6 +7,7 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/big_image_page.dart';
+import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/personal_info/personal_info_page.dart';
@@ -180,6 +181,14 @@ class _DrawerItemState extends State<_DrawerItem> {
         const ListTile(
           leading: Icon(Icons.insert_drive_file),
           title: Text('ឯកសារ'),
+        ),
+        const Divider(),
+        ListTile(
+          leading: Icon(Icons.password),
+          title: Text('ផ្លាស់ប្តូរពាក្យសម្ងាត់'),
+          onTap: () {
+            Get.to(() => ChangePasswordPage());
+          },
         ),
         const Divider(),
         ListTile(

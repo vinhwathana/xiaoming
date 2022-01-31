@@ -122,8 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                         height: 35,
                       ),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 18,
+                          width: Get.width,
+                          height: Get.height / 18,
                           child: ElevatedButton(
                             child: const Text('ចូល'),
                             onPressed: () {
