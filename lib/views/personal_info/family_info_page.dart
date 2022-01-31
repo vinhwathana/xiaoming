@@ -89,7 +89,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
           columnName: headerTitles[index],
-          columnWidthMode: ColumnWidthMode.fitByColumnName,
+          columnWidthMode: ColumnWidthMode.auto,
           label: Container(
               padding: const EdgeInsets.all(8.0),
               alignment: Alignment.center,
