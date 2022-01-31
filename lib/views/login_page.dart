@@ -46,8 +46,6 @@ class _LoginPageState extends State<LoginPage> {
       if (token != null) {
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
-      } else {
-        showToast("tokenNull");
       }
     }
     setState(() {

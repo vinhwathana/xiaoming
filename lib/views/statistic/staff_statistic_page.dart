@@ -140,52 +140,6 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                   ),
                 ),
               ),
-              // Divider(),
-              // Container(
-              //   padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text(
-              //         'ប្រុស',
-              //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              //       ),
-              //       Text(
-              //         'ស្រី',
-              //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              //       ),
-              //       Text(
-              //         'សរុប',
-              //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              //       )
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   elevation: 3,
-              //   margin: EdgeInsets.all(8),
-              //   child: Container(
-              //     padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Text(
-              //           staffData[0].amount.toInt().toString(),
-              //           style: TextStyle(fontSize: 16),
-              //         ),
-              //         Text(
-              //           staffData[1].amount.toInt().toString(),
-              //           style: TextStyle(fontSize: 16),
-              //         ),
-              //         Text(
-              //           (staffData[0].amount + staffData[1].amount).toInt().toString(),
-              //           style: TextStyle(fontSize: 16),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // Divider(),
             ],
           ),
         );
