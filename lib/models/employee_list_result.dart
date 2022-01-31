@@ -20,14 +20,14 @@ class EmployeeListResult {
 
   factory EmployeeListResult.fromMap(Map<String, dynamic> json) =>
       EmployeeListResult(
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : User.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data!.toMap(),
       };
 }

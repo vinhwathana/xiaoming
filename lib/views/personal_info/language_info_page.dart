@@ -8,6 +8,8 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/language.dart';
 
 class LanguageInfoPage extends StatelessWidget {
+  const LanguageInfoPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +18,11 @@ class LanguageInfoPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: LanguageInfoTable(),
+            child: const LanguageInfoTable(),
           ),
         ),
       ),
@@ -54,8 +56,10 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
     return userController.users!.value.languages!;
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = const TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     "ភាសា",
@@ -75,14 +79,14 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
+            columnName: headerTitles[index],
             columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
+                  headerTitles[index],
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "KhmerOSBattambong",
                     fontWeight: FontWeight.bold,
@@ -156,8 +160,8 @@ class LanguageDataSource extends DataGridSource {
               final fileViewer = FileViewer();
               fileViewer.displayFile(context, attachmentList);
             },
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.description),
+            padding: const EdgeInsets.all(0),
+            icon: const Icon(Icons.description),
           );
         }
         return Container(
@@ -166,11 +170,11 @@ class LanguageDataSource extends DataGridSource {
           //     ? Alignment.centerRight
           //     : Alignment.centerLeft,
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

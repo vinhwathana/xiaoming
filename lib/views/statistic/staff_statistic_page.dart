@@ -35,7 +35,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
   void initState() {
     _tooltipBehavior = TooltipBehavior(
       enable: true,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         fontFamily: 'KhmerOSBattambong',
       ),
     );
@@ -53,14 +53,14 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
       future: statService.getStaffCount(widget.org, widget.dept),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
         final staffData = snapshot.data;
         if (staffData == null || staffData.length == 0) {
-          return Center(child: Text("No Data Available"));
+          return const Center(child: Text("No Data Available"));
         }
 
         return SingleChildScrollView(
@@ -68,15 +68,15 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
             children: [
               Card(
                 elevation: 3,
-                margin: EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   width: Get.width,
                   height: Get.height / 2,
                   child: SfCircularChart(
                     title: ChartTitle(
                       text: widget.chartTitle,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontFamily: 'KhmerOSBattambong',
                       ),
                     ),
@@ -88,7 +88,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                         xValueMapper: (datum, index) => datum.name,
                         yValueMapper: (ChartModel data, _) => data.amount.toInt(),
                         pointColorMapper: (datum, index) => datum.color,
-                        dataLabelSettings: DataLabelSettings(
+                        dataLabelSettings: const DataLabelSettings(
                           isVisible: true,
                           textStyle: TextStyle(fontSize: 20),
                         ),
@@ -100,7 +100,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
               ),
               Card(
                 elevation: 3,
-                margin: EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
                 child: SfDataGridTheme(
                   data: SfDataGridThemeData(
                     sortIconColor: Colors.black,
@@ -113,18 +113,18 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                       return details.getIntrinsicRowHeight(details.rowIndex);
                     },
                     shrinkWrapRows: true,
-                    verticalScrollPhysics: NeverScrollableScrollPhysics(),
-                    horizontalScrollPhysics: NeverScrollableScrollPhysics(),
+                    verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+                    horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                     columns: List.generate(headerTitles.length, (index) {
                       return GridColumn(
-                        columnName: '${headerTitles[index]}',
+                        columnName: headerTitles[index],
                         columnWidthMode: ColumnWidthMode.fitByColumnName,
                         label: Container(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              '${headerTitles[index]}',
-                              style: TextStyle(
+                              headerTitles[index],
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: "KhmerOSBattambong",
                                 fontWeight: FontWeight.bold,
@@ -229,11 +229,11 @@ class StaffTableDataSource extends DataGridSource {
       cells: row.getCells().map<Widget>(
             (dataGridCell) {
           return Container(
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             alignment: Alignment.centerLeft,
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

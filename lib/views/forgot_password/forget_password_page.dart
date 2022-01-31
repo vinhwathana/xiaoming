@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
-import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/forgot_password/verify_otp_page.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
+  const ForgetPasswordPage({Key? key}) : super(key: key);
+
   @override
   _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
 }
@@ -35,8 +36,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         });
         if (value) {
           Get.to(() => VerifyOtpPage(
-            email: email,
-          ));
+                email: email,
+              ));
         } else {
           showToast("Error Occurred");
         }
@@ -61,23 +62,23 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         key: _formStateKey,
                         child: Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Column(
                             children: [
                               TypeTextField(
                                 controller: emailCon,
                                 hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
                                 iconData: Icons.email,
-                                autofillHints: [AutofillHints.email],
+                                autofillHints: const [AutofillHints.email],
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) => validateEmail(value!),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     'យើងនឹងផ្ញើពាក្យសម្ចាត់ដើម្បីកំណត់តំណទៅអ៊ីមែលរបស់អ្នក',
                                     textAlign: TextAlign.left,
@@ -87,20 +88,20 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 35.0),
-                              Container(
+                              const SizedBox(height: 35.0),
+                              SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   height:
                                       MediaQuery.of(context).size.height / 18,
                                   child: ElevatedButton(
-                                    child: Text('ផ្ញើរ OTP'),
+                                    child: const Text('ផ្ញើរ OTP'),
                                     onPressed: () => _submitLogin(),
                                   )),
                               TextButton(
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child: Text('ត្រឡប់ទៅចូលវិញ'),
+                                child: const Text('ត្រឡប់ទៅចូលវិញ'),
                               )
                             ],
                           ),
@@ -111,7 +112,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             ),
             Visibility(
               visible: isVisible,
-              child: Center(
+              child: const Center(
                 heightFactor: 15,
                 child: CircularProgressIndicator(),
               ),
@@ -120,7 +121,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ),
       ),
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
     );
   }

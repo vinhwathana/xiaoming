@@ -63,27 +63,25 @@ class FamilyInfo {
   String toJson() => json.encode(toMap());
 
   factory FamilyInfo.fromMap(Map<String, dynamic> json) => FamilyInfo(
-        id: json["id"] == null ? null : json["id"],
+        id: json["id"],
         relation: json["relation"] == null
             ? null
             : ListValue.fromMap(json["relation"]),
         job: json["job"] == null ? null : ListValue.fromMap(json["job"]),
-        workPlace: json["workPlace"] == null ? null : json["workPlace"],
-        isGovernmentOfficial: json["isGovermentOfficial"] == null
-            ? null
-            : json["isGovermentOfficial"],
+        workPlace: json["workPlace"],
+        isGovernmentOfficial: json["isGovermentOfficial"],
         attachmentList: List<Attachment?>.from(
             json["attachmentList"].map((x) => Attachment.fromMap(x))),
-        nationalId: json["nationalId"] == null ? null : json["nationalId"],
-        firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
-        lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
-        firstNameEn: json["firstNameEN"] == null ? null : json["firstNameEN"],
-        lastNameEn: json["lastNameEN"] == null ? null : json["lastNameEN"],
+        nationalId: json["nationalId"],
+        firstNameKh: json["firstNameKH"],
+        lastNameKh: json["lastNameKH"],
+        firstNameEn: json["firstNameEN"],
+        lastNameEn: json["lastNameEN"],
         dateOfBirth: json["dateOfBirth"] == null
             ? null
             : DateTime.parse(json["dateOfBirth"]),
-        status: json["status"] == null ? null : json["status"],
-        gender: json["gender"] == null ? null : json["gender"],
+        status: json["status"],
+        gender: json["gender"],
         maritalStatus: json["maritalStatus"] == null
             ? null
             : ListValue.fromMap(json["maritalStatus"]),
@@ -103,33 +101,31 @@ class FamilyInfo {
         currentAddressVillage: json["currentAddressVillage"] == null
             ? null
             : Address.fromMap(json["currentAddressVillage"]),
-        currentAddressDetail: json["currentAddressDetail"] == null
-            ? null
-            : json["currentAddressDetail"],
+        currentAddressDetail: json["currentAddressDetail"],
         contactPhone:
-            json["contactPhone"] == null ? null : json["contactPhone"],
+            json["contactPhone"],
         contactEmail:
-            json["contactEmail"] == null ? null : json["contactEmail"],
+            json["contactEmail"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id == null ? null : id,
+        "id": id,
         "relation": relation == null ? null : relation!.toMap(),
         "job": job == null ? null : job!.toMap(),
-        "workPlace": workPlace == null ? null : workPlace,
+        "workPlace": workPlace,
         "isGovermentOfficial":
-            isGovernmentOfficial == null ? null : isGovernmentOfficial,
+            isGovernmentOfficial,
         "attachmentList": List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
-        "nationalId": nationalId == null ? null : nationalId,
-        "firstNameKH": firstNameKh == null ? null : firstNameKh,
-        "lastNameKH": lastNameKh == null ? null : lastNameKh,
-        "firstNameEN": firstNameEn == null ? null : firstNameEn,
-        "lastNameEN": lastNameEn == null ? null : lastNameEn,
+        "nationalId": nationalId,
+        "firstNameKH": firstNameKh,
+        "lastNameKH": lastNameKh,
+        "firstNameEN": firstNameEn,
+        "lastNameEN": lastNameEn,
         "dateOfBirth": dateOfBirth == null
             ? null
             : "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
-        "status": status == null ? null : status,
-        "gender": gender == null ? null : gender,
+        "status": status,
+        "gender": gender,
         "maritalStatus": maritalStatus == null ? null : maritalStatus!.toMap(),
         "race": race == null ? null : race!.toMap(),
         "nationality": nationality == null ? null : nationality!.toMap(),
@@ -146,9 +142,9 @@ class FamilyInfo {
             ? null
             : currentAddressVillage!.toMap(),
         "currentAddressDetail":
-            currentAddressDetail == null ? null : currentAddressDetail,
-        "contactPhone": contactPhone == null ? null : contactPhone,
-        "contactEmail": contactEmail == null ? null : contactEmail,
+            currentAddressDetail,
+        "contactPhone": contactPhone,
+        "contactEmail": contactEmail,
       };
 
   @override

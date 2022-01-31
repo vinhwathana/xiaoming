@@ -23,7 +23,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final loginService = AuthenticationService();
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   final userService = UserService();
   late final StreamSubscription subscription;
   bool isDialogOpen = false;
@@ -76,7 +76,7 @@ class _LandingPageState extends State<LandingPage> {
             );
           } else {
             return FutureBuilder<String?>(
-              future: storage.read(key: "$tokenKeyName"),
+              future: storage.read(key: tokenKeyName),
               builder: (context, snapshot) {
                 print("Check user token is expire or not");
                 if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
@@ -100,28 +100,27 @@ class _LandingPageState extends State<LandingPage> {
                             final response = snapshot.data;
                             if (response == null ||
                                 response.statusCode != 200) {
-                              print(response?.statusCode ?? null);
+                              print(response?.statusCode);
                               print("Landing Page: invalid Token");
-                              // controller.clearToken();
-                              return LoginPage();
+                              return const LoginPage();
                             }
 
                             userController.setData(response);
                             print("User Data store in controller");
-                            return HomePage();
+                            return const HomePage();
                           } else if (snapshot.hasError) {
-                            return Center(
+                            return const Center(
                               child: Text("Error"),
                             );
                           } else if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             print("Checking token and user data...");
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           } else {
                             print("Token invalid / expire");
-                            return LoginPage();
+                            return const LoginPage();
                           }
                         },
                       );
@@ -129,11 +128,11 @@ class _LandingPageState extends State<LandingPage> {
                   );
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                return Center(
+                return const Center(
                   child: Text("Welcome"),
                 );
               },

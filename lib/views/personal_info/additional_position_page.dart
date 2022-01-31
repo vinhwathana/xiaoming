@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/additiona_position.dart';
-import 'package:xiaoming/models/user.dart';
+
 import 'package:xiaoming/utils/constant.dart';
 
 class AdditionalPositionPage extends StatelessWidget {
+  const AdditionalPositionPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +19,10 @@ class AdditionalPositionPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: AdditionalPositionTable(),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: const AdditionalPositionTable(),
           ),
         ),
       ),
@@ -55,7 +57,7 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
     return userController.users!.value.additionalPositions!;
   }
 
-  final textStyle = TextStyle(
+  final textStyle = const TextStyle(
     color: Colors.black,
     fontFamily: "KhmerOSBattambong",
   );
@@ -78,14 +80,14 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
+            columnName: headerTitles[index],
             columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
+                  headerTitles[index],
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "KhmerOSBattambong",
                     fontWeight: FontWeight.bold,
@@ -154,11 +156,11 @@ class AdditionalPositionDataSource extends DataGridSource {
           }
         }
         return Container(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

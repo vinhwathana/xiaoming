@@ -14,24 +14,11 @@ void main() {
       systemNavigationBarColor: CompanyColors.blue,
       statusBarIconBrightness: Brightness.dark));
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // late Map<int, Color> color = {
-  //   50: Color.fromRGBO(51, 153, 255, .1),
-  //   100: Color.fromRGBO(51, 153, 255, .2),
-  //   200: Color.fromRGBO(51, 153, 255, .3),
-  //   300: Color.fromRGBO(51, 153, 255, .4),
-  //   400: Color.fromRGBO(51, 153, 255, .5),
-  //   500: Color.fromRGBO(51, 153, 255, .6),
-  //   600: Color.fromRGBO(51, 153, 255, .7),
-  //   700: Color.fromRGBO(51, 153, 255, .8),
-  //   800: Color.fromRGBO(51, 153, 255, .9),
-  //   900: Color.fromRGBO(51, 153, 255, 1),
-  // };
-
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -60,7 +47,7 @@ class _MyAppState extends State<MyApp> {
 
       theme: ThemeData(
         primaryColor: const Color(0xFF003D7C),
-        accentColor: const Color(0xFF003D7C),
+        // sec: const Color(0xFF003D7C),
         // accentColor: Color(0xFFF07C08),
         fontFamily: 'KhmerOSBattambong',
         textTheme: const TextTheme(
@@ -88,7 +75,7 @@ class _MyAppState extends State<MyApp> {
           surface: Colors.white,
         ),
       ),
-      home: LandingPage(),
+      home: const LandingPage(),
       // home: DataGridView(),
 
       // initialRoute: '/',

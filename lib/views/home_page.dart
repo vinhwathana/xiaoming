@@ -2,10 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
-import 'package:xiaoming/components/filter_dialog.dart';
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance_page.dart';
@@ -14,7 +13,14 @@ import 'package:xiaoming/views/big_image_page.dart';
 import 'personal_info/personal_info_page.dart';
 import 'statistic/statistics_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   Widget userProfile() {
     return GetBuilder<UserController>(
       builder: (controller) {
@@ -46,7 +52,7 @@ class HomePage extends StatelessWidget {
         return InkWell(
           onTap: () {
             Get.to(
-              () => BigImagePage(
+              () => const BigImagePage(
                 imageBase64: dummyNetworkImage,
                 imageProvider: NetworkImage(
                   dummyNetworkImage,
@@ -54,7 +60,7 @@ class HomePage extends StatelessWidget {
               ),
             );
           },
-          child: Hero(
+          child: const Hero(
             tag: dummyNetworkImage,
             child: CircleAvatar(
               foregroundImage: NetworkImage(
@@ -71,26 +77,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: onWillPop,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                // Get.dialog(
-                //   FilterDialog(
-                //     onChange: () {},
-                //   ),
-                //   useSafeArea: true,
-                // );
-              },
-              icon: Icon(Icons.settings),
-            ),
-          ],
-        ),
-        drawer: const CustomDrawer(),
-        body: const SafeArea(
-          child: HomePageGridView(),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          final authCon = Get.find<AuthenticationController>();
+          authCon.update();
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
+            actions: [
+              IconButton(
+                onPressed: () async {},
+                icon: const Icon(Icons.settings),
+              ),
+            ],
+          ),
+          drawer: const CustomDrawer(),
+          body: const SafeArea(
+            child: HomePageGridView(),
+          ),
         ),
       ),
     );
@@ -105,32 +110,26 @@ class HomePageGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_HomePageItem> homePageItems = [
-      _HomePageItem(
+      const _HomePageItem(
         title: "ព័ត៌មានផ្ទាល់ខ្លួន",
         icon: Icons.person,
         destination: PersonalInfoPage(),
       ),
-      _HomePageItem(
+      const _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",
         icon: Icons.access_time,
         destination: AttendancePage(),
       ),
-      // _HomePageItem(
-      //   title: "ស្កេនវត្តមាន",
-      //   icon: Icons.qr_code_scanner,
-      //   destination: PersonalInfoPage(),
-      // ),
-      _HomePageItem(
+      const _HomePageItem(
         title: "ស្ថិតិ",
         icon: Icons.pie_chart,
         destination: StatisticsPage(),
       ),
     ];
-
     return GridView.builder(
       itemCount: homePageItems.length,
-      padding: EdgeInsets.all(20.0),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      padding: const EdgeInsets.all(20.0),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10.0,
         crossAxisSpacing: 10.0,
@@ -140,7 +139,7 @@ class HomePageGridView extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Theme.of(context).primaryColor),
-          margin: EdgeInsets.all(8.0),
+          margin: const EdgeInsets.all(8.0),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -155,11 +154,11 @@ class HomePageGridView extends StatelessWidget {
                     size: 70.0,
                     color: Colors.white,
                   ),
-                  Divider(),
+                  const Divider(),
                   Text(
                     homePageItems[index].title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                     ),

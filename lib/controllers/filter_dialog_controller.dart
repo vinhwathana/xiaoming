@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/models/statistic/result_organization.dart';
-import 'package:xiaoming/models/utils/organization.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class FilterDialogController extends GetxController {
@@ -55,7 +54,7 @@ class FilterDialogController extends GetxController {
   }
 
   String getSelectedDegreeKey() {
-    return degrees["$selectedDegrees"] ?? degrees.keys.first;
+    return degrees[selectedDegrees] ?? degrees.keys.first;
   }
 
   void updateOrgRegion(RadioValue value) {
@@ -93,7 +92,7 @@ class FilterDialogController extends GetxController {
     final result =
         await statService.getOrganization(orgRegion: selectedOrgRegion);
     selectedOrganization = null;
-    if (result != null && result.length > 0) {
+    if (result != null && result.isNotEmpty) {
       organizations.clear();
       organizations.addAll(result);
     } else {
@@ -110,7 +109,7 @@ class FilterDialogController extends GetxController {
       parentId: selectedOrgId,
     );
     selectedDepartment = null;
-    if (result != null && result.length > 0) {
+    if (result != null && result.isNotEmpty) {
       departments.clear();
       departments.addAll(result);
     } else {

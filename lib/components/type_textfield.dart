@@ -56,7 +56,7 @@ class _TypeTextFieldState extends State<TypeTextField> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: '${widget.hintText}',
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
         ),
         suffixIcon: widget.hasObscureText == null

@@ -12,6 +12,8 @@ import 'package:xiaoming/utils/constant.dart';
 import 'forgot_password/forget_password_page.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -51,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isVisible = false;
     });
-
   }
 
   Widget highLevelWidget({required Widget child}) {
@@ -72,22 +73,23 @@ class _LoginPageState extends State<LoginPage> {
     return highLevelWidget(
       child: Column(
         children: <Widget>[
-          LogoTitleWidget(),
+          const LogoTitleWidget(),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Visibility(
               visible: isVisible,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: Center(
-              child: CircularProgressIndicator(),
-            )),
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
           ),
           Form(
               key: _formStateKey,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: AutofillGroup(
                   child: Column(
                     children: [
@@ -95,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailCon,
                         hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
                         iconData: Icons.email,
-                        autofillHints: [
+                        autofillHints: const [
                           AutofillHints.username,
                           AutofillHints.email
                         ],
@@ -106,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       TypeTextField(
                         controller: passwordCon,
                         hintText: 'ពាក្យសំងាត់',
-                        autofillHints: [AutofillHints.password],
+                        autofillHints: const [AutofillHints.password],
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) => validatePassword(value!),
                         onSaved: (value) => _logIn.email = value,
@@ -116,27 +118,26 @@ class _LoginPageState extends State<LoginPage> {
                           shouldSave: true,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
-
-                      Container(
+                      SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 18,
                           child: ElevatedButton(
-                            child: Text('ចូល'),
+                            child: const Text('ចូល'),
                             onPressed: () {
                               _submitLogin();
                             },
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextButton(
                         onPressed: () {
-                          Get.to(() => ForgetPasswordPage());
+                          Get.to(() => const ForgetPasswordPage());
                         },
-                        child: Text('ភ្លេចលេខសំងាត់'),
+                        child: const Text('ភ្លេចលេខសំងាត់'),
                       )
                     ],
                   ),

@@ -9,7 +9,6 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
-import 'package:xiaoming/views/login_page.dart';
 import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -52,7 +51,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         return InkWell(
           onTap: () {
             Get.to(
-              () => BigImagePage(
+              () => const BigImagePage(
                 imageBase64: dummyNetworkImage,
                 imageProvider: NetworkImage(
                   dummyNetworkImage,
@@ -60,7 +59,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
             );
           },
-          child: CircleAvatar(
+          child: const CircleAvatar(
             radius: 45,
             foregroundImage: NetworkImage(
               dummyNetworkImage,
@@ -76,11 +75,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
     return Drawer(
       child: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           userProfile(),
-          SizedBox(
+          const SizedBox(
             height: 7,
           ),
           GetBuilder<UserController>(
@@ -93,13 +92,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 return Text(
                   '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 );
               }
-              return Text(
+              return const Text(
                 // 'វិញ វឌ្ឍនា',
                 "",
                 textAlign: TextAlign.center,
@@ -110,7 +109,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               );
             },
           ),
-          Divider(),
+          const Divider(),
           const _DrawerItem(),
         ],
       ),
@@ -142,7 +141,10 @@ class _DrawerItemState extends State<_DrawerItem> {
         isVisible = false;
       });
       if (value) {
-        Get.offAll(() => LandingPage(), transition: Transition.rightToLeft);
+        Get.offAll(
+          () => const LandingPage(),
+          transition: Transition.rightToLeft,
+        );
       }
     });
   }
@@ -152,44 +154,40 @@ class _DrawerItemState extends State<_DrawerItem> {
     return Column(
       children: [
         ListTile(
-          leading: Icon(Icons.home),
-          title: Text('ទំព័រដើម'),
+          leading: const Icon(Icons.home),
+          title: const Text('ទំព័រដើម'),
+          onTap: () {
+            Get.back();
+            Get.to(() => const HomePage());
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.person),
+          title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
           onTap: () {
             Navigator.pop(context);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const PersonalInfoPage(),
                 ));
           },
         ),
-        ListTile(
-          leading: Icon(Icons.person),
-          title: Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PersonalInfoPage(),
-                ));
-          },
-        ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.calendar_today),
           title: Text('វត្តមាន'),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.insert_drive_file),
           title: Text('ឯកសារ'),
         ),
-        Divider(),
+        const Divider(),
         ListTile(
-          leading: Icon(Icons.logout),
-          title: Text('ចាកចេញ'),
+          leading: const Icon(Icons.logout),
+          title: const Text('ចាកចេញ'),
           trailing: Visibility(
             visible: isVisible,
-            child: CircularProgressIndicator(),
+            child: const CircularProgressIndicator(),
           ),
           onTap: () {
             onSignOut();

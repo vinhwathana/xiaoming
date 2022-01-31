@@ -27,7 +27,7 @@ class Organization {
         parent: json["parent"] == null
             ? null
             : Organization.fromMap(json["parent"]),
-        ministry: json["ministry"] == null ? null : json["ministry"],
+        ministry: json["ministry"],
         organizationType: ListValue.fromMap(json["organizationType"]),
         region: ListValue.fromMap(json["region"]),
         nameKh: json["nameKH"],

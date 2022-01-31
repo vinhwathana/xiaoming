@@ -56,25 +56,25 @@ final dummyFamilyInfo = FamilyInfo(
     nameKh: "ពាណិជ្ជករ",
     nameEn: "",
   ),
-  currentAddressProvince: Address(
+  currentAddressProvince: const Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressDistrict: Address(
+  currentAddressDistrict: const Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressCommune: Address(
+  currentAddressCommune: const Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
-    addressNameEn: "Kampong Speu Province",
+    addressNameEn: "Kampong Spe Province",
   ),
-  currentAddressVillage: Address(
+  currentAddressVillage: const Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
@@ -115,7 +115,7 @@ DateTime? currentBackPressTime;
 Future<bool> onWillPop() {
   DateTime now = DateTime.now();
   if (currentBackPressTime == null ||
-      now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+      now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
     currentBackPressTime = now;
     showToast("ចុចម្តងទៀតដើម្បីចាកចេញ");
     return Future.value(false);
@@ -130,8 +130,8 @@ void requestFocus(BuildContext context) {
 Future<void> storeToken(String token) async {
   final controller = Get.put(AuthenticationController());
   controller.accessToken = token;
-  final storage = FlutterSecureStorage();
-  return await storage.write(key: "$tokenKeyName", value: token);
+  const storage = FlutterSecureStorage();
+  return await storage.write(key: tokenKeyName, value: token);
 }
 
 String formatDateTime(DateTime? date) {
@@ -141,10 +141,6 @@ String formatDateTime(DateTime? date) {
   final intToMonth = DateFormat('dd-MM-yyyy');
   final formattedDate = intToMonth.format(date);
   return formattedDate;
-  // if (Get.locale == Locale('en', 'US')) {
-  //   return formattedDate;
-  // }
-  // return KhmerDate.khmerNumber(formattedDate);
 }
 
 String generateAddress({
@@ -154,7 +150,7 @@ String generateAddress({
   required Address? village,
 }) {
   // Correct Format : Village , Commune , District , Province
-  if (Get.locale == Locale('en', 'US')) {
+  if (Get.locale == const Locale('en', 'US')) {
     return "${village?.addressNameEn ?? ""} ${commune?.addressNameEn ?? ""} ${district?.addressNameEn ?? ""} ${province?.addressNameEn ?? ""}";
   }
   return "${village?.addressNameKh ?? ""} ${commune?.addressNameKh ?? ""} ${district?.addressNameKh ?? ""} ${province?.addressNameKh ?? ""}";
@@ -164,7 +160,7 @@ String decideEnumValue(ListValue? value) {
   if (value == null) {
     return "";
   }
-  if (Get.locale == Locale('en', 'US')) {
+  if (Get.locale == const Locale('en', 'US')) {
     return value.nameEn;
   }
   return value.nameKh;
@@ -174,7 +170,7 @@ String formatPhoneNumber(String? phoneNumber) {
   if (phoneNumber == null) {
     return "";
   }
-  if (Get.locale == Locale('en', 'US')) {
+  if (Get.locale == const Locale('en', 'US')) {
     return addSpacePerThreeChar(phoneNumber);
   }
   return KhmerDate.khmerNumber(

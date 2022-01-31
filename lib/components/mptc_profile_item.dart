@@ -52,7 +52,7 @@ final List<Item> data = <Item>[
 ];
 
 class ProfileItem extends StatelessWidget {
-  const ProfileItem(this.item);
+   const ProfileItem(this.item, {Key? key}) : super(key: key);
 
   final Item item;
   Widget _buildTiles(Item i) {

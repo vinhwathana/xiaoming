@@ -59,7 +59,7 @@ class AuthenticationService {
             HttpHeaders.contentTypeHeader: 'application/json',
           },
           body: jsonEncode({
-            "email": "$email",
+            "email": email,
           }));
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -84,9 +84,9 @@ class AuthenticationService {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: jsonEncode({
-        "email": "$email",
-        "password": "$password",
-        "otpCode": "$otp",
+        "email": email,
+        "password": password,
+        "otpCode": otp,
       }),
     );
     return response;

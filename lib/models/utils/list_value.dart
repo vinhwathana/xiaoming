@@ -21,10 +21,10 @@ class ListValue {
 
   factory ListValue.fromMap(Map<String, dynamic> json) => ListValue(
         parentLov: json["parentLov"],
-        lovCode: json["lovCode"] == null ? null : json["lovCode"],
-        lovType: json["lovType"] == null ? null : json["lovType"],
-        nameKh: json["nameKH"] == null ? null : json["nameKH"],
-        nameEn: json["nameEN"] == null ? null : json["nameEN"],
+        lovCode: json["lovCode"],
+        lovType: json["lovType"],
+        nameKh: json["nameKH"],
+        nameEn: json["nameEN"],
       );
 
   Map<String, dynamic> toMap() {

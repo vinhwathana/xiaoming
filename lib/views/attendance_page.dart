@@ -5,11 +5,9 @@ class AttendancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text("In Development"),
-        ),
+    return const Scaffold(
+      body: Center(
+        child: Text("In Development"),
       ),
     );
   }

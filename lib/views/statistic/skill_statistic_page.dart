@@ -36,7 +36,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
   void initState() {
     _tooltipBehavior = TooltipBehavior(
       enable: true,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         fontFamily: 'KhmerOSBattambong',
       ),
     );
@@ -51,37 +51,37 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
 
   Widget skillChart() {
     return FutureBuilder<List<ChartModel>?>(
-      future: statService.getSkills("${widget.org}", "${widget.dept}"),
+      future: statService.getSkills(widget.org, widget.dept),
       builder: (context, snapshot) {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final List<ChartModel>? skillData = snapshot.data;
           if (skillData == null || skillData.length == 0) {
-            return Center(child: Text("No Data Available"));
+            return const Center(child: Text("No Data Available"));
           }
           double max = skillData[0].amount;
-          skillData.forEach((element) {
+          for (var element in skillData) {
             if (max < element.amount) {
               max = element.amount;
             }
-          });
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
                 Card(
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   elevation: 3,
-                  child: Container(
+                  child: SizedBox(
                     height: Get.height / 1.5,
                     child: SfCartesianChart(
                       title: ChartTitle(
                         text: widget.chartTitle,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontFamily: 'KhmerOSBattambong',
                         ),
                       ),
                       primaryXAxis: CategoryAxis(
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           fontFamily: 'KhmerOSBattambong',
                         ),
                       ),
@@ -97,7 +97,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                           xValueMapper: (datum, index) => datum.name,
                           yValueMapper: (datum, index) => datum.amount,
                           pointColorMapper: (datum, index) => datum.color,
-                          dataLabelSettings: DataLabelSettings(
+                          dataLabelSettings: const DataLabelSettings(
                             isVisible: true,
                           ),
                           enableTooltip: true,
@@ -109,7 +109,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                 ),
                 Card(
                   elevation: 3,
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   child: SfDataGridTheme(
                     data: SfDataGridThemeData(
                       sortIconColor: Colors.black,
@@ -124,18 +124,18 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                         return details.getIntrinsicRowHeight(details.rowIndex);
                       },
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: NeverScrollableScrollPhysics(),
+                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
-                          columnName: '${headerTitles[index]}',
+                          columnName: headerTitles[index],
                           columnWidthMode: ColumnWidthMode.auto,
                           label: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '${headerTitles[index]}',
-                                style: TextStyle(
+                                headerTitles[index],
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontFamily: "KhmerOSBattambong",
                                   fontWeight: FontWeight.bold,
@@ -155,7 +155,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
             ),
           );
         }
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },

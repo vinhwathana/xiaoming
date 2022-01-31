@@ -81,7 +81,7 @@ class OfficialInfo {
   String toJson() => json.encode(toMap());
 
   factory OfficialInfo.fromMap(Map<String, dynamic> json) => OfficialInfo(
-        officialId: json["officialId"] == null ? null : json["officialId"],
+        officialId: json["officialId"],
         birthAddressProvince: json["birthAddressProvince"] == null
             ? null
             : Address.fromMap(json["birthAddressProvince"]),
@@ -94,12 +94,10 @@ class OfficialInfo {
         birthAddressVillage: json["birthAddressVillage"] == null
             ? null
             : Address.fromMap(json["birthAddressVillage"]),
-        birthAddressDetail: json["birthAddressDetail"] == null
-            ? null
-            : json["birthAddressDetail"],
-        maleSibling: json["maleSibling"] == null ? null : json["maleSibling"],
+        birthAddressDetail: json["birthAddressDetail"],
+        maleSibling: json["maleSibling"],
         femaleSibling:
-            json["femaleSibling"] == null ? null : json["femaleSibling"],
+            json["femaleSibling"],
         internshipDate: json["internshipDate"] == null
             ? null
             : DateTime.parse(json["internshipDate"]),
@@ -109,25 +107,23 @@ class OfficialInfo {
         physicalStatus: json["physicalStatus"] == null
             ? null
             : ListValue.fromMap(json["physicalStatus"]),
-        physicalStatusRemark: json["physicalStatusRemark"] == null
-            ? null
-            : json["physicalStatusRemark"],
-        profile: json["profile"] == null ? null : json["profile"],
+        physicalStatusRemark: json["physicalStatusRemark"],
+        profile: json["profile"],
         imageBase64: json["imageBase64"],
         attachmentList: json["attachmentList"] == null
             ? null
             : List<Attachment>.from(
                 json["attachmentList"].map((x) => Attachment.fromMap(x))),
-        nationalId: json["nationalId"] == null ? null : json["nationalId"],
-        firstNameKh: json["firstNameKH"] == null ? null : json["firstNameKH"],
-        lastNameKh: json["lastNameKH"] == null ? null : json["lastNameKH"],
-        firstNameEn: json["firstNameEN"] == null ? null : json["firstNameEN"],
-        lastNameEn: json["lastNameEN"] == null ? null : json["lastNameEN"],
+        nationalId: json["nationalId"],
+        firstNameKh: json["firstNameKH"],
+        lastNameKh: json["lastNameKH"],
+        firstNameEn: json["firstNameEN"],
+        lastNameEn: json["lastNameEN"],
         dateOfBirth: json["dateOfBirth"] == null
             ? null
             : DateTime.parse(json["dateOfBirth"]),
-        status: json["status"] == null ? null : json["status"],
-        gender: json["gender"] == null ? null : json["gender"],
+        status: json["status"],
+        gender: json["gender"],
         maritalStatus: json["maritalStatus"] == null
             ? null
             : ListValue.fromMap(json["maritalStatus"]),
@@ -147,17 +143,15 @@ class OfficialInfo {
         currentAddressVillage: json["currentAddressVillage"] == null
             ? null
             : Address.fromMap(json["currentAddressVillage"]),
-        currentAddressDetail: json["currentAddressDetail"] == null
-            ? null
-            : json["currentAddressDetail"],
+        currentAddressDetail: json["currentAddressDetail"],
         contactPhone:
-            json["contactPhone"] == null ? null : json["contactPhone"],
+            json["contactPhone"],
         contactEmail:
-            json["contactEmail"] == null ? null : json["contactEmail"],
+            json["contactEmail"],
       );
 
   Map<String, dynamic> toMap() => {
-        "officialId": officialId == null ? null : officialId,
+        "officialId": officialId,
         "birthAddressProvince":
             birthAddressProvince == null ? null : birthAddressProvince!.toMap(),
         "birthAddressDistrict":
@@ -167,9 +161,9 @@ class OfficialInfo {
         "birthAddressVillage":
             birthAddressVillage == null ? null : birthAddressVillage!.toMap(),
         "birthAddressDetail":
-            birthAddressDetail == null ? null : birthAddressDetail,
-        "maleSibling": maleSibling == null ? null : maleSibling,
-        "femaleSibling": femaleSibling == null ? null : femaleSibling,
+            birthAddressDetail,
+        "maleSibling": maleSibling,
+        "femaleSibling": femaleSibling,
         "internshipDate": internshipDate == null
             ? null
             : "${internshipDate!.year.toString().padLeft(4, '0')}-${internshipDate!.month.toString().padLeft(2, '0')}-${internshipDate!.day.toString().padLeft(2, '0')}",
@@ -179,22 +173,22 @@ class OfficialInfo {
         "physicalStatus":
             physicalStatus == null ? null : physicalStatus!.toMap(),
         "physicalStatusRemark":
-            physicalStatusRemark == null ? null : physicalStatusRemark,
-        "profile": profile == null ? null : profile,
+            physicalStatusRemark,
+        "profile": profile,
         "imageBase64": imageBase64,
         "attachmentList": attachmentList == null
             ? null
             : List<dynamic>.from(attachmentList!.map((x) => x.toMap())),
-        "nationalId": nationalId == null ? null : nationalId,
-        "firstNameKH": firstNameKh == null ? null : firstNameKh,
-        "lastNameKH": lastNameKh == null ? null : lastNameKh,
-        "firstNameEN": firstNameEn == null ? null : firstNameEn,
-        "lastNameEN": lastNameEn == null ? null : lastNameEn,
+        "nationalId": nationalId,
+        "firstNameKH": firstNameKh,
+        "lastNameKH": lastNameKh,
+        "firstNameEN": firstNameEn,
+        "lastNameEN": lastNameEn,
         "dateOfBirth": dateOfBirth == null
             ? null
             : "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
-        "status": status == null ? null : status,
-        "gender": gender == null ? null : gender,
+        "status": status,
+        "gender": gender,
         "maritalStatus": maritalStatus == null ? null : maritalStatus!.toMap(),
         "race": race == null ? null : race!.toMap(),
         "nationality": nationality == null ? null : nationality!.toMap(),
@@ -211,9 +205,9 @@ class OfficialInfo {
             ? null
             : currentAddressVillage!.toMap(),
         "currentAddressDetail":
-            currentAddressDetail == null ? null : currentAddressDetail,
-        "contactPhone": contactPhone == null ? null : contactPhone,
-        "contactEmail": contactEmail == null ? null : contactEmail,
+            currentAddressDetail,
+        "contactPhone": contactPhone,
+        "contactEmail": contactEmail,
       };
 
   @override

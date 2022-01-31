@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
 import 'package:xiaoming/views/statistic/krob_khan_statistic_page.dart';
 import 'package:xiaoming/views/statistic/merit_statistic_page.dart';
 import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
@@ -32,50 +30,17 @@ class _StatisticsPageState extends State<StatisticsPage>
   );
 
   final tabs = <Tab>[
-    Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
-    Tab(text: "ជំនាញ"),
-    Tab(text: "កម្រិតសញ្ញាបត្រ"),
-    Tab(text: "ភេទ"),
-    Tab(text: "ឥស្សរិយយស្ស"),
-    Tab(text: "កាំបៀវត្ស"),
+    const Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
+    const Tab(text: "ជំនាញ"),
+    const Tab(text: "កម្រិតសញ្ញាបត្រ"),
+    const Tab(text: "ភេទ"),
+    const Tab(text: "ឥស្សរិយយស្ស"),
+    const Tab(text: "កាំបៀវត្ស"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('ស្ថិតិ'),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () => setState(() {}),
-      //       icon: Icon(Icons.refresh),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {
-      //         Get.dialog(
-      //           FilterDialog(
-      //             showDegreeField: (tabController.index == 0),
-      //             onConfirm: (org, dept, degree) {
-      //               setState(() {
-      //                 this.org = org;
-      //                 this.dept = dept;
-      //                 this.degree = degree;
-      //               });
-      //             },
-      //           ),
-      //           useSafeArea: true,
-      //           transitionCurve: Curves.ease,
-      //         );
-      //       },
-      //       icon: Icon(Icons.filter_list),
-      //     ),
-      //   ],
-      //   bottom: TabBar(
-      //     controller: tabController,
-      //     tabs: tabs,
-      //     isScrollable: true,
-      //   ),
-      // ),
       body: DefaultTabController(
         length: tabs.length,
         initialIndex: 0,
@@ -97,7 +62,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                     actions: [
                       IconButton(
                         onPressed: () => setState(() {}),
-                        icon: Icon(Icons.refresh),
+                        icon: const Icon(Icons.refresh),
                       ),
                       IconButton(
                         onPressed: () {
@@ -116,7 +81,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                             transitionCurve: Curves.ease,
                           );
                         },
-                        icon: Icon(Icons.filter_list),
+                        icon: const Icon(Icons.filter_list),
                       ),
                     ],
                     forceElevated: innerBoxIsScrolled,
@@ -174,35 +139,6 @@ class _StatisticsPageState extends State<StatisticsPage>
       ],
     );
   }
-
-// @override
-// bool get wantKeepAlive => true;
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: CompanyColors.blue,
-      child: _tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
-  }
 }
 
 class TwoColumnDataGridSource extends DataGridSource {
@@ -239,11 +175,11 @@ class TwoColumnDataGridSource extends DataGridSource {
       cells: row.getCells().map<Widget>(
         (dataGridCell) {
           return Container(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

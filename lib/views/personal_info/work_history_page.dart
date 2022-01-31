@@ -10,6 +10,8 @@ import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class WorkHistoryPage extends StatelessWidget {
+  const WorkHistoryPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +20,11 @@ class WorkHistoryPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: WorkHistoryTable(),
+            child: const WorkHistoryTable(),
           ),
         ),
       ),
@@ -56,8 +58,10 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
     return userController.users!.value.workHistories!;
   }
 
-  final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+  final textStyle = const TextStyle(
+    color: Colors.black,
+    fontFamily: "KhmerOSBattambong",
+  );
 
   final List<String> headerTitles = [
     "មុខតំណែងបច្ចុប្បន្ន",
@@ -77,14 +81,14 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
+            columnName: headerTitles[index],
             columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
+                  headerTitles[index],
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "KhmerOSBattambong",
                     fontWeight: FontWeight.bold,
@@ -160,17 +164,17 @@ class WorkHistoryDataSource extends DataGridSource {
               final fileViewer = FileViewer();
               fileViewer.displayFile(context, attachmentList);
             },
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.description),
+            padding: const EdgeInsets.all(0),
+            icon: const Icon(Icons.description),
           );
         }
         return Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

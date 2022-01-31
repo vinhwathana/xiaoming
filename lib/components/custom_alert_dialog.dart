@@ -39,7 +39,7 @@ Future<void> showCustomDialog(
                   child: Text(
                     // "Are you sure you want to sign out ?",
                     title ?? "Do you want to that ?",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,

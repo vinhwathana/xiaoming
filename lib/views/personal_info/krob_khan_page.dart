@@ -9,6 +9,8 @@ import 'package:xiaoming/models/offical_info/krob_khan.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class KrobKhanPage extends StatelessWidget {
+  const KrobKhanPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +19,10 @@ class KrobKhanPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: KrobKhanTable(),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: const KrobKhanTable(),
           ),
         ),
       ),
@@ -54,7 +56,7 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
     return userController.users!.value.krobKhans!;
   }
 
-  final textStyle = TextStyle(
+  final textStyle = const TextStyle(
     color: Colors.black,
     fontFamily: "KhmerOSBattambong",
   );
@@ -77,14 +79,14 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
+            columnName: headerTitles[index],
             columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
+                  headerTitles[index],
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "KhmerOSBattambong",
                     fontWeight: FontWeight.bold,
@@ -159,17 +161,17 @@ class KrobKhanDataSource extends DataGridSource {
               final fileViewer = FileViewer();
               fileViewer.displayFile(context, attachmentList);
             },
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.description),
+            padding: const EdgeInsets.all(0),
+            icon: const Icon(Icons.description),
           );
         }
         return Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

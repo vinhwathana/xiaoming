@@ -5,7 +5,6 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/views/statistic/statistics_page.dart';
-import 'certificate_statistic_page.dart';
 
 final List<String> headerTitles = [
   "ជំនាញ",
@@ -39,7 +38,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
   void initState() {
     _tooltipBehavior = TooltipBehavior(
       enable: true,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         fontFamily: 'KhmerOSBattambong',
       ),
     );
@@ -64,31 +63,31 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
             snapshot.connectionState == ConnectionState.done) {
           final List<ChartModel>? certificateData = snapshot.data;
           if (certificateData == null || certificateData.length == 0) {
-            return Center(child: Text("No Data Available"));
+            return const Center(child: Text("No Data Available"));
           }
           double max = certificateData[0].amount;
-          certificateData.forEach((element) {
+          for (var element in certificateData) {
             if (max < element.amount) {
               max = element.amount;
             }
-          });
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
                 Card(
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   elevation: 3,
-                  child: Container(
+                  child: SizedBox(
                     height: Get.height / 2,
                     child: SfCartesianChart(
                       title: ChartTitle(
                         text: widget.chartTitle,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontFamily: 'KhmerOSBattambong',
                         ),
                       ),
                       primaryXAxis: CategoryAxis(
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           fontFamily: 'KhmerOSBattambong',
                         ),
                       ),
@@ -104,7 +103,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                           xValueMapper: (datum, index) => datum.name,
                           yValueMapper: (datum, index) => datum.amount,
                           pointColorMapper: (datum, index) => datum.color,
-                          dataLabelSettings: DataLabelSettings(
+                          dataLabelSettings: const DataLabelSettings(
                             isVisible: true,
                           ),
                           enableTooltip: true,
@@ -116,7 +115,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                 ),
                 Card(
                   elevation: 3,
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   child: SfDataGridTheme(
                     data: SfDataGridThemeData(
                       sortIconColor: Colors.black,
@@ -131,18 +130,18 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                       //   return details.getIntrinsicRowHeight(details.rowIndex);
                       // },
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: NeverScrollableScrollPhysics(),
+                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
-                          columnName: '${headerTitles[index]}',
+                          columnName: headerTitles[index],
                           columnWidthMode: ColumnWidthMode.auto,
                           label: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '${headerTitles[index]}',
-                                style: TextStyle(
+                                headerTitles[index],
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontFamily: "KhmerOSBattambong",
                                   fontWeight: FontWeight.bold,
@@ -162,7 +161,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
             ),
           );
         }
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },

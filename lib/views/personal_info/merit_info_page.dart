@@ -6,10 +6,11 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/merit.dart';
-import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class MeritInfoPage extends StatelessWidget {
+  const MeritInfoPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +19,11 @@ class MeritInfoPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: MeritInfoTable(),
+            child: const MeritInfoTable(),
           ),
         ),
       ),
@@ -57,7 +58,7 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
   }
 
   final textStyle =
-      TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
+      const TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
 
   final List<String> headerTitles = [
     "ប្រភេទគឿងឥស្សរិយយស្ស",
@@ -77,14 +78,14 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
       },
       columns: List.generate(headerTitles.length, (index) {
         return GridColumn(
-            columnName: '${headerTitles[index]}',
+            columnName: headerTitles[index],
             columnWidthMode: ColumnWidthMode.fitByColumnName,
             label: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: Text(
-                  '${headerTitles[index]}',
-                  style: TextStyle(
+                  headerTitles[index],
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: "KhmerOSBattambong",
                     fontWeight: FontWeight.bold,
@@ -158,17 +159,17 @@ class MeritInfoDataSource extends DataGridSource {
               final fileViewer = FileViewer();
               fileViewer.displayFile(context, attachmentList);
             },
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.description),
+            padding: const EdgeInsets.all(0),
+            icon: const Icon(Icons.description),
           );
         }
         return Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               dataGridCell.value.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
                 height: 1.5,

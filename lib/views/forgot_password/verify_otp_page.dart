@@ -6,7 +6,6 @@ import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/landing_page.dart';
 
 class VerifyOtpPage extends StatelessWidget {
@@ -29,7 +28,7 @@ class VerifyOtpPage extends StatelessWidget {
       otp,
     );
     if (response.statusCode == 200) {
-      Get.offAll(() => LandingPage());
+      Get.offAll(() => const LandingPage());
     } else {
       // showToast("Error Occurred");
     }
@@ -40,24 +39,24 @@ class VerifyOtpPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("ផ្ទៀងផ្ទាត់ OTP"),
+        title: const Text("ផ្ទៀងផ្ទាត់ OTP"),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             const LogoTitleWidget(),
             Text(
               "ឈ្មោះគណនី (អ៊ីមែល): $email",
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TypeTextField(
               controller: otpCon,
               hintText: "លេខកូដ ៦ ខ្ទង់",
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 decimal: false,
                 signed: false,
               ),
@@ -71,7 +70,7 @@ class VerifyOtpPage extends StatelessWidget {
               },
               // autofillHints: [AutofillHints.oneTimeCode],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             AutofillGroup(
@@ -79,10 +78,10 @@ class VerifyOtpPage extends StatelessWidget {
                 controller: newPasswordCon,
                 hintText: "ពាក្យសម្ងាត់ថ្មី",
                 keyboardType: TextInputType.visiblePassword,
-                autofillHints: [AutofillHints.newPassword],
+                autofillHints: const [AutofillHints.newPassword],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -91,7 +90,7 @@ class VerifyOtpPage extends StatelessWidget {
                 onPressed: () {
                   onConfirm();
                 },
-                child: Text("ផ្ទៀងផ្ទាត់ OTP"),
+                child: const Text("ផ្ទៀងផ្ទាត់ OTP"),
               ),
             ),
           ],

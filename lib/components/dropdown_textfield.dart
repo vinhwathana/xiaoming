@@ -114,7 +114,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     height: 1.5,
                   ),

@@ -32,8 +32,8 @@ class StatisticService {
     }
     final String ministryCode = authController.getUserMinistryCode() ?? "00";
 
-    final String start = "0";
-    final String length = "50";
+    const String start = "0";
+    const String length = "50";
     final String orgType = "${orgRegion.substring(0, 3)}001";
     try {
       final uri = Uri.parse(
@@ -78,8 +78,8 @@ class StatisticService {
     }
     final String ministryCode = authController.getUserMinistryCode() ?? "00";
 
-    final String start = "0";
-    final String length = "50";
+    const String start = "0";
+    const String length = "50";
     final String orgType = "${orgRegion.substring(0, 3)}002";
     try {
       final uri = Uri.parse("${api_url.getOrganization}?start=$start"
@@ -141,7 +141,7 @@ class StatisticService {
             skillByDegreeStatisticFromMap(response.body);
 
         final List<ChartModel> certificateData = [];
-        skillByDegreeStatistic.forEach((e) {
+        for (var e in skillByDegreeStatistic) {
           certificateData.add(
             ChartModel(
               e.categoryName,
@@ -150,7 +150,7 @@ class StatisticService {
                   .withOpacity(1.0),
             ),
           );
-        });
+        }
         return certificateData;
       }
       return null;
@@ -191,7 +191,7 @@ class StatisticService {
         final skillStatistic = skillByDegreeStatisticFromMap(response.body);
 
         final List<ChartModel> certificateData = [];
-        skillStatistic.forEach((e) {
+        for (var e in skillStatistic) {
           certificateData.add(
             ChartModel(
               e.categoryName,
@@ -200,7 +200,7 @@ class StatisticService {
                   .withOpacity(1.0),
             ),
           );
-        });
+        }
         return certificateData;
       }
       return null;
@@ -237,7 +237,7 @@ class StatisticService {
         final certificateStatistic = certificateStatisticFromMap(response.body);
 
         final List<ChartModel> certificateData = [];
-        certificateStatistic.forEach((e) {
+        for (var e in certificateStatistic) {
           certificateData.add(
             ChartModel(
               degreesTranslation[e.certName] ?? "",
@@ -246,7 +246,7 @@ class StatisticService {
                   .withOpacity(1.0),
             ),
           );
-        });
+        }
         return certificateData;
       }
       return null;
@@ -330,7 +330,7 @@ class StatisticService {
         final meritStatistic = meritStatisticFromMap(response.body);
 
         final List<ChartModel> certificateData = [];
-        meritStatistic.forEach((e) {
+        for (var e in meritStatistic) {
           certificateData.add(
             ChartModel(
               e.meritKh,
@@ -339,7 +339,7 @@ class StatisticService {
                   .withOpacity(1.0),
             ),
           );
-        });
+        }
         return certificateData;
       }
       return null;

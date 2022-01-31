@@ -18,12 +18,12 @@ class Address {
   String toJson() => json.encode(toMap());
 
   factory Address.fromMap(Map<String, dynamic> json) => Address(
-        parentsCode: json["parentsCode"] == null ? null : json["parentsCode"],
-        addressCode: json["addressCode"] == null ? null : json["addressCode"],
+        parentsCode: json["parentsCode"],
+        addressCode: json["addressCode"],
         addressNameKh:
-            json["addressNameKH"] == null ? null : json["addressNameKH"],
+            json["addressNameKH"],
         addressNameEn:
-            json["addressNameEN"] == null ? null : json["addressNameEN"],
+            json["addressNameEN"],
       );
 
   Map<String, dynamic> toMap() => {

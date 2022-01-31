@@ -12,12 +12,12 @@ class LogoTitleWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Image(
-          image: AssetImage("assets/images/mptc_logo.png"),
+          image: const AssetImage("assets/images/mptc_logo.png"),
           fit: BoxFit.cover,
           width: Get.width / 3,
         ),
-        SizedBox(height: 16.0),
-        Text(
+        const SizedBox(height: 16.0),
+        const Text(
           'ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមន្ត្រី',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -26,7 +26,7 @@ class LogoTitleWidget extends StatelessWidget {
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
       ],
     );
   }

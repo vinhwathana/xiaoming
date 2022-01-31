@@ -5,7 +5,7 @@ class Validators {
   StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
     if (email.contains('@') && email.contains('.')) {
       sink.add(email);
-    } else if (email.length > 0) {
+    } else if (email.isNotEmpty) {
       sink.addError('Enter a valid email');
     }
   });
@@ -14,7 +14,7 @@ class Validators {
       handleData: (password, sink) {
         if (password.length >= 6) {
           sink.add(password);
-        } else if (password.length > 0) {
+        } else if (password.isNotEmpty) {
           sink.addError('Password needs to be at least 6 characters');
         }
       });

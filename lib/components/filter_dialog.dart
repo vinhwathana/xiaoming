@@ -30,10 +30,12 @@ class _FilterDialogState extends State<FilterDialog>
 
   @override
   void initState() {
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450),
+    );
     slideAnimation = Tween<Offset>(
-      begin: Offset(0.0, -4.0),
+      begin: const Offset(0.0, -4.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: controller,
@@ -42,7 +44,7 @@ class _FilterDialogState extends State<FilterDialog>
     controller.addListener(() {
       setState(() {});
     });
-    controller.reverseDuration = Duration(milliseconds: 200);
+    controller.reverseDuration = const Duration(milliseconds: 200);
     controller.forward();
     super.initState();
   }
@@ -76,7 +78,7 @@ class _FilterDialogState extends State<FilterDialog>
               padding: const EdgeInsets.all(12.0),
               // height: Get.height / 2.7,
               width: Get.width,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: GetBuilder<FilterDialogController>(
                 builder: (controller) {
                   final organizations = controller.organizations
@@ -153,7 +155,7 @@ class _FilterDialogState extends State<FilterDialog>
                         controller: organizationTextCon,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
 
@@ -171,7 +173,7 @@ class _FilterDialogState extends State<FilterDialog>
                         controller: departmentTextCon,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       if (widget.showDegreeField)
@@ -189,7 +191,7 @@ class _FilterDialogState extends State<FilterDialog>
                               currentSelectedValue: controller.selectedDegrees,
                               controller: departmentTextCon,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             )
                           ],
@@ -203,7 +205,7 @@ class _FilterDialogState extends State<FilterDialog>
                             confirmData();
                             popBack();
                           },
-                          child: Text("ស្វែងរក"),
+                          child: const Text("ស្វែងរក"),
                         ),
                       ),
                     ],
