@@ -24,16 +24,6 @@ class UserService{
         },
       );
       return response;
-      // if (response.statusCode == 200) {
-      //   final responseJson = jsonDecode(response.body);
-      //   return responseJson;
-      //   // final userProfile = UserProfile.fromJson(responseJson);
-      //   // return userProfile;
-      // } else if (response.statusCode == 401) {
-      //   print("Invalid Token");
-      //   return null;
-      // }
-      // return null;
     } catch (e) {
       return null;
     }
