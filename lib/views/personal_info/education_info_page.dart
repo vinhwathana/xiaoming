@@ -87,7 +87,7 @@ class _EducationInfoTableState extends State<EducationInfoTable> {
             columnWidthMode: ColumnWidthMode.auto,
             label: Container(
                 padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.centerRight,
+                alignment: Alignment.center,
                 child: Text(
                   headerTitles[index],
                   style: const TextStyle(
@@ -186,14 +186,13 @@ class EducationInfoDataSource extends DataGridSource {
         }
         return Container(
           padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
+          alignment: Alignment.center,
+          child: Text(
+            dataGridCell.value.toString(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'KhmerOSBattambong',
+              height: 1.5,
             ),
           ),
         );

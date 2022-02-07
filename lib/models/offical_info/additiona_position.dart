@@ -63,12 +63,12 @@ class AdditionalPosition {
             "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
         "isEndDateYear": isEndDateYear,
         "ongoing": ongoing,
-        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
+        "organization": List<Attachment>.from(organization.map((x) => x.toMap())),
         "workStatus": workStatus.toMap(),
         "position": position,
         "positionEqual": positionEqual.toMap(),
         "remark": remark,
         "attachmentList":
-            List<dynamic>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
 }

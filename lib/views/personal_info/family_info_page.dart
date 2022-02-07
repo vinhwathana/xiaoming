@@ -103,7 +103,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
               )),
         );
       }),
-      columnWidthMode: ColumnWidthMode.auto,
+      // columnWidthMode: ColumnWidthMode.auto,
     );
   }
 }
@@ -199,16 +199,14 @@ class FamilyInfoDataSource extends DataGridSource {
             );
           }
           return Container(
-            padding: const EdgeInsets.all(8.0),
+            // padding: const EdgeInsets.all(8.0),
             alignment: Alignment.center,
-            child: Center(
-              child: Text(
-                dataGridCell.value.toString(),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'KhmerOSBattambong',
-                  height: 1.5,
-                ),
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
               ),
             ),
           );

@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/models/offical_info/additiona_position.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
-import 'package:xiaoming/services/file_service.dart';
+
 import 'package:xiaoming/utils/constant.dart';
 
 class WorkHistoryPage extends StatelessWidget {
@@ -23,7 +24,6 @@ class WorkHistoryPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            // color: Colors.red,
             child: const WorkHistoryTable(),
           ),
         ),
@@ -65,11 +65,11 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
 
   final List<String> headerTitles = [
     "មុខតំណែងបច្ចុប្បន្ន",
-    'នាំចាប់ផ្តើម',
+    'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
     'ក្រសួង',
     'អង្គភាព',
-    'ឯកសារភ្ជាប់',
+    "ឯកសារភ្ជាប់"
   ];
 
   @override
@@ -125,7 +125,7 @@ class WorkHistoryDataSource extends DataGridSource {
             value: e.ministry.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	អង្គភាព',
+            columnName: 'អង្គភាព',
             value: e.organization[0].nameKh,
           ),
           DataGridCell<int>(
@@ -144,8 +144,6 @@ class WorkHistoryDataSource extends DataGridSource {
   @override
   List<DataGridRow> get rows => _workHistories;
 
-  final fileService = FileService();
-
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
@@ -160,7 +158,7 @@ class WorkHistoryDataSource extends DataGridSource {
             return Container();
           }
           return IconButton(
-            onPressed: () async {
+            onPressed: () {
               final fileViewer = FileViewer();
               fileViewer.displayFile(context, attachmentList);
             },
@@ -169,21 +167,22 @@ class WorkHistoryDataSource extends DataGridSource {
           );
         }
         return Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
-              textAlign: TextAlign.start,
+          alignment: Alignment.center,
+          child: Text(
+            dataGridCell.value.toString(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'KhmerOSBattambong',
+              // height: 1.3,
             ),
           ),
         );
       },
     ).toList());
+  }
+
+  @override
+  bool shouldRecalculateColumnWidths() {
+    return true;
   }
 }

@@ -57,8 +57,8 @@ class _StatisticsPageState extends State<StatisticsPage>
                     title: const Text('ស្ថិតិ'),
                     floating: true,
                     pinned: true,
-                    snap: false,
-                    primary: true,
+                    snap: true,
+                    // primary: true,
                     actions: [
                       IconButton(
                         onPressed: () => setState(() {}),

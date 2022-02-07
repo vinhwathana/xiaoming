@@ -164,18 +164,16 @@ class MeritInfoDataSource extends DataGridSource {
           );
         }
         return Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
-              textAlign: TextAlign.start,
+          alignment: Alignment.center,
+          // padding: const EdgeInsets.all(8.0),
+          child: Text(
+            dataGridCell.value.toString(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'KhmerOSBattambong',
+              height: 1.5,
             ),
+            textAlign: TextAlign.start,
           ),
         );
       },

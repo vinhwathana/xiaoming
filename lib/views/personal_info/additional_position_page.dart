@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/additiona_position.dart';
 
@@ -100,8 +101,10 @@ class _AdditionalPositionTableState extends State<AdditionalPositionTable> {
 }
 
 class AdditionalPositionDataSource extends DataGridSource {
-  AdditionalPositionDataSource(
-      {required this.additionalPositions, required this.context}) {
+  AdditionalPositionDataSource({
+    required this.additionalPositions,
+    required this.context,
+  }) {
     _additionalPositions = additionalPositions.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
@@ -154,17 +157,24 @@ class AdditionalPositionDataSource extends DataGridSource {
               attachmentList.length == 0) {
             return Container();
           }
+          return IconButton(
+            onPressed: () {
+              final fileViewer = FileViewer();
+              fileViewer.displayFile(context, attachmentList);
+            },
+            padding: const EdgeInsets.all(0),
+            icon: const Icon(Icons.description),
+          );
         }
         return Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
+          // padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.center,
+          child: Text(
+            dataGridCell.value.toString(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'KhmerOSBattambong',
+              height: 1.5,
             ),
           ),
         );
