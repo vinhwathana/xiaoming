@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/views/statistic/krob_khan_statistic_page.dart';
@@ -58,7 +59,8 @@ class _StatisticsPageState extends State<StatisticsPage>
                     floating: true,
                     pinned: true,
                     snap: true,
-                    // primary: true,
+                    primary: true,
+                    stretch: true,
                     actions: [
                       IconButton(
                         onPressed: () => setState(() {}),
@@ -89,6 +91,8 @@ class _StatisticsPageState extends State<StatisticsPage>
                       controller: tabController,
                       tabs: tabs,
                       isScrollable: true,
+                      indicatorColor: CompanyColors.yellow,
+                      indicatorWeight: 3,
                     ),
                   ),
                 ),
