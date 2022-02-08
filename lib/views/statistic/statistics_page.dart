@@ -58,7 +58,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                     title: const Text('ស្ថិតិ'),
                     floating: true,
                     pinned: true,
-                    snap: true,
+                    snap: false,
                     primary: true,
                     stretch: true,
                     actions: [
