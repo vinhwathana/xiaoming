@@ -79,7 +79,8 @@ class _LandingPageState extends State<LandingPage> {
               future: storage.read(key: tokenKeyName),
               builder: (context, snapshot) {
                 print("Check user token is expire or not");
-                if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData ||
+                    snapshot.connectionState == ConnectionState.done) {
                   final token = snapshot.data;
 
                   if (token == null) {
@@ -100,7 +101,6 @@ class _LandingPageState extends State<LandingPage> {
                             final response = snapshot.data;
                             if (response == null ||
                                 response.statusCode != 200) {
-                              print(response?.statusCode);
                               print("Landing Page: invalid Token");
                               return const LoginPage();
                             }

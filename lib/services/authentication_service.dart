@@ -41,7 +41,6 @@ class AuthenticationService {
           HttpHeaders.authorizationHeader: 'Bearer $token',
         },
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       }
@@ -63,10 +62,9 @@ class AuthenticationService {
           body: jsonEncode({
             "email": email,
           }));
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
-      }else if(response.statusCode == 400){
+      } else if (response.statusCode == 400) {
         showToast("អ៊ីមែលមិនត្រឹមត្រូវ");
       }
       return false;
@@ -99,7 +97,7 @@ class AuthenticationService {
     final uri = Uri.parse(api_url.changePassword);
     final authController = Get.find<AuthenticationController>();
     final accessToken = authController.accessToken;
-    try{
+    try {
       final response = await http.post(
         uri,
         headers: {
@@ -113,9 +111,8 @@ class AuthenticationService {
         }),
       );
       return response;
-    }catch (e){
+    } catch (e) {
       return null;
     }
-
   }
 }

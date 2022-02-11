@@ -11,6 +11,7 @@ import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/personal_info/personal_info_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -174,24 +175,24 @@ class _DrawerItemState extends State<_DrawerItem> {
                 ));
           },
         ),
-         ListTile(
-          leading: Icon(Icons.calendar_today),
-          title: Text('វត្តមាន'),
-           onTap: () {
-           },
+        ListTile(
+          leading: const Icon(Icons.calendar_today),
+          title: const Text('វត្តមាន'),
+          onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.pie_chart),
-          title: Text('ស្ថិតិ'),
+          leading: const Icon(Icons.pie_chart),
+          title: const Text('ស្ថិតិ'),
           onTap: () {
+            Get.to(() => const StatisticsPage());
           },
         ),
         const Divider(),
         ListTile(
-          leading: Icon(Icons.password),
-          title: Text('ផ្លាស់ប្តូរពាក្យសម្ងាត់'),
+          leading: const Icon(Icons.password),
+          title: const Text('ផ្លាស់ប្តូរពាក្យសម្ងាត់'),
           onTap: () {
-            Get.to(() => ChangePasswordPage());
+            Get.to(() => const ChangePasswordPage());
           },
         ),
         const Divider(),

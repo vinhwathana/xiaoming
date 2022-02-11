@@ -45,14 +45,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     if (user == null) {
       print("User null");
       await authController.clearToken();
-      Get.offAll(() => LandingPage());
+      Get.offAll(() => const LandingPage());
       return;
     }
     final userEmail = user.officialInfo?.contactEmail;
     if (userEmail == null) {
       print("Email null");
       await authController.clearToken();
-      Get.offAll(() => LandingPage());
+      Get.offAll(() => const LandingPage());
       return;
     }
 
@@ -63,17 +63,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
     if (response == null) {
       showToast("Something went wrong");
-      print("Something went wrong");
       await authController.clearToken();
-      Get.offAll(() => LandingPage());
+      Get.offAll(() => const LandingPage());
       return;
     }
     if (response.statusCode == 200) {
       showToast("ពាក្យសម្ងាត់កែសម្រួលបានសម្រេច\nសូមចូលម្តងទៀត");
       await authController.clearToken();
-      Get.offAll(() => LandingPage());
+      Get.offAll(() => const LandingPage());
     } else {
-      print(response.statusCode);
       showToast("ប្រតិបត្តិបរាជ័យ");
     }
   }
@@ -84,10 +82,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ផ្លាស់ប្តូរពាក្យសម្ងាត់"),
+        title: const Text("ផ្លាស់ប្តូរពាក្យសម្ងាត់"),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Form(
           key: resetPasswordFormKey,
           child: AutofillGroup(
@@ -96,11 +94,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "ផ្លាស់ប្តូរពាក្យសម្ងាត់",
                   style: TextStyle(fontSize: 18),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TypeTextField(
@@ -109,12 +107,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value) => validatePassword(value!),
                   hasObscureText: true,
-                  // onEditingComplete: () => TextInput.finishAutofillContext(
-                  //   shouldSave: true,
-                  // ),
                   controller: oldPasswordCon,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TypeTextField(
@@ -128,7 +123,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   controller: newPasswordCon,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TypeTextField(
@@ -142,7 +137,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   controller: confirmNewPasswordCon,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -152,7 +147,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     onPressed: () {
                       onConfirmPasswordChange();
                     },
-                    child: Text("ផ្លាស់ប្តូរ"),
+                    child: const Text("ផ្លាស់ប្តូរ"),
                   ),
                 ),
               ],

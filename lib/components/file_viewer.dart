@@ -7,7 +7,6 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/services/file_service.dart';
-import 'package:xiaoming/utils/constant.dart';
 
 class FileViewer {
   final fileService = FileService();
@@ -66,8 +65,7 @@ class FileViewer {
           );
         },
       );
-    }
-    else if (attachmentList.length == 1 && attachmentList[0] != null) {
+    } else if (attachmentList.length == 1 && attachmentList[0] != null) {
       attachment = attachmentList[0];
     }
 

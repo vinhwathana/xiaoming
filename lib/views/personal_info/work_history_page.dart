@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/offical_info/additiona_position.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
 
 import 'package:xiaoming/utils/constant.dart';

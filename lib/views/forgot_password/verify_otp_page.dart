@@ -5,16 +5,21 @@ import 'package:get/get.dart';
 import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/services/authentication_service.dart';
-import 'package:http/http.dart' as http;
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/landing_page.dart';
 
-class VerifyOtpPage extends StatelessWidget {
-  VerifyOtpPage({
+class VerifyOtpPage extends StatefulWidget {
+  const VerifyOtpPage({
     Key? key,
     required this.email,
   }) : super(key: key);
   final String email;
+
+  @override
+  State<VerifyOtpPage> createState() => _VerifyOtpPageState();
+}
+
+class _VerifyOtpPageState extends State<VerifyOtpPage> {
   final otpCon = TextEditingController(),
       newPasswordCon = TextEditingController();
 
@@ -29,7 +34,7 @@ class VerifyOtpPage extends StatelessWidget {
     final newPassword = newPasswordCon.text.trim();
     final otp = otpCon.text.trim();
     final response = await authService.changePasswordWithOTP(
-      email,
+      widget.email,
       newPassword,
       otp,
     );
@@ -59,7 +64,7 @@ class VerifyOtpPage extends StatelessWidget {
                   children: [
                     const LogoTitleWidget(),
                     Text(
-                      "ឈ្មោះគណនី (អ៊ីមែល): $email",
+                      "ឈ្មោះគណនី (អ៊ីមែល): ${widget.email}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     const SizedBox(
@@ -115,7 +120,7 @@ class VerifyOtpPage extends StatelessWidget {
         Visibility(
           visible: isVisible,
           maintainSize: false,
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(),
           ),
         )
