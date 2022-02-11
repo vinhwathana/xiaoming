@@ -84,18 +84,18 @@ final dummyFamilyInfo = FamilyInfo(
 
 String? validateEmail(String value) {
   if (value.isEmpty) {
-    return "Empty field";
+    return "emptyField".tr;
   }
   return (value.contains('@') && value.contains('.'))
       ? null
-      : "Enter a valid email";
+      : "enterValidEmail".tr;
 }
 
 String? validatePassword(String value) {
   if (value.isEmpty) {
-    return "Empty field";
+    return "emptyField".tr;
   }
-  return (value.length < 6) ? "Enter at least 6 char" : null;
+  return (value.length < 6) ? "enterMoreThan6Char".tr : null;
 }
 
 void showToast(String message) {

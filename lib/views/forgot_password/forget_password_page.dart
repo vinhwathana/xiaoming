@@ -19,7 +19,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   final authService = AuthenticationService();
   bool isVisible = false;
 
-  void _submitLogin() {
+  Future<void> submitEmail() async {
     if (_formStateKey.currentState!.validate()) {
       _formStateKey.currentState!.save();
       final email = emailCon.text.trim();
@@ -27,10 +27,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         isVisible = true;
       });
 
-      setState(() {
-        isVisible = false;
-      });
-      authService.recoveryUserPassword(email).then((value) {
+      await authService.recoveryUserPassword(email).then((value) {
         setState(() {
           isVisible = false;
         });
@@ -38,9 +35,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           Get.to(() => VerifyOtpPage(
                 email: email,
               ));
-        } else {
-          showToast("Error Occurred");
         }
+      });
+      setState(() {
+        isVisible = false;
       });
     }
   }
@@ -95,7 +93,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                       MediaQuery.of(context).size.height / 18,
                                   child: ElevatedButton(
                                     child: const Text('ផ្ញើរ OTP'),
-                                    onPressed: () => _submitLogin(),
+                                    onPressed: () => submitEmail(),
                                   )),
                               TextButton(
                                 onPressed: () {
@@ -121,7 +119,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ),
       ),
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('ភ្លេចលេខសំងាត់'),
       ),
     );
   }

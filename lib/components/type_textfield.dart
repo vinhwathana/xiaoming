@@ -80,7 +80,7 @@ class _TypeTextFieldState extends State<TypeTextField> {
       validator: widget.validator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return "emptyField".tr;
+              return "សូមបំពេញវាលនេះ";
             } else {
               return null;
             }

@@ -174,13 +174,17 @@ class _DrawerItemState extends State<_DrawerItem> {
                 ));
           },
         ),
-        const ListTile(
+         ListTile(
           leading: Icon(Icons.calendar_today),
           title: Text('វត្តមាន'),
+           onTap: () {
+           },
         ),
-        const ListTile(
-          leading: Icon(Icons.insert_drive_file),
-          title: Text('ឯកសារ'),
+        ListTile(
+          leading: Icon(Icons.pie_chart),
+          title: Text('ស្ថិតិ'),
+          onTap: () {
+          },
         ),
         const Divider(),
         ListTile(

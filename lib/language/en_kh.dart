@@ -182,4 +182,8 @@ const Map<String, String> kmKH = {
   'invalidCode': 'លេខកូដមិនត្រឹមត្រូវ',
   'tooManyRequest': 'ការស្នើសុំច្រើនពេក',
   'invalidPhoneNumber': "លេខទូរស័ព្ទមិនត្រឹមត្រូវ",
+
+//  NEW FOR HR
+  'enterMoreThan6Char': "សូមបញ្ចូលយ៉ាងតិច 6 តួអក្សរ",
+  'enterValidEmail': "បញ្ចូលអ៊ីមែលមិនត្រឹមត្រូវ។"
 };

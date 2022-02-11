@@ -160,10 +160,14 @@ const Map<String, String> enUS = {
 
   'waitingForSMSCode': 'Waiting For SMS Code',
   'resendCode': 'Resend Code',
-  'tapBelow':'Tap Below',
-  'noCode':"No Code",
-  'fromMessage':"From Message",
-  'invalidCode':'Invalid Code',
-  'tooManyRequest':'Too Many Request',
-  'invalidPhoneNumber':"Invalid Phone Number",
+  'tapBelow': 'Tap Below',
+  'noCode': "No Code",
+  'fromMessage': "From Message",
+  'invalidCode': 'Invalid Code',
+  'tooManyRequest': 'Too Many Request',
+  'invalidPhoneNumber': "Invalid Phone Number",
+
+//  NEW FOR HR
+  'enterMoreThan6Char': "Enter more than 6 characters",
+  'enterValidEmail': "Enter valid email",
 };
