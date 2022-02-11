@@ -236,6 +236,15 @@ class StatisticService {
       if (response.statusCode == 200) {
         final certificateStatistic = certificateStatisticFromMap(response.body);
 
+        final indexOfEngineer = certificateStatistic
+            .indexWhere((element) => element.certName == "engineer");
+        final indexOfPhD = certificateStatistic
+            .indexWhere((element) => element.certName == "phd");
+        if (indexOfEngineer != -1 && indexOfPhD != -1) {
+          final engineerStat = certificateStatistic[indexOfEngineer];
+          certificateStatistic[indexOfPhD].total += engineerStat.total;
+          certificateStatistic.removeAt(indexOfEngineer);
+        }
         final List<ChartModel> certificateData = [];
         for (var e in certificateStatistic) {
           certificateData.add(

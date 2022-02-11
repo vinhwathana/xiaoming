@@ -54,7 +54,8 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
     return FutureBuilder<List<ChartModel>?>(
       future: statService.getCertificates(widget.org, widget.dept),
       builder: (context, snapshot) {
-        if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasData ||
+            snapshot.connectionState == ConnectionState.done) {
           final List<ChartModel>? certificateData = snapshot.data;
           if (certificateData == null || certificateData.length == 0) {
             return const Center(child: Text("No Data Available"));
@@ -72,7 +73,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                   margin: const EdgeInsets.all(8),
                   elevation: 3,
                   child: SizedBox(
-                    height: Get.height/2,
+                    height: Get.height / 2,
                     child: SfCartesianChart(
                       title: ChartTitle(
                         text: widget.chartTitle,
@@ -124,8 +125,10 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                         return details.getIntrinsicRowHeight(details.rowIndex);
                       },
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
+                      verticalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
                       columns: List.generate(headerTitles.length, (index) {
                         return GridColumn(
                           columnName: headerTitles[index],
@@ -165,5 +168,3 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
   @override
   bool get wantKeepAlive => true;
 }
-
-

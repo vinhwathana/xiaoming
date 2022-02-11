@@ -14,9 +14,9 @@ class CertificateStatistic {
     required this.total,
   });
 
-  final String certificateTpId;
-  final String certName;
-  final int total;
+  String certificateTpId;
+  String certName;
+  int total;
 
   factory CertificateStatistic.fromMap(Map<String, dynamic> json) =>
       CertificateStatistic(
@@ -30,4 +30,9 @@ class CertificateStatistic {
         "cert_name": certName,
         "total": total,
       };
+
+  @override
+  String toString() {
+    return 'CertificateStatistic{certificateTpId: $certificateTpId, certName: $certName, total: $total}';
+  }
 }
