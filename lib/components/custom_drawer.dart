@@ -6,6 +6,7 @@ import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/attendance/attendance_page.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
@@ -43,10 +44,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               );
             },
-            child: CircleAvatar(
-              radius: 45,
-              backgroundColor: Colors.white,
-              foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
+            child: Hero(
+              tag: user.imageBase64!,
+              child: CircleAvatar(
+                radius: 45,
+                backgroundColor: Colors.white,
+                foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
+              ),
             ),
           );
         }
@@ -178,12 +182,16 @@ class _DrawerItemState extends State<_DrawerItem> {
         ListTile(
           leading: const Icon(Icons.calendar_today),
           title: const Text('វត្តមាន'),
-          onTap: () {},
+          onTap: () {
+            Get.back();
+            Get.to(() => AttendancePage());
+          },
         ),
         ListTile(
           leading: const Icon(Icons.pie_chart),
           title: const Text('ស្ថិតិ'),
           onTap: () {
+            Get.back();
             Get.to(() => const StatisticsPage());
           },
         ),
@@ -192,6 +200,7 @@ class _DrawerItemState extends State<_DrawerItem> {
           leading: const Icon(Icons.password),
           title: const Text('ផ្លាស់ប្តូរពាក្យសម្ងាត់'),
           onTap: () {
+            Get.back();
             Get.to(() => const ChangePasswordPage());
           },
         ),

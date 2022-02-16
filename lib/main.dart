@@ -10,7 +10,7 @@ import 'views/landing_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: CompanyColors.blue,
       systemNavigationBarColor: CompanyColors.blue,
       statusBarIconBrightness: Brightness.dark));
 
