@@ -113,7 +113,7 @@ class WorkHistoryDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: formatDateTime(e.startDate),
+            value: e.startDate,
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',

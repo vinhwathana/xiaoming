@@ -1,7 +1,34 @@
+import 'package:meta/meta.dart';
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
+import 'dart:convert';
+
 import 'package:xiaoming/models/utils/ministry.dart';
 import 'package:xiaoming/models/utils/organization.dart';
+
+AttachmentList attachmentListFromMap(String str) =>
+    AttachmentList.fromMap(json.decode(str));
+
+String attachmentListToMap(AttachmentList data) => json.encode(data.toMap());
+
+class AttachmentList {
+  AttachmentList({
+    required this.additionalPositions,
+  });
+
+  List<AdditionalPosition> additionalPositions;
+
+  factory AttachmentList.fromMap(Map<String, dynamic> json) => AttachmentList(
+        additionalPositions: List<AdditionalPosition>.from(
+            json["additionalPositions"]
+                .map((x) => AdditionalPosition.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "additionalPositions":
+            List<dynamic>.from(additionalPositions.map((x) => x.toMap())),
+      };
+}
 
 class AdditionalPosition {
   AdditionalPosition({
@@ -22,9 +49,9 @@ class AdditionalPosition {
 
   int id;
   Ministry ministry;
-  DateTime startDate;
+  String startDate;
   bool isStartDateYear;
-  DateTime endDate;
+  String endDate;
   bool isEndDateYear;
   bool ongoing;
   List<Organization> organization;
@@ -38,9 +65,9 @@ class AdditionalPosition {
       AdditionalPosition(
         id: json["id"],
         ministry: Ministry.fromMap(json["ministry"]),
-        startDate: DateTime.parse(json["startDate"]),
+        startDate: json["startDate"],
         isStartDateYear: json["isStartDateYear"],
-        endDate: DateTime.parse(json["endDate"]),
+        endDate: json["endDate"],
         isEndDateYear: json["isEndDateYear"],
         ongoing: json["ongoing"],
         organization: List<Organization>.from(
@@ -50,20 +77,18 @@ class AdditionalPosition {
         positionEqual: ListValue.fromMap(json["positionEqual"]),
         remark: json["remark"],
         attachmentList: List<Attachment>.from(
-            json["attachmentList"].map((x) => Attachment.fromJson(x))),
+            json["attachmentList"].map((x) => Attachment.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "ministry": ministry.toMap(),
-        "startDate":
-            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "startDate": startDate,
         "isStartDateYear": isStartDateYear,
-        "endDate":
-            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+        "endDate": endDate,
         "isEndDateYear": isEndDateYear,
         "ongoing": ongoing,
-        "organization": List<Attachment>.from(organization.map((x) => x.toMap())),
+        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
         "workStatus": workStatus.toMap(),
         "position": position,
         "positionEqual": positionEqual.toMap(),
@@ -71,4 +96,22 @@ class AdditionalPosition {
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
+}
+
+class AttachmentListElement {
+  AttachmentListElement({
+    required this.id,
+    required this.attachmentType,
+    required this.entityId,
+    required this.fileName,
+    required this.extension,
+    required this.filePath,
+  });
+
+  int id;
+  String attachmentType;
+  int entityId;
+  String fileName;
+  String extension;
+  String filePath;
 }

@@ -6,11 +6,11 @@ import 'package:xiaoming/language/en_us.dart';
 
 class LocalizationService extends Translations {
   // static const locale = Locale('en', 'US');
-  static const locale = Locale('kh', 'KM');
+  static const locale = Locale('km', 'KM');
 
   // fallbackLocale saves the day when the locale gets in trouble
   // static const fallbackLocale = Locale('en', 'US');
-  static const fallbackLocale = Locale('kh', 'KM');
+  static const fallbackLocale = Locale('km', 'KM');
 
   // Supported languages
   // Needs to be same order with locales
@@ -20,7 +20,7 @@ class LocalizationService extends Translations {
   // Needs to be same order with langs
   static const locales = [
     Locale('en', 'US'),
-    Locale('kh', 'KM'),
+    Locale('km', 'KM'),
   ];
 
   // Keys and their translations
@@ -28,7 +28,7 @@ class LocalizationService extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': enUS, // lang/en_us.dart
-        'kh_KM': kmKH,
+        'km_KM': kmKH,
       };
 
   // Gets locale from language, and updates the locale

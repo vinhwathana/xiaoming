@@ -68,20 +68,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                       ),
                       IconButton(
                         onPressed: () {
-                          Get.dialog(
-                            FilterDialog(
-                              showDegreeField: (tabController.index == 0),
-                              onConfirm: (org, dept, degree) {
-                                setState(() {
-                                  this.org = org;
-                                  this.dept = dept;
-                                  this.degree = degree;
-                                });
-                              },
-                            ),
-                            useSafeArea: true,
-                            transitionCurve: Curves.ease,
-                          );
+                          openFilterDialog();
                         },
                         icon: const Icon(Icons.filter_list),
                       ),
@@ -141,6 +128,23 @@ class _StatisticsPageState extends State<StatisticsPage>
           dept: dept,
         ),
       ],
+    );
+  }
+
+  void openFilterDialog() {
+    Get.dialog(
+      FilterDialog(
+        showDegreeField: (tabController.index == 0),
+        onConfirm: (org, dept, degree) {
+          setState(() {
+            this.org = org;
+            this.dept = dept;
+            this.degree = degree;
+          });
+        },
+      ),
+      useSafeArea: true,
+      transitionCurve: Curves.ease,
     );
   }
 }

@@ -114,11 +114,11 @@ class AdditionalPositionDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: formatDateTime(e.startDate),
+            value: e.startDate,
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: formatDateTime(e.endDate),
+            value: e.endDate,
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',

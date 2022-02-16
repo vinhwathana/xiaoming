@@ -23,7 +23,7 @@ class WorkHistory {
 
   int id;
   Ministry ministry;
-  DateTime startDate;
+  String startDate;
   bool isStartDateYear;
   String? endDate;
   bool isEndDateYear;
@@ -38,7 +38,7 @@ class WorkHistory {
   factory WorkHistory.fromMap(Map<String, dynamic> json) => WorkHistory(
         id: json["id"],
         ministry: Ministry.fromMap(json["ministry"]),
-        startDate: DateTime.parse(json["startDate"]),
+        startDate: json["startDate"],
         isStartDateYear: json["isStartDateYear"],
         endDate: json["endDate"],
         isEndDateYear: json["isEndDateYear"],
@@ -56,8 +56,7 @@ class WorkHistory {
   Map<String, dynamic> toMap() => {
         "id": id,
         "ministry": ministry.toMap(),
-        "startDate":
-            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "startDate": startDate,
         "isStartDateYear": isStartDateYear,
         "endDate": endDate,
         "isEndDateYear": isEndDateYear,

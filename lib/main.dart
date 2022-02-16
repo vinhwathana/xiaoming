@@ -19,6 +19,7 @@ void main() {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -40,15 +41,19 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        DefaultMaterialLocalizations.delegate,
         KhmerCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('en'), Locale('km')],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('km'),
+      ],
+
       initialBinding: InitialBinding(),
 
       theme: ThemeData(
-        primaryColor: const Color(0xFF003D7C),
-        // sec: const Color(0xFF003D7C),
-        // accentColor: Color(0xFFF07C08),
+        // primaryColor: CompanyColors.blue,
+        primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',
         textTheme: const TextTheme(
           bodyText1: TextStyle(fontSize: 16),
@@ -59,25 +64,23 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
         iconTheme: IconThemeData(color: CompanyColors.yellow),
-        colorScheme: const ColorScheme(
-          primary: Color(0xFF003D7C),
-          primaryVariant: Color(0xFF003D7C),
-          secondary: Color(0xFFF07C08),
-          secondaryVariant: Color(0xFFF07C08),
-          background: Colors.white,
-          brightness: Brightness.light,
-          error: Colors.red,
-          onBackground: Colors.white,
-          onError: Colors.white,
-          onPrimary: Colors.white,
-          onSecondary: Colors.white,
-          onSurface: Colors.white,
-          surface: Colors.white,
-        ),
+        // colorScheme: const ColorScheme(
+        //   primary: Color(0xFF003D7C),
+        //   primaryVariant: Color(0xFF003D7C),
+        //   secondary: Color(0xFFF07C08),
+        //   secondaryVariant: Color(0xFFF07C08),
+        //   background: Colors.white,
+        //   brightness: Brightness.light,
+        //   error: Colors.red,
+        //   onBackground: Colors.white,
+        //   onError: Colors.white,
+        //   onPrimary: Colors.white,
+        //   onSecondary: Colors.white,
+        //   onSurface: Colors.white,
+        //   surface: Colors.white,
+        // ),
       ),
       home: const LandingPage(),
-      // home: DataGridView(),
-
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => ProtectedRoute(

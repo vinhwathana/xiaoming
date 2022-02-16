@@ -3,33 +3,42 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:xiaoming/models/attendance/attendance_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/models/attendance.dart';
-import 'package:xiaoming/utils/constant.dart';
 
-Future<AttCheckInRequest?> checkIn(AttCheckInRequest data) async {
-  final authController = Get.find<AuthenticationController>();
-  if (authController.accessToken == null) {
-    showToast("Access Token null");
-    return null;
-  }
-  try {
-    final uri = Uri.parse(api_url.attCheckIn);
-    final payload = jsonEncode(data);
-    final response = await http.post(uri,
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: authController.accessToken!
-        },
-        body: payload);
-    if (response.statusCode == 200) {
-      final responseJson = jsonDecode(response.body);
-      var attendanceStatus = AttCheckInRequest.fromJson(responseJson);
-      return attendanceStatus;
+class AttendanceService {
+  Future<AttendanceResponse?> getPersonalAttendance(
+      String from, String to) async {
+    final authController = Get.find<AuthenticationController>();
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
     }
-    return null;
-  } catch (e) {
-    return null;
+    // 1067/date-ranges?dateFrom=2022-01-21&dateTo=2022-01-21
+    try {
+      final url = "${api_url.personalAttendance}"
+          "/${authController.getEmployeeId()}"
+          "/date-ranges"
+          "?dateFrom=$from"
+          "&dateTo=$to";
+
+      final uri = Uri.parse(url);
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+      if (response.statusCode == 200) {
+        final AttendanceResponse attendanceResponse =
+            attendanceResponseFromMap(response.body);
+        return attendanceResponse;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
   }
 }

@@ -7,9 +7,9 @@ import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/attendance_page.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 
+import 'attendance/attendance_page.dart';
 import 'personal_info/personal_info_page.dart';
 import 'statistic/statistics_page.dart';
 
@@ -115,7 +115,7 @@ class HomePageGridView extends StatelessWidget {
         icon: Icons.person,
         destination: PersonalInfoPage(),
       ),
-      const _HomePageItem(
+      _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",
         icon: Icons.calendar_today,
         destination: AttendancePage(),

@@ -12,6 +12,7 @@ class UserService{
         authController.accessToken!.isEmpty) {
       return null;
     }
+
     try {
       final uri =
       Uri.parse("${api_url.userProfile}/${authController.getEmployeeId()}");

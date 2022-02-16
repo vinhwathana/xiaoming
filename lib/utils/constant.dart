@@ -138,7 +138,7 @@ String formatDateTime(DateTime? date) {
   if (date == null) {
     return "";
   }
-  final intToMonth = DateFormat('dd-MM-yyyy');
+  final intToMonth = DateFormat('dd-MMMM-yyyy', "km");
   final formattedDate = intToMonth.format(date);
   return formattedDate;
 }

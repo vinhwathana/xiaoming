@@ -96,25 +96,6 @@ class _FilterDialogState extends State<FilterDialog>
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Text("Filter Data"),
-                      //     RawMaterialButton(
-                      //       onPressed: () {
-                      //         confirmData();
-                      //         popBack();
-                      //       },
-                      //       child: Icon(
-                      //         Icons.check,
-                      //         size: 28,
-                      //       ),
-                      //       padding: EdgeInsets.all(0),
-                      //       shape: CircleBorder(),
-                      //     )
-                      //   ],
-                      // ),
-                      //3 Radio Buttons
                       Row(
                         children: List.generate(
                           controller.radioValues.length,
@@ -138,7 +119,6 @@ class _FilterDialogState extends State<FilterDialog>
                           },
                         ),
                       ),
-
                       DropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "អគ្គនាយកដ្ឋាន",
@@ -148,17 +128,14 @@ class _FilterDialogState extends State<FilterDialog>
                           if (value == null) {
                             return;
                           }
-                          // controller.selectedOrganization = value.toString();
                           controller
                               .updateSelectedOrganization(value.toString());
                         },
                         controller: organizationTextCon,
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
-
                       DropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "នាយកដ្ឋាន",
@@ -172,7 +149,6 @@ class _FilterDialogState extends State<FilterDialog>
                         },
                         controller: departmentTextCon,
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -196,7 +172,6 @@ class _FilterDialogState extends State<FilterDialog>
                             )
                           ],
                         ),
-
                       Container(
                         width: double.maxFinite,
                         alignment: Alignment.centerRight,

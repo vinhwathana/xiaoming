@@ -1,7 +1,6 @@
 // BASE SERVICE URL
 // const String baseUrl = 'https://edps.ddns.net/hrmis_api_mptc_training/v1';
-const String baseUrl =
-    "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
+const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
 
 // ENDPOINT: AUTHENTICATION
 const String authLogin = '$baseUrl/user/login';
@@ -52,3 +51,7 @@ const String statStaff = "$baseUrl/CountStaff/getcountstaff";
 ///?MinistryCode=20&Org=80&Dept=93
 const String statKrobKhan =
     "$baseUrl/CountKrobkhanByOrg/getcount_krob_khan_by_org";
+
+///https://{{domain}}/attendances/by-empid/1067/date-ranges?dateFrom=2022-01-21&dateTo=2022-01-21
+const String personalAttendance =
+    "$baseUrl/attendances/by-empid";
