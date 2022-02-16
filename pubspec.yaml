@@ -51,6 +51,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^19.4.42
   syncfusion_flutter_charts: ^19.4.42
   open_file: ^3.2.1
+  syncfusion_flutter_datepicker: ^19.4.52
 
 
 dev_dependencies:
