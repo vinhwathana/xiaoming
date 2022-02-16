@@ -8,7 +8,7 @@ import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/utils/constant.dart';
 
 class AuthenticationService {
-  Future<String?> login(Authentication authentication) async {
+  Future<http.Response?> login(Authentication authentication) async {
     try {
       final uri = Uri.parse(api_url.authLogin);
       final payload = jsonEncode(authentication.toJson());
@@ -19,16 +19,10 @@ class AuthenticationService {
         },
         body: payload,
       );
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        final responseJson = jsonDecode(response.body);
-        final String token = responseJson['_token'];
-        return token;
-      } else if (response.statusCode == 401) {
-        showToast("ពិនិត្យអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នកម្តងទៀត");
-      }
+      return response;
     } catch (e) {
       print(e);
+      return null;
     }
   }
 

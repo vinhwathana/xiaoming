@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -42,11 +44,22 @@ class _LoginPageState extends State<LoginPage> {
         password: password,
       );
 
-      final token = await authService.login(authModel);
-      if (token != null) {
+      final response = await authService.login(authModel);
+      if (response == null) {
+        showToast("Something Went Wrong");
+        return;
+      }
+      if (response.statusCode == 200) {
+        final responseJson = jsonDecode(response.body);
+        final String token = responseJson['_token'];
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
+      } else if (response.statusCode == 401) {
+        showToast("ពិនិត្យអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នកម្តងទៀត");
+      } else {
+        showToast("${response.statusCode}: Something Went Wrong");
       }
+
     }
     setState(() {
       isVisible = false;
