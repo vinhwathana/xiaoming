@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -168,13 +167,23 @@ class AttendanceCard extends StatelessWidget {
   final Attendance attendance;
   final Function() onTap;
 
+  Color determineShadowColor(String status) {
+    if (status == "អវត្តមាន") {
+      return CompanyColors.red;
+    } else if (status == "វត្តមាន") {
+      return Colors.green;
+    } else {
+      return Colors.yellow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    final rand = Random();
+    // final now = DateTime.now();
+    // final rand = Random();
     return Card(
       elevation: 5,
-      shadowColor: (rand.nextInt(2) == 0) ? CompanyColors.red : Colors.green,
+      shadowColor: determineShadowColor(attendance.attendanceStatus),
       child: InkWell(
         onTap: onTap,
         child: Container(
