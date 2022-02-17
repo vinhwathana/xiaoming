@@ -15,13 +15,13 @@ class AttendanceService {
         authController.accessToken!.isEmpty) {
       return null;
     }
-    // 1067/date-ranges?dateFrom=2022-01-21&dateTo=2022-01-21
+    // from?dateFrom=2022-02-9&dateTo=2022-02-11
     try {
       final url = "${api_url.personalAttendance}"
-          "/${authController.getEmployeeId()}"
-          "/date-ranges"
           "?dateFrom=$from"
           "&dateTo=$to";
+
+      print(url);
 
       final uri = Uri.parse(url);
       final response = await http.get(
@@ -31,12 +31,13 @@ class AttendanceService {
               "Bearer ${authController.accessToken!}",
         },
       );
+
       if (response.statusCode == 200) {
         final AttendanceResponse attendanceResponse =
             attendanceResponseFromMap(response.body);
         return attendanceResponse;
       }
-      return null;
+
     } catch (e) {
       return null;
     }

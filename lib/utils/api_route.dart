@@ -52,6 +52,6 @@ const String statStaff = "$baseUrl/CountStaff/getcountstaff";
 const String statKrobKhan =
     "$baseUrl/CountKrobkhanByOrg/getcount_krob_khan_by_org";
 
-///https://{{domain}}/attendances/by-empid/1067/date-ranges?dateFrom=2022-01-21&dateTo=2022-01-21
+///https://{{domain}}/attendances/personal-attd-by-date-ranges?dateFrom=2022-02-9&dateTo=2022-02-11
 const String personalAttendance =
-    "$baseUrl/attendances/by-empid";
+    "$baseUrl/attendances/personal-attd-by-date-ranges";

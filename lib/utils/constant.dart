@@ -134,11 +134,20 @@ Future<void> storeToken(String token) async {
   return await storage.write(key: tokenKeyName, value: token);
 }
 
-String formatDateTime(DateTime? date) {
+String formatDateTimeForView(DateTime? date) {
   if (date == null) {
     return "";
   }
   final intToMonth = DateFormat('dd-MMMM-yyyy', "km");
+  final formattedDate = intToMonth.format(date);
+  return formattedDate;
+}
+
+String formatDateTimeForApi(DateTime? date) {
+  if (date == null) {
+    return "";
+  }
+  final intToMonth = DateFormat('yyyy-MM-dd');
   final formattedDate = intToMonth.format(date);
   return formattedDate;
 }

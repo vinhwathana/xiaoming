@@ -78,7 +78,7 @@ class _AttendancePageState extends State<AttendancePage> {
                 pickDateRange();
               },
               child: Text(
-                "${formatDateTime(start)} - ${formatDateTime(end)}",
+                "${formatDateTimeForView(start)} - ${formatDateTimeForView(end)}",
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -91,8 +91,8 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget attendanceView() {
     return FutureBuilder<AttendanceResponse?>(
       future: attendanceService.getPersonalAttendance(
-        formatDateTime(start),
-        formatDateTime(end),
+        formatDateTimeForApi(start),
+        formatDateTimeForApi(end),
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -100,13 +100,17 @@ class _AttendancePageState extends State<AttendancePage> {
             child: CircularProgressIndicator(),
           );
         }
+
         if (snapshot.hasData && snapshot.data != null) {
+          final List<Attendance> attendances = snapshot.data!.data;
+
           return ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: attendances.length,
             itemBuilder: (context, index) {
               return AttendanceCard(
+                attendance: attendances[index],
                 onTap: () {
                   Get.to(() => AttendanceDetail());
                 },
@@ -142,18 +146,7 @@ class _AttendancePageState extends State<AttendancePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               topTitle(),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return AttendanceCard(
-                    onTap: () {
-                      Get.to(() => AttendanceDetail());
-                    },
-                  );
-                },
-              ),
+              attendanceView(),
               SizedBox(
                 height: 8,
               ),
@@ -168,11 +161,11 @@ class _AttendancePageState extends State<AttendancePage> {
 class AttendanceCard extends StatelessWidget {
   const AttendanceCard({
     Key? key,
-    this.attendance,
+    required this.attendance,
     required this.onTap,
   }) : super(key: key);
 
-  final Attendance? attendance;
+  final Attendance attendance;
   final Function() onTap;
 
   @override
@@ -192,7 +185,7 @@ class AttendanceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                formatDateTime(now),
+                formatDateTimeForView(attendance.authDate),
                 style: TextStyle(fontSize: 18),
               ),
               Divider(
@@ -203,8 +196,8 @@ class AttendanceCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ម៉ោងធ្វើការសរុប: 4ម៉ោង"),
-                  Text("វត្តមានកន្លះថ្ងៃ"),
+                  Text("ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}"),
+                  Text("វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}"),
                 ],
               ),
               Divider(
@@ -220,13 +213,13 @@ class AttendanceCard extends StatelessWidget {
                       Column(
                         children: [
                           Text("ព្រឹក(ស្កេនចូល)"),
-                          Text("12:26:25"),
+                          Text(attendance.morningCheckIn),
                         ],
                       ),
                       Column(
                         children: [
                           Text("ព្រឹក(ស្កេនចេញ)"),
-                          Text("12:26:25"),
+                          Text(attendance.morningCheckOut),
                         ],
                       ),
                     ],
@@ -240,62 +233,19 @@ class AttendanceCard extends StatelessWidget {
                       Column(
                         children: [
                           Text("ថ្ងៃ(ស្កេនចូល)"),
-                          Text("12:26:25"),
+                          Text(attendance.afternoonCheckIn),
                         ],
                       ),
                       Column(
                         children: [
                           Text("ថ្ងៃ(ស្កេនចេញ)"),
-                          Text("12:26:25"),
+                          Text(attendance.afternoonCheckOut),
                         ],
                       ),
                     ],
                   ),
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //   children: [
-              //     Column(
-              //       children: [
-              //         Column(
-              //           children: [
-              //             Text("ព្រឹក(ស្កេនចូល)"),
-              //             Text("12:26:25"),
-              //           ],
-              //         ),
-              //         SizedBox(
-              //           height: 10,
-              //         ),
-              //         Column(
-              //           children: [
-              //             Text("ព្រឹក(ស្កេនចេញ)"),
-              //             Text("12:26:25"),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //     Column(
-              //       children: [
-              //         Column(
-              //           children: [
-              //             Text("ថ្ងៃ(ស្កេនចូល)"),
-              //             Text("12:26:25"),
-              //           ],
-              //         ),
-              //         SizedBox(
-              //           height: 10,
-              //         ),
-              //         Column(
-              //           children: [
-              //             Text("ថ្ងៃ(ស្កេនចេញ)"),
-              //             Text("12:26:25"),
-              //           ],
-              //         ),
-              //       ],
-              //     )
-              //   ],
-              // ),
             ],
           ),
         ),

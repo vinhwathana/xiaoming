@@ -31,7 +31,7 @@ class ProfileExpansionCard extends StatelessWidget {
               const Divider(),
               ExpansionRow(
                   label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
-                  value: formatDateTime(user.dateOfBirth!)),
+                  value: formatDateTimeForView(user.dateOfBirth!)),
               const Divider(),
               ExpansionRow(label: 'ជនជាតិ', value: user.race?.nameKh ?? ""),
               const Divider(),
@@ -70,11 +70,11 @@ class ProfileExpansionCard extends StatelessWidget {
               const Divider(),
               ExpansionRow(
                   label: 'ថ្ងៃបម្រើការងារ',
-                  value: formatDateTime(user.internshipDate)),
+                  value: formatDateTimeForView(user.internshipDate)),
               const Divider(),
               ExpansionRow(
                   label: 'ថ្ងៃតាំងស៊ប់',
-                  value: formatDateTime(user.officialWorkingDate)),
+                  value: formatDateTimeForView(user.officialWorkingDate)),
             ],
           );
         },

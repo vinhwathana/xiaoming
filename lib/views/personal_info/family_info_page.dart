@@ -126,7 +126,7 @@ class FamilyInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
-            value: formatDateTime(e.dateOfBirth),
+            value: formatDateTimeForView(e.dateOfBirth),
           ),
           DataGridCell<String>(
             columnName: 'ភេទ',

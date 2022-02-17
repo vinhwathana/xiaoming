@@ -18,6 +18,10 @@ import 'package:xiaoming/views/statistic/statistics_page.dart';
 class StatisticService {
   final authController = Get.find<AuthenticationController>();
 
+  final listOfColors = [
+
+  ];
+
   Future<List<Datum>?> getOrganization({
     String search = "",
     String parentId = "00",
@@ -55,10 +59,6 @@ class StatisticService {
 
       if (response.statusCode == 200) {
         final resultOrganizations = resultOrganizationFromMap(response.body);
-        // final List<String> organizations = [];
-        // resultOrganizations.data.forEach((element) {
-        //   organizations.add(element.displayText);
-        // });
         return resultOrganizations.data;
       }
       return null;

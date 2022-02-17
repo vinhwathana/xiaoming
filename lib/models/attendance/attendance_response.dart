@@ -10,24 +10,25 @@ String attendanceResponseToMap(AttendanceResponse data) =>
 
 class AttendanceResponse {
   AttendanceResponse({
-    required this.totalFilteredRecord,
+    required this.statusCode,
+    required this.message,
     required this.data,
   });
 
-  int totalFilteredRecord;
+  int statusCode;
+  String message;
   List<Attendance> data;
 
   factory AttendanceResponse.fromMap(Map<String, dynamic> json) =>
       AttendanceResponse(
-        totalFilteredRecord: json["totalFilteredRecord"],
-        data: List<Attendance>.from(
-            json["data"].map((x) => Attendance.fromMap(x))),
+        statusCode: json["statusCode"],
+        message: json["message"],
+        data: List<Attendance>.from(json["data"].map((x) => Attendance.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "totalFilteredRecord": totalFilteredRecord,
+        "statusCode": statusCode,
+        "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }
-
-
