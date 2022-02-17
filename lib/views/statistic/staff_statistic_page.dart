@@ -93,6 +93,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage> with AutomaticK
                           textStyle: TextStyle(fontSize: 20),
                         ),
                         enableTooltip: true,
+                        animationDuration: 850,
                       ),
                     ],
                   ),

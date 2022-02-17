@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/statistic/certificate_statistic.dart';
 import 'package:xiaoming/models/statistic/krob_khan_statistic.dart';
@@ -17,10 +18,6 @@ import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class StatisticService {
   final authController = Get.find<AuthenticationController>();
-
-  final listOfColors = [
-
-  ];
 
   Future<List<Datum>?> getOrganization({
     String search = "",
@@ -146,8 +143,7 @@ class StatisticService {
             ChartModel(
               e.categoryName,
               e.total.toDouble(),
-              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
+              listColor[skillByDegreeStatistic.indexOf(e)],
             ),
           );
         }
@@ -196,8 +192,7 @@ class StatisticService {
             ChartModel(
               e.categoryName,
               e.total.toDouble(),
-              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
+              listColor[skillStatistic.indexOf(e)],
             ),
           );
         }
@@ -251,8 +246,7 @@ class StatisticService {
             ChartModel(
               degreesTranslation[e.certName] ?? "",
               e.total.toDouble(),
-              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
+              listColor[certificateStatistic.indexOf(e)],
             ),
           );
         }
@@ -300,9 +294,8 @@ class StatisticService {
         final femaleAmount = double.parse(genderStatistic.female);
         final maleAmount = double.parse(genderStatistic.total) - femaleAmount;
 
-        staffData.add(ChartModel("ប្រុស", maleAmount, Colors.green));
-        staffData
-            .add(ChartModel("ស្រី", femaleAmount, Colors.deepPurpleAccent));
+        staffData.add(ChartModel("ប្រុស", maleAmount, listColor[0]));
+        staffData.add(ChartModel("ស្រី", femaleAmount, listColor[1]));
         return staffData;
       }
       return null;
@@ -339,13 +332,13 @@ class StatisticService {
         final meritStatistic = meritStatisticFromMap(response.body);
 
         final List<ChartModel> certificateData = [];
+
         for (var e in meritStatistic) {
           certificateData.add(
             ChartModel(
               e.meritKh,
               double.parse(e.count),
-              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
+              listColor[meritStatistic.indexOf(e)],
             ),
           );
         }
@@ -393,40 +386,35 @@ class StatisticService {
           ChartModel(
             "ក",
             double.parse(krobKhanStatistic.a),
-            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                .withOpacity(1.0),
+            listColor[0],
           ),
         );
         krobKhanData.add(
           ChartModel(
             "ខ",
             double.parse(krobKhanStatistic.b),
-            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                .withOpacity(1.0),
+            listColor[1],
           ),
         );
         krobKhanData.add(
           ChartModel(
             "គ",
             double.parse(krobKhanStatistic.c),
-            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                .withOpacity(1.0),
+            listColor[2],
           ),
         );
         krobKhanData.add(
           ChartModel(
             "គ្មាន",
             double.parse(krobKhanStatistic.noKrobkhan),
-            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                .withOpacity(1.0),
+            listColor[3],
           ),
         );
         krobKhanData.add(
           ChartModel(
             "ចូលនិវត្តន៍",
             double.parse(krobKhanStatistic.retire),
-            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                .withOpacity(1.0),
+            listColor[4],
           ),
         );
         return krobKhanData;
@@ -451,5 +439,88 @@ class StatisticService {
     "គ",
     "គ្មាន",
     "ចូលនិវត្តន៍",
+  ];
+
+  final List<Color> listColor = [
+    Colors.red,
+    Colors.green,
+    Colors.greenAccent,
+    Colors.lightGreen,
+    Colors.amber,
+    Colors.blue,
+    CompanyColors.blue,
+    CompanyColors.red,
+    CompanyColors.yellow,
+    Colors.blueAccent,
+    Colors.deepOrange,
+    Colors.cyanAccent,
+    Colors.lime,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.indigo,
+    Colors.white38,
+    Colors.black,
+    Colors.red,
+    Colors.green,
+    Colors.greenAccent,
+    Colors.lightGreen,
+    Colors.amber,
+    Colors.blue,
+    CompanyColors.blue,
+    CompanyColors.red,
+    CompanyColors.yellow,
+    Colors.blueAccent,
+    Colors.deepOrange,
+    Colors.cyanAccent,
+    Colors.lime,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.indigo,
+    Colors.white38,
+    Colors.black,
+    Colors.red,
+    Colors.green,
+    Colors.greenAccent,
+    Colors.lightGreen,
+    Colors.amber,
+    Colors.blue,
+    CompanyColors.blue,
+    CompanyColors.red,
+    CompanyColors.yellow,
+    Colors.blueAccent,
+    Colors.deepOrange,
+    Colors.cyanAccent,
+    Colors.lime,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.indigo,
+    Colors.white38,
+    Colors.black,
+    Colors.red,
+    Colors.green,
+    Colors.greenAccent,
+    Colors.lightGreen,
+    Colors.amber,
+    Colors.blue,
+    CompanyColors.blue,
+    CompanyColors.red,
+    CompanyColors.yellow,
+    Colors.blueAccent,
+    Colors.deepOrange,
+    Colors.cyanAccent,
+    Colors.lime,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.indigo,
+    Colors.white38,
+    Colors.black,
   ];
 }

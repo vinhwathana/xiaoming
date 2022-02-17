@@ -96,6 +96,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                           textStyle: TextStyle(fontSize: 20),
                         ),
                         enableTooltip: true,
+                        animationDuration: 850,
                       ),
                     ],
                   ),
@@ -119,7 +120,8 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                     // },
                     shrinkWrapRows: true,
                     verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                    horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
+                    horizontalScrollPhysics:
+                        const NeverScrollableScrollPhysics(),
                     columns: List.generate(headerTitles.length, (index) {
                       return GridColumn(
                         columnName: headerTitles[index],
