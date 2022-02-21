@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
@@ -146,6 +145,7 @@ class _AttendancePageState extends State<AttendancePage> {
             children: [
               topTitle(),
               attendanceView(),
+              // dummyAttendanceView(),
               SizedBox(
                 height: 8,
               ),
@@ -153,6 +153,44 @@ class _AttendancePageState extends State<AttendancePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dummyAttendanceView() {
+    final List<Attendance> dummyAttendances = [
+      Attendance(
+        timeRuleId: 1,
+        authDate: DateTime.parse("2022-01-03"),
+        morningCheckIn: "12:12:12",
+        morningCheckOut: "12:12:12",
+        afternoonCheckIn: "12:12:12",
+        afternoonCheckOut: "12:12:12",
+        periodInHour: 4.1,
+        attendanceStatus: "វត្តមានពេញល្អប្រសើរ",
+      ),
+      Attendance(
+        timeRuleId: 1,
+        authDate: DateTime.parse("2022-01-03"),
+        morningCheckIn: "12:12:12",
+        morningCheckOut: "12:12:12",
+        afternoonCheckIn: "12:12:12",
+        afternoonCheckOut: "12:12:12",
+        periodInHour: 7.1,
+        attendanceStatus: "វត្តមាន",
+      ),
+    ];
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: dummyAttendances.length,
+      itemBuilder: (context, index) {
+        return AttendanceCard(
+          attendance: dummyAttendances[index],
+          onTap: () {
+            Get.to(() => AttendanceDetail());
+          },
+        );
+      },
     );
   }
 }
@@ -168,12 +206,23 @@ class AttendanceCard extends StatelessWidget {
   final Function() onTap;
 
   Color determineShadowColor(String status) {
-    if (status == "អវត្តមាន") {
-      return CompanyColors.red;
-    } else if (status == "វត្តមាន") {
-      return Colors.green;
-    } else {
-      return Colors.yellow;
+    switch (status) {
+      case "វត្តមានពេញល្អប្រសើរ":
+        return Colors.green;
+      case "វត្តមានពេញ":
+        return Colors.green;
+      case "វត្តមានកន្លះថ្ងៃ":
+        return Colors.yellow;
+      case "អវត្តមាន":
+        return Colors.red;
+      case "អវត្តមានកន្លះថ្ងៃ":
+        return Colors.yellow;
+      case "មានច្បាប់":
+        return Colors.blue;
+      case "បេសកកម្ម":
+        return Colors.purple;
+      default:
+        return CompanyColors.black;
     }
   }
 
@@ -182,7 +231,7 @@ class AttendanceCard extends StatelessWidget {
     // final now = DateTime.now();
     // final rand = Random();
     return Card(
-      elevation: 5,
+      elevation: 6,
       shadowColor: determineShadowColor(attendance.attendanceStatus),
       child: InkWell(
         onTap: onTap,
@@ -202,12 +251,16 @@ class AttendanceCard extends StatelessWidget {
                 // height: 3,
                 thickness: 1.5,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}"),
-                  Text("វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}"),
-                ],
+              SizedBox(
+                width: double.maxFinite,
+                child: Wrap(
+                  alignment: WrapAlignment.spaceAround,
+                  spacing: 8,
+                  children: [
+                    Text("ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}"),
+                    Text("វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}"),
+                  ],
+                ),
               ),
               Divider(
                 color: CompanyColors.yellow,
