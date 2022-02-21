@@ -38,4 +38,5 @@ class UserController extends GetxController {
     this.response = response;
     update();
   }
+
 }

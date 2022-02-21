@@ -75,6 +75,14 @@ class OfficialInfo {
   String? contactPhone;
   String? contactEmail;
 
+  String getFullNameEn() {
+    return "$firstNameEn $lastNameEn";
+  }
+
+  String getFullNameKh() {
+    return "$firstNameKh $lastNameKh";
+  }
+
   factory OfficialInfo.fromJson(String str) =>
       OfficialInfo.fromMap(json.decode(str));
 
@@ -96,8 +104,7 @@ class OfficialInfo {
             : Address.fromMap(json["birthAddressVillage"]),
         birthAddressDetail: json["birthAddressDetail"],
         maleSibling: json["maleSibling"],
-        femaleSibling:
-            json["femaleSibling"],
+        femaleSibling: json["femaleSibling"],
         internshipDate: json["internshipDate"] == null
             ? null
             : DateTime.parse(json["internshipDate"]),
@@ -144,10 +151,8 @@ class OfficialInfo {
             ? null
             : Address.fromMap(json["currentAddressVillage"]),
         currentAddressDetail: json["currentAddressDetail"],
-        contactPhone:
-            json["contactPhone"],
-        contactEmail:
-            json["contactEmail"],
+        contactPhone: json["contactPhone"],
+        contactEmail: json["contactEmail"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -160,8 +165,7 @@ class OfficialInfo {
             birthAddressCommune == null ? null : birthAddressCommune!.toMap(),
         "birthAddressVillage":
             birthAddressVillage == null ? null : birthAddressVillage!.toMap(),
-        "birthAddressDetail":
-            birthAddressDetail,
+        "birthAddressDetail": birthAddressDetail,
         "maleSibling": maleSibling,
         "femaleSibling": femaleSibling,
         "internshipDate": internshipDate == null
@@ -172,8 +176,7 @@ class OfficialInfo {
             : "${officialWorkingDate!.year.toString().padLeft(4, '0')}-${officialWorkingDate!.month.toString().padLeft(2, '0')}-${officialWorkingDate!.day.toString().padLeft(2, '0')}",
         "physicalStatus":
             physicalStatus == null ? null : physicalStatus!.toMap(),
-        "physicalStatusRemark":
-            physicalStatusRemark,
+        "physicalStatusRemark": physicalStatusRemark,
         "profile": profile,
         "imageBase64": imageBase64,
         "attachmentList": attachmentList == null
@@ -204,8 +207,7 @@ class OfficialInfo {
         "currentAddressVillage": currentAddressVillage == null
             ? null
             : currentAddressVillage!.toMap(),
-        "currentAddressDetail":
-            currentAddressDetail,
+        "currentAddressDetail": currentAddressDetail,
         "contactPhone": contactPhone,
         "contactEmail": contactEmail,
       };

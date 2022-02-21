@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'attendance.dart';
 
-AttendanceResponse attendanceResponseFromMap(String str) =>
-    AttendanceResponse.fromMap(json.decode(str));
+PersonalAttendanceRangeResponse attendanceResponseRangeFromMap(String str) =>
+    PersonalAttendanceRangeResponse.fromMap(json.decode(str));
 
-String attendanceResponseToMap(AttendanceResponse data) =>
+String attendanceRangeResponseToMap(PersonalAttendanceRangeResponse data) =>
     json.encode(data.toMap());
 
-class AttendanceResponse {
-  AttendanceResponse({
+class PersonalAttendanceRangeResponse {
+  PersonalAttendanceRangeResponse({
     required this.statusCode,
     required this.message,
     required this.data,
@@ -19,8 +19,8 @@ class AttendanceResponse {
   String message;
   List<Attendance> data;
 
-  factory AttendanceResponse.fromMap(Map<String, dynamic> json) =>
-      AttendanceResponse(
+  factory PersonalAttendanceRangeResponse.fromMap(Map<String, dynamic> json) =>
+      PersonalAttendanceRangeResponse(
         statusCode: json["statusCode"],
         message: json["message"],
         data: List<Attendance>.from(json["data"].map((x) => Attendance.fromMap(x))),

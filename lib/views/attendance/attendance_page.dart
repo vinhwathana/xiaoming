@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
-import 'package:xiaoming/models/attendance/attendance_response.dart';
+import 'package:xiaoming/models/attendance/personal_attendance_range_response.dart';
 import 'package:xiaoming/services/attendance_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance/attendance_detail.dart';
@@ -87,8 +87,8 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   Widget attendanceView() {
-    return FutureBuilder<AttendanceResponse?>(
-      future: attendanceService.getPersonalAttendance(
+    return FutureBuilder<List<Attendance>?>(
+      future: attendanceService.getPersonalAttendanceRange(
         formatDateTimeForApi(start),
         formatDateTimeForApi(end),
       ),
@@ -100,7 +100,11 @@ class _AttendancePageState extends State<AttendancePage> {
         }
 
         if (snapshot.hasData && snapshot.data != null) {
-          final List<Attendance> attendances = snapshot.data!.data;
+          final List<Attendance>? attendances = snapshot.data;
+
+          if (attendances == null || attendances.length == 0) {
+            return Center(child: Text("No Information Available"));
+          }
 
           return ListView.builder(
             shrinkWrap: true,
@@ -110,7 +114,11 @@ class _AttendancePageState extends State<AttendancePage> {
               return AttendanceCard(
                 attendance: attendances[index],
                 onTap: () {
-                  Get.to(() => AttendanceDetail());
+                  Get.to(
+                    () => AttendanceDetail(
+                      attendance: attendances[index],
+                    ),
+                  );
                 },
               );
             },
@@ -187,7 +195,9 @@ class _AttendancePageState extends State<AttendancePage> {
         return AttendanceCard(
           attendance: dummyAttendances[index],
           onTap: () {
-            Get.to(() => AttendanceDetail());
+            Get.to(() => AttendanceDetail(
+                  attendance: dummyAttendances[index],
+                ));
           },
         );
       },
@@ -232,7 +242,9 @@ class AttendanceCard extends StatelessWidget {
     // final rand = Random();
     return Card(
       elevation: 6,
-      shadowColor: determineShadowColor(attendance.attendanceStatus),
+      shadowColor: determineShadowColor(
+        attendance.attendanceStatus,
+      ),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -244,7 +256,7 @@ class AttendanceCard extends StatelessWidget {
             children: [
               Text(
                 formatDateTimeForView(attendance.authDate),
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Divider(
                 color: CompanyColors.yellow,
@@ -257,8 +269,18 @@ class AttendanceCard extends StatelessWidget {
                   alignment: WrapAlignment.spaceAround,
                   spacing: 8,
                   children: [
-                    Text("ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}"),
-                    Text("វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}"),
+                    Text(
+                      "ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      "វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
               ),

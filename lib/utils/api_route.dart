@@ -55,3 +55,9 @@ const String statKrobKhan =
 ///https://{{domain}}/attendances/personal-attd-by-date-ranges?dateFrom=2022-02-9&dateTo=2022-02-11
 const String personalAttendance =
     "$baseUrl/attendances/personal-attd-by-date-ranges";
+
+///https://{{domain}}/attendances-time-rules/1
+const String attendanceRuleById = "$baseUrl/attendances-time-rules";
+
+///https://{{domain}}/attendances/personal-attd-by-date/2022-01-20
+const String personalAttendanceByDate = "$baseUrl/attendances/personal-attd-by-date";
