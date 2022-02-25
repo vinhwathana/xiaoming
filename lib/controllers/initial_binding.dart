@@ -7,7 +7,7 @@ class InitialBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AuthenticationController>(() => AuthenticationController(), fenix: true);
-    Get.lazyPut<InternetCheckController>(() => InternetCheckController(), fenix: true);
+    Get.put<InternetCheckController>( InternetCheckController(), permanent: true);
     Get.lazyPut<CheckLocationService>(() => CheckLocationService(), fenix: true);
   }
 }

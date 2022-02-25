@@ -61,3 +61,6 @@ const String attendanceRuleById = "$baseUrl/attendances-time-rules";
 
 ///https://{{domain}}/attendances/personal-attd-by-date/2022-01-20
 const String personalAttendanceByDate = "$baseUrl/attendances/personal-attd-by-date";
+
+///https://{{domain}}/attendances/personal-attd-log-by-date/2022-02-10
+const String personalAttendanceLog = "$baseUrl/attendances/personal-attd-log-by-date";

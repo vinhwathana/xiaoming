@@ -1,10 +1,9 @@
-
-
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class InternetCheckController extends GetxController{
+class InternetCheckController extends GetxController {
   final connectionStatus = ConnectivityResult.wifi.obs;
   final Connectivity connectivity = Connectivity();
 

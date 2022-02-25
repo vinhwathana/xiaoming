@@ -59,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         showToast("${response.statusCode}: Something Went Wrong");
       }
-
     }
     setState(() {
       isVisible = false;
@@ -121,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'ពាក្យសំងាត់',
                         autofillHints: const [AutofillHints.password],
                         keyboardType: TextInputType.visiblePassword,
-                        validator: null/*(value) => validatePassword(value!)*/,
+                        validator: null /*(value) => validatePassword(value!)*/,
                         onSaved: (value) => _logIn.email = value,
                         hasObscureText: true,
                         onEditingComplete: () =>

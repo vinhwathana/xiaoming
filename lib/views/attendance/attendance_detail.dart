@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
+import 'package:xiaoming/models/attendance/attendance_log_response.dart';
 import 'package:xiaoming/models/attendance/attendance_rule.dart';
 import 'package:xiaoming/services/attendance_service.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -10,10 +12,10 @@ import 'package:xiaoming/utils/constant.dart';
 class AttendanceDetail extends StatefulWidget {
   const AttendanceDetail({
     Key? key,
-    required this.attendance,
+    required this.date,
   }) : super(key: key);
 
-  final Attendance attendance;
+  final DateTime date;
 
   @override
   State<AttendanceDetail> createState() => _AttendanceDetailState();
@@ -59,7 +61,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
     );
   }
 
-  Widget attendanceRuleView() {
+  Widget attendanceRuleView(TimeRule timeRule) {
     return highLevelCardWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,63 +73,32 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           Divider(
             thickness: 1,
           ),
-          (attendanceRuleId == null)
-              ? Center(
-                  child: Text("No Information"),
-                )
-              : FutureBuilder<AttendanceRule?>(
-                  future: attendanceService.getAttendanceRuleById(
-                    attendanceRuleId ?? "0",
-                  ),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    if (snapshot.hasData && snapshot.data != null) {
-                      final timeRule = snapshot.data;
-
-                      if (timeRule == null) {
-                        return Center(
-                          child: Text("No Information Available"),
-                        );
-                      }
-
-                      return Column(
-                        children: [
-                          customRow(
-                            "ព្រឹក(ស្កេនចូល)",
-                            "${timeRule.timeCheckIn1From} ដល់ ${timeRule.timeCheckIn1To}",
-                          ),
-                          customRow(
-                            "ព្រឹក(ស្កេនចេញ)",
-                            "${timeRule.timeCheckOut1From} ដល់ ${timeRule.timeCheckOut1To}",
-                          ),
-                          customRow(
-                            "ថ្ងៃ(ស្កេនចូល)",
-                            "${timeRule.timeCheckIn2From} ដល់ ${timeRule.timeCheckIn2To}",
-                          ),
-                          customRow(
-                            "ថ្ងៃ(ស្កេនចេញ)",
-                            "${timeRule.timeCheckOut2From} ដល់ ${timeRule.timeCheckOut2To}",
-                          ),
-                        ],
-                      );
-                    }
-
-                    return Center(
-                      child: Text("No Information Available"),
-                    );
-                  },
-                )
+          Column(
+            children: [
+              customRow(
+                "ព្រឹក(ស្កេនចូល)",
+                "${timeRule.timeCheckIn1From} ដល់ ${timeRule.timeCheckIn1To}",
+              ),
+              customRow(
+                "ព្រឹក(ស្កេនចេញ)",
+                "${timeRule.timeCheckOut1From} ដល់ ${timeRule.timeCheckOut1To}",
+              ),
+              customRow(
+                "ថ្ងៃ(ស្កេនចូល)",
+                "${timeRule.timeCheckIn2From} ដល់ ${timeRule.timeCheckIn2To}",
+              ),
+              customRow(
+                "ថ្ងៃ(ស្កេនចេញ)",
+                "${timeRule.timeCheckOut2From} ដល់ ${timeRule.timeCheckOut2To}",
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 
-  Widget selectedAttendanceDetailView() {
+  Widget attendanceDetailView(AttendanceLog attendanceLog) {
     final name = userController.users?.value.officialInfo?.getFullNameKh();
 
     return highLevelCardWidget(
@@ -145,7 +116,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
                   style: boldTitleStyle,
                 ),
                 Text(
-                  formatDateTimeForView(widget.attendance.authDate),
+                  formatDateTimeForView(widget.date),
                   style: boldTitleStyle,
                 ),
               ],
@@ -154,44 +125,52 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           Divider(
             thickness: 1,
           ),
-          FutureBuilder<Attendance?>(
-            future: attendanceService.getPersonalAttendanceByDate(
-              formatDateTimeForApi(widget.attendance.authDate),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: attendanceLog.logs.length,
+            separatorBuilder: (context, index) => Divider(
+              thickness: 1,
+              height: 0,
             ),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasData && snapshot.data != null) {
-                final attendance = snapshot.data;
-                if (attendance == null) {
-                  return Center(child: Text("No Information Available"));
-                }
-                WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-                  if (attendanceRuleId == null) {
-                    setState(() {
-                      attendanceRuleId = attendance.timeRuleId.toString();
-                    });
-                  }
-                });
-                return Column(
-                  children: [
-                    customRow("ព្រឹក(ស្កេនចូល)", attendance.morningCheckIn),
-                    customRow("ព្រឹក(ស្កេនចេញ)", attendance.morningCheckOut),
-                    customRow("ថ្ងៃ(ស្កេនចូល)", attendance.afternoonCheckIn),
-                    customRow("ថ្ងៃ(ស្កេនចេញ)", attendance.afternoonCheckOut),
-                  ],
-                );
-              }
-              return Center(
-                child: Text("No Information Available"),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  showDetailDialog(attendanceLog.logs[index]);
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Center(
+                      child: Text(
+                    attendanceLog.logs[index].authTime,
+                  )),
+                ),
               );
             },
-          ),
+          )
         ],
       ),
+    );
+  }
+
+  void showDetailDialog(Log log) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            log.authTime,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text("- Device Name: ${log.devName}\n"
+              "- Employee Id: ${log.empId}\n"
+              "- Employee Name: ${log.empName}\n"
+              "- Date Time Scan: ${log.authDateTime}\n"),
+        );
+      },
     );
   }
 
@@ -203,11 +182,29 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
       ),
       body: Container(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              attendanceRuleView(),
-              selectedAttendanceDetailView(),
-            ],
+          child: FutureBuilder<AttendanceLog?>(
+            future: attendanceService.getAttendanceLog(
+              formatDateTimeForApi(widget.date),
+            ),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData && snapshot.data != null) {
+                final attendanceLog = snapshot.data!;
+                return Column(
+                  children: [
+                    attendanceRuleView(attendanceLog.timeRule),
+                    attendanceDetailView(attendanceLog),
+                  ],
+                );
+              }
+              return Center(
+                child: Text("No Information Available"),
+              );
+            },
           ),
         ),
       ),

@@ -116,7 +116,7 @@ class _AttendancePageState extends State<AttendancePage> {
                 onTap: () {
                   Get.to(
                     () => AttendanceDetail(
-                      attendance: attendances[index],
+                      date: attendances[index].authDate,
                     ),
                   );
                 },
@@ -196,7 +196,7 @@ class _AttendancePageState extends State<AttendancePage> {
           attendance: dummyAttendances[index],
           onTap: () {
             Get.to(() => AttendanceDetail(
-                  attendance: dummyAttendances[index],
+                  date: dummyAttendances[index].authDate,
                 ));
           },
         );
