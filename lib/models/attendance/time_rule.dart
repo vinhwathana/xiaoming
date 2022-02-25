@@ -1,5 +1,5 @@
-class AttendanceRule {
-  AttendanceRule({
+class TimeRule {
+  TimeRule({
     required this.id,
     required this.ministryCode,
     required this.effectiveDate,
@@ -37,7 +37,7 @@ class AttendanceRule {
   String? deletedAt;
   String? deletedBy;
 
-  factory AttendanceRule.fromMap(Map<String, dynamic> json) => AttendanceRule(
+  factory TimeRule.fromMap(Map<String, dynamic> json) => TimeRule(
         id: json["id"],
         ministryCode: json["ministryCode"],
         effectiveDate: json["effectiveDate"],

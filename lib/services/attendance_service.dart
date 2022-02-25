@@ -6,7 +6,7 @@ import 'package:xiaoming/models/attendance/attendance.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
 import 'package:xiaoming/models/attendance/personal_attendance_by_date_response.dart';
 import 'package:xiaoming/models/attendance/personal_attendance_range_response.dart';
-import 'package:xiaoming/models/attendance/attendance_rule.dart';
+import 'package:xiaoming/models/attendance/time_rule.dart';
 import 'package:xiaoming/models/attendance/attendance_rule_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/controllers/authentication_controller.dart';
@@ -77,7 +77,7 @@ class AttendanceService {
     }
   }
 
-  Future<AttendanceRule?> getAttendanceRuleById(String timeRuleId) async {
+  Future<TimeRule?> getAttendanceRuleById(String timeRuleId) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
       return null;

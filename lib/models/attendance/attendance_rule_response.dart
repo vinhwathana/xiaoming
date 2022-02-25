@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'attendance_rule.dart';
+import 'time_rule.dart';
 
 AttendanceRuleResponse attendanceRuleResponseFromMap(String str) =>
     AttendanceRuleResponse.fromMap(json.decode(str));
@@ -17,13 +17,13 @@ class AttendanceRuleResponse {
 
   final int statusCode;
   final String message;
-  final AttendanceRule data;
+  final TimeRule data;
 
   factory AttendanceRuleResponse.fromMap(Map<String, dynamic> json) =>
       AttendanceRuleResponse(
         statusCode: json["statusCode"],
         message: json["message"],
-        data: AttendanceRule.fromMap(json["data"]),
+        data: TimeRule.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {

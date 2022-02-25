@@ -5,7 +5,7 @@ import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
-import 'package:xiaoming/models/attendance/attendance_rule.dart';
+import 'package:xiaoming/models/attendance/time_rule.dart';
 import 'package:xiaoming/services/attendance_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 
