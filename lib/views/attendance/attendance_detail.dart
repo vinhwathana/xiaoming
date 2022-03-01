@@ -67,7 +67,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "លក្ខខ័ណម៉ោងស្កេនចូលស្កេនចេញ",
+            "លក្ខខ័ណ្ឌម៉ោងស្កេនចូលស្កេនចេញ",
             style: boldTitleStyle,
           ),
           Divider(
