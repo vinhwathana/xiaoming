@@ -97,6 +97,13 @@ class _LandingPageState extends State<LandingPage> {
                         future: userService.getUserProfile(),
                         builder: (context, snapshot) {
                           print("Getting user profile...");
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            print("Checking token and user data...");
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           if (snapshot.hasData) {
                             final response = snapshot.data;
                             if (response == null ||
@@ -111,12 +118,6 @@ class _LandingPageState extends State<LandingPage> {
                           } else if (snapshot.hasError) {
                             return const Center(
                               child: Text("Error"),
-                            );
-                          } else if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            print("Checking token and user data...");
-                            return const Center(
-                              child: CircularProgressIndicator(),
                             );
                           } else {
                             print("Token invalid / expire");
