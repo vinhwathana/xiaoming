@@ -115,7 +115,7 @@ class HomePageGridView extends StatelessWidget {
         icon: Icons.person,
         destination: PersonalInfoPage(),
       ),
-      _HomePageItem(
+      const _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",
         icon: Icons.calendar_today,
         destination: AttendancePage(),

@@ -13,7 +13,6 @@ import 'package:xiaoming/models/statistic/skill_by_degree_statistic.dart';
 import 'package:xiaoming/models/statistic/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/result_organization.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'dart:math' as math;
 import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class StatisticService {

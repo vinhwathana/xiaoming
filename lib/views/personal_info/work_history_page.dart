@@ -7,7 +7,6 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
 
-import 'package:xiaoming/utils/constant.dart';
 
 class WorkHistoryPage extends StatelessWidget {
   const WorkHistoryPage({Key? key}) : super(key: key);

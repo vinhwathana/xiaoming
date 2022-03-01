@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
-import 'package:xiaoming/models/attendance/personal_attendance_range_response.dart';
 import 'package:xiaoming/services/attendance_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance/attendance_detail.dart';
@@ -18,7 +17,7 @@ class _AttendancePageState extends State<AttendancePage> {
   final attendanceService = AttendanceService();
 
   final now = DateTime.now();
-  late DateTime start = now.subtract(Duration(days: 1));
+  late DateTime start = now.subtract(const Duration(days: 1));
   late DateTime end = now;
 
   void pickDateRange() async {
@@ -44,7 +43,7 @@ class _AttendancePageState extends State<AttendancePage> {
       },
     );
     if (picked != null) {
-      print(picked);
+      // print(picked);
       setState(() {
         start = picked.start;
         end = picked.end;
@@ -57,19 +56,19 @@ class _AttendancePageState extends State<AttendancePage> {
       // elevation: 3,
       shadowColor: Colors.grey,
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         width: double.maxFinite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "ចាប់ពីថ្ងៃទី - ដល់ថ្ងៃទី",
               style: TextStyle(fontSize: 18),
             ),
             TextButton(
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
-                minimumSize: Size(50, 30),
+                minimumSize: const Size(50, 30),
                 alignment: Alignment.centerLeft,
               ),
               onPressed: () {
@@ -77,7 +76,7 @@ class _AttendancePageState extends State<AttendancePage> {
               },
               child: Text(
                 "${formatDateTimeForView(start)} - ${formatDateTimeForView(end)}",
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ],
@@ -94,7 +93,7 @@ class _AttendancePageState extends State<AttendancePage> {
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -103,12 +102,14 @@ class _AttendancePageState extends State<AttendancePage> {
           final List<Attendance>? attendances = snapshot.data;
 
           if (attendances == null || attendances.length == 0) {
-            return Center(child: Text("No Information Available"));
+            return const Center(
+              child: Text("No Information Available"),
+            );
           }
 
           return ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: attendances.length,
             itemBuilder: (context, index) {
               return AttendanceCard(
@@ -124,7 +125,7 @@ class _AttendancePageState extends State<AttendancePage> {
             },
           );
         }
-        return Center(
+        return const Center(
           child: Text("No Information Available"),
         );
       },
@@ -135,18 +136,18 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("វត្តមានផ្ទាល់ខ្លួន"),
+        title: const Text("វត្តមានផ្ទាល់ខ្លួន"),
         actions: [
           IconButton(
             onPressed: () {
               pickDateRange();
             },
-            icon: Icon(Icons.date_range),
+            icon: const Icon(Icons.date_range),
           ),
         ],
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +155,7 @@ class _AttendancePageState extends State<AttendancePage> {
               topTitle(),
               attendanceView(),
               // dummyAttendanceView(),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
             ],
@@ -189,15 +190,17 @@ class _AttendancePageState extends State<AttendancePage> {
     ];
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: dummyAttendances.length,
       itemBuilder: (context, index) {
         return AttendanceCard(
           attendance: dummyAttendances[index],
           onTap: () {
-            Get.to(() => AttendanceDetail(
-                  date: dummyAttendances[index].authDate,
-                ));
+            Get.to(
+              () => AttendanceDetail(
+                date: dummyAttendances[index].authDate,
+              ),
+            );
           },
         );
       },
@@ -249,14 +252,17 @@ class AttendanceCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           color: Colors.transparent,
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           width: double.maxFinite,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 formatDateTimeForView(attendance.authDate),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Divider(
                 color: CompanyColors.yellow,
@@ -271,13 +277,13 @@ class AttendanceCard extends StatelessWidget {
                   children: [
                     Text(
                       "ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
                     Text(
                       "វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
@@ -296,19 +302,19 @@ class AttendanceCard extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Text("ព្រឹក(ស្កេនចូល)"),
+                          const Text("ព្រឹក(ស្កេនចូល)"),
                           Text(attendance.morningCheckIn),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("ព្រឹក(ស្កេនចេញ)"),
+                          const Text("ព្រឹក(ស្កេនចេញ)"),
                           Text(attendance.morningCheckOut),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
@@ -316,13 +322,13 @@ class AttendanceCard extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Text("ថ្ងៃ(ស្កេនចូល)"),
+                          const Text("ថ្ងៃ(ស្កេនចូល)"),
                           Text(attendance.afternoonCheckIn),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("ថ្ងៃ(ស្កេនចេញ)"),
+                          const Text("ថ្ងៃ(ស្កេនចេញ)"),
                           Text(attendance.afternoonCheckOut),
                         ],
                       ),

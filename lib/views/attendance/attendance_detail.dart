@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/attendance/attendance.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
 import 'package:xiaoming/models/attendance/time_rule.dart';
 import 'package:xiaoming/services/attendance_service.dart';
@@ -23,7 +21,7 @@ class AttendanceDetail extends StatefulWidget {
 
 class _AttendanceDetailState extends State<AttendanceDetail> {
   final userController = Get.find<UserController>();
-  final TextStyle boldTitleStyle = TextStyle(
+  final TextStyle boldTitleStyle = const TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
@@ -33,11 +31,11 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   Widget highLevelCardWidget({required Widget child}) {
     return Container(
       width: double.maxFinite,
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Card(
         elevation: 6,
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: child,
         ),
       ),
@@ -47,13 +45,13 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   Widget customRow(String firstText, String secondText) {
     return Container(
       width: double.maxFinite,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
         children: [
           Text(firstText),
           Text(secondText),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
         ],
@@ -70,7 +68,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
             "លក្ខខ័ណ្ឌម៉ោងស្កេនចូលស្កេនចេញ",
             style: boldTitleStyle,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
           Column(
@@ -122,14 +120,14 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
           ListView.separated(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: attendanceLog.logs.length,
-            separatorBuilder: (context, index) => Divider(
+            separatorBuilder: (context, index) => const Divider(
               thickness: 1,
               height: 0,
             ),
@@ -140,11 +138,12 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
                 },
                 child: Container(
                   color: Colors.transparent,
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
-                      child: Text(
-                    attendanceLog.logs[index].authTime,
-                  )),
+                    child: Text(
+                      attendanceLog.logs[index].authTime,
+                    ),
+                  ),
                 ),
               );
             },
@@ -161,7 +160,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
         return AlertDialog(
           title: Text(
             log.authTime,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -178,34 +177,32 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ម៉ោងស្កេន"),
+        title: const Text("ម៉ោងស្កេន"),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: FutureBuilder<AttendanceLog?>(
-            future: attendanceService.getAttendanceLog(
-              formatDateTimeForApi(widget.date),
-            ),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasData && snapshot.data != null) {
-                final attendanceLog = snapshot.data!;
-                return Column(
-                  children: [
-                    attendanceRuleView(attendanceLog.timeRule),
-                    attendanceDetailView(attendanceLog),
-                  ],
-                );
-              }
-              return Center(
-                child: Text("No Information Available"),
-              );
-            },
+      body: SingleChildScrollView(
+        child: FutureBuilder<AttendanceLog?>(
+          future: attendanceService.getAttendanceLog(
+            formatDateTimeForApi(widget.date),
           ),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasData && snapshot.data != null) {
+              final attendanceLog = snapshot.data!;
+              return Column(
+                children: [
+                  attendanceRuleView(attendanceLog.timeRule),
+                  attendanceDetailView(attendanceLog),
+                ],
+              );
+            }
+            return const Center(
+              child: Text("No Information Available"),
+            );
+          },
         ),
       ),
     );

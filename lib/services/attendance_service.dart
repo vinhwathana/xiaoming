@@ -122,9 +122,6 @@ class AttendanceService {
               "Bearer ${authController.accessToken!}",
         },
       );
-
-      print(response.statusCode);
-
       if (response.statusCode == 200) {
         final attendanceLog = attendanceLogResponseFromMap(response.body);
         return attendanceLog.data;

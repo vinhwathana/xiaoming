@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
 import 'dart:convert';

@@ -184,7 +184,7 @@ class _DrawerItemState extends State<_DrawerItem> {
           title: const Text('វត្តមាន'),
           onTap: () {
             Get.back();
-            Get.to(() => AttendancePage());
+            Get.to(() => const AttendancePage());
           },
         ),
         ListTile(

@@ -43,14 +43,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     final user = userController.users?.value;
 
     if (user == null) {
-      print("User null");
+      // print("User null");
       await authController.clearToken();
       Get.offAll(() => const LandingPage());
       return;
     }
     final userEmail = user.officialInfo?.contactEmail;
     if (userEmail == null) {
-      print("Email null");
+      // print("Email null");
       await authController.clearToken();
       Get.offAll(() => const LandingPage());
       return;
