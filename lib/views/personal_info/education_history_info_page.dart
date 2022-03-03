@@ -169,7 +169,6 @@ class EducationHistoryInfoDataSource extends DataGridSource {
           );
         }
         return Container(
-          padding: const EdgeInsets.all(8.0),
           alignment: Alignment.center,
           child: Text(
             dataGridCell.value.toString(),

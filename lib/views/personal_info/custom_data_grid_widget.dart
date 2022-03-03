@@ -28,27 +28,29 @@ class CustomDataGridWidget extends StatelessWidget {
         ),
         SfDataGrid(
           source: dataSource,
-          onQueryRowHeight: (details) {
-            return details.getIntrinsicRowHeight(details.rowIndex);
-          },
           verticalScrollPhysics: NeverScrollableScrollPhysics(),
           shrinkWrapRows: true,
-          columns: List.generate(headerTitles.length, (index) {
-            return GridColumn(
+          columns: List.generate(
+            headerTitles.length,
+            (index) {
+              return GridColumn(
                 columnName: headerTitles[index],
                 columnWidthMode: ColumnWidthMode.auto,
                 label: Container(
-                    padding: const EdgeInsets.all(12.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      headerTitles[index],
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: "KhmerOSBattambong",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )));
-          }),
+                  padding: const EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    headerTitles[index],
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontFamily: "KhmerOSBattambong",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
           columnWidthMode: ColumnWidthMode.auto,
         ),
       ],

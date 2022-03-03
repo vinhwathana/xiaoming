@@ -51,6 +51,25 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
       ItemPositionsListener.create();
 
   @override
+  void initState() {
+    super.initState();
+    itemPositionsListener.itemPositions.addListener(() {
+      final List<int> visibleIndexes = itemPositionsListener.itemPositions.value
+          .map((e) => e.index)
+          .toList();
+      setState(() {
+        if (visibleIndexes.length != 0) {
+          changeTabBarPosition(visibleIndexes[0]);
+        }
+      });
+    });
+  }
+
+  void changeTabBarPosition(int index) {
+    tabController.animateTo(index);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
@@ -74,9 +93,7 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
                     tabs: [
                       ...tabsTitle.map((e) {
                         return InkWell(
-                          onTap: () {
-                            tabController.animateTo(tabsTitle.indexOf(e));
-                          },
+                          onTap: () {},
                           child: Tab(
                             text: e,
                           ),
@@ -95,6 +112,7 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
         body: ScrollablePositionedList.separated(
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
+          shrinkWrap: true,
           separatorBuilder: (context, index) {
             return Divider(
               thickness: 3,
