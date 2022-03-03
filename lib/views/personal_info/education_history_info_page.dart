@@ -6,9 +6,10 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/education.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
-class EducationInfoPage extends StatelessWidget {
-  const EducationInfoPage({Key? key}) : super(key: key);
+class EducationHistoryInfoPage extends StatelessWidget {
+  const EducationHistoryInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class EducationInfoPage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: const EducationInfoTable(),
+            child: const EducationHistoryInfoTable(),
           ),
         ),
       ),
@@ -30,23 +31,24 @@ class EducationInfoPage extends StatelessWidget {
   }
 }
 
-class EducationInfoTable extends StatefulWidget {
-  const EducationInfoTable({Key? key}) : super(key: key);
+class EducationHistoryInfoTable extends StatefulWidget {
+  const EducationHistoryInfoTable({Key? key}) : super(key: key);
 
   @override
-  _EducationInfoTableState createState() => _EducationInfoTableState();
+  _EducationHistoryInfoTableState createState() =>
+      _EducationHistoryInfoTableState();
 }
 
-class _EducationInfoTableState extends State<EducationInfoTable> {
+class _EducationHistoryInfoTableState extends State<EducationHistoryInfoTable> {
   final userController = Get.find<UserController>();
   late final List<Education> educations;
-  late EducationInfoDataSource educationInfoDataSource;
+  late EducationHistoryInfoDataSource educationHistoryInfoDataSource;
 
   @override
   void initState() {
     super.initState();
     educations = getEducationInfo();
-    educationInfoDataSource = EducationInfoDataSource(
+    educationHistoryInfoDataSource = EducationHistoryInfoDataSource(
       educationInfos: educations,
       context: context,
     );
@@ -76,34 +78,16 @@ class _EducationInfoTableState extends State<EducationInfoTable> {
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: educationInfoDataSource,
-      onQueryRowHeight: (details) {
-        return details.getIntrinsicRowHeight(details.rowIndex);
-      },
-      columns: List.generate(headerTitles.length, (index) {
-        return GridColumn(
-            columnName: headerTitles[index],
-            columnWidthMode: ColumnWidthMode.auto,
-            label: Container(
-                padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.center,
-                child: Text(
-                  headerTitles[index],
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontFamily: "KhmerOSBattambong",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
-      }),
-      columnWidthMode: ColumnWidthMode.fitByColumnName,
+    return CustomDataGridWidget(
+      tableTitle: "ប្រវត្តិការសិក្សា",
+      dataSource: educationHistoryInfoDataSource,
+      headerTitles: headerTitles,
     );
   }
 }
 
-class EducationInfoDataSource extends DataGridSource {
-  EducationInfoDataSource({
+class EducationHistoryInfoDataSource extends DataGridSource {
+  EducationHistoryInfoDataSource({
     required this.educationInfos,
     required this.context,
   }) {

@@ -1,143 +1,84 @@
-//This is the main page for expansionTile
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/views/personal_info/additional_position_page.dart';
-import 'package:xiaoming/views/personal_info/education_info_page.dart';
-import 'package:xiaoming/views/personal_info/family_info_page.dart';
-import 'package:xiaoming/views/personal_info/krob_khan_page.dart';
-import 'package:xiaoming/views/personal_info/language_info_page.dart';
-import 'package:xiaoming/views/personal_info/merit_info_page.dart';
-import 'package:xiaoming/views/personal_info/work_history_page.dart';
-import 'package:xiaoming/views/personal_info/profile_expansion_card.dart';
+import 'package:khmer_date/khmer_date.dart';
+import 'package:xiaoming/components/expansion_row.dart';
+import 'package:xiaoming/controllers/user_controller.dart';
+import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/login_page.dart';
 
 class PersonalInfoPage extends StatelessWidget {
   const PersonalInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+    return Container(
+      padding: const EdgeInsets.fromLTRB(30, 0, 20, 10),
+      child: GetBuilder<UserController>(
+        builder: (controller) {
+          if (controller.users == null) {
+            return const LoginPage();
+          }
+          final user = controller.users!.value.officialInfo!;
+          return Column(
             children: [
-              const Card(
-                child: ExpansionTile(
-                  title: Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
-                  children: [
-                    ProfileExpansionCard(),
-                  ],
-                ),
+              ExpansionRow(
+                label: 'គោត្តនាម និង នាម',
+                value: "${user.firstNameKh} ${user.lastNameKh}",
               ),
-              Card(
-                child: ListTile(
-                  title: const Text('ព័ត៌មានគ្រួសារ'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(
-                    () => const FamilyInfoPage(),
-                    arguments: "ព័ត៌មានគ្រួសារ",
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text('ប្រវត្តិការងារ'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const WorkHistoryPage(),
-                      arguments: "ប្រវត្តិការងារ"),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text('មុខងារបន្ថែម'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const AdditionalPositionPage(),
-                      arguments: "មុខងារបន្ថែម"),
-                ),
-              ),
-
-              Card(
-                child: ListTile(
-                  title: const Text('ប្រវត្តិការរសិក្សា'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const EducationInfoPage(),
-                      arguments: "ប្រវត្តិការរសិក្សា"),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text('ភាសា'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(
-                    () => const LanguageInfoPage(),
-                    arguments: "ភាសា",
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text('កាំបៀវត្ស'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(
-                    () => const KrobKhanPage(),
-                    arguments: "កាំបៀវត្ស",
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text('ឥស្សរិយយស្ស'),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () =>
-                      Get.to(() => const MeritInfoPage(), arguments: "ឥស្សរិយយស្ស"),
-                ),
-              ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ប្រវត្តិការងារ'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ប្រវត្តិការរសិក្សា'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ភាសា'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('កាំបៀវត្ស'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ឥស្សរិយយស្ស'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
+              const Divider(),
+              ExpansionRow(label: 'ភេទ', value: user.gender ?? "(No Gender)"),
+              const Divider(),
+              ExpansionRow(
+                  label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
+                  value: formatDateTimeForView(user.dateOfBirth!)),
+              const Divider(),
+              ExpansionRow(label: 'ជនជាតិ', value: user.race?.nameKh ?? ""),
+              const Divider(),
+              ExpansionRow(
+                  label: 'សញ្ជាតិ', value: user.nationality?.nameKh ?? ""),
+              const Divider(),
+              ExpansionRow(
+                  label: 'ទីកន្លែងកំណើត',
+                  value: generateAddress(
+                    province: user.birthAddressProvince,
+                    commune: user.birthAddressCommune,
+                    district: user.birthAddressDistrict,
+                    village: user.birthAddressVillage,
+                  )),
+              const Divider(),
+              ExpansionRow(
+                  label: 'ស្ថានភាពគ្រួសារ',
+                  value: decideEnumValue(user.maritalStatus)),
+              const Divider(),
+              ExpansionRow(
+                  label: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+                  value: generateAddress(
+                    province: user.currentAddressProvince,
+                    commune: user.currentAddressCommune,
+                    district: user.currentAddressDistrict,
+                    village: user.currentAddressVillage,
+                  )),
+              const Divider(),
+              ExpansionRow(
+                  label: 'លេខទូរស័ព្ទ',
+                  value: formatPhoneNumber(user.contactPhone)),
+              const Divider(),
+              ExpansionRow(
+                  label: 'អត្តលេខ',
+                  value: KhmerDate.khmerNumber(user.officialId ?? "")),
+              const Divider(),
+              ExpansionRow(
+                  label: 'ថ្ងៃបម្រើការងារ',
+                  value: formatDateTimeForView(user.internshipDate)),
+              const Divider(),
+              ExpansionRow(
+                  label: 'ថ្ងៃតាំងស៊ប់',
+                  value: formatDateTimeForView(user.officialWorkingDate)),
             ],
-          ),
-        ),
+          );
+        },
       ),
+      // child:
     );
   }
 }

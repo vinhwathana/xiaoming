@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,9 +7,10 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/family_info.dart';
 import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
-class FamilyInfoPage extends StatelessWidget {
-  const FamilyInfoPage({Key? key}) : super(key: key);
+class FamilyHistoryInfoPage extends StatelessWidget {
+  const FamilyHistoryInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FamilyInfoPage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             // color: Colors.red,
-            child: const FamilyInfoTable(),
+            child: const FamilyHistoryInfoTable(),
           ),
         ),
       ),
@@ -32,17 +32,17 @@ class FamilyInfoPage extends StatelessWidget {
   }
 }
 
-class FamilyInfoTable extends StatefulWidget {
-  const FamilyInfoTable({Key? key}) : super(key: key);
+class FamilyHistoryInfoTable extends StatefulWidget {
+  const FamilyHistoryInfoTable({Key? key}) : super(key: key);
 
   @override
-  _FamilyInfoTableState createState() => _FamilyInfoTableState();
+  _FamilyHistoryInfoTableState createState() => _FamilyHistoryInfoTableState();
 }
 
-class _FamilyInfoTableState extends State<FamilyInfoTable> {
+class _FamilyHistoryInfoTableState extends State<FamilyHistoryInfoTable> {
   final userController = Get.find<UserController>();
   late final List<FamilyInfo> familyInfos;
-  late FamilyInfoDataSource familyInfoDataSource;
+  late FamilyHistoryInfoDataSource familyHistoryInfoDataSource;
 
   final fileService = FileService();
 
@@ -50,7 +50,7 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
   void initState() {
     super.initState();
     familyInfos = getFamilyInfo();
-    familyInfoDataSource = FamilyInfoDataSource(
+    familyHistoryInfoDataSource = FamilyHistoryInfoDataSource(
       familyInfos: familyInfos,
       context: context,
     );
@@ -81,35 +81,16 @@ class _FamilyInfoTableState extends State<FamilyInfoTable> {
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: familyInfoDataSource,
-      onQueryRowHeight: (details) {
-        return details.getIntrinsicRowHeight(details.rowIndex);
-      },
-      columns: List.generate(headerTitles.length, (index) {
-        return GridColumn(
-          columnName: headerTitles[index],
-          columnWidthMode: ColumnWidthMode.auto,
-          label: Container(
-              padding: const EdgeInsets.all(8.0),
-              alignment: Alignment.center,
-              child: Text(
-                headerTitles[index],
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: "KhmerOSBattambong",
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
-        );
-      }),
-      // columnWidthMode: ColumnWidthMode.auto,
+    return CustomDataGridWidget(
+      tableTitle: "ព័តមានគ្រួសារ",
+      dataSource: familyHistoryInfoDataSource,
+      headerTitles: headerTitles,
     );
   }
 }
 
-class FamilyInfoDataSource extends DataGridSource {
-  FamilyInfoDataSource({
+class FamilyHistoryInfoDataSource extends DataGridSource {
+  FamilyHistoryInfoDataSource({
     required this.familyInfos,
     required this.context,
   }) {

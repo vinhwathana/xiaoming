@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/offical_info/merit.dart';
+import 'package:xiaoming/models/offical_info/krob_khan.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
-class MeritInfoPage extends StatelessWidget {
-  const MeritInfoPage({Key? key}) : super(key: key);
+class KrobKhanInfoPage extends StatelessWidget {
+  const KrobKhanInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,7 @@ class MeritInfoPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            // color: Colors.red,
-            child: const MeritInfoTable(),
+            child: const KrobKhanInfoTable(),
           ),
         ),
       ),
@@ -32,97 +31,96 @@ class MeritInfoPage extends StatelessWidget {
   }
 }
 
-class MeritInfoTable extends StatefulWidget {
-  const MeritInfoTable({Key? key}) : super(key: key);
+class KrobKhanInfoTable extends StatefulWidget {
+  const KrobKhanInfoTable({Key? key}) : super(key: key);
 
   @override
-  _MeritInfoTableState createState() => _MeritInfoTableState();
+  _KrobKhanInfoTableState createState() => _KrobKhanInfoTableState();
 }
 
-class _MeritInfoTableState extends State<MeritInfoTable> {
+class _KrobKhanInfoTableState extends State<KrobKhanInfoTable> {
   final userController = Get.find<UserController>();
-  late final List<Merit> meritInfos;
-  late MeritInfoDataSource meritInfoDataSource;
+  late final List<KrobKhan> krobKhans;
+  late KrobKhanInfoDataSource krobKhanInfoDataSource;
 
   @override
   void initState() {
     super.initState();
-    meritInfos = getMeritInfo();
-    meritInfoDataSource = MeritInfoDataSource(
-      meritInfos: meritInfos,
+    krobKhans = getKrobKhan();
+    krobKhanInfoDataSource = KrobKhanInfoDataSource(
+      krobKhanInfos: krobKhans,
       context: context,
     );
   }
 
-  List<Merit> getMeritInfo() {
-    return userController.users!.value.merits!;
+  List<KrobKhan> getKrobKhan() {
+    return userController.users!.value.krobKhans!;
   }
 
-  final textStyle =
-      const TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
-
   final List<String> headerTitles = [
-    "ប្រភេទគឿងឥស្សរិយយស្ស",
-    'ប្រភេទមេដាយ',
-    'ថ្នាក់',
-    'កាលបរិច្ឆេទទទួល',
-    'សំគាល់',
+    "កាំប្រាក់",
+    'ឆ្នាំចាប់ផ្តើម',
+    'ឆ្នាំបញ្ចប់',
+    'ឡើងតាម',
+    'ប្រភេទ',
     'ឯកសារភ្ជាប់',
   ];
+
 
   @override
   Widget build(BuildContext context) {
     return CustomDataGridWidget(
-      tableTitle: "គ្រឿងឥស្សរិយយស",
-      dataSource: meritInfoDataSource,
+      tableTitle: "ក្របខណ្ឌ",
+      dataSource: krobKhanInfoDataSource,
       headerTitles: headerTitles,
     );
   }
 }
 
-class MeritInfoDataSource extends DataGridSource {
-  MeritInfoDataSource({
-    required this.meritInfos,
+class KrobKhanInfoDataSource extends DataGridSource {
+  KrobKhanInfoDataSource({
+    required this.krobKhanInfos,
     required this.context,
   }) {
-    _meritInfos = meritInfos.map<DataGridRow>((e) {
+    _krobKhanInfos = krobKhanInfos.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
-            columnName: 'ប្រភេទគឿងឥស្សរិយយស្ស',
-            value: e.meritType.nameKh,
+            columnName: 'កាំប្រាក់',
+            value:
+                "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
           ),
           DataGridCell<String>(
-            columnName: 'ប្រភេទមេដាយ',
-            value: e.medalType.nameKh,
+            columnName: 'ឆ្នាំចាប់ផ្តើម',
+            value: formatDateTimeForView(e.startDate),
           ),
           DataGridCell<String>(
-            columnName: 'ថ្នាក់',
-            value: e.rank.nameKh,
+            columnName: 'ឆ្នាំបញ្ចប់',
+            value: formatDateTimeForView(e.endDate),
           ),
           DataGridCell<String>(
-            columnName: 'កាលបរិច្ឆេទទទួល',
-            value: formatDateTimeForView(e.recievedDate),
+            columnName: 'ឡើងតាម',
+            value: e.upgradedBy.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	សំគាល់',
-            value: e.remark,
+            columnName: '	ប្រភេទ',
+            value: e.officialType.nameKh,
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
-            value: meritInfos.indexOf(e),
+            value: krobKhanInfos.indexOf(e),
           ),
         ],
       );
     }).toList();
   }
 
-  final List<Merit> meritInfos;
+  final List<KrobKhan> krobKhanInfos;
   final BuildContext context;
-  List<DataGridRow> _meritInfos = [];
+  List<DataGridRow> _krobKhanInfos = [];
 
   @override
-  List<DataGridRow> get rows => _meritInfos;
+  List<DataGridRow> get rows => _krobKhanInfos;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
@@ -131,7 +129,7 @@ class MeritInfoDataSource extends DataGridSource {
       (dataGridCell) {
         if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
           final index = dataGridCell.value;
-          final attachmentList = meritInfos[index].attachmentList;
+          final attachmentList = krobKhanInfos[index].attachmentList;
           if (attachmentList == null ||
               attachmentList.isEmpty ||
               attachmentList.length == 0) {
@@ -148,7 +146,6 @@ class MeritInfoDataSource extends DataGridSource {
         }
         return Container(
           alignment: Alignment.center,
-          // padding: const EdgeInsets.all(8.0),
           child: Text(
             dataGridCell.value.toString(),
             style: const TextStyle(

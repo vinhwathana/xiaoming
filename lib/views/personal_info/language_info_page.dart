@@ -6,6 +6,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/language.dart';
+import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
 class LanguageInfoPage extends StatelessWidget {
   const LanguageInfoPage({Key? key}) : super(key: key);
@@ -72,28 +73,10 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: languageInfoDataSource,
-      onQueryRowHeight: (details) {
-        return details.getIntrinsicRowHeight(details.rowIndex);
-      },
-      columns: List.generate(headerTitles.length, (index) {
-        return GridColumn(
-            columnName: headerTitles[index],
-            columnWidthMode: ColumnWidthMode.auto,
-            label: Container(
-                padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.center,
-                child: Text(
-                  headerTitles[index],
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontFamily: "KhmerOSBattambong",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
-      }),
-      columnWidthMode: ColumnWidthMode.auto,
+    return CustomDataGridWidget(
+      tableTitle: "ភាសា",
+      dataSource: languageInfoDataSource,
+      headerTitles: headerTitles,
     );
   }
 }

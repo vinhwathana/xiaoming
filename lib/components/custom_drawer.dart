@@ -11,7 +11,7 @@ import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
-import 'package:xiaoming/views/personal_info/personal_info_page.dart';
+import 'package:xiaoming/views/personal_info/user_info_page.dart';
 import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -175,7 +175,7 @@ class _DrawerItemState extends State<_DrawerItem> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const PersonalInfoPage(),
+                  builder: (context) => const UserInfoPage(),
                 ));
           },
         ),

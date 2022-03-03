@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/offical_info/krob_khan.dart';
-import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/models/offical_info/work_history.dart';
+import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
-class KrobKhanPage extends StatelessWidget {
-  const KrobKhanPage({Key? key}) : super(key: key);
+class WorkHistoryInfoPage extends StatelessWidget {
+  const WorkHistoryInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class KrobKhanPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: const KrobKhanTable(),
+            child: const WorkHistoryInfoTable(),
           ),
         ),
       ),
@@ -30,30 +30,30 @@ class KrobKhanPage extends StatelessWidget {
   }
 }
 
-class KrobKhanTable extends StatefulWidget {
-  const KrobKhanTable({Key? key}) : super(key: key);
+class WorkHistoryInfoTable extends StatefulWidget {
+  const WorkHistoryInfoTable({Key? key}) : super(key: key);
 
   @override
-  _KrobKhanTableState createState() => _KrobKhanTableState();
+  _WorkHistoryInfoTableState createState() => _WorkHistoryInfoTableState();
 }
 
-class _KrobKhanTableState extends State<KrobKhanTable> {
+class _WorkHistoryInfoTableState extends State<WorkHistoryInfoTable> {
   final userController = Get.find<UserController>();
-  late final List<KrobKhan> krobKhans;
-  late KrobKhanDataSource workHistoryDataSource;
+  late final List<WorkHistory> workHistories;
+  late WorkHistoryInfoDataSource workHistoryInfoDataSource;
 
   @override
   void initState() {
     super.initState();
-    krobKhans = getKrobKhan();
-    workHistoryDataSource = KrobKhanDataSource(
-      krobKhanInfos: krobKhans,
+    workHistories = getWorkHistory();
+    workHistoryInfoDataSource = WorkHistoryInfoDataSource(
+      workHistories: workHistories,
       context: context,
     );
   }
 
-  List<KrobKhan> getKrobKhan() {
-    return userController.users!.value.krobKhans!;
+  List<WorkHistory> getWorkHistory() {
+    return userController.users!.value.workHistories!;
   }
 
   final textStyle = const TextStyle(
@@ -62,86 +62,67 @@ class _KrobKhanTableState extends State<KrobKhanTable> {
   );
 
   final List<String> headerTitles = [
-    "កាំប្រាក់",
+    "មុខតំណែងបច្ចុប្បន្ន",
     'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
-    'ឡើងតាម',
-    'ប្រភេទ',
-    'ឯកសារភ្ជាប់',
+    'ក្រសួង',
+    'អង្គភាព',
+    "ឯកសារភ្ជាប់"
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: workHistoryDataSource,
-      onQueryRowHeight: (details) {
-        return details.getIntrinsicRowHeight(details.rowIndex);
-      },
-      columns: List.generate(headerTitles.length, (index) {
-        return GridColumn(
-            columnName: headerTitles[index],
-            columnWidthMode: ColumnWidthMode.auto,
-            label: Container(
-                padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.center,
-                child: Text(
-                  headerTitles[index],
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontFamily: "KhmerOSBattambong",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
-      }),
-      columnWidthMode: ColumnWidthMode.auto,
+    return CustomDataGridWidget(
+      tableTitle: "ប្រវត្តិការងារ",
+      dataSource: workHistoryInfoDataSource,
+      headerTitles: headerTitles,
     );
   }
 }
 
-class KrobKhanDataSource extends DataGridSource {
-  KrobKhanDataSource({
-    required this.krobKhanInfos,
+class WorkHistoryInfoDataSource extends DataGridSource {
+  WorkHistoryInfoDataSource({
+    required this.workHistories,
     required this.context,
   }) {
-    _krobKhanInfos = krobKhanInfos.map<DataGridRow>((e) {
+    _workHistories = workHistories.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
-            columnName: 'កាំប្រាក់',
-            value:
-                "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
+            columnName: 'មុខតំណែងបច្ចុប្បន្ន',
+            value: e.position.title,
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: formatDateTimeForView(e.startDate),
+            value: e.startDate,
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: formatDateTimeForView(e.endDate),
+            value: e.endDate,
           ),
           DataGridCell<String>(
-            columnName: 'ឡើងតាម',
-            value: e.upgradedBy.nameKh,
+            columnName: 'ក្រសួង',
+            value: e.ministry.nameKh,
           ),
           DataGridCell<String>(
-            columnName: '	ប្រភេទ',
-            value: e.officialType.nameKh,
+            columnName: 'អង្គភាព',
+            value: e.organization[0].nameKh,
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
-            value: krobKhanInfos.indexOf(e),
+            value: workHistories.indexOf(e),
           ),
         ],
       );
     }).toList();
   }
 
-  final List<KrobKhan> krobKhanInfos;
+  final List<WorkHistory> workHistories;
   final BuildContext context;
-  List<DataGridRow> _krobKhanInfos = [];
+  List<DataGridRow> _workHistories = [];
 
   @override
-  List<DataGridRow> get rows => _krobKhanInfos;
+  List<DataGridRow> get rows => _workHistories;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
@@ -149,8 +130,8 @@ class KrobKhanDataSource extends DataGridSource {
         cells: row.getCells().map<Widget>(
       (dataGridCell) {
         if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = krobKhanInfos[index].attachmentList;
+          final index = dataGridCell.value as int;
+          final attachmentList = workHistories[index].attachmentList;
           if (attachmentList == null ||
               attachmentList.isEmpty ||
               attachmentList.length == 0) {
@@ -172,12 +153,16 @@ class KrobKhanDataSource extends DataGridSource {
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+              // height: 1.3,
             ),
-            textAlign: TextAlign.start,
           ),
         );
       },
     ).toList());
+  }
+
+  @override
+  bool shouldRecalculateColumnWidths() {
+    return true;
   }
 }

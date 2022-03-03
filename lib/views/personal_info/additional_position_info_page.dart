@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
-import 'package:xiaoming/models/offical_info/work_history.dart';
+import 'package:xiaoming/models/offical_info/additiona_position.dart';
+import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
 
-
-class WorkHistoryPage extends StatelessWidget {
-  const WorkHistoryPage({Key? key}) : super(key: key);
+class AdditionalPositionInfoPage extends StatelessWidget {
+  const AdditionalPositionInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class WorkHistoryPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: const WorkHistoryTable(),
+            child: const AdditionalPositionInfoTable(),
           ),
         ),
       ),
@@ -30,30 +31,32 @@ class WorkHistoryPage extends StatelessWidget {
   }
 }
 
-class WorkHistoryTable extends StatefulWidget {
-  const WorkHistoryTable({Key? key}) : super(key: key);
+class AdditionalPositionInfoTable extends StatefulWidget {
+  const AdditionalPositionInfoTable({Key? key}) : super(key: key);
 
   @override
-  _WorkHistoryTableState createState() => _WorkHistoryTableState();
+  _AdditionalPositionInfoTableState createState() =>
+      _AdditionalPositionInfoTableState();
 }
 
-class _WorkHistoryTableState extends State<WorkHistoryTable> {
+class _AdditionalPositionInfoTableState
+    extends State<AdditionalPositionInfoTable> {
   final userController = Get.find<UserController>();
-  late final List<WorkHistory> workHistories;
-  late WorkHistoryDataSource workHistoryDataSource;
+  late final List<AdditionalPosition> additionalPositions;
+  late AdditionalPositionInfoDataSource additionalPositionInfoDataSource;
 
   @override
   void initState() {
     super.initState();
-    workHistories = getWorkHistory();
-    workHistoryDataSource = WorkHistoryDataSource(
-      workHistories: workHistories,
+    additionalPositions = getAdditionalPosition();
+    additionalPositionInfoDataSource = AdditionalPositionInfoDataSource(
+      additionalPositions: additionalPositions,
       context: context,
     );
   }
 
-  List<WorkHistory> getWorkHistory() {
-    return userController.users!.value.workHistories!;
+  List<AdditionalPosition> getAdditionalPosition() {
+    return userController.users!.value.additionalPositions!;
   }
 
   final textStyle = const TextStyle(
@@ -72,43 +75,25 @@ class _WorkHistoryTableState extends State<WorkHistoryTable> {
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: workHistoryDataSource,
-      onQueryRowHeight: (details) {
-        return details.getIntrinsicRowHeight(details.rowIndex);
-      },
-      columns: List.generate(headerTitles.length, (index) {
-        return GridColumn(
-            columnName: headerTitles[index],
-            columnWidthMode: ColumnWidthMode.auto,
-            label: Container(
-                padding: const EdgeInsets.all(12.0),
-                alignment: Alignment.center,
-                child: Text(
-                  headerTitles[index],
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontFamily: "KhmerOSBattambong",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
-      }),
-      columnWidthMode: ColumnWidthMode.auto,
+    return CustomDataGridWidget(
+      tableTitle: "មុខងារបន្ថែម",
+      dataSource: additionalPositionInfoDataSource,
+      headerTitles: headerTitles,
     );
   }
 }
 
-class WorkHistoryDataSource extends DataGridSource {
-  WorkHistoryDataSource({
-    required this.workHistories,
+class AdditionalPositionInfoDataSource extends DataGridSource {
+  AdditionalPositionInfoDataSource({
+    required this.additionalPositions,
     required this.context,
   }) {
-    _workHistories = workHistories.map<DataGridRow>((e) {
+    _additionalPositions = additionalPositions.map<DataGridRow>((e) {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
             columnName: 'មុខតំណែងបច្ចុប្បន្ន',
-            value: e.position.title,
+            value: e.position,
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
@@ -128,19 +113,19 @@ class WorkHistoryDataSource extends DataGridSource {
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
-            value: workHistories.indexOf(e),
+            value: additionalPositions.indexOf(e),
           ),
         ],
       );
     }).toList();
   }
 
-  final List<WorkHistory> workHistories;
+  final List<AdditionalPosition> additionalPositions;
   final BuildContext context;
-  List<DataGridRow> _workHistories = [];
+  List<DataGridRow> _additionalPositions = [];
 
   @override
-  List<DataGridRow> get rows => _workHistories;
+  List<DataGridRow> get rows => _additionalPositions;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
@@ -149,7 +134,7 @@ class WorkHistoryDataSource extends DataGridSource {
       (dataGridCell) {
         if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
           final index = dataGridCell.value as int;
-          final attachmentList = workHistories[index].attachmentList;
+          final attachmentList = additionalPositions[index].attachmentList;
           if (attachmentList == null ||
               attachmentList.isEmpty ||
               attachmentList.length == 0) {
@@ -165,22 +150,18 @@ class WorkHistoryDataSource extends DataGridSource {
           );
         }
         return Container(
+          // padding: const EdgeInsets.all(8.0),
           alignment: Alignment.center,
           child: Text(
             dataGridCell.value.toString(),
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'KhmerOSBattambong',
-              // height: 1.3,
+              height: 1.5,
             ),
           ),
         );
       },
     ).toList());
-  }
-
-  @override
-  bool shouldRecalculateColumnWidths() {
-    return true;
   }
 }
