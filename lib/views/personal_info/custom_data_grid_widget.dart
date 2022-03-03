@@ -18,17 +18,17 @@ class CustomDataGridWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.only(left: 8),
           child: Text(
             tableTitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
             ),
           ),
         ),
         SfDataGrid(
           source: dataSource,
-          verticalScrollPhysics: NeverScrollableScrollPhysics(),
+          verticalScrollPhysics: const NeverScrollableScrollPhysics(),
           shrinkWrapRows: true,
           columns: List.generate(
             headerTitles.length,

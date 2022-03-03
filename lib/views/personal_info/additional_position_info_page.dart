@@ -7,7 +7,6 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/additiona_position.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
-import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
 
 class AdditionalPositionInfoPage extends StatelessWidget {
   const AdditionalPositionInfoPage({Key? key}) : super(key: key);

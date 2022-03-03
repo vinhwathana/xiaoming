@@ -10,14 +10,14 @@ import 'package:xiaoming/views/personal_info/merit_info_page.dart';
 import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_info_page.dart';
 
-class NewPersonalInfoPage extends StatefulWidget {
-  const NewPersonalInfoPage({Key? key}) : super(key: key);
+class NewUserInfoPage extends StatefulWidget {
+  const NewUserInfoPage({Key? key}) : super(key: key);
 
   @override
-  State<NewPersonalInfoPage> createState() => _NewPersonalInfoPageState();
+  State<NewUserInfoPage> createState() => _NewUserInfoPageState();
 }
 
-class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
+class _NewUserInfoPageState extends State<NewUserInfoPage>
     with TickerProviderStateMixin {
   final List<String> tabsTitle = [
     "ព័ត៌មានផ្ទាល់ខ្លួន",
@@ -30,7 +30,7 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
     "ព័តមានគ្រួសារ",
   ];
 
-  final List<Widget> personalInfoViews = [
+  final List<Widget> personalInfoViews = const [
     PersonalInfoPage(),
     KrobKhanInfoTable(),
     AdditionalPositionInfoTable(),
@@ -57,6 +57,7 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
       final List<int> visibleIndexes = itemPositionsListener.itemPositions.value
           .map((e) => e.index)
           .toList();
+      visibleIndexes.sort((a, b) => a.compareTo(b));
       setState(() {
         if (visibleIndexes.length != 0) {
           changeTabBarPosition(visibleIndexes[0]);
@@ -67,6 +68,14 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
 
   void changeTabBarPosition(int index) {
     tabController.animateTo(index);
+  }
+
+  void onClickTabBar(int index) {
+    changeTabBarPosition(index);
+    itemScrollController.scrollTo(
+      index: index,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 
   @override
@@ -93,7 +102,9 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
                     tabs: [
                       ...tabsTitle.map((e) {
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            onClickTabBar(tabsTitle.indexOf(e));
+                          },
                           child: Tab(
                             text: e,
                           ),
@@ -146,74 +157,6 @@ class _NewPersonalInfoPageState extends State<NewPersonalInfoPage>
           SizedBox(height: 30, child: Text("Conten at 3 -" + i.toString())),
         for (int i = 0; i < 10; i++)
           SizedBox(height: 30, child: Text("Conten at 4 -" + i.toString())),
-      ],
-    );
-  }
-}
-
-class ScrollChangeTabBar extends StatefulWidget {
-  const ScrollChangeTabBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _ScrollChangeTabBarState createState() => _ScrollChangeTabBarState();
-}
-
-class _ScrollChangeTabBarState extends State<ScrollChangeTabBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              for (int i = 0; i < 5; i++)
-                Container(
-                  padding: EdgeInsets.all(8),
-                  // width: 100,
-                  color: CompanyColors.blue,
-                  child: Tab(
-                    child: Text(
-                      "Tab " + i.toString(),
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-            ],
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            // controller: _scrollController,
-            children: <Widget>[
-              for (int i = 0; i < 10; i++)
-                SizedBox(
-                  height: 30,
-                  child: Text(
-                    "Conten at 0 -" + i.toString(),
-                  ),
-                ),
-              for (int i = 0; i < 100; i++)
-                SizedBox(
-                    height: 30, child: Text("Conten at 1 -" + i.toString())),
-              for (int i = 0; i < 100; i++)
-                SizedBox(
-                    height: 30, child: Text("Conten at 2 -" + i.toString())),
-              for (int i = 0; i < 100; i++)
-                SizedBox(
-                    height: 30, child: Text("Conten at 3 -" + i.toString())),
-              for (int i = 0; i < 100; i++)
-                SizedBox(
-                    height: 30, child: Text("Conten at 4 -" + i.toString())),
-            ],
-          ),
-        ),
       ],
     );
   }

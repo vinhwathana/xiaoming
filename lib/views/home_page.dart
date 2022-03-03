@@ -9,9 +9,10 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
+import 'package:xiaoming/views/personal_info/personal_info_page.dart';
+import 'package:xiaoming/views/personal_info/user_info_page.dart';
 
 import 'attendance/attendance_page.dart';
-import 'personal_info/user_info_page.dart';
 import 'statistic/statistics_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -114,8 +115,8 @@ class HomePageGridView extends StatelessWidget {
       const _HomePageItem(
         title: "ព័ត៌មានផ្ទាល់ខ្លួន",
         icon: Icons.person,
-        destination: NewPersonalInfoPage(),
-        // destination: PersonalInfoPage(),
+        destination: NewUserInfoPage(),
+        // destination: UserInfoPage(),
       ),
       const _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",

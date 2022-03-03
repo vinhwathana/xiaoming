@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
 import 'controllers/initial_binding.dart';
 import 'language/khmer_cupertino_localization_delegate.dart';
 import 'services/localization_service.dart';

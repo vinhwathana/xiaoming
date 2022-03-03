@@ -16,7 +16,7 @@ class PersonalInfoPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: Text(
               "ព័ត៌មានផ្ទាល់ខ្លួន",
