@@ -120,16 +120,16 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
             ),
           ];
         },
-        body: ScrollablePositionedList.separated(
+        body: ScrollablePositionedList.builder(
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
           shrinkWrap: true,
-          separatorBuilder: (context, index) {
-            return Divider(
-              thickness: 3,
-              color: CompanyColors.yellow,
-            );
-          },
+          // separatorBuilder: (context, index) {
+          //   return Divider(
+          //     thickness: 3,
+          //     color: CompanyColors.yellow,
+          //   );
+          // },
           itemCount: personalInfoViews.length,
           itemBuilder: (context, index) {
             return personalInfoViews[index];
