@@ -52,7 +52,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.42
   open_file: ^3.2.1
   syncfusion_flutter_datepicker: ^19.4.52
-  scrollable_list_tabview: ^0.2.0-nullsafety
+#  scrollable_list_tabview: ^0.2.0-nullsafety
   scrollable_positioned_list: ^0.2.3
 
 

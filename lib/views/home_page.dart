@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          drawer: const CustomDrawer(),
+          // drawer: const CustomDrawer(),
           body: const SafeArea(
             child: HomePageGridView(),
           ),

@@ -71,7 +71,7 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
   }
 
   void onClickTabBar(int index) {
-    changeTabBarPosition(index);
+    // changeTabBarPosition(index);
     itemScrollController.scrollTo(
       index: index,
       duration: const Duration(milliseconds: 300),
@@ -82,7 +82,7 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
-        floatHeaderSlivers: false,
+        floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
             SliverOverlapAbsorber(
@@ -124,6 +124,7 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
           shrinkWrap: true,
+
           // separatorBuilder: (context, index) {
           //   return Divider(
           //     thickness: 3,

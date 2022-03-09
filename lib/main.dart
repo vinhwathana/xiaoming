@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -54,7 +55,6 @@ class _MyAppState extends State<MyApp> {
       initialBinding: InitialBinding(),
 
       theme: ThemeData(
-        // primaryColor: CompanyColors.blue,
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',
         textTheme: const TextTheme(
@@ -82,6 +82,7 @@ class _MyAppState extends State<MyApp> {
         //   surface: Colors.white,
         // ),
       ),
+      themeMode: ThemeMode.light,
       home: const LandingPage(),
       // home: NewPersonalInfoPage(),
       // initialRoute: '/',
