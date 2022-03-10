@@ -58,8 +58,6 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
     return userController.users!.value.merits!;
   }
 
-  final textStyle =
-      const TextStyle(color: Colors.black, fontFamily: "KhmerOSBattambong");
 
   final List<String> headerTitles = [
     "ប្រភេទគឿងឥស្សរិយយស្ស",

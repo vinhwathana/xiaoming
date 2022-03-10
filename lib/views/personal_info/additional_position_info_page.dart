@@ -153,6 +153,7 @@ class AdditionalPositionInfoDataSource extends DataGridSource {
           alignment: Alignment.center,
           child: Text(
             dataGridCell.value.toString(),
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'KhmerOSBattambong',

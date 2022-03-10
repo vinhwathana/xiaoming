@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       fallbackLocale: LocalizationService.fallbackLocale,
       translations: LocalizationService(),
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
         GlobalWidgetsLocalizations.delegate,
         DefaultMaterialLocalizations.delegate,
         KhmerCupertinoLocalizations.delegate,
