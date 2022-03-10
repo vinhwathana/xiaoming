@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 
@@ -23,18 +24,23 @@ class CustomDataGridWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 12,top: 8),
+            padding: const EdgeInsets.only(
+              left: 12,
+              top: 8,
+            ),
             child: Text(
               tableTitle,
               style: const TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
+          Divider(),
           SfDataGrid(
             source: dataSource,
             verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+            horizontalScrollPhysics: const AlwaysScrollableScrollPhysics(),
             shrinkWrapRows: true,
             columns: List.generate(
               headerTitles.length,
@@ -42,15 +48,17 @@ class CustomDataGridWidget extends StatelessWidget {
                 return GridColumn(
                   columnName: headerTitles[index],
                   columnWidthMode: ColumnWidthMode.auto,
-                  label: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      headerTitles[index],
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: "KhmerOSBattambong",
-                        fontWeight: FontWeight.bold,
+                  label: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Center(
+                      child: Text(
+                        headerTitles[index],
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontFamily: "KhmerOSBattambong",
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
