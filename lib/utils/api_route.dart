@@ -1,6 +1,6 @@
 // BASE SERVICE URL
-// const String baseUrl = 'https://edps.ddns.net/hrmis_api_mptc_training/v1';
-const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
+const String baseUrl = 'https://edps.ddns.net/hrmis_api_mptc_training/v1';
+// const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
 
 // ENDPOINT: AUTHENTICATION
 const String authLogin = '$baseUrl/user/login';
