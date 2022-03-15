@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 
 class TypeTextField extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
@@ -141,7 +140,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
                     child: Text(
-                      attendanceLog.logs[index].authTime,
+                      attendanceLog.logs[index].authTime ??"",
                     ),
                   ),
                 ),
@@ -159,15 +158,17 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            log.authTime,
+            log.authTime??"",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          content: Text("- Device Name: ${log.devName}\n"
-              "- Employee Id: ${log.empId}\n"
-              "- Employee Name: ${log.empName}\n"
-              "- Date Time Scan: ${log.authDateTime}\n"),
+          content: Text(
+            "- Device Name: ${log.devName}\n"
+            "- Employee Id: ${log.empId}\n"
+            "- Employee Name: ${log.empName}\n"
+            "- Date Time Scan: ${log.authDateTime}\n",
+          ),
         );
       },
     );
@@ -191,6 +192,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
               );
             }
             if (snapshot.hasData && snapshot.data != null) {
+
               final attendanceLog = snapshot.data!;
               return Column(
                 children: [

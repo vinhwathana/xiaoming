@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -100,6 +99,7 @@ class StatisticService {
     } catch (e) {
       return null;
     }
+    return null;
   }
 
   Future<List<ChartModel>?> getSkillByDegree(

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
@@ -84,6 +82,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                         } else if (value.length < 6) {
                           return "OTP ត្រូវតែមាន 6 ខ្ទង់";
                         }
+                        return null;
                       },
                       // autofillHints: [AutofillHints.oneTimeCode],
                     ),

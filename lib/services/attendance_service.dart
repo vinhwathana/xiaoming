@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -44,6 +45,7 @@ class AttendanceService {
       print(e);
       return null;
     }
+    return null;
   }
 
   Future<Attendance?> getPersonalAttendanceByDate(
@@ -75,6 +77,7 @@ class AttendanceService {
       print(e);
       return null;
     }
+    return null;
   }
 
   Future<TimeRule?> getAttendanceRuleById(String timeRuleId) async {
@@ -103,6 +106,7 @@ class AttendanceService {
       print(e);
       return null;
     }
+    return null;
   }
 
   Future<AttendanceLog?> getAttendanceLog(String date) async {
@@ -122,6 +126,7 @@ class AttendanceService {
               "Bearer ${authController.accessToken!}",
         },
       );
+
       if (response.statusCode == 200) {
         final attendanceLog = attendanceLogResponseFromMap(response.body);
         return attendanceLog.data;
@@ -130,5 +135,6 @@ class AttendanceService {
       print(e);
       return null;
     }
+    return null;
   }
 }

@@ -73,14 +73,14 @@ class Log {
     required this.authTime,
   });
 
-  int id;
-  String devName;
-  String devSerialNo;
-  int empId;
-  String empName;
-  String authDateTime;
-  String authDate;
-  String authTime;
+  int? id;
+  String? devName;
+  String? devSerialNo;
+  int? empId;
+  String? empName;
+  String? authDateTime;
+  String? authDate;
+  String? authTime;
 
   factory Log.fromMap(Map<String, dynamic> json) => Log(
         id: json["id"],
@@ -118,13 +118,13 @@ class Summary {
   });
 
   int timeRuleId;
-  String authDate;
-  String morningCheckIn;
-  String morningCheckOut;
-  String afternoonCheckIn;
-  String afternoonCheckOut;
-  double periodInHour;
-  String attendanceStatus;
+  String? authDate;
+  String? morningCheckIn;
+  String? morningCheckOut;
+  String? afternoonCheckIn;
+  String? afternoonCheckOut;
+  double? periodInHour;
+  String? attendanceStatus;
 
   factory Summary.fromMap(Map<String, dynamic> json) => Summary(
         timeRuleId: json["timeRuleId"],

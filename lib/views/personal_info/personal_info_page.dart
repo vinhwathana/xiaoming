@@ -15,7 +15,7 @@ class PersonalInfoPage extends StatelessWidget {
     return Card(
       elevation: 5,
       shadowColor: CompanyColors.yellow,
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
@@ -40,7 +40,7 @@ class PersonalInfoPage extends StatelessWidget {
                 }
                 final user = controller.users!.value.officialInfo!;
                 return Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Column(
                     children: [
                       ExpansionRow(
