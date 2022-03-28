@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
@@ -37,10 +36,12 @@ class _FilterDialogState extends State<FilterDialog>
     slideAnimation = Tween<Offset>(
       begin: const Offset(0.0, -4.0),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.decelerate,
+      ),
+    );
     controller.addListener(() {
       setState(() {});
     });
@@ -76,7 +77,6 @@ class _FilterDialogState extends State<FilterDialog>
             onTap: () {},
             child: Container(
               padding: const EdgeInsets.all(12.0),
-              // height: Get.height / 2.7,
               width: Get.width,
               decoration: const BoxDecoration(color: Colors.white),
               child: GetBuilder<FilterDialogController>(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,17 +10,21 @@ import 'views/landing_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: CompanyColors.blue,
-    systemNavigationBarColor: CompanyColors.blue,
-    statusBarIconBrightness: Brightness.light,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: CompanyColors.blue,
+      systemNavigationBarColor: CompanyColors.blue,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -37,6 +40,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      key: widget.key,
       title: 'MPTC HR App Training',
       locale: LocalizationService.locale,
       fallbackLocale: LocalizationService.fallbackLocale,
@@ -51,9 +55,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en'),
         Locale('km'),
       ],
-
       initialBinding: InitialBinding(),
-
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',
@@ -66,41 +68,9 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
         iconTheme: IconThemeData(color: CompanyColors.yellow),
-        // colorScheme: const ColorScheme(
-        //   primary: Color(0xFF003D7C),
-        //   primaryVariant: Color(0xFF003D7C),
-        //   secondary: Color(0xFFF07C08),
-        //   secondaryVariant: Color(0xFFF07C08),
-        //   background: Colors.white,
-        //   brightness: Brightness.light,
-        //   error: Colors.red,
-        //   onBackground: Colors.white,
-        //   onError: Colors.white,
-        //   onPrimary: Colors.white,
-        //   onSecondary: Colors.white,
-        //   onSurface: Colors.white,
-        //   surface: Colors.white,
-        // ),
       ),
       themeMode: ThemeMode.light,
       home: const LandingPage(),
-      // home: NewPersonalInfoPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => ProtectedRoute(
-      //     child: HomePage(),
-      //   ),
-      //   '/auth': (context) => const AuthenticationPage(),
-      //   '/attendance/scan': (context) => ProtectedRoute(
-      //     child: AttendancePage(),
-      //   ),
-      //   '/attendance/daily': (context) => ProtectedRoute(
-      //     child: AttendancePage(),
-      //   ),
-      //   '/user-profile': (context) => ProtectedRoute(
-      //     child: UserPage(),
-      //   ),
-      // },
     );
   }
 }

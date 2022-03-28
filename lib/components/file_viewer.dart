@@ -25,7 +25,6 @@ class FileViewer {
                   left: 20,
                   right: 20,
                 ),
-                // color: Colors.transparent,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -43,19 +42,22 @@ class FileViewer {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    ...List.generate(attachmentList.length, (index) {
-                      if (attachmentList[index] != null) {
-                        return ListTile(
-                          title: Text(attachmentList[index]!.fileName ?? ""),
-                          onTap: () {
-                            attachment = attachmentList[index];
-                            Get.back();
-                          },
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
+                    ...List.generate(
+                      attachmentList.length,
+                      (index) {
+                        if (attachmentList[index] != null) {
+                          return ListTile(
+                            title: Text(attachmentList[index]!.fileName ?? ""),
+                            onTap: () {
+                              attachment = attachmentList[index];
+                              Get.back();
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -73,21 +75,23 @@ class FileViewer {
       print("Attachment null");
       return;
     }
-    await fileService.getFile(attachment!.id.toString()).then((response) async {
-      if (response == null) {
-        return;
-      }
-      if (response.statusCode == 200) {
-        final bytes = response.bodyBytes;
-        final fileName = attachment!.fileName;
+    await fileService.getFile(attachment!.id.toString()).then(
+      (response) async {
+        if (response == null) {
+          return;
+        }
+        if (response.statusCode == 200) {
+          final bytes = response.bodyBytes;
+          final fileName = attachment!.fileName;
 
-        //Find applicationDirectory
-        final documentsDir = (await getApplicationDocumentsDirectory()).path;
-        //Create file with file name in the Application dir
-        final file = await File('$documentsDir/$fileName').create();
-        file.writeAsBytesSync(bytes);
-        await OpenFile.open(file.path);
-      }
-    });
+          //Find applicationDirectory
+          final documentsDir = (await getApplicationDocumentsDirectory()).path;
+          //Create file with file name in the Application dir
+          final file = await File('$documentsDir/$fileName').create();
+          file.writeAsBytesSync(bytes);
+          await OpenFile.open(file.path);
+        }
+      },
+    );
   }
 }

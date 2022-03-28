@@ -8,7 +8,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class PersonalInfoPage extends StatelessWidget {
-  const PersonalInfoPage({Key? key}) : super(key: key);
+  const PersonalInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +61,14 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                          label: 'ជនជាតិ', value: user.race?.nameKh ?? ""),
+                        label: 'ជនជាតិ',
+                        value: user.race?.nameKh ?? "",
+                      ),
                       const Divider(),
                       ExpansionRow(
-                          label: 'សញ្ជាតិ',
-                          value: user.nationality?.nameKh ?? ""),
+                        label: 'សញ្ជាតិ',
+                        value: user.nationality?.nameKh ?? "",
+                      ),
                       const Divider(),
                       ExpansionRow(
                         label: 'ទីកន្លែងកំណើត',

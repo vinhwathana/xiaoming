@@ -43,7 +43,6 @@ class _AttendancePageState extends State<AttendancePage> {
       },
     );
     if (picked != null) {
-      // print(picked);
       setState(() {
         start = picked.start;
         end = picked.end;
@@ -53,7 +52,6 @@ class _AttendancePageState extends State<AttendancePage> {
 
   Widget topTitle() {
     return Card(
-      // elevation: 3,
       shadowColor: Colors.grey,
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -241,8 +239,6 @@ class AttendanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final now = DateTime.now();
-    // final rand = Random();
     return Card(
       elevation: 6,
       shadowColor: determineShadowColor(
@@ -266,7 +262,6 @@ class AttendanceCard extends StatelessWidget {
               ),
               Divider(
                 color: CompanyColors.yellow,
-                // height: 3,
                 thickness: 1.5,
               ),
               SizedBox(
@@ -292,7 +287,6 @@ class AttendanceCard extends StatelessWidget {
               ),
               Divider(
                 color: CompanyColors.yellow,
-                // height: 3,
                 thickness: 1.5,
               ),
               Column(

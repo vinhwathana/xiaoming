@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -62,8 +61,6 @@ class KhmerCupertinoLocalizations extends CupertinoLocalizationKm {
   String get datePickerDateOrderString {
     return 'mdy';
   }
-
-
 
   /// Creates an object that provides US English resource values for the
   /// cupertino library widgets.

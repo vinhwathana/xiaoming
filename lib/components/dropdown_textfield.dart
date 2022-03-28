@@ -58,7 +58,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
     });
   }
 
-  decideColor() {
+  Color decideColor() {
     if (isFocus || widget.controller!.text.isNotEmpty) {
       return CompanyColors.yellow;
     } else {
@@ -69,67 +69,75 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: double.infinity,
-        child: DropdownButtonFormField(
-          autovalidateMode: widget.autoValidateMode,
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          focusNode: _focus,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(20),
-            labelStyle:
-                TextStyle(fontSize: 16, color: CompanyColors.yellow, height: 2
-                    // color: CompanyColors.yellow,
-                    ),
-            labelText:
-                (widget.currentSelectedValue != null) ? widget.labelText : "",
-            prefixText: widget.prefixText,
-            border: const OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: CompanyColors.blue, width: 1.0),
-            ),
-            prefixIcon: widget.icon == null
-                ? null
-                : Icon(
-                    widget.icon,
-                    color: CompanyColors.yellow,
-                  ),
-            counterStyle: const TextStyle(fontSize: 12, height: 1),
+      width: double.infinity,
+      child: DropdownButtonFormField(
+        autovalidateMode: widget.autoValidateMode,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        focusNode: _focus,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(20),
+          labelStyle: TextStyle(
+            fontSize: 16,
+            color: CompanyColors.yellow,
+            height: 2,
           ),
-          isExpanded: true,
-          hint: Text(
-            widget.labelText,
-            style: TextStyle(
-              fontSize: 16,
-              color: decideColor(),
-              height: 1.5,
+          labelText:
+              (widget.currentSelectedValue != null) ? widget.labelText : "",
+          prefixText: widget.prefixText,
+          border: const OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: CompanyColors.blue,
+              width: 1.0,
             ),
           ),
-          value: widget.currentSelectedValue,
-          items: widget.listString.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Container(
-                padding: const EdgeInsets.only(top: 5),
-                child: Text(
-                  value,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    height: 1.5,
-                  ),
+          prefixIcon: widget.icon == null
+              ? null
+              : Icon(
+                  widget.icon,
+                  color: CompanyColors.yellow,
+                ),
+          counterStyle: const TextStyle(
+            fontSize: 12,
+            height: 1,
+          ),
+        ),
+        isExpanded: true,
+        hint: Text(
+          widget.labelText,
+          style: TextStyle(
+            fontSize: 16,
+            color: decideColor(),
+            height: 1.5,
+          ),
+        ),
+        value: widget.currentSelectedValue,
+        items: widget.listString.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Container(
+              padding: const EdgeInsets.only(top: 5),
+              child: Text(
+                value,
+                style: const TextStyle(
+                  color: Colors.black,
+                  height: 1.5,
                 ),
               ),
-            );
-          }).toList(),
-          onChanged: widget.onChange,
-          validator: (value) {
-            if (value == null || value.toString().isEmpty) {
-              return 'emptyField'.tr;
-            }
-            return null;
-          },
-        ));
+            ),
+          );
+        }).toList(),
+        onChanged: widget.onChange,
+        validator: (value) {
+          if (value == null || value.toString().isEmpty) {
+            return 'emptyField'.tr;
+          }
+          return null;
+        },
+      ),
+    );
   }
 }
 

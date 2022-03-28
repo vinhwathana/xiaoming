@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class Item {
   Item(this.title, [this.children = const <Item>[]]);
 
@@ -9,7 +10,6 @@ class Item {
 final List<Item> data = <Item>[
   Item(
     'ព័ត៌មានផ្ទាល់ខ្លួន',
-
   ),
   Item(
     'ព័ត៌មានគ្រួសារ ',
@@ -48,13 +48,16 @@ final List<Item> data = <Item>[
       Item('Section C1'),
     ],
   ),
-
 ];
 
 class ProfileItem extends StatelessWidget {
-   const ProfileItem(this.item, {Key? key}) : super(key: key);
+  const ProfileItem(
+    this.item, {
+    Key? key,
+  }) : super(key: key);
 
   final Item item;
+
   Widget _buildTiles(Item i) {
     if (i.children.isEmpty) return ListTile(title: Text(i.title));
     return Card(

@@ -128,18 +128,18 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                     ),
                     child: SfDataGrid(
                       source: dataGridData,
-                      // onQueryRowHeight: (details) {
-                      //   return details.getIntrinsicRowHeight(details.rowIndex);
-                      // },
-
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      columns: List.generate(headerTitles.length, (index) {
-                        return GridColumn(
-                          columnName: headerTitles[index],
-                          columnWidthMode: ColumnWidthMode.auto,
-                          label: Container(
+                      verticalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      columns: List.generate(
+                        headerTitles.length,
+                        (index) {
+                          return GridColumn(
+                            columnName: headerTitles[index],
+                            columnWidthMode: ColumnWidthMode.auto,
+                            label: Container(
                               padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -150,11 +150,13 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
-                              )),
-                          visible: true,
-                          allowSorting: true,
-                        );
-                      }),
+                              ),
+                            ),
+                            visible: true,
+                            allowSorting: true,
+                          );
+                        },
+                      ),
                       columnWidthMode: ColumnWidthMode.fitByCellValue,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,

@@ -84,7 +84,6 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                         }
                         return null;
                       },
-                      // autofillHints: [AutofillHints.oneTimeCode],
                     ),
                     const SizedBox(
                       height: 10,

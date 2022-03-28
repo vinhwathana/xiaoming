@@ -1,6 +1,6 @@
-
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/models/attendance/attendance.dart';
@@ -42,7 +42,9 @@ class AttendanceService {
         return attendanceResponse.data;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
     return null;
@@ -74,7 +76,9 @@ class AttendanceService {
         return attendanceResponse.data;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
     return null;
@@ -103,7 +107,9 @@ class AttendanceService {
         return attendanceRule.data;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
     return null;
@@ -132,7 +138,9 @@ class AttendanceService {
         return attendanceLog.data;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
     return null;

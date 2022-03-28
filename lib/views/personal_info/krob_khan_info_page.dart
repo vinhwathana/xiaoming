@@ -8,7 +8,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
 class KrobKhanInfoPage extends StatelessWidget {
-  const KrobKhanInfoPage({Key? key}) : super(key: key);
+  const KrobKhanInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,9 @@ class KrobKhanInfoPage extends StatelessWidget {
 }
 
 class KrobKhanInfoTable extends StatefulWidget {
-  const KrobKhanInfoTable({Key? key}) : super(key: key);
+  const KrobKhanInfoTable({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _KrobKhanInfoTableState createState() => _KrobKhanInfoTableState();
@@ -63,7 +67,6 @@ class _KrobKhanInfoTableState extends State<KrobKhanInfoTable> {
     'ប្រភេទ',
     'ឯកសារភ្ជាប់',
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -123,38 +126,39 @@ class KrobKhanInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = krobKhanInfos[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value;
+            final attachmentList = krobKhanInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
+              textAlign: TextAlign.start,
             ),
-            textAlign: TextAlign.start,
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }

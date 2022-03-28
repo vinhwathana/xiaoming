@@ -18,9 +18,9 @@ class CheckLocationService extends GetxController {
   }
 
   bool determineServiceStatus(bool isEnable) {
-    if(isEnable){
+    if (isEnable) {
       serviceStatus.value = geo_locator.ServiceStatus.enabled;
-    }else{
+    } else {
       serviceStatus.value = geo_locator.ServiceStatus.disabled;
     }
     return isEnable;
@@ -41,7 +41,6 @@ class CheckLocationService extends GetxController {
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.deniedForever) {
-      // return LocationServiceStatus.permissionDenied;
       return Future.error(
           'Location permissions are permantly denied, we cannot request permissions.');
     }
@@ -50,13 +49,10 @@ class CheckLocationService extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission != LocationPermission.whileInUse &&
           permission != LocationPermission.always) {
-        // return LocationServiceStatus.permissionDenied;
         return Future.error(
             'Location permissions are denied (actual value: $permission).');
       }
     }
-
-    // return LocationServiceStatus.ok;
   }
 
   Future<Position> determinePosition() async {
@@ -65,4 +61,3 @@ class CheckLocationService extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 }
-

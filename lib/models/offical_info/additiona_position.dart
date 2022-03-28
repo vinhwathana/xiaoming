@@ -19,8 +19,8 @@ class AttachmentList {
 
   factory AttachmentList.fromMap(Map<String, dynamic> json) => AttachmentList(
         additionalPositions: List<AdditionalPosition>.from(
-            json["additionalPositions"]
-                .map((x) => AdditionalPosition.fromMap(x))),
+          json["additionalPositions"].map((x) => AdditionalPosition.fromMap(x)),
+        ),
       );
 
   Map<String, dynamic> toMap() => {

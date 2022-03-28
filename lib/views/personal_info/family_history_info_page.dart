@@ -9,7 +9,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
 class FamilyHistoryInfoPage extends StatelessWidget {
-  const FamilyHistoryInfoPage({Key? key}) : super(key: key);
+  const FamilyHistoryInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

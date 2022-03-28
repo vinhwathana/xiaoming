@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,9 @@ class InternetCheckController extends GetxController {
       final connectivityResult = await connectivity.checkConnectivity();
       connectionStatus.value = connectivityResult;
     } on PlatformException catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       return;
     }
   }

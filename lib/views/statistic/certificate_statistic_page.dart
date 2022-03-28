@@ -128,11 +128,13 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                           const NeverScrollableScrollPhysics(),
                       horizontalScrollPhysics:
                           const NeverScrollableScrollPhysics(),
-                      columns: List.generate(headerTitles.length, (index) {
-                        return GridColumn(
-                          columnName: headerTitles[index],
-                          columnWidthMode: ColumnWidthMode.fitByColumnName,
-                          label: Container(
+                      columns: List.generate(
+                        headerTitles.length,
+                        (index) {
+                          return GridColumn(
+                            columnName: headerTitles[index],
+                            columnWidthMode: ColumnWidthMode.fitByColumnName,
+                            label: Container(
                               padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -143,10 +145,12 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
-                              )),
-                          allowSorting: true,
-                        );
-                      }),
+                              ),
+                            ),
+                            allowSorting: true,
+                          );
+                        },
+                      ),
                       columnWidthMode: ColumnWidthMode.auto,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,

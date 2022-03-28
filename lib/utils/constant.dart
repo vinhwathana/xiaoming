@@ -188,7 +188,6 @@ String formatPhoneNumber(String? phoneNumber) {
 }
 
 String addSpacePerThreeChar(String value) {
-  // const int perChar = 4;
   if (value.length < 9) {
     return value;
   }

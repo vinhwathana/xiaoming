@@ -114,18 +114,17 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                       firstColumnName: headerTitles[0],
                       secondColumnName: headerTitles[1],
                     ),
-                    // onQueryRowHeight: (details) {
-                    //   return details.getIntrinsicRowHeight(details.rowIndex);
-                    // },
                     shrinkWrapRows: true,
                     verticalScrollPhysics: const NeverScrollableScrollPhysics(),
                     horizontalScrollPhysics:
                         const NeverScrollableScrollPhysics(),
-                    columns: List.generate(headerTitles.length, (index) {
-                      return GridColumn(
-                        columnName: headerTitles[index],
-                        columnWidthMode: ColumnWidthMode.auto,
-                        label: Container(
+                    columns: List.generate(
+                      headerTitles.length,
+                      (index) {
+                        return GridColumn(
+                          columnName: headerTitles[index],
+                          columnWidthMode: ColumnWidthMode.auto,
+                          label: Container(
                             padding: const EdgeInsets.all(8.0),
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -136,10 +135,12 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
                                 fontWeight: FontWeight.bold,
                               ),
                               overflow: TextOverflow.ellipsis,
-                            )),
-                        allowSorting: true,
-                      );
-                    }),
+                            ),
+                          ),
+                          allowSorting: true,
+                        );
+                      },
+                    ),
                     columnWidthMode: ColumnWidthMode.auto,
                     allowSorting: true,
                     sortingGestureType: SortingGestureType.tap,

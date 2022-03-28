@@ -16,7 +16,7 @@ class SkillStatisticPage extends StatefulWidget {
 
   final String dept;
   final String org;
-final String chartTitle;
+  final String chartTitle;
 
   @override
   _SkillStatisticPageState createState() => _SkillStatisticPageState();
@@ -123,13 +123,17 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                         return details.getIntrinsicRowHeight(details.rowIndex);
                       },
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      columns: List.generate(headerTitles.length, (index) {
-                        return GridColumn(
-                          columnName: headerTitles[index],
-                          columnWidthMode: ColumnWidthMode.auto,
-                          label: Container(
+                      verticalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      columns: List.generate(
+                        headerTitles.length,
+                        (index) {
+                          return GridColumn(
+                            columnName: headerTitles[index],
+                            columnWidthMode: ColumnWidthMode.auto,
+                            label: Container(
                               padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -140,10 +144,12 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
-                              )),
-                          allowSorting: true,
-                        );
-                      }),
+                              ),
+                            ),
+                            allowSorting: true,
+                          );
+                        },
+                      ),
                       columnWidthMode: ColumnWidthMode.auto,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
@@ -164,52 +170,3 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
   @override
   bool get wantKeepAlive => true;
 }
-
-// class TableDataSource extends DataGridSource {
-//   TableDataSource({
-//     required this.certificateData,
-//   }) {
-//     _certificateData = certificateData.map<DataGridRow>((e) {
-//       return DataGridRow(
-//         cells: [
-//           DataGridCell<String>(
-//             columnName: 'កម្រិតសញ្ញាបត្រ',
-//             value: e.name,
-//           ),
-//           DataGridCell<int>(
-//             columnName: 'រាប់តែចំនួនសរុប',
-//             value: e.amount.toInt(),
-//           ),
-//         ],
-//       );
-//     }).toList();
-//   }
-//
-//   final List<BarChartModel> certificateData;
-//   List<DataGridRow> _certificateData = [];
-//
-//   @override
-//   List<DataGridRow> get rows => _certificateData;
-//
-//   @override
-//   DataGridRowAdapter? buildRow(DataGridRow row) {
-//     return DataGridRowAdapter(
-//       cells: row.getCells().map<Widget>(
-//         (dataGridCell) {
-//           return Container(
-//             padding: EdgeInsets.all(12.0),
-//             alignment: Alignment.centerLeft,
-//             child: Text(
-//               dataGridCell.value.toString(),
-//               style: TextStyle(
-//                 color: Colors.black,
-//                 fontFamily: 'KhmerOSBattambong',
-//                 height: 1.5,
-//               ),
-//             ),
-//           );
-//         },
-//       ).toList(),
-//     );
-//   }
-// }

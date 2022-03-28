@@ -20,10 +20,8 @@ class Address {
   factory Address.fromMap(Map<String, dynamic> json) => Address(
         parentsCode: json["parentsCode"],
         addressCode: json["addressCode"],
-        addressNameKh:
-            json["addressNameKH"],
-        addressNameEn:
-            json["addressNameEN"],
+        addressNameKh: json["addressNameKH"],
+        addressNameEn: json["addressNameEN"],
       );
 
   Map<String, dynamic> toMap() => {

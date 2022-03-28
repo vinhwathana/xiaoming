@@ -8,7 +8,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
 
 class MeritInfoPage extends StatelessWidget {
-  const MeritInfoPage({Key? key}) : super(key: key);
+  const MeritInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class MeritInfoPage extends StatelessWidget {
 }
 
 class MeritInfoTable extends StatefulWidget {
-  const MeritInfoTable({Key? key}) : super(key: key);
+  const MeritInfoTable({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MeritInfoTableState createState() => _MeritInfoTableState();
@@ -55,7 +59,6 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
   List<Merit> getMeritInfo() {
     return userController.users!.value.merits!;
   }
-
 
   final List<String> headerTitles = [
     "ប្រភេទគឿងឥស្សរិយយស្ស",
@@ -123,39 +126,40 @@ class MeritInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = meritInfos[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value;
+            final attachmentList = meritInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          // padding: const EdgeInsets.all(8.0),
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+          return Container(
+            alignment: Alignment.center,
+            // padding: const EdgeInsets.all(8.0),
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
+              textAlign: TextAlign.start,
             ),
-            textAlign: TextAlign.start,
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }

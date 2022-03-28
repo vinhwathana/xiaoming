@@ -71,7 +71,8 @@ class Education {
         "isAbroad": isAbroad,
         "country": country.toMap(),
         "city": city,
-        "attachmentList": List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
+        "attachmentList":
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
         "remark": remark,
       };
 }

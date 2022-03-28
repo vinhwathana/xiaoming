@@ -14,7 +14,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'forgot_password/forget_password_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -97,62 +99,63 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Form(
-              key: _formStateKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: AutofillGroup(
-                  child: Column(
-                    children: [
-                      TypeTextField(
-                        controller: emailCon,
-                        hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
-                        iconData: Icons.email,
-                        autofillHints: const [
-                          AutofillHints.username,
-                          AutofillHints.email
-                        ],
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) => validateEmail(value!),
-                        onSaved: (value) => _logIn.email = value,
+            key: _formStateKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: AutofillGroup(
+                child: Column(
+                  children: [
+                    TypeTextField(
+                      controller: emailCon,
+                      hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
+                      iconData: Icons.email,
+                      autofillHints: const [
+                        AutofillHints.username,
+                        AutofillHints.email
+                      ],
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) => validateEmail(value!),
+                      onSaved: (value) => _logIn.email = value,
+                    ),
+                    TypeTextField(
+                      controller: passwordCon,
+                      hintText: 'ពាក្យសំងាត់',
+                      autofillHints: const [AutofillHints.password],
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: null /*(value) => validatePassword(value!)*/,
+                      onSaved: (value) => _logIn.email = value,
+                      hasObscureText: true,
+                      onEditingComplete: () => TextInput.finishAutofillContext(
+                        shouldSave: true,
                       ),
-                      TypeTextField(
-                        controller: passwordCon,
-                        hintText: 'ពាក្យសំងាត់',
-                        autofillHints: const [AutofillHints.password],
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: null /*(value) => validatePassword(value!)*/,
-                        onSaved: (value) => _logIn.email = value,
-                        hasObscureText: true,
-                        onEditingComplete: () =>
-                            TextInput.finishAutofillContext(
-                          shouldSave: true,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      SizedBox(
-                          width: Get.width,
-                          height: Get.height / 18,
-                          child: ElevatedButton(
-                            child: const Text('ចូល'),
-                            onPressed: () {
-                              _submitLogin();
-                            },
-                          )),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextButton(
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    SizedBox(
+                      width: Get.width,
+                      height: Get.height / 18,
+                      child: ElevatedButton(
+                        child: const Text('ចូល'),
                         onPressed: () {
-                          Get.to(() => const ForgetPasswordPage());
+                          _submitLogin();
                         },
-                        child: const Text('ភ្លេចលេខសំងាត់'),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => const ForgetPasswordPage());
+                      },
+                      child: const Text('ភ្លេចលេខសំងាត់'),
+                    )
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );

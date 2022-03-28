@@ -9,7 +9,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/landing_page.dart';
 
 class ChangePasswordPage extends StatefulWidget {
-  const ChangePasswordPage({Key? key}) : super(key: key);
+  const ChangePasswordPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ChangePasswordPageState createState() => _ChangePasswordPageState();
@@ -41,14 +43,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     final user = userController.users?.value;
 
     if (user == null) {
-      // print("User null");
       await authController.clearToken();
       Get.offAll(() => const LandingPage());
       return;
     }
     final userEmail = user.officialInfo?.contactEmail;
     if (userEmail == null) {
-      // print("Email null");
       await authController.clearToken();
       Get.offAll(() => const LandingPage());
       return;

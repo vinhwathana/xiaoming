@@ -140,7 +140,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
                     child: Text(
-                      attendanceLog.logs[index].authTime ??"",
+                      attendanceLog.logs[index].authTime ?? "",
                     ),
                   ),
                 ),
@@ -158,7 +158,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            log.authTime??"",
+            log.authTime ?? "",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -192,7 +192,6 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
               );
             }
             if (snapshot.hasData && snapshot.data != null) {
-
               final attendanceLog = snapshot.data!;
               return Column(
                 children: [

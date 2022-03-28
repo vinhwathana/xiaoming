@@ -14,7 +14,9 @@ import 'attendance/attendance_page.dart';
 import 'statistic/statistics_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -114,7 +116,6 @@ class HomePageGridView extends StatelessWidget {
         title: "ព័ត៌មានផ្ទាល់ខ្លួន",
         icon: Icons.person,
         destination: NewUserInfoPage(),
-        // destination: UserInfoPage(),
       ),
       const _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",
@@ -138,8 +139,9 @@ class HomePageGridView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Theme.of(context).primaryColor),
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).primaryColor,
+          ),
           margin: const EdgeInsets.all(8.0),
           child: Material(
             color: Colors.transparent,

@@ -123,13 +123,17 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                         return details.getIntrinsicRowHeight(details.rowIndex);
                       },
                       shrinkWrapRows: true,
-                      verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
-                      columns: List.generate(headerTitles.length, (index) {
-                        return GridColumn(
-                          columnName: headerTitles[index],
-                          columnWidthMode: ColumnWidthMode.fitByColumnName,
-                          label: Container(
+                      verticalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      horizontalScrollPhysics:
+                          const NeverScrollableScrollPhysics(),
+                      columns: List.generate(
+                        headerTitles.length,
+                        (index) {
+                          return GridColumn(
+                            columnName: headerTitles[index],
+                            columnWidthMode: ColumnWidthMode.fitByColumnName,
+                            label: Container(
                               padding: const EdgeInsets.all(8.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -140,10 +144,12 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
-                              )),
-                          allowSorting: true,
-                        );
-                      }),
+                              ),
+                            ),
+                            allowSorting: true,
+                          );
+                        },
+                      ),
                       columnWidthMode: ColumnWidthMode.fitByColumnName,
                       allowSorting: true,
                       sortingGestureType: SortingGestureType.tap,
@@ -164,4 +170,3 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
   @override
   bool get wantKeepAlive => true;
 }
-

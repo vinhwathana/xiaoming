@@ -105,7 +105,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 );
               }
               return const Text(
-                // 'វិញ វឌ្ឍនា',
                 "",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -171,12 +170,8 @@ class _DrawerItemState extends State<_DrawerItem> {
           leading: const Icon(Icons.person),
           title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
           onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const UserInfoPage(),
-                ));
+            Get.back();
+            Get.to(() => const UserInfoPage());
           },
         ),
         ListTile(
