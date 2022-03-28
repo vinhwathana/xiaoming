@@ -1,73 +1,106 @@
-import 'package:flutter/material.dart';
-//import 'package:xiaoming/pages/api_test2.dart';
-import 'package:xiaoming/pages/lessons/aba_clone.dart';
-//import 'package:xiaoming/pages/mptc_home_hr.dart';
-//import 'package:xiaoming/pages/mptc_signup_hr.dart';
-//import 'package:xiaoming/pages/mptc_forgetpassword_hr.dart';
-//import 'package:xiaoming/pages/mptc_dashboard.dart';
-//import 'package:xiaoming/pages/mptc_profile2.dart';
-//import 'package:xiaoming/pages/mptc_personal_info.dart';
-//import 'package:xiaoming/pages/template.dart';
-//import 'package:xiaoming/pages/ch00_appbar.dart';
-//import 'package:xiaoming/pages/ch05_widget_tree.dart';
-//import 'package:xiaoming/pages/ch05_widget_tree_performance.dart';
-//import 'package:xiaoming/pages/ch06_basic_widget.dart';
-//import 'package:xiaoming/pages/ch06_images.dart';
-//import 'package:xiaoming/pages/ch06_form_validation.dart';
-//import 'package:xiaoming/pages/ch06_orientation.dart';
-//import 'package:xiaoming/pages/ch07_animations.dart';
-//import 'package:xiaoming/pages/ch07_animation_controller.dart';
-//import 'package:xiaoming/pages/ch07_ac_staggered_animations.dart';
-//import 'package:xiaoming/pages/ch08_navigator.dart';
-//import 'package:xiaoming/pages/ch08_hero_animation.dart';
-//import 'package:xiaoming/pages/ch08_bottom_navigator_bar.dart';
-//import 'package:xiaoming/pages/ch08_bottom_app_bar.dart';
-//import 'package:xiaoming/pages/ch08_tabbar.dart';
-//import 'package:xiaoming/pages/ch08_drawer.dart';
-//import 'package:xiaoming/pages/ch09_listview.dart';
-//import 'package:xiaoming/pages/ch09_gridview.dart';
-//import 'package:xiaoming/pages/ch09_stack.dart';
-//import 'package:xiaoming/pages/ch09_customscrollview_slivers.dart';
-//import 'package:xiaoming/pages/ch11_gestures_drag_drop.dart';
-//import 'package:xiaoming/pages/ch11_dismissible.dart';
-//import 'package:xiaoming/pages/ch11_gestures_scale_book.dart';
-//import 'package:xiaoming/pages/ch12_platform_channel.dart';
-//import 'package:xiaoming/pages/ch13_local_persistence.dart';
-//import 'package:xiaoming/pages/ch14_journal.dart';
-//import 'package:xiaoming/pages/ming/test.dart';
-//import 'package:xiaoming/prius/mpg_kml.dart';
-void main() {
-  runApp(MyApp());}
 
-class MyApp extends StatelessWidget {
-  Map<int, Color> color =
-  {
-    50:Color.fromRGBO(51, 153, 255, .1),
-    100:Color.fromRGBO(51, 153, 255, .2),
-    200:Color.fromRGBO(51, 153, 255, .3),
-    300:Color.fromRGBO(51, 153, 255, .4),
-    400:Color.fromRGBO(51, 153, 255, .5),
-    500:Color.fromRGBO(51, 153, 255, .6),
-    600:Color.fromRGBO(51, 153, 255, .7),
-    700:Color.fromRGBO(51, 153, 255, .8),
-    800:Color.fromRGBO(51, 153, 255, .9),
-    900:Color.fromRGBO(51, 153, 255, 1),
-  };
-  // This widget is the root of your application.
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
+import 'controllers/initial_binding.dart';
+import 'language/khmer_cupertino_localization_delegate.dart';
+import 'services/localization_service.dart';
+import 'views/landing_page.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: CompanyColors.blue,
+    systemNavigationBarColor: CompanyColors.blue,
+    statusBarIconBrightness: Brightness.light,
+  ));
+
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    LocalizationService().getLocale();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Starter Template',
+    return GetMaterialApp(
+      title: 'MPTC HR App Training',
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      translations: LocalizationService(),
+      localizationsDelegates: const [
+        ...GlobalMaterialLocalizations.delegates,
+        GlobalWidgetsLocalizations.delegate,
+        DefaultMaterialLocalizations.delegate,
+        KhmerCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('km'),
+      ],
+
+      initialBinding: InitialBinding(),
+
       theme: ThemeData(
-        primarySwatch: MaterialColor(0xFF003D7C, color),
-        primaryColor: MaterialColor(0xFF003D7C, color),
-        //primaryColor: Color(0xFF005D86),
-        accentColor: Color(0xFF024466),
+        primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',
-        //canvasColor: Colors.blue,
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(fontSize: 16),
+        ),
+        hintColor: Colors.grey[400],
+        appBarTheme: const AppBarTheme(
+          color: Color(0xFF003D7C),
+          elevation: 0,
+        ),
+        iconTheme: IconThemeData(color: CompanyColors.yellow),
+        // colorScheme: const ColorScheme(
+        //   primary: Color(0xFF003D7C),
+        //   primaryVariant: Color(0xFF003D7C),
+        //   secondary: Color(0xFFF07C08),
+        //   secondaryVariant: Color(0xFFF07C08),
+        //   background: Colors.white,
+        //   brightness: Brightness.light,
+        //   error: Colors.red,
+        //   onBackground: Colors.white,
+        //   onError: Colors.white,
+        //   onPrimary: Colors.white,
+        //   onSecondary: Colors.white,
+        //   onSurface: Colors.white,
+        //   surface: Colors.white,
+        // ),
       ),
-      home: Home(),
+      themeMode: ThemeMode.light,
+      home: const LandingPage(),
+      // home: NewPersonalInfoPage(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => ProtectedRoute(
+      //     child: HomePage(),
+      //   ),
+      //   '/auth': (context) => const AuthenticationPage(),
+      //   '/attendance/scan': (context) => ProtectedRoute(
+      //     child: AttendancePage(),
+      //   ),
+      //   '/attendance/daily': (context) => ProtectedRoute(
+      //     child: AttendancePage(),
+      //   ),
+      //   '/user-profile': (context) => ProtectedRoute(
+      //     child: UserPage(),
+      //   ),
+      // },
     );
   }
 }
