@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
@@ -72,7 +73,9 @@ class FileViewer {
     if (attachment == null ||
         attachment!.id == null ||
         attachment!.fileName == null) {
-      print("Attachment null");
+      if (kDebugMode) {
+        print("Attachment null");
+      }
       return;
     }
     await fileService.getFile(attachment!.id.toString()).then(

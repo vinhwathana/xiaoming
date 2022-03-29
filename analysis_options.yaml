@@ -26,8 +26,8 @@ linter:
     avoid_print: true
     prefer_const_declarations: true
     prefer_const_literals_to_create_immutables: true
-    prefer_is_empty: true
     avoid_unnecessary_containers: true
+    prefer_is_empty: false
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 

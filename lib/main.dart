@@ -56,6 +56,8 @@ class _MyAppState extends State<MyApp> {
         Locale('km'),
       ],
       initialBinding: InitialBinding(),
+      defaultTransition: Transition.cupertino,
+
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',
@@ -68,6 +70,12 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
         iconTheme: IconThemeData(color: CompanyColors.yellow),
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       ),
       themeMode: ThemeMode.light,
       home: const LandingPage(),

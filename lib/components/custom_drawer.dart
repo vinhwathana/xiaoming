@@ -7,7 +7,7 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance/attendance_page.dart';
-import 'package:xiaoming/views/big_image_page.dart';
+import 'package:xiaoming/views/utils/image_preview_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
@@ -36,7 +36,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           return InkWell(
             onTap: () {
               Get.to(
-                () => BigImagePage(
+                () => ImagePreviewPage(
                   imageBase64: user.imageBase64!,
                   imageProvider: MemoryImage(
                     base64Decode(user.imageBase64!),
@@ -44,20 +44,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               );
             },
-            child: Hero(
-              tag: user.imageBase64!,
-              child: CircleAvatar(
-                radius: 45,
-                backgroundColor: Colors.white,
-                foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-              ),
+            child: CircleAvatar(
+              radius: 45,
+              backgroundColor: Colors.white,
+              foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
             ),
           );
         }
         return InkWell(
           onTap: () {
             Get.to(
-              () => const BigImagePage(
+              () => const ImagePreviewPage(
                 imageBase64: dummyNetworkImage,
                 imageProvider: NetworkImage(
                   dummyNetworkImage,

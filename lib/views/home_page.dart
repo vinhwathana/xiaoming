@@ -1,13 +1,8 @@
-//Homepage dashboard for gridview
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
 
 import 'attendance/attendance_page.dart';
@@ -23,57 +18,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget userProfile() {
-    return GetBuilder<UserController>(
-      builder: (controller) {
-        if (controller.users != null &&
-            controller.users!.value.officialInfo != null) {
-          final user = controller.users!.value.officialInfo;
-          if (user!.imageBase64 == null) {
-            return Container();
-          }
-          return InkWell(
-            onTap: () {
-              Get.to(
-                () => BigImagePage(
-                  imageBase64: user.imageBase64!,
-                  imageProvider: MemoryImage(
-                    base64Decode(user.imageBase64!),
-                  ),
-                ),
-              );
-            },
-            child: Hero(
-              tag: user.imageBase64!,
-              child: CircleAvatar(
-                foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-              ),
-            ),
-          );
-        }
-        return InkWell(
-          onTap: () {
-            Get.to(
-              () => const BigImagePage(
-                imageBase64: dummyNetworkImage,
-                imageProvider: NetworkImage(
-                  dummyNetworkImage,
-                ),
-              ),
-            );
-          },
-          child: const Hero(
-            tag: dummyNetworkImage,
-            child: CircleAvatar(
-              foregroundImage: NetworkImage(
-                dummyNetworkImage,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // Widget userProfile() {
+  //   return GetBuilder<UserController>(
+  //     builder: (controller) {
+  //       if (controller.users != null &&
+  //           controller.users!.value.officialInfo != null) {
+  //         final user = controller.users!.value.officialInfo;
+  //         if (user!.imageBase64 == null) {
+  //           return Container();
+  //         }
+  //         return InkWell(
+  //           onTap: () {
+  //             Get.to(
+  //               () => ImagePreviewPage(
+  //                 imageBase64: user.imageBase64!,
+  //                 imageProvider: MemoryImage(
+  //                   base64Decode(user.imageBase64!),
+  //                 ),
+  //               ),
+  //             );
+  //           },
+  //           child: CircleAvatar(
+  //             foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
+  //           ),
+  //         );
+  //       }
+  //       return InkWell(
+  //         onTap: () {
+  //           Get.to(
+  //             () => const ImagePreviewPage(
+  //               imageBase64: dummyNetworkImage,
+  //               imageProvider: NetworkImage(
+  //                 dummyNetworkImage,
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //         child: const CircleAvatar(
+  //           foregroundImage: NetworkImage(
+  //             dummyNetworkImage,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
