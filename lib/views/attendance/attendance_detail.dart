@@ -41,7 +41,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
     );
   }
 
-  Widget customRow(String firstText, String secondText) {
+  Widget attendanceRuleRow(String firstText, String secondText) {
     return Container(
       width: double.maxFinite,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -72,19 +72,19 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           ),
           Column(
             children: [
-              customRow(
+              attendanceRuleRow(
                 "ព្រឹក(ស្កេនចូល)",
                 "${timeRule.timeCheckIn1From} ដល់ ${timeRule.timeCheckIn1To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ព្រឹក(ស្កេនចេញ)",
                 "${timeRule.timeCheckOut1From} ដល់ ${timeRule.timeCheckOut1To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ថ្ងៃ(ស្កេនចូល)",
                 "${timeRule.timeCheckIn2From} ដល់ ${timeRule.timeCheckIn2To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ថ្ងៃ(ស្កេនចេញ)",
                 "${timeRule.timeCheckOut2From} ដល់ ${timeRule.timeCheckOut2To}",
               ),
@@ -126,10 +126,12 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: attendanceLog.logs.length,
-            separatorBuilder: (context, index) => const Divider(
-              thickness: 1,
-              height: 0,
-            ),
+            separatorBuilder: (context, index) {
+              return const Divider(
+                thickness: 1,
+                height: 0,
+              );
+            },
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
@@ -180,31 +182,31 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
       appBar: AppBar(
         title: const Text("ម៉ោងស្កេន"),
       ),
-      body: SingleChildScrollView(
-        child: FutureBuilder<AttendanceLog?>(
-          future: attendanceService.getAttendanceLog(
-            formatDateTimeForApi(widget.date),
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasData && snapshot.data != null) {
-              final attendanceLog = snapshot.data!;
-              return Column(
+      body: FutureBuilder<AttendanceLog?>(
+        future: attendanceService.getAttendanceLog(
+          formatDateTimeForApi(widget.date),
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData && snapshot.data != null) {
+            final attendanceLog = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
                 children: [
                   attendanceRuleView(attendanceLog.timeRule),
                   attendanceDetailView(attendanceLog),
                 ],
-              );
-            }
-            return const Center(
-              child: Text("No Information Available"),
+              ),
             );
-          },
-        ),
+          }
+          return const Center(
+            child: Text("មិនមានព័ត៌មាន"),
+          );
+        },
       ),
     );
   }

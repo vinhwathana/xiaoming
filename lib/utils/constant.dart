@@ -143,6 +143,7 @@ String formatDateTimeForView(DateTime? date) {
   return formattedDate;
 }
 
+//For attendance
 String formatDateTimeForApi(DateTime? date) {
   if (date == null) {
     return "";

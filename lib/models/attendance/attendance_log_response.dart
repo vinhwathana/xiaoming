@@ -43,20 +43,21 @@ class AttendanceLog {
 
   TimeRule timeRule;
   String date;
-  Summary summary;
+  Summary? summary;
   List<Log> logs;
 
   factory AttendanceLog.fromMap(Map<String, dynamic> json) => AttendanceLog(
         timeRule: TimeRule.fromMap(json["timeRule"]),
         date: json["date"],
-        summary: Summary.fromMap(json["summary"]),
-        logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x))),
+        summary:
+            (json["summary"] == null) ? null : Summary.fromMap(json["summary"]),
+        logs: List<Log>.from(json["logs"].map((x) => Log.fromMap(x)) ?? []),
       );
 
   Map<String, dynamic> toMap() => {
         "timeRule": timeRule.toMap(),
         "date": date,
-        "summary": summary.toMap(),
+        "summary": summary?.toMap(),
         "logs": List<dynamic>.from(logs.map((x) => x.toMap())),
       };
 }
@@ -117,7 +118,7 @@ class Summary {
     required this.attendanceStatus,
   });
 
-  int timeRuleId;
+  int? timeRuleId;
   String? authDate;
   String? morningCheckIn;
   String? morningCheckOut;
