@@ -113,7 +113,17 @@ class _FilterDialogState extends State<FilterDialog>
                                     controller.updateOrgRegion(value);
                                   },
                                 ),
-                                Text(controller.radioText[index]),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.updateOrgRegion(
+                                        controller.radioValues[index]);
+                                  },
+                                  child: Card(
+                                    elevation: 0,
+                                    color: Colors.transparent,
+                                    child: Text(controller.radioText[index]),
+                                  ),
+                                ),
                               ],
                             );
                           },
