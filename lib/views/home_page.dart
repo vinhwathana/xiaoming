@@ -76,11 +76,11 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
-            actions: [
-              IconButton(
-                onPressed: () async {},
-                icon: const Icon(Icons.settings),
-              ),
+            actions: const [
+              // IconButton(
+              //   onPressed: () async {},
+              //   icon: const Icon(Icons.settings),
+              // ),
             ],
           ),
           drawer: const CustomDrawer(),

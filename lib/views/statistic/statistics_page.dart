@@ -30,12 +30,12 @@ class _StatisticsPageState extends State<StatisticsPage>
   );
 
   final tabs = <Tab>[
-    const Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
-    const Tab(text: "ជំនាញ"),
     const Tab(text: "កម្រិតសញ្ញាបត្រ"),
+    const Tab(text: "ជំនាញ"),
+    const Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
     const Tab(text: "ភេទ"),
     const Tab(text: "ឥស្សរិយយស្ស"),
-    const Tab(text: "កាំបៀវត្ស"),
+    const Tab(text: "ក្របខណ្ឌ"),
   ];
 
   @override
@@ -95,21 +95,22 @@ class _StatisticsPageState extends State<StatisticsPage>
     return TabBarView(
       controller: tabController,
       children: <Widget>[
-        SkillByDegreeStatisticPage(
-          chartTitle: tabs[0].text ?? "",
+        CertificateStatisticPage(
+          chartTitle: tabs[2].text ?? "",
           org: org,
           dept: dept,
-          degree: degree,
         ),
         SkillStatisticPage(
           chartTitle: tabs[1].text ?? "",
           org: org,
           dept: dept,
         ),
-        CertificateStatisticPage(
-          chartTitle: tabs[2].text ?? "",
+
+        SkillByDegreeStatisticPage(
+          chartTitle: tabs[0].text ?? "",
           org: org,
           dept: dept,
+          degree: degree,
         ),
         StaffStatisticPage(
           chartTitle: tabs[3].text ?? "",
@@ -133,7 +134,7 @@ class _StatisticsPageState extends State<StatisticsPage>
   void openFilterDialog() {
     Get.dialog(
       FilterDialog(
-        showDegreeField: (tabController.index == 0),
+        showDegreeField: (tabController.index == 2),
         onConfirm: (org, dept, degree) {
           setState(() {
             this.org = org;

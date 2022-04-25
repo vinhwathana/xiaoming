@@ -4,8 +4,8 @@ import 'package:xiaoming/models/statistic/result_organization.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class FilterDialogController extends GetxController {
-  final organizations = [].obs;
-  final departments = [].obs;
+  final List<Datum> organizations = [];
+  final List<Datum> departments = [];
   final orgRegion = "00";
   final statService = StatisticService();
   late String selectedDegrees = degrees.keys.first;
@@ -59,6 +59,10 @@ class FilterDialogController extends GetxController {
 
   void updateOrgRegion(RadioValue value) {
     selectedRadioValue = value;
+    selectedOrganization = null;
+    selectedDepartment = null;
+    organizations.clear();
+    departments.clear();
     switch (value) {
       case RadioValue.all:
         selectedOrgRegion = "00";
@@ -70,7 +74,7 @@ class FilterDialogController extends GetxController {
         selectedOrgRegion = "026000";
         break;
     }
-    selectedDepartment = null;
+
     getOrganizations();
     update();
   }
@@ -78,7 +82,6 @@ class FilterDialogController extends GetxController {
   void updateSelectedOrganization(String selected) {
     selectedOrganization = selected;
     final int id = organizations
-        .cast<Datum>()
         .where((e) => e.displayText == selected)
         .toList()[0]
         .id;
@@ -86,17 +89,13 @@ class FilterDialogController extends GetxController {
     update();
   }
 
-  void updateSelectedDepartment(String selected) {}
-
   Future<void> getOrganizations() async {
     final result =
         await statService.getOrganization(orgRegion: selectedOrgRegion);
     selectedOrganization = null;
+    organizations.clear();
     if (result != null && result.isNotEmpty) {
-      organizations.clear();
       organizations.addAll(result);
-    } else {
-      organizations.clear();
     }
     update();
   }
@@ -109,11 +108,9 @@ class FilterDialogController extends GetxController {
       parentId: selectedOrgId,
     );
     selectedDepartment = null;
+    departments.clear();
     if (result != null && result.isNotEmpty) {
-      departments.clear();
       departments.addAll(result);
-    } else {
-      departments.clear();
     }
     update();
   }

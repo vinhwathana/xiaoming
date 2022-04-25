@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
@@ -77,7 +78,12 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
         },
         focusNode: _focus,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.only(
+            bottom: 20,
+            left: 20,
+            top: 20,
+            right: 20,
+          ),
           labelStyle: TextStyle(
             fontSize: 16,
             color: CompanyColors.yellow,
@@ -110,7 +116,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
           style: TextStyle(
             fontSize: 16,
             color: decideColor(),
-            height: 1.5,
+            height: 1,
           ),
         ),
         value: widget.currentSelectedValue,
@@ -118,12 +124,15 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
           return DropdownMenuItem<String>(
             value: value,
             child: Container(
-              padding: const EdgeInsets.only(top: 5),
+              // padding: const EdgeInsets.only(top: 5),
+              // color: Colors.red,
               child: Text(
                 value,
+                // maxLines: 1,
+                // overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.black,
-                  height: 1.5,
+                  height: 1.6,
                 ),
               ),
             ),
