@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 
-class DropdownTextField extends StatefulWidget {
-  const DropdownTextField({
+class FilterDropdownTextField extends StatefulWidget {
+  const FilterDropdownTextField({
     Key? key,
     required this.labelText,
     required this.controller,
@@ -33,10 +33,11 @@ class DropdownTextField extends StatefulWidget {
   final AutovalidateMode autoValidateMode;
 
   @override
-  _DropdownTextFieldState createState() => _DropdownTextFieldState();
+  _FilterDropdownTextFieldState createState() =>
+      _FilterDropdownTextFieldState();
 }
 
-class _DropdownTextFieldState extends State<DropdownTextField> {
+class _FilterDropdownTextFieldState extends State<FilterDropdownTextField> {
   final FocusNode _focus = AlwaysDisabledFocusNode();
   bool isFocus = false;
 
@@ -78,12 +79,16 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
         },
         focusNode: _focus,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(
-            bottom: 20,
-            left: 20,
-            top: 20,
-            right: 20,
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 30,
+            horizontal: 16,
           ),
+          // contentPadding: const EdgeInsets.only(
+          //   bottom: 30,
+          //   left: 10,
+          //   top: 20,
+          //   right: 10,
+          // ),
           labelStyle: TextStyle(
             fontSize: 16,
             color: CompanyColors.yellow,
@@ -123,17 +128,13 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
         items: widget.listString.map((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Container(
-              // padding: const EdgeInsets.only(top: 5),
-              // color: Colors.red,
-              child: Text(
-                value,
-                // maxLines: 1,
-                // overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.black,
-                  height: 1.6,
-                ),
+            child: Text(
+              value,
+              maxLines: 2,
+              overflow: TextOverflow.visible,
+              style: const TextStyle(
+                color: Colors.black,
+                height: 1.5,
               ),
             ),
           );

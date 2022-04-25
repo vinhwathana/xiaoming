@@ -88,6 +88,15 @@ class FilterDialogController extends GetxController {
     getDepartments(id.toString());
     update();
   }
+  void updateSelectedDepartment(String selected) {
+    selectedDepartment = selected;
+    // final int id = departments
+    //     .where((e) => e.displayText == selected)
+    //     .toList()[0]
+    //     .id;
+    // getDepartments(id.toString());
+    update();
+  }
 
   Future<void> getOrganizations() async {
     final result =

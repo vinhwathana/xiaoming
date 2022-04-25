@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/components/dropdown_textfield.dart';
+import 'package:xiaoming/components/filter_dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/models/statistic/result_organization.dart';
 
@@ -118,18 +118,17 @@ class _FilterDialogState extends State<FilterDialog>
                                     controller.updateOrgRegion(
                                         controller.radioValues[index]);
                                   },
-                                  child: Card(
-                                    elevation: 0,
-                                    color: Colors.transparent,
-                                    child: Text(controller.radioText[index]),
-                                  ),
+                                  child: Text(controller.radioText[index]),
                                 ),
                               ],
                             );
                           },
                         ),
                       ),
-                      DropdownTextField(
+                      SizedBox(
+                        height: 8,
+                      ),
+                      FilterDropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "អគ្គនាយកដ្ឋាន",
                         listString: organizations.cast(),
@@ -146,7 +145,7 @@ class _FilterDialogState extends State<FilterDialog>
                       const SizedBox(
                         height: 20,
                       ),
-                      DropdownTextField(
+                      FilterDropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "នាយកដ្ឋាន",
                         currentSelectedValue: controller.selectedDepartment,
@@ -155,7 +154,7 @@ class _FilterDialogState extends State<FilterDialog>
                           if (value == null) {
                             return;
                           }
-                          controller.selectedDepartment = value.toString();
+                          controller.updateSelectedDepartment(value.toString());
                         },
                         controller: departmentTextCon,
                       ),
@@ -165,7 +164,7 @@ class _FilterDialogState extends State<FilterDialog>
                       if (widget.showDegreeField)
                         Column(
                           children: [
-                            DropdownTextField(
+                            FilterDropdownTextField(
                               labelText: "ប្រភេទវិញ្ញាបនបត្រ",
                               listString: controller.degrees.keys.toList(),
                               onChange: (value) {
