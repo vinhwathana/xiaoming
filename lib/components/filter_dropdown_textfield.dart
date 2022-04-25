@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
@@ -79,16 +78,10 @@ class _FilterDropdownTextFieldState extends State<FilterDropdownTextField> {
         },
         focusNode: _focus,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             vertical: 30,
             horizontal: 16,
           ),
-          // contentPadding: const EdgeInsets.only(
-          //   bottom: 30,
-          //   left: 10,
-          //   top: 20,
-          //   right: 10,
-          // ),
           labelStyle: TextStyle(
             fontSize: 16,
             color: CompanyColors.yellow,

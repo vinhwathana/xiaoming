@@ -105,7 +105,6 @@ class _StatisticsPageState extends State<StatisticsPage>
           org: org,
           dept: dept,
         ),
-
         SkillByDegreeStatisticPage(
           chartTitle: tabs[0].text ?? "",
           org: org,

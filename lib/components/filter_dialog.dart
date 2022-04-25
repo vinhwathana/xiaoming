@@ -125,7 +125,7 @@ class _FilterDialogState extends State<FilterDialog>
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       FilterDropdownTextField(
