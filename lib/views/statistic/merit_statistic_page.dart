@@ -217,27 +217,19 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
     "នាម",
     'ភេទ',
     'មុខដំណែង',
+    'អគ្គនាយកដ្ឋាន',
+    'នាយកដ្ឋាន',
+    'ប្រភេទគឿងឥស្សរិយយស្ស',
+    'កាលបរិច្ឆេទទទួល',
   ];
   final rowsPerPage = 10;
   int start = 0;
   int selectedPage = 0;
 
-  // final filterController = Get.find<FilterDialogController>();
-  // final certificatedTextController = TextEditingController();
-  // List<String>? certificates;
-  // String? selectedCertificate;
-
-  @override
-  void initState() {
-    super.initState();
-    // certificates = filterController.degrees.keys.toList();
-    // selectedCertificate = certificates?[0];
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<StatisticPeopleResponse?>(
-      future: statService.getStaffPeople(
+      future: statService.getMeritPeople(
         widget.org,
         widget.dept,
         start: start,
@@ -248,8 +240,8 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData = responseData?.data;
-          if (skillPeopleData == null || skillPeopleData.length == 0) {
+          final List<StatisticPeople>? meritPeopleData = responseData?.data;
+          if (meritPeopleData == null || meritPeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
           }
           return SingleChildScrollView(
@@ -258,7 +250,7 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
               children: [
                 CustomDataGridWidget(
                   dataSource: MeritPeopleDataGridSource(
-                    tableData: skillPeopleData,
+                    tableData: meritPeopleData,
                   ),
                   headerTitles: peopleHeaderTitles,
                   bottomWidget: DataGridPager(
@@ -316,6 +308,10 @@ class MeritPeopleDataGridSource extends DataGridSource {
     "នាម",
     'ភេទ',
     'មុខដំណែង',
+    'អគ្គនាយកដ្ឋាន',
+    'នាយកដ្ឋាន',
+    'ប្រភេទគឿងឥស្សរិយយស្ស',
+    'កាលបរិច្ឆេទទទួល',
   ];
 
   List<StatisticPeople> tableData;
@@ -364,6 +360,22 @@ class MeritPeopleDataGridSource extends DataGridSource {
           DataGridCell<String>(
             columnName: peopleHeaderTitles[3],
             value: e.position,
+          ),
+          DataGridCell<String>(
+            columnName: peopleHeaderTitles[4],
+            value: e.org,
+          ),
+          DataGridCell<String>(
+            columnName: peopleHeaderTitles[5],
+            value: e.dept,
+          ),
+          DataGridCell<String>(
+            columnName: peopleHeaderTitles[6],
+            value: e.meritName,
+          ),
+          DataGridCell<String>(
+            columnName: peopleHeaderTitles[7],
+            value: e.recievedDate,
           ),
         ],
       );

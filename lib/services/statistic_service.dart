@@ -669,9 +669,6 @@ class StatisticService {
           "Bearer ${authController.accessToken!}",
         },
       );
-
-      log(response.body);
-
       if (response.statusCode == 200) {
         final responseData =
         certificateSkillPeopleStatResponseFromJson(response.body);
