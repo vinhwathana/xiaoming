@@ -6,11 +6,11 @@ import 'dart:convert';
 
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 
-StatisticPeopleResponse certificateSkillPeopleStatResponseFromJson(
+StatisticPeopleResponse statisticPeopleResponseFromJson(
         String str) =>
     StatisticPeopleResponse.fromJson(json.decode(str));
 
-String certificateSkillPeopleStatResponseToJson(
+String statisticPeopleResponseToJson(
         StatisticPeopleResponse data) =>
     json.encode(data.toJson());
 

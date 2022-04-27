@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
+import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
@@ -28,8 +29,9 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
   final statService = StatisticService();
 
   final List<String> headerTitles = [
-    "កម្រិតសញ្ញាបត្រ",
-    "រាប់តែចំនួនសរុប",
+    "ប្រុស",
+    "ស្រី",
+    'សរុប',
   ];
 
   @override
@@ -124,8 +126,8 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
   }
 
   Widget staffDataGrid(String org, String dept) {
-    return FutureBuilder<List<ChartModel>?>(
-      future: statService.getStaffCount(org, dept),
+    return FutureBuilder<StaffStatistic?>(
+      future: statService.getStaffCountByGender(org, dept),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -134,7 +136,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
         }
 
         final staffData = snapshot.data;
-        if (staffData == null || staffData.length == 0) {
+        if (staffData == null) {
           return const Center(child: Text("No Data Available"));
         }
 
@@ -147,7 +149,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
             ),
             child: SfDataGrid(
               source: StaffTableDataSource(
-                certificateData: staffData,
+                staffStatisticData: [staffData] ,
               ),
               // onQueryRowHeight: (details) {
               //   return details.getIntrinsicRowHeight(details.rowIndex);
@@ -160,7 +162,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
                 (index) {
                   return GridColumn(
                     columnName: headerTitles[index],
-                    columnWidthMode: ColumnWidthMode.fitByColumnName,
+                    columnWidthMode: ColumnWidthMode.auto,
                     label: Container(
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.centerLeft,
@@ -223,17 +225,6 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
   int start = 0;
   int selectedPage = 0;
 
-  // final filterController = Get.find<FilterDialogController>();
-  // final certificatedTextController = TextEditingController();
-  // List<String>? certificates;
-  // String? selectedCertificate;
-
-  @override
-  void initState() {
-    super.initState();
-    // certificates = filterController.degrees.keys.toList();
-    // selectedCertificate = certificates?[0];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +250,7 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
               alignment: Alignment.center,
               children: [
                 CustomDataGridWidget(
-                  dataSource: SkillByDegreePeopleDataGridSource(
+                  dataSource: StaffPeopleDataGridSource(
                     tableData: skillPeopleData,
                   ),
                   headerTitles: peopleHeaderTitles,
@@ -306,8 +297,8 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
   }
 }
 
-class SkillByDegreePeopleDataGridSource extends DataGridSource {
-  SkillByDegreePeopleDataGridSource({
+class StaffPeopleDataGridSource extends DataGridSource {
+  StaffPeopleDataGridSource({
     required this.tableData,
   }) {
     buildPaginatedDataGridRows();
@@ -375,29 +366,34 @@ class SkillByDegreePeopleDataGridSource extends DataGridSource {
 
 class StaffTableDataSource extends DataGridSource {
   StaffTableDataSource({
-    required this.certificateData,
+    required this.staffStatisticData,
   }) {
-    _certificateData = certificateData.map<DataGridRow>((e) {
+    _staffStatisticData = staffStatisticData.map<DataGridRow>((e) {
+
       return DataGridRow(
         cells: [
-          DataGridCell<String>(
-            columnName: 'កម្រិតសញ្ញាបត្រ',
-            value: e.name,
+          DataGridCell<int>(
+            columnName: 'ប្រុស',
+            value: (int.parse(e.total) - int.parse(e.female)),
           ),
           DataGridCell<int>(
-            columnName: 'រាប់តែចំនួនសរុប',
-            value: e.amount.toInt(),
+            columnName: 'ស្រី',
+            value: int.parse(e.female),
+          ),
+          DataGridCell<int>(
+            columnName: 'សរុប',
+            value: int.parse(e.total),
           ),
         ],
       );
     }).toList();
   }
 
-  final List<ChartModel> certificateData;
-  List<DataGridRow> _certificateData = [];
+  final List<StaffStatistic> staffStatisticData;
+  List<DataGridRow> _staffStatisticData = [];
 
   @override
-  List<DataGridRow> get rows => _certificateData;
+  List<DataGridRow> get rows => _staffStatisticData;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {

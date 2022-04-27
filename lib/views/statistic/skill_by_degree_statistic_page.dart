@@ -52,13 +52,14 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
+      showDegree: true,
       builder: (controller, org, dept, degree) {
         return TabBarView(
           controller: controller,
           children: [
-            skillByDegreeChart(org, dept,degree),
-            skillByDegreeDataGrid(org, dept,degree),
-            skillByDegreePeopleDataGrid(org, dept,degree),
+            skillByDegreeChart(org, dept, degree),
+            skillByDegreeDataGrid(org, dept, degree),
+            skillByDegreePeopleDataGrid(org, dept, degree),
           ],
         );
       },
@@ -171,7 +172,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
                 horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                 columns: List.generate(
                   headerTitles.length,
-                      (index) {
+                  (index) {
                     return GridColumn(
                       columnName: headerTitles[index],
                       columnWidthMode: ColumnWidthMode.auto,
@@ -208,7 +209,11 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
   }
 
   Widget skillByDegreePeopleDataGrid(String org, String dept, String degree) {
-    return SkillByDegreePeopleDataGrid(org: org, dept: dept,degree: degree,);
+    return SkillByDegreePeopleDataGrid(
+      org: org,
+      dept: dept,
+      degree: degree,
+    );
   }
 
   @override
@@ -228,10 +233,12 @@ class SkillByDegreePeopleDataGrid extends StatefulWidget {
   final String degree;
 
   @override
-  State<SkillByDegreePeopleDataGrid> createState() => _SkillByDegreePeopleDataGridState();
+  State<SkillByDegreePeopleDataGrid> createState() =>
+      _SkillByDegreePeopleDataGridState();
 }
 
-class _SkillByDegreePeopleDataGridState extends State<SkillByDegreePeopleDataGrid> {
+class _SkillByDegreePeopleDataGridState
+    extends State<SkillByDegreePeopleDataGrid> {
   // bool isLoading = false;
   final statService = StatisticService();
   final List<String> peopleHeaderTitles = [
@@ -278,8 +285,7 @@ class _SkillByDegreePeopleDataGridState extends State<SkillByDegreePeopleDataGri
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData =
-              responseData?.data;
+          final List<StatisticPeople>? skillPeopleData = responseData?.data;
           if (skillPeopleData == null || skillPeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
           }
@@ -338,7 +344,7 @@ class _SkillByDegreePeopleDataGridState extends State<SkillByDegreePeopleDataGri
                 ),
                 Visibility(
                   visible:
-                  (snapshot.connectionState == ConnectionState.waiting),
+                      (snapshot.connectionState == ConnectionState.waiting),
                   child: Center(child: CircularProgressIndicator()),
                 ),
               ],
@@ -382,7 +388,7 @@ class SkillByDegreePeopleDataGridSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
       cells: row.getCells().map<Widget>(
-            (dataGridCell) {
+        (dataGridCell) {
           return Container(
             alignment: Alignment.center,
             child: Text(

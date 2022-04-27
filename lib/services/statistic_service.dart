@@ -305,6 +305,48 @@ class StatisticService {
     }
   }
 
+  Future<StaffStatistic?> getStaffCountByGender(
+    String org,
+    String dept,
+  ) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statStaff}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final genderStatistic = staffStatisticFromMap(response.body);
+
+        final femaleAmount = double.parse(genderStatistic.female);
+        final maleAmount = double.parse(genderStatistic.total) - femaleAmount;
+
+        return genderStatistic;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<List<ChartModel>?> getMerits(
     String org,
     String dept,
@@ -463,8 +505,7 @@ class StatisticService {
       );
 
       if (response.statusCode == 200) {
-        final responseData =
-            certificateSkillPeopleStatResponseFromJson(response.body);
+        final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);
@@ -516,8 +557,7 @@ class StatisticService {
       );
 
       if (response.statusCode == 200) {
-        final responseData =
-            certificateSkillPeopleStatResponseFromJson(response.body);
+        final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
         // print(response.body);
@@ -571,8 +611,7 @@ class StatisticService {
       log(response.body);
 
       if (response.statusCode == 200) {
-        final responseData =
-            certificateSkillPeopleStatResponseFromJson(response.body);
+        final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);
@@ -622,8 +661,7 @@ class StatisticService {
       log(response.body);
 
       if (response.statusCode == 200) {
-        final responseData =
-            certificateSkillPeopleStatResponseFromJson(response.body);
+        final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);
@@ -635,14 +673,14 @@ class StatisticService {
   }
 
   Future<StatisticPeopleResponse?> getMeritPeople(
-      String org,
-      String dept, {
-        int? start = 0,
-        int? length = 0,
-        String? search = "",
-        String? country = "",
-        String? skill = "",
-      }) async {
+    String org,
+    String dept, {
+    int? start = 0,
+    int? length = 0,
+    String? search = "",
+    String? country = "",
+    String? skill = "",
+  }) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
       return null;
@@ -655,23 +693,70 @@ class StatisticService {
     try {
       final uri = Uri.parse(
         "${api_url.statMeritPeople}?"
-            "MinistryCode=$ministryCode"
-            "&Org=$org"
-            "&Dept=$dept"
-            "&start=$start"
-            "&length=$length"
-            "&search=$search",
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search",
       );
       final response = await http.get(
         uri,
         headers: {
           HttpHeaders.authorizationHeader:
-          "Bearer ${authController.accessToken!}",
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = statisticPeopleResponseFromJson(response.body);
+        return responseData;
+      } else {
+        print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<StatisticPeopleResponse?> getKrobKhanPeople(
+    String org,
+    String dept, {
+    int? start = 0,
+    int? length = 0,
+    String? search = "",
+    String? country = "",
+    String? skill = "",
+  }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statKrobKhanPeople}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
         },
       );
       if (response.statusCode == 200) {
-        final responseData =
-        certificateSkillPeopleStatResponseFromJson(response.body);
+        final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);
@@ -708,7 +793,6 @@ class StatisticService {
     Colors.red,
     Colors.green,
     Colors.greenAccent,
-    Colors.lightGreen,
     Colors.amber,
     Colors.blue,
     CompanyColors.blue,

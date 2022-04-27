@@ -115,7 +115,13 @@ class _ListStatisticPageState extends State<ListStatisticPage>
               CardTile(
                 title: Text(statNames[5]),
                 trailing: trailingIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                        () => KrobKhanStatisticPage(
+                      chartTitle: statNames[5],
+                    ),
+                  );
+                },
               ),
             ],
           ),

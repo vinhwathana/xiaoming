@@ -1,22 +1,22 @@
 class StatisticPeople {
-  StatisticPeople({
-    this.id,
-    this.eLvl,
-    this.gender,
-    this.position,
-    this.education,
-    this.skill,
-    this.schoolName,
-    this.country,
-    this.startDate,
-    this.endDate,
-    this.firstNameKh,
-    this.lastNameKh,
-    this.org,
-    this.dept,
-    this.meritName,
-    this.recievedDate,
-  });
+  StatisticPeople(
+      {this.id,
+      this.eLvl,
+      this.gender,
+      this.position,
+      this.education,
+      this.skill,
+      this.schoolName,
+      this.country,
+      this.startDate,
+      this.endDate,
+      this.firstNameKh,
+      this.lastNameKh,
+      this.org,
+      this.dept,
+      this.meritName,
+      this.recievedDate,
+      this.krobKhanTypeName});
 
   String? id;
   String? eLvl;
@@ -30,6 +30,7 @@ class StatisticPeople {
   DateTime? endDate;
   String? firstNameKh;
   String? lastNameKh;
+  String? krobKhanTypeName;
   String? org;
   String? dept;
   String? meritName;
@@ -54,6 +55,7 @@ class StatisticPeople {
       org: json["org"],
       meritName: json["meritName"],
       recievedDate: json["recievedDate"],
+      krobKhanTypeName: json["krobKhanTypeName"],
     );
   }
 
@@ -75,5 +77,6 @@ class StatisticPeople {
         "dept": dept,
         "meritName": meritName,
         "recievedDate": recievedDate,
+        "krobKhanTypeName": krobKhanTypeName,
       };
 }

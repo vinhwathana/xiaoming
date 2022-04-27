@@ -29,7 +29,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
   final List<String> headerTitles = [
-    "កម្រិតសញ្ញាបត្រ",
+    "ជំនាញ",
     "រាប់តែចំនួនសរុប",
   ];
 

@@ -27,7 +27,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
   final List<String> headerTitles = [
-    "កម្រិតសញ្ញាបត្រ",
+    "ឥស្សរិយយស្ស",
     "រាប់តែចំនួនសរុប",
   ];
 
@@ -233,7 +233,7 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
         widget.org,
         widget.dept,
         start: start,
-        length: 10,
+        length: rowsPerPage,
         search: "",
       ),
       builder: (context, snapshot) {
@@ -328,7 +328,7 @@ class MeritPeopleDataGridSource extends DataGridSource {
           return Container(
             alignment: Alignment.center,
             child: Text(
-              dataGridCell.value.toString(),
+              (dataGridCell.value == null) ? "" : dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
