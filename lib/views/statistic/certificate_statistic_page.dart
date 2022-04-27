@@ -294,17 +294,8 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
                     totalAmount: responseData?.totalFilteredRecord ?? 0,
                     selectedPage: selectedPage,
                     onChange: (index) {
-                      // setState(() {
-                      //   isLoading = true;
-                      // });
                       int tempStart = start;
-                      if (index > selectedPage) {
-                        tempStart += rowsPerPage;
-                      } else if (index < selectedPage) {
-                        tempStart -= rowsPerPage;
-                      } else {
-                        tempStart = 0;
-                      }
+                      tempStart = rowsPerPage * (index);
                       setState(() {
                         if (tempStart >= 0) {
                           start = tempStart;
@@ -316,7 +307,8 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
                   ),
                 ),
                 Visibility(
-                  visible: (snapshot.connectionState == ConnectionState.waiting),
+                  visible:
+                      (snapshot.connectionState == ConnectionState.waiting),
                   child: Center(child: CircularProgressIndicator()),
                 ),
               ],
