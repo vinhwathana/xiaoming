@@ -135,7 +135,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  showDetailDialog(attendanceLog.logs[index]);
+                  // showDetailDialog(attendanceLog.logs[index]);
                 },
                 child: Container(
                   color: Colors.transparent,
@@ -197,8 +197,8 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  attendanceRuleView(attendanceLog.timeRule),
                   attendanceDetailView(attendanceLog),
+                  attendanceRuleView(attendanceLog.timeRule),
                 ],
               ),
             );
