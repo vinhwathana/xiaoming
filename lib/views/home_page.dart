@@ -4,9 +4,10 @@ import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
+import 'package:xiaoming/views/statistic/list_statistic_page.dart';
 
 import 'attendance/attendance_page.dart';
-import 'statistic/statistics_page.dart';
+import 'statistic/statistics_page_wrapper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -114,7 +115,8 @@ class HomePageGridView extends StatelessWidget {
       const _HomePageItem(
         title: "ស្ថិតិ",
         icon: Icons.pie_chart,
-        destination: StatisticsPage(),
+        destination: ListStatisticPage(),
+        // destination: StatisticsPage(),
       ),
     ];
     return GridView.builder(

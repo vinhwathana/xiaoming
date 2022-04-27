@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:xiaoming/views/statistic/statistics_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
 final List<String> headerTitles = [
   "ជំនាញ",

@@ -13,7 +13,7 @@ import 'package:xiaoming/models/statistic/number/skill_by_degree_statistic.dart'
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/people/certificate_people_stat_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'package:xiaoming/views/statistic/statistics_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
 class StatisticService {
   final authController = Get.find<AuthenticationController>();

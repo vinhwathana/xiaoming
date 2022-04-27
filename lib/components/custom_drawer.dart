@@ -12,7 +12,7 @@ import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/personal_info/user_info_page.dart';
-import 'package:xiaoming/views/statistic/statistics_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -184,7 +184,7 @@ class _DrawerItemState extends State<_DrawerItem> {
           title: const Text('ស្ថិតិ'),
           onTap: () {
             Get.back();
-            Get.to(() => const StatisticsPage());
+            // Get.to(() => const StatisticsPage());
           },
         ),
         const Divider(),

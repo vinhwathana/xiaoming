@@ -28,9 +28,9 @@ class CustomDataGridWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           topWidget ?? Container(),
-
           Visibility(
             visible: (tableTitle == null) ? false : true,
+            maintainSize: false,
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 12,

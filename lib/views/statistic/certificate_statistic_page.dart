@@ -11,18 +11,13 @@ import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
-import 'package:xiaoming/views/statistic/statistics_page.dart';
+import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
 class CertificateStatisticPage extends StatefulWidget {
   const CertificateStatisticPage({
     Key? key,
-    required this.org,
-    required this.dept,
     required this.chartTitle,
   }) : super(key: key);
-
-  final String dept;
-  final String org;
   final String chartTitle;
 
   @override
@@ -55,24 +50,28 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          certificateChart(),
-          certificatePeople(),
-        ],
-      ),
+    return StatisticsPageWrapper(
+      title: widget.chartTitle,
+      builder: (controller, org, dept, degree) {
+        return TabBarView(
+          controller: controller,
+          children: [
+            certificateChart(org, dept),
+            certificateDataGrid(org, dept),
+            certificatePeople(org, dept),
+          ],
+        );
+      },
     );
   }
 
-  Widget certificatePeople() {
-    return CertificatePeopleDataGrid(org: widget.org, dept: widget.dept);
+  Widget certificatePeople(String org, String dept) {
+    return CertificatePeopleDataGrid(org: org, dept: dept);
   }
 
-  Widget certificateChart() {
+  Widget certificateChart(String org, String dept) {
     return FutureBuilder<List<ChartModel>?>(
-      future: statService.getCertificates(widget.org, widget.dept),
+      future: statService.getCertificates(org, dept),
       builder: (context, snapshot) {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
@@ -86,97 +85,106 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
               max = element.amount;
             }
           }
-          return Column(
-            children: [
-              Card(
-                margin: const EdgeInsets.all(8),
-                elevation: 3,
-                child: SizedBox(
-                  height: Get.height / 2,
-                  child: SfCartesianChart(
-                    title: ChartTitle(
-                      text: widget.chartTitle,
-                      textStyle: const TextStyle(
-                        fontFamily: 'KhmerOSBattambong',
-                      ),
-                    ),
-                    primaryXAxis: CategoryAxis(
-                      labelStyle: const TextStyle(
-                        fontFamily: 'KhmerOSBattambong',
-                      ),
-                    ),
-                    primaryYAxis: NumericAxis(
-                      maximum: max,
-                      labelFormat: '{value}',
-                    ),
-                    tooltipBehavior: _tooltipBehavior,
-                    series: <BarSeries<ChartModel, String>>[
-                      BarSeries(
-                        name: widget.chartTitle,
-                        dataSource: certificateData,
-                        xValueMapper: (datum, index) => datum.name,
-                        yValueMapper: (datum, index) => datum.amount,
-                        pointColorMapper: (datum, index) => datum.color,
-                        dataLabelSettings: const DataLabelSettings(
-                          isVisible: true,
-                        ),
-                        enableTooltip: true,
-                        animationDuration: 500,
-                      ),
-                    ],
+          return Card(
+            margin: const EdgeInsets.all(8),
+            elevation: 3,
+            child: Container(
+              child: SfCartesianChart(
+                title: ChartTitle(
+                  text: widget.chartTitle,
+                  textStyle: const TextStyle(
+                    fontFamily: 'KhmerOSBattambong',
                   ),
                 ),
-              ),
-              Card(
-                elevation: 3,
-                margin: const EdgeInsets.all(8),
-                child: SfDataGridTheme(
-                  data: SfDataGridThemeData(
-                    sortIconColor: Colors.black,
+                primaryXAxis: CategoryAxis(
+                  labelStyle: const TextStyle(
+                    fontFamily: 'KhmerOSBattambong',
                   ),
-                  child: SfDataGrid(
-                    source: TwoColumnDataGridSource(
-                      tableData: certificateData,
-                      firstColumnName: headerTitles[0],
-                      secondColumnName: headerTitles[1],
+                ),
+                primaryYAxis: NumericAxis(
+                  maximum: max,
+                  labelFormat: '{value}',
+                ),
+                tooltipBehavior: _tooltipBehavior,
+                series: <BarSeries<ChartModel, String>>[
+                  BarSeries(
+                    name: widget.chartTitle,
+                    dataSource: certificateData,
+                    xValueMapper: (datum, index) => datum.name,
+                    yValueMapper: (datum, index) => datum.amount,
+                    pointColorMapper: (datum, index) => datum.color,
+                    dataLabelSettings: const DataLabelSettings(
+                      isVisible: true,
                     ),
-                    onQueryRowHeight: (details) {
-                      return details.getIntrinsicRowHeight(details.rowIndex);
-                    },
-                    shrinkWrapRows: true,
-                    verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                    horizontalScrollPhysics:
-                        const NeverScrollableScrollPhysics(),
-                    columns: List.generate(
-                      headerTitles.length,
-                      (index) {
-                        return GridColumn(
-                          columnName: headerTitles[index],
-                          columnWidthMode: ColumnWidthMode.fitByColumnName,
-                          label: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              headerTitles[index],
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: "KhmerOSBattambong",
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                    enableTooltip: true,
+                    animationDuration: 500,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  Widget certificateDataGrid(String org, String dept) {
+    return FutureBuilder<List<ChartModel>?>(
+      future: statService.getCertificates(org, dept),
+      builder: (context, snapshot) {
+        if (snapshot.hasData ||
+            snapshot.connectionState == ConnectionState.done) {
+          final List<ChartModel>? certificateData = snapshot.data;
+          if (certificateData == null || certificateData.length == 0) {
+            return const Center(child: Text("No Data Available"));
+          }
+          return Card(
+            elevation: 3,
+            margin: const EdgeInsets.all(8),
+            child: SfDataGridTheme(
+              data: SfDataGridThemeData(
+                sortIconColor: Colors.black,
+              ),
+              child: SfDataGrid(
+                source: TwoColumnDataGridSource(
+                  tableData: certificateData,
+                  firstColumnName: headerTitles[0],
+                  secondColumnName: headerTitles[1],
+                ),
+                // shrinkWrapRows: true,
+                // verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+                // horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
+                columns: List.generate(
+                  headerTitles.length,
+                  (index) {
+                    return GridColumn(
+                      columnName: headerTitles[index],
+                      columnWidthMode: ColumnWidthMode.auto,
+                      label: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          headerTitles[index],
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: "KhmerOSBattambong",
+                            fontWeight: FontWeight.bold,
                           ),
-                          allowSorting: true,
-                        );
-                      },
-                    ),
-                    columnWidthMode: ColumnWidthMode.auto,
-                    allowSorting: true,
-                    sortingGestureType: SortingGestureType.tap,
-                  ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      allowSorting: true,
+                    );
+                  },
                 ),
+                columnWidthMode: ColumnWidthMode.auto,
+                allowSorting: true,
+                sortingGestureType: SortingGestureType.tap,
               ),
-            ],
+            ),
           );
         }
         return const Center(
@@ -256,63 +264,65 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
               certificatePeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
           }
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomDataGridWidget(
-                topWidget: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Wrap(
-                    children: [
-                      DropDownTextField(
-                        labelText: "កម្រិតសញ្ញាបត្រ",
-                        controller: TextEditingController(),
-                        listString: certificates ?? [],
-                        currentSelectedValue: selectedCertificate,
-                        onChange: (value) {
-                          setState(() {
-                            selectedCertificate = value.toString();
-                          });
-                        },
-                      ),
-                    ],
+          return SingleChildScrollView(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CustomDataGridWidget(
+                  topWidget: Container(
+                    padding: EdgeInsets.all(8),
+                    child: Wrap(
+                      children: [
+                        DropDownTextField(
+                          labelText: "កម្រិតសញ្ញាបត្រ",
+                          controller: TextEditingController(),
+                          listString: certificates ?? [],
+                          currentSelectedValue: selectedCertificate,
+                          onChange: (value) {
+                            setState(() {
+                              selectedCertificate = value.toString();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  dataSource: CertificatePeopleDataGridSource(
+                    tableData: certificatePeopleData,
+                  ),
+                  headerTitles: peopleHeaderTitles,
+                  bottomWidget: DataGridPager(
+                    rowsPerPage: rowsPerPage,
+                    totalAmount: responseData?.totalFilteredRecord ?? 0,
+                    selectedPage: selectedPage,
+                    onChange: (index) {
+                      // setState(() {
+                      //   isLoading = true;
+                      // });
+                      int tempStart = start;
+                      if (index > selectedPage) {
+                        tempStart += rowsPerPage;
+                      } else if (index < selectedPage) {
+                        tempStart -= rowsPerPage;
+                      } else {
+                        tempStart = 0;
+                      }
+                      setState(() {
+                        if (tempStart >= 0) {
+                          start = tempStart;
+                        }
+                        selectedPage = index;
+                        // isLoading = false;
+                      });
+                    },
                   ),
                 ),
-                dataSource: CertificatePeopleDataGridSource(
-                  tableData: certificatePeopleData,
+                Visibility(
+                  visible: (snapshot.connectionState == ConnectionState.waiting),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
-                headerTitles: peopleHeaderTitles,
-                bottomWidget: DataGridPager(
-                  rowsPerPage: rowsPerPage,
-                  totalAmount: responseData?.totalFilteredRecord ?? 0,
-                  selectedPage: selectedPage,
-                  onChange: (index) {
-                    // setState(() {
-                    //   isLoading = true;
-                    // });
-                    int tempStart = start;
-                    if (index > selectedPage) {
-                      tempStart += rowsPerPage;
-                    } else if (index < selectedPage) {
-                      tempStart -= rowsPerPage;
-                    } else {
-                      tempStart = 0;
-                    }
-                    setState(() {
-                      if (tempStart >= 0) {
-                        start = tempStart;
-                      }
-                      selectedPage = index;
-                      // isLoading = false;
-                    });
-                  },
-                ),
-              ),
-              Visibility(
-                visible: (snapshot.connectionState == ConnectionState.waiting),
-                child: CircularProgressIndicator(),
-              ),
-            ],
+              ],
+            ),
           );
         }
         return const Center(

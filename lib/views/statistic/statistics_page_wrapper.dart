@@ -11,14 +11,23 @@ import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
 import 'package:xiaoming/views/statistic/skill_statistic_page.dart';
 import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
 
-class StatisticsPage extends StatefulWidget {
-  const StatisticsPage({Key? key}) : super(key: key);
+class StatisticsPageWrapper extends StatefulWidget {
+  const StatisticsPageWrapper({
+    Key? key,
+    required this.builder,
+    required this.title,
+    this.showDegree = false,
+  }) : super(key: key);
+  final String title;
+  final bool showDegree;
+  final Widget Function(
+      TabController controller, String org, String dept, String degree) builder;
 
   @override
-  _StatisticsPageState createState() => _StatisticsPageState();
+  _StatisticsPageWrapperState createState() => _StatisticsPageWrapperState();
 }
 
-class _StatisticsPageState extends State<StatisticsPage>
+class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     with SingleTickerProviderStateMixin {
   final filterDialogController = Get.put(FilterDialogController());
   String dept = "00";
@@ -30,12 +39,9 @@ class _StatisticsPageState extends State<StatisticsPage>
   );
 
   final tabs = <Tab>[
-    const Tab(text: "កម្រិតសញ្ញាបត្រ"),
-    const Tab(text: "ជំនាញ"),
-    const Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
-    const Tab(text: "ភេទ"),
-    const Tab(text: "ឥស្សរិយយស្ស"),
-    const Tab(text: "ក្របខណ្ឌ"),
+    const Tab(text: "តារាងស្ថិតិ"),
+    const Tab(text: "តារាងព័ត៌មាន"),
+    const Tab(text: "តារាងព័ត៌មានលម្អិត"),
   ];
 
   @override
@@ -54,7 +60,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                 sliver: SliverSafeArea(
                   top: false,
                   sliver: SliverAppBar(
-                    title: const Text('ស្ថិតិ'),
+                    title: Text(widget.title),
                     floating: true,
                     pinned: true,
                     snap: false,
@@ -85,7 +91,7 @@ class _StatisticsPageState extends State<StatisticsPage>
               ),
             ];
           },
-          body: tabBarView(),
+          body: widget.builder(tabController, org, dept, degree),
         ),
       ),
     );
@@ -97,8 +103,6 @@ class _StatisticsPageState extends State<StatisticsPage>
       children: <Widget>[
         CertificateStatisticPage(
           chartTitle: tabs[2].text ?? "",
-          org: org,
-          dept: dept,
         ),
         SkillStatisticPage(
           chartTitle: tabs[1].text ?? "",
@@ -133,7 +137,7 @@ class _StatisticsPageState extends State<StatisticsPage>
   void openFilterDialog() {
     Get.dialog(
       FilterDialog(
-        showDegreeField: tabController.index == 2,
+        showDegreeField: widget.showDegree,
         onConfirm: (org, dept, degree) {
           setState(() {
             this.org = org;
@@ -182,14 +186,16 @@ class TwoColumnDataGridSource extends DataGridSource {
       cells: row.getCells().map<Widget>(
         (dataGridCell) {
           return Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+              left: 8,
+            ),
             alignment: Alignment.centerLeft,
             child: Text(
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
+                // height: 1.5,
               ),
             ),
           );
