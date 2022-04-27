@@ -97,43 +97,6 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     );
   }
 
-  Widget tabBarView() {
-    return TabBarView(
-      controller: tabController,
-      children: <Widget>[
-        CertificateStatisticPage(
-          chartTitle: tabs[2].text ?? "",
-        ),
-        SkillStatisticPage(
-          chartTitle: tabs[1].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        SkillByDegreeStatisticPage(
-          chartTitle: tabs[0].text ?? "",
-          org: org,
-          dept: dept,
-          degree: degree,
-        ),
-        StaffStatisticPage(
-          chartTitle: tabs[3].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        MeritStatisticPage(
-          chartTitle: tabs[4].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        KrobKhanStatisticPage(
-          chartTitle: tabs[5].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-      ],
-    );
-  }
-
   void openFilterDialog() {
     Get.dialog(
       FilterDialog(

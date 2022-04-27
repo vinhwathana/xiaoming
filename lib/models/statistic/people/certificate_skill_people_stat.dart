@@ -1,7 +1,5 @@
-
-
-class CertificatePeopleStat {
-  CertificatePeopleStat({
+class CertificateSkillPeopleStat {
+  CertificateSkillPeopleStat({
     this.id,
     this.eLvl,
     this.gender,
@@ -29,8 +27,8 @@ class CertificatePeopleStat {
   String? firstNameKh;
   String? lastNameKh;
 
-  factory CertificatePeopleStat.fromJson(Map<String, dynamic> json) {
-    return CertificatePeopleStat(
+  factory CertificateSkillPeopleStat.fromJson(Map<String, dynamic> json) {
+    return CertificateSkillPeopleStat(
       id: json["id"],
       eLvl: json["e_lvl"],
       gender: json["gender"],

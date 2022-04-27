@@ -6,7 +6,7 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/family_info.dart';
 import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class FamilyHistoryInfoPage extends StatelessWidget {
   const FamilyHistoryInfoPage({

@@ -11,7 +11,7 @@ import 'package:xiaoming/models/statistic/number/merit_statistic.dart';
 import 'package:xiaoming/models/statistic/number/result_organization.dart';
 import 'package:xiaoming/models/statistic/number/skill_by_degree_statistic.dart';
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
-import 'package:xiaoming/models/statistic/people/certificate_people_stat_response.dart';
+import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
@@ -425,7 +425,7 @@ class StatisticService {
     }
   }
 
-  Future<CertificatePeopleStatResponse?> getCertificatePeople(
+  Future<CertificateSkillPeopleStatResponse?> getCertificatePeople(
     String org,
     String dept,
     String degree, {
@@ -463,10 +463,63 @@ class StatisticService {
 
       if (response.statusCode == 200) {
         final responseData =
-            certificatePeopleStatResponseFromJson(response.body);
+            certificateSkillPeopleStatResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<CertificateSkillPeopleStatResponse?> getSkillPeople(
+    String org,
+    String dept,
+    String degree, {
+    int? start = 0,
+    int? length = 0,
+    String? search = "",
+    String? country = "",
+    String? skill = "",
+  }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statSkillPeople}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&degree=$degree"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search"
+        "&country=$country"
+        "&skill=$skill",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData =
+            certificateSkillPeopleStatResponseFromJson(response.body);
+        return responseData;
+      } else {
+        // print(response.body);
       }
       return null;
     } catch (e) {

@@ -5,12 +5,12 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/models/statistic/people/certificate_people_stat.dart';
-import 'package:xiaoming/models/statistic/people/certificate_people_stat_response.dart';
+import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat.dart';
+import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
 class CertificateStatisticPage extends StatefulWidget {
@@ -245,7 +245,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CertificatePeopleStatResponse?>(
+    return FutureBuilder<CertificateSkillPeopleStatResponse?>(
       future: statService.getCertificatePeople(
         widget.org,
         widget.dept,
@@ -258,7 +258,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<CertificatePeopleStat>? certificatePeopleData =
+          final List<CertificateSkillPeopleStat>? certificatePeopleData =
               responseData?.data;
           if (certificatePeopleData == null ||
               certificatePeopleData.length == 0) {
@@ -352,7 +352,7 @@ class CertificatePeopleDataGridSource extends DataGridSource {
     'ថ្ងៃខែឆ្នាំបញ្ចប់',
   ];
 
-  List<CertificatePeopleStat> tableData;
+  List<CertificateSkillPeopleStat> tableData;
   List<DataGridRow> _tableData = [];
 
   @override
