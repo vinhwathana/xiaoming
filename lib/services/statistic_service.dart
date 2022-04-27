@@ -12,7 +12,7 @@ import 'package:xiaoming/models/statistic/number/merit_statistic.dart';
 import 'package:xiaoming/models/statistic/number/result_organization.dart';
 import 'package:xiaoming/models/statistic/number/skill_by_degree_statistic.dart';
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat_response.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 
@@ -426,7 +426,7 @@ class StatisticService {
     }
   }
 
-  Future<CertificateSkillPeopleStatResponse?> getCertificatePeople(
+  Future<StatisticPeopleResponse?> getCertificatePeople(
     String org,
     String dept,
     String degree, {
@@ -475,7 +475,7 @@ class StatisticService {
     }
   }
 
-  Future<CertificateSkillPeopleStatResponse?> getSkillPeople(
+  Future<StatisticPeopleResponse?> getSkillPeople(
     String org,
     String dept,
     String degree, {
@@ -528,7 +528,7 @@ class StatisticService {
     }
   }
 
-  Future<CertificateSkillPeopleStatResponse?> getSkillByDegreePeople(
+  Future<StatisticPeopleResponse?> getSkillByDegreePeople(
     String org,
     String dept,
     String degree, {
@@ -583,7 +583,7 @@ class StatisticService {
     }
   }
 
-  Future<CertificateSkillPeopleStatResponse?> getStaffPeople(
+  Future<StatisticPeopleResponse?> getStaffPeople(
     String org,
     String dept, {
     int? start = 0,
@@ -624,6 +624,57 @@ class StatisticService {
       if (response.statusCode == 200) {
         final responseData =
             certificateSkillPeopleStatResponseFromJson(response.body);
+        return responseData;
+      } else {
+        print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<StatisticPeopleResponse?> getMeritPeople(
+      String org,
+      String dept, {
+        int? start = 0,
+        int? length = 0,
+        String? search = "",
+        String? country = "",
+        String? skill = "",
+      }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statMeritPeople}?"
+            "MinistryCode=$ministryCode"
+            "&Org=$org"
+            "&Dept=$dept"
+            "&start=$start"
+            "&length=$length"
+            "&search=$search",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+          "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        final responseData =
+        certificateSkillPeopleStatResponseFromJson(response.body);
         return responseData;
       } else {
         print(response.body);

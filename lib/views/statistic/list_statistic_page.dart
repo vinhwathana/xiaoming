@@ -104,7 +104,13 @@ class _ListStatisticPageState extends State<ListStatisticPage>
               CardTile(
                 title: Text(statNames[4]),
                 trailing: trailingIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                        () => MeritStatisticPage(
+                      chartTitle: statNames[4],
+                    ),
+                  );
+                },
               ),
               CardTile(
                 title: Text(statNames[5]),

@@ -5,8 +5,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat.dart';
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat_response.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -154,11 +154,11 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
                   firstColumnName: headerTitles[0],
                   secondColumnName: headerTitles[1],
                 ),
-                onQueryRowHeight: (details) {
-                  return details.getIntrinsicRowHeight(details.rowIndex);
-                },
-                shrinkWrapRows: true,
-                verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+                // onQueryRowHeight: (details) {
+                //   return details.getIntrinsicRowHeight(details.rowIndex);
+                // },
+                // shrinkWrapRows: true,
+                // verticalScrollPhysics: const NeverScrollableScrollPhysics(),
                 horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                 columns: List.generate(
                   headerTitles.length,
@@ -251,7 +251,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CertificateSkillPeopleStatResponse?>(
+    return FutureBuilder<StatisticPeopleResponse?>(
       future: statService.getSkillPeople(
         widget.org,
         widget.dept,
@@ -266,7 +266,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<CertificateSkillPeopleStat>? skillPeopleData =
+          final List<StatisticPeople>? skillPeopleData =
               responseData?.data;
           if (skillPeopleData == null || skillPeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
@@ -360,7 +360,7 @@ class SkillPeopleDataGridSource extends DataGridSource {
     'ថ្ងៃខែឆ្នាំបញ្ចប់',
   ];
 
-  List<CertificateSkillPeopleStat> tableData;
+  List<StatisticPeople> tableData;
   List<DataGridRow> _tableData = [];
 
   @override

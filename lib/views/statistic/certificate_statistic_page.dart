@@ -5,8 +5,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat.dart';
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat_response.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -156,7 +156,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
                 ),
                 // shrinkWrapRows: true,
                 // verticalScrollPhysics: const NeverScrollableScrollPhysics(),
-                // horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
+                horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                 columns: List.generate(
                   headerTitles.length,
                   (index) {
@@ -245,7 +245,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CertificateSkillPeopleStatResponse?>(
+    return FutureBuilder<StatisticPeopleResponse?>(
       future: statService.getCertificatePeople(
         widget.org,
         widget.dept,
@@ -258,7 +258,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<CertificateSkillPeopleStat>? certificatePeopleData =
+          final List<StatisticPeople>? certificatePeopleData =
               responseData?.data;
           if (certificatePeopleData == null ||
               certificatePeopleData.length == 0) {
@@ -352,7 +352,7 @@ class CertificatePeopleDataGridSource extends DataGridSource {
     'ថ្ងៃខែឆ្នាំបញ្ចប់',
   ];
 
-  List<CertificateSkillPeopleStat> tableData;
+  List<StatisticPeople> tableData;
   List<DataGridRow> _tableData = [];
 
   @override

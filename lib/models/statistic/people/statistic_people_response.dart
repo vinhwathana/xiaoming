@@ -4,31 +4,31 @@
 
 import 'dart:convert';
 
-import 'package:xiaoming/models/statistic/people/certificate_skill_people_stat.dart';
+import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 
-CertificateSkillPeopleStatResponse certificateSkillPeopleStatResponseFromJson(
+StatisticPeopleResponse certificateSkillPeopleStatResponseFromJson(
         String str) =>
-    CertificateSkillPeopleStatResponse.fromJson(json.decode(str));
+    StatisticPeopleResponse.fromJson(json.decode(str));
 
 String certificateSkillPeopleStatResponseToJson(
-        CertificateSkillPeopleStatResponse data) =>
+        StatisticPeopleResponse data) =>
     json.encode(data.toJson());
 
-class CertificateSkillPeopleStatResponse {
-  CertificateSkillPeopleStatResponse({
+class StatisticPeopleResponse {
+  StatisticPeopleResponse({
     required this.data,
     required this.totalFilteredRecord,
   });
 
-  List<CertificateSkillPeopleStat> data;
+  List<StatisticPeople> data;
   int totalFilteredRecord;
 
-  factory CertificateSkillPeopleStatResponse.fromJson(Map<String, dynamic> json) {
-    return CertificateSkillPeopleStatResponse(
-      data: List<CertificateSkillPeopleStat>.from(
+  factory StatisticPeopleResponse.fromJson(Map<String, dynamic> json) {
+    return StatisticPeopleResponse(
+      data: List<StatisticPeople>.from(
         json["data"].map((x) {
           try {
-            return CertificateSkillPeopleStat.fromJson(x);
+            return StatisticPeople.fromJson(x);
           } catch (e) {
             print(e.toString());
           }

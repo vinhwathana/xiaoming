@@ -1,5 +1,5 @@
-class CertificateSkillPeopleStat {
-  CertificateSkillPeopleStat({
+class StatisticPeople {
+  StatisticPeople({
     this.id,
     this.eLvl,
     this.gender,
@@ -12,6 +12,10 @@ class CertificateSkillPeopleStat {
     this.endDate,
     this.firstNameKh,
     this.lastNameKh,
+    this.org,
+    this.dept,
+    this.meritName,
+    this.recievedDate,
   });
 
   String? id;
@@ -26,9 +30,13 @@ class CertificateSkillPeopleStat {
   DateTime? endDate;
   String? firstNameKh;
   String? lastNameKh;
+  String? org;
+  String? dept;
+  String? meritName;
+  String? recievedDate;
 
-  factory CertificateSkillPeopleStat.fromJson(Map<String, dynamic> json) {
-    return CertificateSkillPeopleStat(
+  factory StatisticPeople.fromJson(Map<String, dynamic> json) {
+    return StatisticPeople(
       id: json["id"],
       eLvl: json["e_lvl"],
       gender: json["gender"],
@@ -42,6 +50,10 @@ class CertificateSkillPeopleStat {
           (json["endDate"] == null) ? null : DateTime.parse(json["endDate"]),
       firstNameKh: json["firstNameKH"],
       lastNameKh: json["lastNameKH"],
+      dept: json["dept"],
+      org: json["org"],
+      meritName: json["meritName"],
+      recievedDate: json["recievedDate"],
     );
   }
 
@@ -59,5 +71,9 @@ class CertificateSkillPeopleStat {
             "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
         "firstNameKH": firstNameKh,
         "lastNameKH": lastNameKh,
+        "org": org,
+        "dept": dept,
+        "meritName": meritName,
+        "recievedDate": recievedDate,
       };
 }

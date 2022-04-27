@@ -151,6 +151,7 @@ class TwoColumnDataGridSource extends DataGridSource {
           return Container(
             padding: const EdgeInsets.only(
               left: 8,
+              right: 8,
             ),
             alignment: Alignment.centerLeft,
             child: Text(
