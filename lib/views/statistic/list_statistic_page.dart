@@ -82,7 +82,13 @@ class _ListStatisticPageState extends State<ListStatisticPage>
               CardTile(
                 title: Text(statNames[2]),
                 trailing: trailingIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    () => SkillByDegreeStatisticPage(
+                      chartTitle: statNames[2],
+                    ),
+                  );
+                },
               ),
               CardTile(
                 title: Text(statNames[3]),
@@ -105,7 +111,6 @@ class _ListStatisticPageState extends State<ListStatisticPage>
       ),
     );
   }
-
 
   void openFilterDialog() {
     Get.dialog(
