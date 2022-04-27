@@ -57,7 +57,6 @@ class _MyAppState extends State<MyApp> {
       ],
       initialBinding: InitialBinding(),
       defaultTransition: Transition.cupertino,
-
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerOSBattambong',

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
-import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/result_organization.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class FilterDialogController extends GetxController {

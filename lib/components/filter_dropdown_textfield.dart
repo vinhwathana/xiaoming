@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class FilterDropdownTextField extends StatefulWidget {
   const FilterDropdownTextField({
@@ -144,7 +145,4 @@ class _FilterDropdownTextFieldState extends State<FilterDropdownTextField> {
   }
 }
 
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
-}
+

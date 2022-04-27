@@ -195,3 +195,8 @@ String addSpacePerThreeChar(String value) {
   return value.replaceAllMapped(
       RegExp(r".{3}"), (match) => "${match.group(0)} ");
 }
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
+}

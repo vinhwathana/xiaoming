@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/filter_dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/result_organization.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({

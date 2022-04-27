@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/models/statistic/certificate_statistic.dart';
-import 'package:xiaoming/models/statistic/krob_khan_statistic.dart';
-import 'package:xiaoming/models/statistic/merit_statistic.dart';
-import 'package:xiaoming/models/statistic/skill_by_degree_statistic.dart';
-import 'package:xiaoming/models/statistic/staff_statistic.dart';
-import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/certificate_statistic.dart';
+import 'package:xiaoming/models/statistic/number/krob_khan_statistic.dart';
+import 'package:xiaoming/models/statistic/number/merit_statistic.dart';
+import 'package:xiaoming/models/statistic/number/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/skill_by_degree_statistic.dart';
+import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
+import 'package:xiaoming/models/statistic/people/certificate_people_stat_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 import 'package:xiaoming/views/statistic/statistics_page.dart';
 
@@ -424,13 +425,68 @@ class StatisticService {
     }
   }
 
+  Future<CertificatePeopleStatResponse?> getCertificatePeople(
+    String org,
+    String dept,
+    String degree, {
+    int? start,
+    int? length,
+    String? search = "",
+  }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statCertificatePeople}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&degree=$degree"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData =
+            certificatePeopleStatResponseFromJson(response.body);
+        return responseData;
+      } else {
+        print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   final Map<String, String> degreesTranslation = {
     "phd": "បណ្ឌិត",
-    "master": "អនុបណ្ឌិត",
+    "master": "បរិញ្ញាបត្រជាន់ខ្ពស់",
     "bachelor": "បរិញ្ញាបត្រ",
     "under_bachelor": "បរិញ្ញាបត្ររង",
     "engineer": "វិស្វករ",
   };
+  final degrees = [
+    "បណ្ឌិត",
+    "បរិញ្ញាបត្រជាន់ខ្ពស់",
+    "បរិញ្ញាបត្រ",
+    "បរិញ្ញាបត្ររង",
+  ];
   final List<String> krobKhans = [
     "ទាំងអស់",
     "ក",

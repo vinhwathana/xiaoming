@@ -133,7 +133,7 @@ class _StatisticsPageState extends State<StatisticsPage>
   void openFilterDialog() {
     Get.dialog(
       FilterDialog(
-        showDegreeField: (tabController.index == 2),
+        showDegreeField: tabController.index == 2,
         onConfirm: (org, dept, degree) {
           setState(() {
             this.org = org;
