@@ -58,21 +58,13 @@ const String statCertificatePeople = "$baseUrl/statistics/CertificatesPeople";
 ///?MinistryCode=20&Org=80&Dept=87&degree=P&start=0&length=10&search=&country=&skill=
 const String statSkillPeople = "$baseUrl/statistics/SkillsPeople";
 
-// ///?MinistryCode=20&Org=00&Dept=00&degree=B
-// const String statSkillByDegree = "$baseUrl/statistics/CertificatesPeople";
-//
-// ///?MinistryCode=20&Org=80&Dept=93
-// const String statSkills = "$baseUrl/statistics/skills";
-//
-// ///?MinistryCode=20&Org=80&Dept=93
-// const String statMerit = "$baseUrl/CountMeritByOrg/getcount_merit_by_org";
-//
-// ///?MinistryCode=20&Org=80&Dept=93
-// const String statStaff = "$baseUrl/CountStaff/getcountstaff";
-//
-// ///?MinistryCode=20&Org=80&Dept=93
-// const String statKrobKhan =
-//     "$baseUrl/CountKrobkhanByOrg/getcount_krob_khan_by_org";
+///?MinistryCode=20&Org=00&Dept=00&degree=B&start=0&search&length=10&&skill=&country
+const String statSkillByDegreePeople = "$baseUrl/statistics/SkillByDegreePeople";
+
+///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
+const String statStaffPeople = "$baseUrl/CountStaff/Getcountstaffpeople";
+
+
 
 
 

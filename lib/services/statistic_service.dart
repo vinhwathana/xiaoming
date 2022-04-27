@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -520,6 +521,112 @@ class StatisticService {
         return responseData;
       } else {
         // print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<CertificateSkillPeopleStatResponse?> getSkillByDegreePeople(
+    String org,
+    String dept,
+    String degree, {
+    int? start = 0,
+    int? length = 0,
+    String? search = "",
+    String? country = "",
+    String? skill = "",
+  }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statSkillByDegreePeople}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&degree=$degree"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search"
+        "&country=$country"
+        "&skill=$skill",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        final responseData =
+            certificateSkillPeopleStatResponseFromJson(response.body);
+        return responseData;
+      } else {
+        print(response.body);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<CertificateSkillPeopleStatResponse?> getStaffPeople(
+    String org,
+    String dept, {
+    int? start = 0,
+    int? length = 0,
+    String? search = "",
+    String? country = "",
+    String? skill = "",
+  }) async {
+    if (authController.accessToken == null ||
+        authController.accessToken!.isEmpty) {
+      return null;
+    }
+    final String? ministryCode = authController.getUserMinistryCode();
+    if (ministryCode == null) {
+      return null;
+    }
+
+    try {
+      final uri = Uri.parse(
+        "${api_url.statStaffPeople}?"
+        "MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&start=$start"
+        "&length=$length"
+        "&search=$search",
+      );
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader:
+              "Bearer ${authController.accessToken!}",
+        },
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        final responseData =
+            certificateSkillPeopleStatResponseFromJson(response.body);
+        return responseData;
+      } else {
+        print(response.body);
       }
       return null;
     } catch (e) {

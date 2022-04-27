@@ -266,7 +266,7 @@ class _SkillByDegreePeopleDataGridState extends State<SkillByDegreePeopleDataGri
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<CertificateSkillPeopleStatResponse?>(
-      future: statService.getSkillPeople(
+      future: statService.getSkillByDegreePeople(
         widget.org,
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
