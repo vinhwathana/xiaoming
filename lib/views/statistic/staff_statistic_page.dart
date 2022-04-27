@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
-import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
@@ -144,7 +142,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
             ),
             child: SfDataGrid(
               source: StaffTableDataSource(
-                staffStatisticData: [staffData] ,
+                staffStatisticData: [staffData],
               ),
               // onQueryRowHeight: (details) {
               //   return details.getIntrinsicRowHeight(details.rowIndex);
@@ -220,7 +218,6 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
   int start = 0;
   int selectedPage = 0;
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<StatisticPeopleResponse?>(
@@ -235,8 +232,7 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData =
-              responseData?.data;
+          final List<StatisticPeople>? skillPeopleData = responseData?.data;
           if (skillPeopleData == null || skillPeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
           }
@@ -355,7 +351,6 @@ class StaffTableDataSource extends DataGridSource {
     required this.staffStatisticData,
   }) {
     _staffStatisticData = staffStatisticData.map<DataGridRow>((e) {
-
       return DataGridRow(
         cells: [
           DataGridCell<int>(

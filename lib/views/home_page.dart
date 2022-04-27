@@ -7,7 +7,6 @@ import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
 import 'package:xiaoming/views/statistic/list_statistic_page.dart';
 
 import 'attendance/attendance_page.dart';
-import 'statistic/statistics_page_wrapper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({

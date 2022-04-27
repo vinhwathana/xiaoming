@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -336,9 +337,6 @@ class StatisticService {
       if (response.statusCode == 200) {
         final genderStatistic = staffStatisticFromMap(response.body);
 
-        final femaleAmount = double.parse(genderStatistic.female);
-        final maleAmount = double.parse(genderStatistic.total) - femaleAmount;
-
         return genderStatistic;
       }
       return null;
@@ -508,7 +506,9 @@ class StatisticService {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
-        print(response.body);
+        if (kDebugMode) {
+          print(response.body);
+        }
       }
       return null;
     } catch (e) {
@@ -614,7 +614,9 @@ class StatisticService {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
-        print(response.body);
+        if (kDebugMode) {
+          print(response.body);
+        }
       }
       return null;
     } catch (e) {
@@ -664,7 +666,9 @@ class StatisticService {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
-        print(response.body);
+        if (kDebugMode) {
+          print(response.body);
+        }
       }
       return null;
     } catch (e) {
@@ -712,7 +716,9 @@ class StatisticService {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
-        print(response.body);
+        if (kDebugMode) {
+          print(response.body);
+        }
       }
       return null;
     } catch (e) {
@@ -759,7 +765,9 @@ class StatisticService {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
       } else {
-        print(response.body);
+        if (kDebugMode) {
+          print(response.body);
+        }
       }
       return null;
     } catch (e) {

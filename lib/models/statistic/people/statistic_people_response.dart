@@ -4,14 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 
-StatisticPeopleResponse statisticPeopleResponseFromJson(
-        String str) =>
+StatisticPeopleResponse statisticPeopleResponseFromJson(String str) =>
     StatisticPeopleResponse.fromJson(json.decode(str));
 
-String statisticPeopleResponseToJson(
-        StatisticPeopleResponse data) =>
+String statisticPeopleResponseToJson(StatisticPeopleResponse data) =>
     json.encode(data.toJson());
 
 class StatisticPeopleResponse {
@@ -30,7 +29,9 @@ class StatisticPeopleResponse {
           try {
             return StatisticPeople.fromJson(x);
           } catch (e) {
-            print(e.toString());
+            if (kDebugMode) {
+              print(e.toString());
+            }
           }
         }),
       ),
