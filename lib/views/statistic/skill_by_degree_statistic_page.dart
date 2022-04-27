@@ -89,40 +89,37 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
           return Card(
             margin: const EdgeInsets.all(8),
             elevation: 3,
-            child: SizedBox(
-              height: Get.height / 2,
-              child: SfCartesianChart(
-                title: ChartTitle(
-                  text: widget.chartTitle,
-                  textStyle: const TextStyle(
-                    fontFamily: 'KhmerOSBattambong',
-                  ),
+            child: SfCartesianChart(
+              title: ChartTitle(
+                text: widget.chartTitle,
+                textStyle: const TextStyle(
+                  fontFamily: 'KhmerOSBattambong',
                 ),
-                primaryXAxis: CategoryAxis(
-                  labelStyle: const TextStyle(
-                    fontFamily: 'KhmerOSBattambong',
-                  ),
-                ),
-                primaryYAxis: NumericAxis(
-                  maximum: max.toDouble(),
-                  labelFormat: '{value}',
-                ),
-                tooltipBehavior: _tooltipBehavior,
-                series: <BarSeries<ChartModel, String>>[
-                  BarSeries(
-                    name: widget.chartTitle,
-                    dataSource: certificateData,
-                    xValueMapper: (datum, index) => datum.name,
-                    yValueMapper: (datum, index) => datum.amount,
-                    pointColorMapper: (datum, index) => datum.color,
-                    dataLabelSettings: const DataLabelSettings(
-                      isVisible: true,
-                    ),
-                    enableTooltip: true,
-                    animationDuration: 500,
-                  ),
-                ],
               ),
+              primaryXAxis: CategoryAxis(
+                labelStyle: const TextStyle(
+                  fontFamily: 'KhmerOSBattambong',
+                ),
+              ),
+              primaryYAxis: NumericAxis(
+                maximum: max.toDouble(),
+                labelFormat: '{value}',
+              ),
+              tooltipBehavior: _tooltipBehavior,
+              series: <BarSeries<ChartModel, String>>[
+                BarSeries(
+                  name: widget.chartTitle,
+                  dataSource: certificateData,
+                  xValueMapper: (datum, index) => datum.name,
+                  yValueMapper: (datum, index) => datum.amount,
+                  pointColorMapper: (datum, index) => datum.color,
+                  dataLabelSettings: const DataLabelSettings(
+                    isVisible: true,
+                  ),
+                  enableTooltip: true,
+                  animationDuration: 500,
+                ),
+              ],
             ),
           );
         }

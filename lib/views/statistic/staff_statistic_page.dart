@@ -81,44 +81,39 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
         return Card(
           elevation: 3,
           margin: const EdgeInsets.all(8),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-            width: Get.width,
-            height: Get.height / 2,
-            child: SfCircularChart(
-              title: ChartTitle(
-                text: widget.chartTitle,
-                textStyle: const TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'KhmerOSBattambong',
-                ),
+          child: SfCircularChart(
+            title: ChartTitle(
+              text: widget.chartTitle,
+              textStyle: const TextStyle(
+                fontSize: 24,
+                fontFamily: 'KhmerOSBattambong',
               ),
-              legend: Legend(
-                isVisible: true,
-                iconHeight: 24,
-                iconWidth: 24,
-                textStyle: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'KhmerOSBattambong',
-                ),
-              ),
-              tooltipBehavior: _tooltipBehavior,
-              series: <CircularSeries>[
-                PieSeries<ChartModel, dynamic>(
-                  name: widget.chartTitle,
-                  dataSource: staffData,
-                  xValueMapper: (datum, index) => datum.name,
-                  yValueMapper: (ChartModel data, _) => data.amount.toInt(),
-                  pointColorMapper: (datum, index) => datum.color,
-                  dataLabelSettings: const DataLabelSettings(
-                    isVisible: true,
-                    textStyle: TextStyle(fontSize: 20),
-                  ),
-                  enableTooltip: true,
-                  animationDuration: 850,
-                ),
-              ],
             ),
+            legend: Legend(
+              isVisible: true,
+              iconHeight: 24,
+              iconWidth: 24,
+              textStyle: TextStyle(
+                fontSize: 18,
+                fontFamily: 'KhmerOSBattambong',
+              ),
+            ),
+            tooltipBehavior: _tooltipBehavior,
+            series: <CircularSeries>[
+              PieSeries<ChartModel, dynamic>(
+                name: widget.chartTitle,
+                dataSource: staffData,
+                xValueMapper: (datum, index) => datum.name,
+                yValueMapper: (ChartModel data, _) => data.amount.toInt(),
+                pointColorMapper: (datum, index) => datum.color,
+                dataLabelSettings: const DataLabelSettings(
+                  isVisible: true,
+                  textStyle: TextStyle(fontSize: 20),
+                ),
+                enableTooltip: true,
+                animationDuration: 850,
+              ),
+            ],
           ),
         );
       },

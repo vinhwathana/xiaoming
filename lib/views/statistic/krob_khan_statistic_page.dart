@@ -79,43 +79,38 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
         return Card(
           elevation: 3,
           margin: const EdgeInsets.all(8),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-            width: Get.width,
-            height: Get.height / 2,
-            child: SfCircularChart(
-              title: ChartTitle(
-                text: widget.chartTitle,
-                textStyle: const TextStyle(
-                  fontFamily: 'KhmerOSBattambong',
-                ),
+          child: SfCircularChart(
+            title: ChartTitle(
+              text: widget.chartTitle,
+              textStyle: const TextStyle(
+                fontFamily: 'KhmerOSBattambong',
               ),
-              legend: Legend(
-                isVisible: true,
-                iconHeight: 24,
-                iconWidth: 24,
-                textStyle: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'KhmerOSBattambong',
-                ),
-              ),
-              tooltipBehavior: _tooltipBehavior,
-              series: <CircularSeries>[
-                PieSeries<ChartModel, dynamic>(
-                  name: widget.chartTitle,
-                  dataSource: krobKhanData,
-                  xValueMapper: (datum, index) => datum.name,
-                  yValueMapper: (ChartModel data, _) => data.amount.toInt(),
-                  pointColorMapper: (datum, index) => datum.color,
-                  dataLabelSettings: const DataLabelSettings(
-                    isVisible: true,
-                    textStyle: TextStyle(fontSize: 20),
-                  ),
-                  enableTooltip: true,
-                  animationDuration: 850,
-                ),
-              ],
             ),
+            legend: Legend(
+              isVisible: true,
+              iconHeight: 24,
+              iconWidth: 24,
+              textStyle: TextStyle(
+                fontSize: 18,
+                fontFamily: 'KhmerOSBattambong',
+              ),
+            ),
+            tooltipBehavior: _tooltipBehavior,
+            series: <CircularSeries>[
+              PieSeries<ChartModel, dynamic>(
+                name: widget.chartTitle,
+                dataSource: krobKhanData,
+                xValueMapper: (datum, index) => datum.name,
+                yValueMapper: (ChartModel data, _) => data.amount.toInt(),
+                pointColorMapper: (datum, index) => datum.color,
+                dataLabelSettings: const DataLabelSettings(
+                  isVisible: true,
+                  textStyle: TextStyle(fontSize: 20),
+                ),
+                enableTooltip: true,
+                animationDuration: 850,
+              ),
+            ],
           ),
         );
       },
