@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
@@ -218,7 +220,7 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
     'នាយកដ្ឋាន',
     'ក្របខណ្ឌ',
   ];
-  final rowsPerPage = 10;
+  int rowsPerPage = 10;
   int start = 0;
   int selectedPage = 0;
 
@@ -229,7 +231,7 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
         widget.org,
         widget.dept,
         start: start,
-        length: 10,
+        length: rowsPerPage,
         search: "",
       ),
       builder: (context, snapshot) {
@@ -245,6 +247,7 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
               alignment: Alignment.center,
               children: [
                 CustomDataGridWidget(
+                  topWidget: customTopChartWidget(),
                   dataSource: KrobKhanPeopleDataGridSource(
                     tableData: meritPeopleData,
                   ),
@@ -280,6 +283,67 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
     );
   }
 
+  Widget customTopChartWidget() {
+    return ExpansionTile(
+      title: const Text(
+        "ច្រោះព័ត៌មាន",
+        style: TextStyle(fontSize: 18),
+      ),
+      leading: Icon(
+        Icons.filter_list,
+        color: CompanyColors.yellowPrimaryValue,
+      ),
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+      children: [
+        Row(
+          children: [
+            const Text(
+              "Show : ",
+              style: TextStyle(
+                color: Colors.black,
+                height: 1.5,
+              ),
+            ),
+            DropdownButton(
+              underline: null,
+              isDense: false,
+              itemHeight: 50,
+              value: rowsPerPage,
+              items: typeOfEntries.map((e) {
+                return DropdownMenuItem<int>(
+                  value: e,
+                  child: Text(
+                    e.toString(),
+                    maxLines: 1,
+                    overflow: TextOverflow.visible,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      height: 1.5,
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != rowsPerPage) {
+                  setState(() {
+                    rowsPerPage = int.parse(value.toString());
+                  });
+                }
+              },
+            ),
+            const Text(
+              " entries ",
+              style: TextStyle(
+                color: Colors.black,
+                height: 1.5,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
 class KrobKhanPeopleDataGridSource extends DataGridSource {

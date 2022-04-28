@@ -84,6 +84,8 @@ final dummyFamilyInfo = FamilyInfo(
 
 const String allKeyword= "(ទាំងអស់)";
 
+final List<int> typeOfEntries = [10,25,50,100];
+
 String? validateEmail(String value) {
   if (value.isEmpty) {
     return "emptyField".tr;

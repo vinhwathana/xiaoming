@@ -237,7 +237,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
     'ប្រទេស',
     'ថ្ងៃខែឆ្នាំបញ្ចប់',
   ];
-  final rowsPerPage = 20;
+  int rowsPerPage = 10;
   int start = 0;
   int selectedPage = 0;
 
@@ -418,6 +418,51 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
               );
             },
           ),
+        ),
+        Row(
+          children: [
+            const Text(
+              "Show : ",
+              style: TextStyle(
+                color: Colors.black,
+                height: 1.5,
+              ),
+            ),
+            DropdownButton(
+              underline: null,
+              isDense: false,
+              itemHeight: 50,
+              value: rowsPerPage,
+              items: typeOfEntries.map((e) {
+                return DropdownMenuItem<int>(
+                  value: e,
+                  child: Text(
+                    e.toString(),
+                    maxLines: 1,
+                    overflow: TextOverflow.visible,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      height: 1.5,
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != rowsPerPage) {
+                  setState(() {
+                    rowsPerPage = int.parse(value.toString());
+                  });
+                }
+              },
+            ),
+            const Text(
+              " entries ",
+              style: TextStyle(
+                color: Colors.black,
+                height: 1.5,
+              ),
+            ),
+          ],
         ),
       ],
     );
