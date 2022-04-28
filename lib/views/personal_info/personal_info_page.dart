@@ -32,6 +32,7 @@ class PersonalInfoPage extends StatelessWidget {
                 "ព័ត៌មានផ្ទាល់ខ្លួន",
                 style: TextStyle(
                   fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

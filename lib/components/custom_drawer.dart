@@ -160,10 +160,10 @@ class _DrawerItemState extends State<_DrawerItem> {
         isVisible = false;
       });
       if (value) {
-        Get.offAll(
-          () => const LandingPage(),
-          transition: Transition.rightToLeft,
-        );
+        authController.clearToken();
+        // Get.offAll(
+        //   () => const LandingPage(),
+        // );
       }
     });
   }
