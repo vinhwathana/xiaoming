@@ -171,9 +171,9 @@ String decideEnumValue(ListValue? value) {
     return "";
   }
   if (Get.locale == const Locale('en', 'US')) {
-    return value.nameEn;
+    return value.nameEn ?? "";
   }
-  return value.nameKh;
+  return value.nameKh ?? "";
 }
 
 String formatPhoneNumber(String? phoneNumber) {

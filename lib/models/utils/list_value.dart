@@ -1,19 +1,25 @@
 import 'dart:convert';
 
+List<ListValue> listValueFromMap(String str) =>
+    List<ListValue>.from(json.decode(str).map((x) => ListValue.fromMap(x)));
+
+String listValueToMap(List<ListValue> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
+
 class ListValue {
   ListValue({
     this.parentLov,
-    required this.lovCode,
-    required this.lovType,
-    required this.nameKh,
-    required this.nameEn,
+    this.lovCode,
+    this.lovType,
+    this.nameKh,
+    this.nameEn,
   });
 
   String? parentLov;
-  final String lovCode;
-  final String lovType;
-  final String nameKh;
-  final String nameEn;
+  String? lovCode;
+  String? lovType;
+  String? nameKh;
+  String? nameEn;
 
   factory ListValue.fromJson(String str) => ListValue.fromMap(json.decode(str));
 

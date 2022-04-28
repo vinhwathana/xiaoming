@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
@@ -9,6 +10,8 @@ import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
+import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/services/autocomplete_service.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -239,6 +242,7 @@ class _SkillByDegreePeopleDataGridState
     extends State<SkillByDegreePeopleDataGrid> {
   // bool isLoading = false;
   final statService = StatisticService();
+  final autoCompleteService = AutocompleteService();
   final List<String> peopleHeaderTitles = [
     "គោត្តនាម",
     "នាម",
@@ -258,6 +262,10 @@ class _SkillByDegreePeopleDataGridState
   final certificatedTextController = TextEditingController();
   List<String>? certificates;
   String? selectedCertificate;
+  String? selectedCountry;
+  String? selectedCountryCode;
+  String? selectedSkill;
+  String? selectedSkillCode;
 
   @override
   void initState() {
@@ -292,24 +300,7 @@ class _SkillByDegreePeopleDataGridState
               alignment: Alignment.center,
               children: [
                 CustomDataGridWidget(
-                  topWidget: Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Wrap(
-                      children: [
-                        DropDownTextField(
-                          labelText: "កម្រិតសញ្ញាបត្រ",
-                          controller: TextEditingController(),
-                          listString: certificates ?? [],
-                          currentSelectedValue: selectedCertificate,
-                          onChange: (value) {
-                            setState(() {
-                              selectedCertificate = value.toString();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  topWidget: customTopChartWidget(),
                   dataSource: SkillByDegreePeopleDataGridSource(
                     tableData: skillPeopleData,
                   ),
@@ -342,6 +333,118 @@ class _SkillByDegreePeopleDataGridState
         }
         return const LoadingWidget();
       },
+    );
+  }
+
+  Widget customTopChartWidget() {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: DropDownTextField(
+                labelText: "កម្រិតសញ្ញាបត្រ",
+                controller: TextEditingController(),
+                listString: certificates ?? [],
+                currentSelectedValue: selectedCertificate,
+                onChange: (value) {
+                  setState(() {
+                    selectedCertificate = value.toString();
+                  });
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: CustomFutureBuilder<List<ListValue>?>(
+                future: autoCompleteService.getCountries(),
+                onLoading: DropDownTextField(
+                  labelText: "ប្រទេស",
+                  controller: TextEditingController(),
+                  listString: const [],
+                  currentSelectedValue: null,
+                  onChange: (value) {},
+                ),
+                onDataRetrieved: (context, snapshot, connectionState) {
+                  final List<ListValue> countriesValue = snapshot ?? [];
+                  final List<String> countries = [""];
+                  countries.addAll(
+                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+                  return DropDownTextField(
+                    labelText: "ប្រទេស",
+                    autoValidateMode: AutovalidateMode.disabled,
+                    controller: TextEditingController(),
+                    listString: countries,
+                    currentSelectedValue: selectedCountry,
+                    onChange: (value) {
+                      final index = countriesValue.indexWhere(
+                          (element) => element.nameKh == value.toString());
+                      setState(() {
+                        if (value.toString() == "") {
+                          selectedCountry = null;
+                          selectedCountryCode = "";
+                          return;
+                        }
+                        selectedCountry = value.toString();
+                        selectedCountryCode =
+                            countriesValue[index].lovCode ?? "";
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: CustomFutureBuilder<List<ListValue>?>(
+                future: autoCompleteService.getSpecializes(),
+                onLoading: DropDownTextField(
+                  labelText: "ជំនាញ",
+                  controller: TextEditingController(),
+                  listString: const [],
+                  currentSelectedValue: null,
+                  onChange: (value) {},
+                ),
+                onDataRetrieved: (context, snapshot, connectionState) {
+                  final List<ListValue> specializedValue = snapshot ?? [];
+                  final List<String> skills = [""];
+                  skills.addAll(
+                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+                  return DropDownTextField(
+                    labelText: "ជំនាញ",
+                    autoValidateMode: AutovalidateMode.disabled,
+                    controller: TextEditingController(),
+                    listString: skills,
+                    currentSelectedValue: selectedSkill,
+                    onChange: (value) {
+                      final index = specializedValue.indexWhere(
+                          (element) => element.nameKh == value.toString());
+                      setState(() {
+                        if (value.toString() == "") {
+                          selectedSkill = null;
+                          selectedSkillCode = "";
+                          return;
+                        }
+                        selectedSkill = value.toString();
+                        selectedSkillCode =
+                            specializedValue[index].lovCode ?? "";
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

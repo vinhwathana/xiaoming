@@ -71,10 +71,6 @@ const String statMeritPeople = "$baseUrl/CountMeritByOrg/Getcount_merit_by_org_p
 const String statKrobKhanPeople = "$baseUrl/CountKrobkhanByOrg/Getcount_krob_khan_by_org_people";
 
 
-
-
-
-
 ///ATTENDANCE
 ///
 ///https://{{domain}}/attendances/personal-attd-by-date-ranges?dateFrom=2022-02-9&dateTo=2022-02-11
@@ -91,3 +87,11 @@ const String personalAttendanceByDate =
 ///https://{{domain}}/attendances/personal-attd-log-by-date/2022-02-10
 const String personalAttendanceLog =
     "$baseUrl/attendances/personal-attd-log-by-date";
+
+///AUTOCOMPLETE
+
+///FOR GETTING COUNTRIES
+const String countryUrl = "$baseUrl/ac/data-lov/COUNTRY";
+
+///FOR GETTING SPECIALIZES
+const String specializeUrl = "$baseUrl/ac/data-lov/SPECIALIZE";

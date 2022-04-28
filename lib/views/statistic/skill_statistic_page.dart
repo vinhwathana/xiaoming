@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
+import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/services/autocomplete_service.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -29,6 +32,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
     with AutomaticKeepAliveClientMixin {
   late final TooltipBehavior _tooltipBehavior;
   final statService = StatisticService();
+
   final List<String> headerTitles = [
     "ជំនាញ",
     "រាប់តែចំនួនសរុប",
@@ -220,6 +224,7 @@ class SkillPeopleDataGrid extends StatefulWidget {
 class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
   // bool isLoading = false;
   final statService = StatisticService();
+  final autoCompleteService = AutocompleteService();
   final List<String> peopleHeaderTitles = [
     "គោត្តនាម",
     "នាម",
@@ -239,6 +244,10 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
   final certificatedTextController = TextEditingController();
   List<String>? certificates;
   String? selectedCertificate;
+  String? selectedCountry;
+  String? selectedCountryCode;
+  String? selectedSkill;
+  String? selectedSkillCode;
 
   @override
   void initState() {
@@ -249,7 +258,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<StatisticPeopleResponse?>(
+    return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getSkillPeople(
         widget.org,
         widget.dept,
@@ -257,72 +266,161 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
         start: start,
         length: 10,
         search: "",
-        country: "",
-        skill: "",
+        country: selectedCountryCode ?? "",
+        skill: selectedSkillCode ?? "",
       ),
-      builder: (context, snapshot) {
-        if (snapshot.hasData ||
-            snapshot.connectionState == ConnectionState.done) {
-          final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData = responseData?.data;
-          if (skillPeopleData == null || skillPeopleData.length == 0) {
-            return const Center(child: Text("No Data Available"));
-          }
-          return SingleChildScrollView(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomDataGridWidget(
-                  topWidget: Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Wrap(
-                      children: [
-                        DropDownTextField(
-                          labelText: "កម្រិតសញ្ញាបត្រ",
-                          controller: TextEditingController(),
-                          listString: certificates ?? [],
-                          currentSelectedValue: selectedCertificate,
-                          onChange: (value) {
-                            setState(() {
-                              selectedCertificate = value.toString();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  dataSource: SkillPeopleDataGridSource(
-                    tableData: skillPeopleData,
-                  ),
-                  headerTitles: peopleHeaderTitles,
-                  bottomWidget: DataGridPager(
-                    rowsPerPage: rowsPerPage,
-                    totalAmount: responseData?.totalFilteredRecord ?? 0,
-                    selectedPage: selectedPage,
-                    onChange: (index) {
-                      int tempStart = start;
-                      tempStart = rowsPerPage * (index);
+      onDataRetrieved: (context, data, connectState) {
+        final responseData = data;
+        final List<StatisticPeople>? skillPeopleData = responseData?.data;
+
+        return SingleChildScrollView(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomDataGridWidget(
+                topWidget: customTopChartWidget(),
+                dataSource: SkillPeopleDataGridSource(
+                  tableData: skillPeopleData ?? [],
+                ),
+                headerTitles: peopleHeaderTitles,
+                bottomWidget: DataGridPager(
+                  rowsPerPage: rowsPerPage,
+                  totalAmount: responseData?.totalFilteredRecord ?? 0,
+                  selectedPage: selectedPage,
+                  onChange: (index) {
+                    int tempStart = start;
+                    tempStart = rowsPerPage * (index);
+                    setState(() {
+                      if (tempStart >= 0) {
+                        start = tempStart;
+                      }
+                      selectedPage = index;
+                      // isLoading = false;
+                    });
+                  },
+                ),
+              ),
+              Visibility(
+                visible: (connectState == ConnectionState.waiting),
+                child: const LoadingWidget(),
+              ),
+            ],
+          ),
+        );
+      },
+      // return const LoadingWidget();
+    );
+  }
+
+  Widget customTopChartWidget() {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: DropDownTextField(
+                labelText: "កម្រិតសញ្ញាបត្រ",
+                controller: TextEditingController(),
+                listString: certificates ?? [],
+                currentSelectedValue: selectedCertificate,
+                onChange: (value) {
+                  setState(() {
+                    selectedCertificate = value.toString();
+                  });
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: CustomFutureBuilder<List<ListValue>?>(
+                future: autoCompleteService.getCountries(),
+                onLoading: DropDownTextField(
+                  labelText: "ប្រទេស",
+                  controller: TextEditingController(),
+                  listString: const [],
+                  currentSelectedValue: null,
+                  onChange: (value) {},
+                ),
+                onDataRetrieved: (context, snapshot, connectionState) {
+                  final List<ListValue> countriesValue = snapshot ?? [];
+                  final List<String> countries = [""];
+                  countries.addAll(
+                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+                  return DropDownTextField(
+                    labelText: "ប្រទេស",
+                    autoValidateMode: AutovalidateMode.disabled,
+                    controller: TextEditingController(),
+                    listString: countries,
+                    currentSelectedValue: selectedCountry,
+                    onChange: (value) {
+                      final index = countriesValue.indexWhere(
+                          (element) => element.nameKh == value.toString());
                       setState(() {
-                        if (tempStart >= 0) {
-                          start = tempStart;
+                        if (value.toString() == "") {
+                          selectedCountry = null;
+                          selectedCountryCode = "";
+                          return;
                         }
-                        selectedPage = index;
-                        // isLoading = false;
+                        selectedCountry = value.toString();
+                        selectedCountryCode =
+                            countriesValue[index].lovCode ?? "";
                       });
                     },
-                  ),
-                ),
-                Visibility(
-                  visible:
-                      (snapshot.connectionState == ConnectionState.waiting),
-                  child: const LoadingWidget(),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
-          );
-        }
-        return const LoadingWidget();
-      },
+            Container(
+              padding: const EdgeInsets.only(right: 8, top: 8),
+              width: Get.width / 2,
+              child: CustomFutureBuilder<List<ListValue>?>(
+                future: autoCompleteService.getSpecializes(),
+                onLoading: DropDownTextField(
+                  labelText: "ជំនាញ",
+                  controller: TextEditingController(),
+                  listString: const [],
+                  currentSelectedValue: null,
+                  onChange: (value) {},
+                ),
+                onDataRetrieved: (context, snapshot, connectionState) {
+                  final List<ListValue> specializedValue = snapshot ?? [];
+                  final List<String> skills = [""];
+                  skills.addAll(
+                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+                  return DropDownTextField(
+                    labelText: "ជំនាញ",
+                    autoValidateMode: AutovalidateMode.disabled,
+                    controller: TextEditingController(),
+                    listString: skills,
+                    currentSelectedValue: selectedSkill,
+                    onChange: (value) {
+                      final index = specializedValue.indexWhere(
+                          (element) => element.nameKh == value.toString());
+                      setState(() {
+                        if (value.toString() == "") {
+                          selectedSkill = null;
+                          selectedSkillCode = "";
+                          return;
+                        }
+                        selectedSkill = value.toString();
+                        selectedSkillCode =
+                            specializedValue[index].lovCode ?? "";
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/sockets/src/sockets_io.dart';
 import 'package:xiaoming/components/custom_error_widget.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 
@@ -14,7 +15,9 @@ class CustomFutureBuilder<T> extends StatefulWidget {
   final Future<T> future;
   final Widget? onLoading;
   final Widget? onError;
-  final Widget Function(BuildContext context, T result) onDataRetrieved;
+  final Widget Function(
+          BuildContext context, T result, ConnectionState connectionState)
+      onDataRetrieved;
 
   @override
   State<CustomFutureBuilder<T>> createState() => _CustomFutureBuilderState<T>();
@@ -33,7 +36,11 @@ class _CustomFutureBuilderState<T> extends State<CustomFutureBuilder<T>> {
               );
         } else if (snapshot.hasData) {
           if (snapshot.data != null) {
-            return widget.onDataRetrieved(context, snapshot.data!);
+            return widget.onDataRetrieved(
+              context,
+              snapshot.data!,
+              snapshot.connectionState,
+            );
           }
 
           return Text("errorOccurred".tr);
