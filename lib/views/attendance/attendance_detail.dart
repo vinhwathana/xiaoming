@@ -168,8 +168,6 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   }
 
   Widget attendanceDetailView(AttendanceLog attendanceLog) {
-    final name = userController.users?.value.officialInfo?.getFullNameKh();
-
     return highLevelCardWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +179,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
               spacing: 8,
               children: [
                 Text(
-                  name ?? "",
+                  "កាលបរិច្ឆេទស្កេនវត្តមាន",
                   style: boldTitleStyle,
                 ),
                 Text(

@@ -82,6 +82,8 @@ final dummyFamilyInfo = FamilyInfo(
   ),
 );
 
+const String allKeyword= "(ទាំងអស់)";
+
 String? validateEmail(String value) {
   if (value.isEmpty) {
     return "emptyField".tr;

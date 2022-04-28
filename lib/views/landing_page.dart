@@ -125,7 +125,7 @@ class _LandingPageState extends State<LandingPage> {
                                 response.statusCode != 200) {
                               if (kDebugMode) {
                                 print("Landing Page: invalid Token");
-                                showToast("Please login again");
+                                // showToast("Please login again");
                               }
                               return const LoginPage();
                             }

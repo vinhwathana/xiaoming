@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
@@ -318,7 +319,10 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
         "ច្រោះព័ត៌មាន",
         style: TextStyle(fontSize: 18),
       ),
-      leading: const Icon(Icons.filter_list),
+      leading: Icon(
+        Icons.filter_list,
+        color: CompanyColors.yellowPrimaryValue,
+      ),
       childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
       children: [
         Container(
@@ -348,7 +352,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
             ),
             onDataRetrieved: (context, snapshot, connectionState) {
               final List<ListValue> countriesValue = snapshot ?? [];
-              final List<String> countries = [""];
+              final List<String> countries = [allKeyword];
               countries
                   .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
 
@@ -362,7 +366,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
                   final index = countriesValue.indexWhere(
                       (element) => element.nameKh == value.toString());
                   setState(() {
-                    if (value.toString() == "") {
+                    if (value.toString() == allKeyword) {
                       selectedCountry = null;
                       selectedCountryCode = "";
                       return;
@@ -388,7 +392,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
             ),
             onDataRetrieved: (context, snapshot, connectionState) {
               final List<ListValue> specializedValue = snapshot ?? [];
-              final List<String> skills = [""];
+              final List<String> skills = [allKeyword];
               skills
                   .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
 
@@ -402,7 +406,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
                   final index = specializedValue.indexWhere(
                       (element) => element.nameKh == value.toString());
                   setState(() {
-                    if (value.toString() == "") {
+                    if (value.toString() == allKeyword) {
                       selectedSkill = null;
                       selectedSkillCode = "";
                       return;

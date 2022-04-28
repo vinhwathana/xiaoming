@@ -372,7 +372,7 @@ class _SkillByDegreePeopleDataGridState
             ),
             onDataRetrieved: (context, snapshot, connectionState) {
               final List<ListValue> countriesValue = snapshot ?? [];
-              final List<String> countries = [""];
+              final List<String> countries = [allKeyword];
               countries
                   .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
 
@@ -386,7 +386,7 @@ class _SkillByDegreePeopleDataGridState
                   final index = countriesValue.indexWhere(
                           (element) => element.nameKh == value.toString());
                   setState(() {
-                    if (value.toString() == "") {
+                    if (value.toString() == allKeyword) {
                       selectedCountry = null;
                       selectedCountryCode = "";
                       return;
@@ -412,7 +412,7 @@ class _SkillByDegreePeopleDataGridState
             ),
             onDataRetrieved: (context, snapshot, connectionState) {
               final List<ListValue> specializedValue = snapshot ?? [];
-              final List<String> skills = [""];
+              final List<String> skills = [allKeyword];
               skills
                   .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
 
@@ -426,7 +426,7 @@ class _SkillByDegreePeopleDataGridState
                   final index = specializedValue.indexWhere(
                           (element) => element.nameKh == value.toString());
                   setState(() {
-                    if (value.toString() == "") {
+                    if (value.toString() == allKeyword) {
                       selectedSkill = null;
                       selectedSkillCode = "";
                       return;

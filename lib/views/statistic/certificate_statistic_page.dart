@@ -268,24 +268,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
               alignment: Alignment.center,
               children: [
                 CustomDataGridWidget(
-                  topWidget: Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Wrap(
-                      children: [
-                        DropDownTextField(
-                          labelText: "កម្រិតសញ្ញាបត្រ",
-                          controller: TextEditingController(),
-                          listString: certificates ?? [],
-                          currentSelectedValue: selectedCertificate,
-                          onChange: (value) {
-                            setState(() {
-                              selectedCertificate = value.toString();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  topWidget: customTopChartWidget(),
                   dataSource: CertificatePeopleDataGridSource(
                     tableData: certificatePeopleData,
                   ),
@@ -318,6 +301,33 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
         }
         return const LoadingWidget();
       },
+    );
+  }
+
+  Widget customTopChartWidget() {
+    return ExpansionTile(
+      title: const Text(
+        "ច្រោះព័ត៌មាន",
+        style: TextStyle(fontSize: 18),
+      ),
+      leading: const Icon(Icons.filter_list),
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: DropDownTextField(
+            labelText: "កម្រិតសញ្ញាបត្រ",
+            controller: TextEditingController(),
+            listString: certificates ?? [],
+            currentSelectedValue: selectedCertificate,
+            onChange: (value) {
+              setState(() {
+                selectedCertificate = value.toString();
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 }
