@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
 import 'package:xiaoming/models/attendance/time_rule.dart';
@@ -27,6 +28,40 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   final attendanceService = AttendanceService();
   String? attendanceRuleId;
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("ម៉ោងស្កេន"),
+      ),
+      body: FutureBuilder<AttendanceLog?>(
+        future: attendanceService.getAttendanceLog(
+          formatDateTimeForApi(widget.date),
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingWidget();
+          }
+          if (snapshot.hasData && snapshot.data != null) {
+            final attendanceLog = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  attendanceDetailView(attendanceLog),
+                  attendanceRuleView(attendanceLog.timeRule),
+                  workingHoursViews(),
+                ],
+              ),
+            );
+          }
+          return const Center(
+            child: Text("មិនមានព័ត៌មាន"),
+          );
+        },
+      ),
+    );
+  }
+
   Widget highLevelCardWidget({required Widget child}) {
     return Container(
       width: double.maxFinite,
@@ -37,6 +72,43 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           padding: const EdgeInsets.all(8),
           child: child,
         ),
+      ),
+    );
+  }
+
+  Widget workingHoursViews() {
+    return highLevelCardWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "ពេលវេលាបំពេញការងារ",
+            style: boldTitleStyle,
+          ),
+          const Divider(
+            thickness: 1,
+          ),
+          Column(
+            children: [
+              attendanceRuleRow(
+                "ច្រើនជាង ៨ម៉ោង/ថ្ងៃ",
+                "វត្តមានល្អប្រសើរ",
+              ),
+              attendanceRuleRow(
+                "ច្រើនជាង ៧ម៉ោង/ថ្ងៃ",
+                "វត្តមានមួយថ្ងៃ",
+              ),
+              attendanceRuleRow(
+                "ច្រើនជាង ៣ម៉ោងកន្លះ/ថ្ងៃ",
+                "អវត្តមានកន្លះថ្ងៃ",
+              ),
+              attendanceRuleRow(
+                "តិចជាង ៣ម៉ោងកន្លះ/ថ្ងៃ ",
+                "អវត្តមានមួយថ្ងៃ",
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -173,41 +245,6 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           ),
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("ម៉ោងស្កេន"),
-      ),
-      body: FutureBuilder<AttendanceLog?>(
-        future: attendanceService.getAttendanceLog(
-          formatDateTimeForApi(widget.date),
-        ),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasData && snapshot.data != null) {
-            final attendanceLog = snapshot.data!;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  attendanceDetailView(attendanceLog),
-                  attendanceRuleView(attendanceLog.timeRule),
-                ],
-              ),
-            );
-          }
-          return const Center(
-            child: Text("មិនមានព័ត៌មាន"),
-          );
-        },
-      ),
     );
   }
 }
