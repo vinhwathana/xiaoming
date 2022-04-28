@@ -34,7 +34,7 @@ class _DataGridPagerState extends State<DataGridPager> {
               widget.onChange(0);
             }
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.blueGrey,
           ),
@@ -46,7 +46,7 @@ class _DataGridPagerState extends State<DataGridPager> {
               widget.onChange(selectedPage - 1);
             }
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_left,
             color: Colors.blueGrey,
           ),
@@ -55,7 +55,7 @@ class _DataGridPagerState extends State<DataGridPager> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
                   ...List.generate(
@@ -75,7 +75,7 @@ class _DataGridPagerState extends State<DataGridPager> {
                                   : Colors.black,
                             ),
                           ),
-                          padding: EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           onPressed: () {
                             widget.onChange(index);
                           },
@@ -95,7 +95,7 @@ class _DataGridPagerState extends State<DataGridPager> {
               widget.onChange(selectedPage + 1);
             }
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_right,
             color: Colors.blueGrey,
           ),
@@ -106,7 +106,7 @@ class _DataGridPagerState extends State<DataGridPager> {
               widget.onChange(numberOfPage - 1);
             }
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_forward,
             color: Colors.blueGrey,
           ),

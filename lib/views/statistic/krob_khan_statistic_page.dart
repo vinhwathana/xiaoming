@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/LoadingWidget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
@@ -89,7 +90,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
               isVisible: true,
               iconHeight: 24,
               iconWidth: 24,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontSize: 18,
                 fontFamily: 'KhmerOSBattambong',
               ),
@@ -265,15 +266,13 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
                 Visibility(
                   visible:
                       (snapshot.connectionState == ConnectionState.waiting),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const LoadingWidget(),
                 ),
               ],
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingWidget();
       },
     );
   }

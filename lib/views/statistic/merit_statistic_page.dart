@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/LoadingWidget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
@@ -142,7 +143,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                   firstColumnName: headerTitles[0],
                   secondColumnName: headerTitles[1],
                 ),
-                horizontalScrollPhysics: NeverScrollableScrollPhysics(),
+                horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
                 columns: List.generate(
                   headerTitles.length,
                   (index) {
@@ -269,15 +270,13 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
                 Visibility(
                   visible:
                       (snapshot.connectionState == ConnectionState.waiting),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const LoadingWidget(),
                 ),
               ],
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingWidget();
       },
     );
   }

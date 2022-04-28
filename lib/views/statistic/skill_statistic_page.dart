@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/LoadingWidget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
@@ -263,8 +264,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
         if (snapshot.hasData ||
             snapshot.connectionState == ConnectionState.done) {
           final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData =
-              responseData?.data;
+          final List<StatisticPeople>? skillPeopleData = responseData?.data;
           if (skillPeopleData == null || skillPeopleData.length == 0) {
             return const Center(child: Text("No Data Available"));
           }
@@ -274,7 +274,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
               children: [
                 CustomDataGridWidget(
                   topWidget: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Wrap(
                       children: [
                         DropDownTextField(
@@ -315,15 +315,13 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
                 Visibility(
                   visible:
                       (snapshot.connectionState == ConnectionState.waiting),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const LoadingWidget(),
                 ),
               ],
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingWidget();
       },
     );
   }

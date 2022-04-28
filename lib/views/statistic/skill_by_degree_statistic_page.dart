@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/LoadingWidget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
@@ -292,7 +293,7 @@ class _SkillByDegreePeopleDataGridState
               children: [
                 CustomDataGridWidget(
                   topWidget: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Wrap(
                       children: [
                         DropDownTextField(
@@ -333,15 +334,13 @@ class _SkillByDegreePeopleDataGridState
                 Visibility(
                   visible:
                       (snapshot.connectionState == ConnectionState.waiting),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const LoadingWidget(),
                 ),
               ],
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingWidget();
       },
     );
   }

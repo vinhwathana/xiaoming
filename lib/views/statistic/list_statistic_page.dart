@@ -46,7 +46,7 @@ class _ListStatisticPageState extends State<ListStatisticPage>
     const Tab(text: "ក្របខណ្ឌ"),
   ];
 
-  final Widget trailingIcon = Icon(Icons.keyboard_arrow_right);
+  final Widget trailingIcon = const Icon(Icons.keyboard_arrow_right);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class _ListStatisticPageState extends State<ListStatisticPage>
                 trailing: trailingIcon,
                 onTap: () {
                   Get.to(
-                        () => StaffStatisticPage(
+                    () => StaffStatisticPage(
                       chartTitle: statNames[3],
                     ),
                   );
@@ -105,7 +105,7 @@ class _ListStatisticPageState extends State<ListStatisticPage>
                 trailing: trailingIcon,
                 onTap: () {
                   Get.to(
-                        () => MeritStatisticPage(
+                    () => MeritStatisticPage(
                       chartTitle: statNames[4],
                     ),
                   );
@@ -116,7 +116,7 @@ class _ListStatisticPageState extends State<ListStatisticPage>
                 trailing: trailingIcon,
                 onTap: () {
                   Get.to(
-                        () => KrobKhanStatisticPage(
+                    () => KrobKhanStatisticPage(
                       chartTitle: statNames[5],
                     ),
                   );
