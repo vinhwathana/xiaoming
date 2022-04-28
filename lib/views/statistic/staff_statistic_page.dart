@@ -90,8 +90,11 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
             ),
             legend: Legend(
               isVisible: true,
+              isResponsive: true,
+              overflowMode: LegendItemOverflowMode.wrap,
               iconHeight: 24,
               iconWidth: 24,
+              alignment: ChartAlignment.center,
               textStyle: const TextStyle(
                 fontSize: 18,
                 fontFamily: 'KhmerOSBattambong',

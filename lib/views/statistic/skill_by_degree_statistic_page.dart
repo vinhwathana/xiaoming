@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
@@ -276,62 +277,55 @@ class _SkillByDegreePeopleDataGridState
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<StatisticPeopleResponse?>(
+    return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getSkillByDegreePeople(
         widget.org,
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
         start: start,
-        length: 10,
+        length: rowsPerPage,
         search: "",
-        country: "",
-        skill: "",
+        country: selectedCountryCode ?? "",
+        skill: selectedSkillCode ?? "",
       ),
-      builder: (context, snapshot) {
-        if (snapshot.hasData ||
-            snapshot.connectionState == ConnectionState.done) {
-          final responseData = snapshot.data;
-          final List<StatisticPeople>? skillPeopleData = responseData?.data;
-          if (skillPeopleData == null || skillPeopleData.length == 0) {
-            return const Center(child: Text("No Data Available"));
-          }
-          return SingleChildScrollView(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomDataGridWidget(
-                  topWidget: customTopChartWidget(),
-                  dataSource: SkillByDegreePeopleDataGridSource(
-                    tableData: skillPeopleData,
-                  ),
-                  headerTitles: peopleHeaderTitles,
-                  bottomWidget: DataGridPager(
-                    rowsPerPage: rowsPerPage,
-                    totalAmount: responseData?.totalFilteredRecord ?? 0,
-                    selectedPage: selectedPage,
-                    onChange: (index) {
-                      int tempStart = start;
-                      tempStart = rowsPerPage * (index);
-                      setState(() {
-                        if (tempStart >= 0) {
-                          start = tempStart;
-                        }
-                        selectedPage = index;
-                        // isLoading = false;
-                      });
-                    },
-                  ),
+      onDataRetrieved: (context, data, connectState) {
+        final responseData = data;
+        final List<StatisticPeople>? skillPeopleData = responseData?.data;
+
+        return SingleChildScrollView(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomDataGridWidget(
+                topWidget: customTopChartWidget(),
+                dataSource: SkillByDegreePeopleDataGridSource(
+                  tableData: skillPeopleData ?? [],
                 ),
-                Visibility(
-                  visible:
-                      (snapshot.connectionState == ConnectionState.waiting),
-                  child: const LoadingWidget(),
+                headerTitles: peopleHeaderTitles,
+                bottomWidget: DataGridPager(
+                  rowsPerPage: rowsPerPage,
+                  totalAmount: responseData?.totalFilteredRecord ?? 0,
+                  selectedPage: selectedPage,
+                  onChange: (index) {
+                    int tempStart = start;
+                    tempStart = rowsPerPage * (index);
+                    setState(() {
+                      if (tempStart >= 0) {
+                        start = tempStart;
+                      }
+                      selectedPage = index;
+                      // isLoading = false;
+                    });
+                  },
                 ),
-              ],
-            ),
-          );
-        }
-        return const LoadingWidget();
+              ),
+              Visibility(
+                visible: (connectState == ConnectionState.waiting),
+                child: const LoadingWidget(),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -342,7 +336,10 @@ class _SkillByDegreePeopleDataGridState
         "ច្រោះព័ត៌មាន",
         style: TextStyle(fontSize: 18),
       ),
-      leading: const Icon(Icons.filter_list),
+      leading: Icon(
+        Icons.filter_list,
+        color: CompanyColors.yellowPrimaryValue,
+      ),
       childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
       children: [
         Container(
@@ -384,7 +381,7 @@ class _SkillByDegreePeopleDataGridState
                 currentSelectedValue: selectedCountry,
                 onChange: (value) {
                   final index = countriesValue.indexWhere(
-                          (element) => element.nameKh == value.toString());
+                      (element) => element.nameKh == value.toString());
                   setState(() {
                     if (value.toString() == allKeyword) {
                       selectedCountry = null;
@@ -424,7 +421,7 @@ class _SkillByDegreePeopleDataGridState
                 currentSelectedValue: selectedSkill,
                 onChange: (value) {
                   final index = specializedValue.indexWhere(
-                          (element) => element.nameKh == value.toString());
+                      (element) => element.nameKh == value.toString());
                   setState(() {
                     if (value.toString() == allKeyword) {
                       selectedSkill = null;

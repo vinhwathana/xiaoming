@@ -88,8 +88,11 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
             ),
             legend: Legend(
               isVisible: true,
+              isResponsive: true,
+              overflowMode: LegendItemOverflowMode.wrap,
               iconHeight: 24,
               iconWidth: 24,
+              alignment: ChartAlignment.center,
               textStyle: const TextStyle(
                 fontSize: 18,
                 fontFamily: 'KhmerOSBattambong',
