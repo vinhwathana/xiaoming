@@ -236,7 +236,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
     'ប្រទេស',
     'ថ្ងៃខែឆ្នាំបញ្ចប់',
   ];
-  final rowsPerPage = 10;
+  final rowsPerPage = 20;
   int start = 0;
   int selectedPage = 0;
 
@@ -264,7 +264,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
         start: start,
-        length: 10,
+        length: rowsPerPage,
         search: "",
         country: selectedCountryCode ?? "",
         skill: selectedSkillCode ?? "",
@@ -313,114 +313,109 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
   }
 
   Widget customTopChartWidget() {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(right: 8, top: 8),
-              width: Get.width / 2,
-              child: DropDownTextField(
-                labelText: "កម្រិតសញ្ញាបត្រ",
+    return ExpansionTile(
+      title: const Text(
+        "ច្រោះព័ត៌មាន",
+        style: TextStyle(fontSize: 18),
+      ),
+      leading: const Icon(Icons.filter_list),
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: DropDownTextField(
+            labelText: "កម្រិតសញ្ញាបត្រ",
+            controller: TextEditingController(),
+            listString: certificates ?? [],
+            currentSelectedValue: selectedCertificate,
+            onChange: (value) {
+              setState(() {
+                selectedCertificate = value.toString();
+              });
+            },
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: CustomFutureBuilder<List<ListValue>?>(
+            future: autoCompleteService.getCountries(),
+            onLoading: DropDownTextField(
+              labelText: "ប្រទេស",
+              controller: TextEditingController(),
+              listString: const [],
+              currentSelectedValue: null,
+              onChange: (value) {},
+            ),
+            onDataRetrieved: (context, snapshot, connectionState) {
+              final List<ListValue> countriesValue = snapshot ?? [];
+              final List<String> countries = [""];
+              countries
+                  .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+              return DropDownTextField(
+                labelText: "ប្រទេស",
+                autoValidateMode: AutovalidateMode.disabled,
                 controller: TextEditingController(),
-                listString: certificates ?? [],
-                currentSelectedValue: selectedCertificate,
+                listString: countries,
+                currentSelectedValue: selectedCountry,
                 onChange: (value) {
+                  final index = countriesValue.indexWhere(
+                      (element) => element.nameKh == value.toString());
                   setState(() {
-                    selectedCertificate = value.toString();
+                    if (value.toString() == "") {
+                      selectedCountry = null;
+                      selectedCountryCode = "";
+                      return;
+                    }
+                    selectedCountry = value.toString();
+                    selectedCountryCode = countriesValue[index].lovCode ?? "";
                   });
                 },
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 8, top: 8),
-              width: Get.width / 2,
-              child: CustomFutureBuilder<List<ListValue>?>(
-                future: autoCompleteService.getCountries(),
-                onLoading: DropDownTextField(
-                  labelText: "ប្រទេស",
-                  controller: TextEditingController(),
-                  listString: const [],
-                  currentSelectedValue: null,
-                  onChange: (value) {},
-                ),
-                onDataRetrieved: (context, snapshot, connectionState) {
-                  final List<ListValue> countriesValue = snapshot ?? [];
-                  final List<String> countries = [""];
-                  countries.addAll(
-                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
-
-                  return DropDownTextField(
-                    labelText: "ប្រទេស",
-                    autoValidateMode: AutovalidateMode.disabled,
-                    controller: TextEditingController(),
-                    listString: countries,
-                    currentSelectedValue: selectedCountry,
-                    onChange: (value) {
-                      final index = countriesValue.indexWhere(
-                          (element) => element.nameKh == value.toString());
-                      setState(() {
-                        if (value.toString() == "") {
-                          selectedCountry = null;
-                          selectedCountryCode = "";
-                          return;
-                        }
-                        selectedCountry = value.toString();
-                        selectedCountryCode =
-                            countriesValue[index].lovCode ?? "";
-                      });
-                    },
-                  );
-                },
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 8, top: 8),
-              width: Get.width / 2,
-              child: CustomFutureBuilder<List<ListValue>?>(
-                future: autoCompleteService.getSpecializes(),
-                onLoading: DropDownTextField(
-                  labelText: "ជំនាញ",
-                  controller: TextEditingController(),
-                  listString: const [],
-                  currentSelectedValue: null,
-                  onChange: (value) {},
-                ),
-                onDataRetrieved: (context, snapshot, connectionState) {
-                  final List<ListValue> specializedValue = snapshot ?? [];
-                  final List<String> skills = [""];
-                  skills.addAll(
-                      snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
-
-                  return DropDownTextField(
-                    labelText: "ជំនាញ",
-                    autoValidateMode: AutovalidateMode.disabled,
-                    controller: TextEditingController(),
-                    listString: skills,
-                    currentSelectedValue: selectedSkill,
-                    onChange: (value) {
-                      final index = specializedValue.indexWhere(
-                          (element) => element.nameKh == value.toString());
-                      setState(() {
-                        if (value.toString() == "") {
-                          selectedSkill = null;
-                          selectedSkillCode = "";
-                          return;
-                        }
-                        selectedSkill = value.toString();
-                        selectedSkillCode =
-                            specializedValue[index].lovCode ?? "";
-                      });
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
-      ),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: CustomFutureBuilder<List<ListValue>?>(
+            future: autoCompleteService.getSpecializes(),
+            onLoading: DropDownTextField(
+              labelText: "ជំនាញ",
+              controller: TextEditingController(),
+              listString: const [],
+              currentSelectedValue: null,
+              onChange: (value) {},
+            ),
+            onDataRetrieved: (context, snapshot, connectionState) {
+              final List<ListValue> specializedValue = snapshot ?? [];
+              final List<String> skills = [""];
+              skills
+                  .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
+
+              return DropDownTextField(
+                labelText: "ជំនាញ",
+                autoValidateMode: AutovalidateMode.disabled,
+                controller: TextEditingController(),
+                listString: skills,
+                currentSelectedValue: selectedSkill,
+                onChange: (value) {
+                  final index = specializedValue.indexWhere(
+                      (element) => element.nameKh == value.toString());
+                  setState(() {
+                    if (value.toString() == "") {
+                      selectedSkill = null;
+                      selectedSkillCode = "";
+                      return;
+                    }
+                    selectedSkill = value.toString();
+                    selectedSkillCode = specializedValue[index].lovCode ?? "";
+                  });
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
