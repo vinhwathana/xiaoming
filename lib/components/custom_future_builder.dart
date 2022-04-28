@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/sockets/src/sockets_io.dart';
 import 'package:xiaoming/components/custom_error_widget.dart';
 import 'package:xiaoming/components/loading_widget.dart';
 
