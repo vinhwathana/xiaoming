@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
@@ -75,44 +76,61 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          userProfile(),
-          const SizedBox(
-            height: 7,
-          ),
-          GetBuilder<UserController>(
-            builder: (controller) {
-              final user = controller.users?.value;
-              if (user != null &&
-                  user.officialInfo != null &&
-                  (user.officialInfo!.firstNameKh != null ||
-                      user.officialInfo!.lastNameKh != null)) {
-                return Text(
-                  '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 16,
                   ),
-                );
-              }
-              return const Text(
-                "",
-                textAlign: TextAlign.center,
+                  userProfile(),
+                  const SizedBox(height: 8),
+                  GetBuilder<UserController>(
+                    builder: (controller) {
+                      final user = controller.users?.value;
+                      if (user != null &&
+                          user.officialInfo != null &&
+                          (user.officialInfo!.firstNameKh != null ||
+                              user.officialInfo!.lastNameKh != null)) {
+                        return Text(
+                          '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        );
+                      }
+                      return const Text(
+                        "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  const _DrawerItem(),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                "ជំនាន់ ១.០",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
                   fontSize: 18,
+                  color: CompanyColors.yellow.shade500,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            },
-          ),
-          const Divider(),
-          const _DrawerItem(),
-        ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
