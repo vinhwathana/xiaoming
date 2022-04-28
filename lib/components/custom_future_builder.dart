@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/components/CustomErrorWidget.dart';
-import 'package:xiaoming/components/LoadingWidget.dart';
+import 'package:xiaoming/components/custom_error_widget.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 
 class CustomFutureBuilder<T> extends StatefulWidget {
   const CustomFutureBuilder({

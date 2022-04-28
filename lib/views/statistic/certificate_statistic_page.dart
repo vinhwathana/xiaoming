@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:xiaoming/components/LoadingWidget.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';

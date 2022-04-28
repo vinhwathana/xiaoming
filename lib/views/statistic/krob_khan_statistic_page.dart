@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:xiaoming/components/LoadingWidget.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
