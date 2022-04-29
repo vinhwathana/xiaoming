@@ -82,9 +82,18 @@ final dummyFamilyInfo = FamilyInfo(
   ),
 );
 
-const String allKeyword= "(ទាំងអស់)";
+const String allKeyword = "(ទាំងអស់)";
+const TextStyle fontKhmerTextStyle = TextStyle(
+  fontFamily: "KhmerOSBattambong",
+);
 
-final List<int> typeOfEntries = [10,25,50,100];
+const TextStyle columnHeaderTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: "KhmerOSBattambong",
+  fontWeight: FontWeight.bold,
+);
+
+final List<int> typeOfEntries = [10, 25, 50, 100];
 
 String? validateEmail(String value) {
   if (value.isEmpty) {

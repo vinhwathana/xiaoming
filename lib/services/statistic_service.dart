@@ -15,7 +15,7 @@ import 'package:xiaoming/models/statistic/number/skill_by_degree_statistic.dart'
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'package:xiaoming/views/statistic/statistics_page_wrapper.dart';
+import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
 
 class StatisticService {
   final authController = Get.find<AuthenticationController>();
@@ -660,8 +660,6 @@ class StatisticService {
         },
       );
 
-      log(response.body);
-
       if (response.statusCode == 200) {
         final responseData = statisticPeopleResponseFromJson(response.body);
         return responseData;
@@ -815,7 +813,7 @@ class StatisticService {
     Colors.teal,
     Colors.brown,
     Colors.indigo,
-    Colors.white38,
+    Colors.tealAccent,
     Colors.black,
     Colors.red,
     Colors.green,

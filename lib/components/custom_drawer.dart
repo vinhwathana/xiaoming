@@ -11,7 +11,6 @@ import 'package:xiaoming/views/attendance/attendance_page.dart';
 import 'package:xiaoming/views/utils/image_preview_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/personal_info/user_info_page.dart';
 
 class CustomDrawer extends StatefulWidget {
