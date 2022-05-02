@@ -7,6 +7,7 @@ import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:xiaoming/views/statistic/utils/custom_data_grid_filter.dart';
+import 'package:xiaoming/views/statistic/utils/custom_grid_column.dart';
 import 'package:xiaoming/views/statistic/utils/people_statistic_data_grid.dart';
 import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
 import 'package:xiaoming/views/statistic/utils/custom_pie_series.dart';
@@ -111,9 +112,9 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
       future: statService.getKrobKhans(org, dept),
       onDataRetrieved: (context, data, connectionState) {
         final krobKhanData = data;
-        if (krobKhanData == null || krobKhanData.isEmpty) {
-          return const Center(child: Text("No Data Available"));
-        }
+        // if (krobKhanData == null || krobKhanData.isEmpty) {
+        //   return const Center(child: Text("No Data Available"));
+        // }
 
         return Card(
           elevation: 3,
@@ -124,37 +125,22 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
             ),
             child: SfDataGrid(
               source: TwoColumnDataGridSource(
-                tableData: krobKhanData,
+                tableData: krobKhanData ??[],
                 firstColumnName: headerTitles[0],
                 secondColumnName: headerTitles[1],
               ),
-              shrinkWrapRows: true,
-              verticalScrollPhysics: const NeverScrollableScrollPhysics(),
+              // shrinkWrapRows: true,
+              // verticalScrollPhysics: const NeverScrollableScrollPhysics(),
               horizontalScrollPhysics: const NeverScrollableScrollPhysics(),
               columns: List.generate(
                 headerTitles.length,
                 (index) {
-                  return GridColumn(
+                  return CustomGridColumn(
                     columnName: headerTitles[index],
-                    columnWidthMode: ColumnWidthMode.auto,
-                    label: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        headerTitles[index],
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontFamily: "KhmerOSBattambong",
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    allowSorting: true,
                   );
                 },
               ),
-              columnWidthMode: ColumnWidthMode.auto,
+              columnWidthMode: ColumnWidthMode.fill,
               allowSorting: true,
               sortingGestureType: SortingGestureType.tap,
             ),
