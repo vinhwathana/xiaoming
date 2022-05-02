@@ -74,10 +74,10 @@ flutter:
         - asset: assets/fonts/KhmerOS_muol.ttf
     - family: KhmerMPTC
       fonts:
-        - asset: assets/fonts/KhmerMPTC.otf
+        - asset: assets/fonts/KhmerMPTC.ttf
     - family: KhmerMPTCMoul
       fonts:
-        - asset: assets/fonts/KhmerMPTCMoul.otf
+        - asset: assets/fonts/KhmerMPTCMoul.ttf
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
