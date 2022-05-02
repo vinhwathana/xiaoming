@@ -147,6 +147,8 @@ Future<void> storeToken(String token) async {
   return await storage.write(key: tokenKeyName, value: token);
 }
 
+final formatNameOfDate = DateFormat("EEEE","en");
+
 String formatDateTimeForView(DateTime? date) {
   if (date == null) {
     return "";
