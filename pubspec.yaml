@@ -52,7 +52,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.42
   open_file: ^3.2.1
   syncfusion_flutter_datepicker: ^19.4.52
-#  scrollable_list_tabview: ^0.2.0-nullsafety
+  #  scrollable_list_tabview: ^0.2.0-nullsafety
   scrollable_positioned_list: ^0.2.3
 
 
@@ -72,11 +72,17 @@ flutter:
     - family: KhmerOSMuol
       fonts:
         - asset: assets/fonts/KhmerOS_muol.ttf
+    - family: KhmerMPTC
+      fonts:
+        - asset: assets/fonts/KhmerMPTC.ttf
+    - family: KhmerMPTCMoul
+      fonts:
+        - asset: assets/fonts/KhmerMPTCMoul.ttf
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/
-     - assets/images/mptc_logo_l.png
+    - assets/images/
+    - assets/images/mptc_logo_l.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
