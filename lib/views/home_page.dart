@@ -4,7 +4,7 @@ import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
-import 'package:xiaoming/views/statistic/list_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
 
 import 'attendance/attendance_page.dart';
 

@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 class StatisticsPageWrapper extends StatefulWidget {
   const StatisticsPageWrapper({
@@ -85,7 +86,12 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
               ),
             ];
           },
-          body: widget.builder(tabController, org, dept, degree),
+          body: SfDataGridTheme(
+            data: SfDataGridThemeData(
+              sortIconColor: Colors.black,
+            ),
+            child: widget.builder(tabController, org, dept, degree),
+          ),
         ),
       ),
     );

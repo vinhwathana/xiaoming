@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/views/cells_rows/card_tile.dart';
-import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
-import 'package:xiaoming/views/statistic/krob_khan_statistic_page.dart';
-import 'package:xiaoming/views/statistic/merit_statistic_page.dart';
-import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
-import 'package:xiaoming/views/statistic/skill_statistic_page.dart';
-import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/certificate_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/krob_khan_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/merit_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/skill_by_degree_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/skill_statistic_page.dart';
+import 'package:xiaoming/views/statistic/pages/staff_statistic_page.dart';
 
 class ListStatisticPage extends StatefulWidget {
   const ListStatisticPage({Key? key}) : super(key: key);

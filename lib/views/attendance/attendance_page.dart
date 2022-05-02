@@ -17,14 +17,27 @@ class _AttendancePageState extends State<AttendancePage> {
   final attendanceService = AttendanceService();
 
   final now = DateTime.now();
-  late DateTime start = now.subtract(const Duration(days: 1));
-  late DateTime end = now;
+
+  // final now = DateTime(2022, 4, 26);
+  late DateTime start = validateDate(now.subtract(const Duration(days: 1)));
+  late DateTime end = validateDate(now.subtract(const Duration(days: 1)));
+
+  DateTime validateDate(DateTime date) {
+    DateTime dateToShow = date;
+    while (formatNameOfDate.format(dateToShow) == "Sunday" ||
+        formatNameOfDate.format(dateToShow) == "Saturday") {
+      dateToShow = dateToShow.subtract(const Duration(days: 1));
+    }
+    return dateToShow;
+  }
 
   void pickDateRange() async {
+    final DateTime yesterday = now.subtract(const Duration(days: 1));
+
     final picked = await showDateRangePicker(
       context: context,
       firstDate: DateTime(1900),
-      lastDate: now,
+      lastDate: validateDate(yesterday),
       locale: Get.locale,
       currentDate: now,
       initialDateRange: DateTimeRange(
@@ -153,9 +166,7 @@ class _AttendancePageState extends State<AttendancePage> {
               topTitle(),
               attendanceView(),
               // dummyAttendanceView(),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
