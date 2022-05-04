@@ -8,6 +8,7 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance/attendance_page.dart';
+import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
 import 'package:xiaoming/views/utils/image_preview_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
@@ -199,8 +200,8 @@ class _DrawerItemState extends State<_DrawerItem> {
           leading: const Icon(Icons.pie_chart),
           title: const Text('ស្ថិតិ'),
           onTap: () {
-            Get.back();
-            // Get.to(() => const StatisticsPage());
+            Get.back(closeOverlays: true);
+            Get.to(() => const ListStatisticPage());
           },
         ),
         const Divider(),
