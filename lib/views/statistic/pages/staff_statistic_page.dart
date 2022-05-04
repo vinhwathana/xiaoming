@@ -186,7 +186,7 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid>
     "គោត្តនាម",
     "នាម",
     'ភេទ',
-    'មុខដំណែង',
+    'មុខតំណែង',
   ];
   int rowsPerPage = 10;
   int start = 0;
@@ -269,7 +269,7 @@ class StaffPeopleDataGridSource extends DataGridSource {
     "គោត្តនាម",
     "នាម",
     'ភេទ',
-    'មុខដំណែង',
+    'មុខតំណែង',
   ];
 
   List<StatisticPeople> tableData;

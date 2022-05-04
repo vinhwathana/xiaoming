@@ -189,7 +189,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid>
     "គោត្តនាម",
     "នាម",
     'ភេទ',
-    'មុខដំណែង',
+    'មុខតំណែង',
     'ការសិក្សា',
     'ជំនាញ',
     'គ្រឹះស្ថានសិក្សា',
@@ -368,161 +368,6 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid>
     );
   }
 
-  Widget customTopChartWidget() {
-    return ExpansionTile(
-      title: const Text(
-        "ច្រោះព័ត៌មាន",
-        style: TextStyle(fontSize: 18),
-      ),
-      leading: Icon(
-        Icons.filter_list,
-        color: CompanyColors.yellowPrimaryValue,
-      ),
-      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: DropDownTextField(
-            labelText: "កម្រិតសញ្ញាបត្រ",
-            controller: TextEditingController(),
-            listString: certificates ?? [],
-            currentSelectedValue: selectedCertificate,
-            onChange: (value) {
-              setState(() {
-                selectedCertificate = value.toString();
-              });
-            },
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: CustomFutureBuilder<List<ListValue>?>(
-            future: autoCompleteService.getCountries(),
-            onLoading: DropDownTextField(
-              labelText: "ប្រទេស",
-              controller: TextEditingController(),
-              listString: const [],
-              currentSelectedValue: null,
-              onChange: (value) {},
-            ),
-            onDataRetrieved: (context, snapshot, connectionState) {
-              final List<ListValue> countriesValue = snapshot ?? [];
-              final List<String> countries = [allKeyword];
-              countries
-                  .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
-
-              return DropDownTextField(
-                labelText: "ប្រទេស",
-                autoValidateMode: AutovalidateMode.disabled,
-                controller: TextEditingController(),
-                listString: countries,
-                currentSelectedValue: selectedCountry,
-                onChange: (value) {
-                  final index = countriesValue.indexWhere(
-                      (element) => element.nameKh == value.toString());
-                  setState(() {
-                    if (value.toString() == allKeyword) {
-                      selectedCountry = null;
-                      selectedCountryCode = "";
-                      return;
-                    }
-                    selectedCountry = value.toString();
-                    selectedCountryCode = countriesValue[index].lovCode ?? "";
-                  });
-                },
-              );
-            },
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: CustomFutureBuilder<List<ListValue>?>(
-            future: autoCompleteService.getSpecializes(),
-            onLoading: DropDownTextField(
-              labelText: "ជំនាញ",
-              controller: TextEditingController(),
-              listString: const [],
-              currentSelectedValue: null,
-              onChange: (value) {},
-            ),
-            onDataRetrieved: (context, snapshot, connectionState) {
-              final List<ListValue> specializedValue = snapshot ?? [];
-              final List<String> skills = [allKeyword];
-              skills
-                  .addAll(snapshot?.map((e) => e.nameKh ?? "").toList() ?? []);
-
-              return DropDownTextField(
-                labelText: "ជំនាញ",
-                autoValidateMode: AutovalidateMode.disabled,
-                controller: TextEditingController(),
-                listString: skills,
-                currentSelectedValue: selectedSkill,
-                onChange: (value) {
-                  final index = specializedValue.indexWhere(
-                      (element) => element.nameKh == value.toString());
-                  setState(() {
-                    if (value.toString() == allKeyword) {
-                      selectedSkill = null;
-                      selectedSkillCode = "";
-                      return;
-                    }
-                    selectedSkill = value.toString();
-                    selectedSkillCode = specializedValue[index].lovCode ?? "";
-                  });
-                },
-              );
-            },
-          ),
-        ),
-        Row(
-          children: [
-            const Text(
-              "Show : ",
-              style: TextStyle(
-                color: Colors.black,
-                height: 1.5,
-              ),
-            ),
-            DropdownButton(
-              underline: null,
-              isDense: false,
-              itemHeight: 50,
-              value: rowsPerPage,
-              items: typeOfEntries.map((e) {
-                return DropdownMenuItem<int>(
-                  value: e,
-                  child: Text(
-                    e.toString(),
-                    maxLines: 1,
-                    overflow: TextOverflow.visible,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      height: 1.5,
-                    ),
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != rowsPerPage) {
-                  setState(() {
-                    rowsPerPage = int.parse(value.toString());
-                  });
-                }
-              },
-            ),
-            const Text(
-              " entries ",
-              style: TextStyle(
-                color: Colors.black,
-                height: 1.5,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   @override
   bool get wantKeepAlive => true;
 }
@@ -538,7 +383,7 @@ class SkillPeopleDataGridSource extends DataGridSource {
     "គោត្តនាម",
     "នាម",
     'ភេទ',
-    'មុខដំណែង',
+    'មុខតំណែង',
     'ការសិក្សា',
     'ជំនាញ',
     'គ្រឹះស្ថានសិក្សា',

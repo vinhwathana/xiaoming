@@ -66,7 +66,7 @@ class _EducationHistoryInfoTableState extends State<EducationHistoryInfoTable> {
   final List<String> headerTitles = [
     'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
-    'វត្គឬកំរិតសិក្សា',
+    'វត្គឬកម្រិតសិក្សា',
     'ថ្នាក់សិក្សា',
     'ជំនាញ',
     'សញ្ញាប័ត្រ',
@@ -103,7 +103,7 @@ class EducationHistoryInfoDataSource extends DataGridSource {
             value: formatDateTimeForView(e.endDate),
           ),
           DataGridCell<String>(
-            columnName: 'វត្គឬកំរិតសិក្សា',
+            columnName: 'វត្គឬកម្រិតសិក្សា',
             value: e.educationType.nameKh,
           ),
           DataGridCell<String>(

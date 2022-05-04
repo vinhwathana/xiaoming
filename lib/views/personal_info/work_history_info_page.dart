@@ -62,7 +62,7 @@ class _WorkHistoryInfoTableState extends State<WorkHistoryInfoTable> {
   );
 
   final List<String> headerTitles = [
-    "មុខតំណែងបច្ចុប្បន្ន",
+    "មុខតំណែង",
     'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
     'ក្រសួង',
@@ -89,7 +89,7 @@ class WorkHistoryInfoDataSource extends DataGridSource {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
-            columnName: 'មុខតំណែងបច្ចុប្បន្ន',
+            columnName: 'មុខតំណែង',
             value: e.position.title,
           ),
           DataGridCell<String>(

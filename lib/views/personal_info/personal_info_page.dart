@@ -87,7 +87,7 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+                        label: 'អាសយដ្ឋានបច្ចុប្បន្ន',
                         value: generateAddress(
                           province: user.currentAddressProvince,
                           commune: user.currentAddressCommune,
@@ -102,12 +102,17 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'អត្តលេខ',
+                        label: 'អ៊ីមែល',
+                        value: formatPhoneNumber(user.contactEmail),
+                      ),
+                      const Divider(),
+                      ExpansionRow(
+                        label: 'អត្តលេខមន្រ្តី',
                         value: KhmerDate.khmerNumber(user.officialId ?? ""),
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'ថ្ងៃបម្រើការងារ',
+                        label: 'កាលបរិច្ឆេទបម្រើការងារ',
                         value: formatDateTimeForView(user.internshipDate),
                       ),
                       const Divider(),

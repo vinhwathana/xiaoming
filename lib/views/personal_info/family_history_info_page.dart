@@ -76,7 +76,7 @@ class _FamilyHistoryInfoTableState extends State<FamilyHistoryInfoTable> {
     'ជនជាតិ',
     'សញ្ជាតិ',
     'មុខរបរ',
-    'អាស័យដ្ឋានបច្ចុប្បន្ន',
+    'អាសយដ្ឋានបច្ចុប្បន្ន',
     'ឯកសារភ្ជាប់',
   ];
 
@@ -136,7 +136,7 @@ class FamilyHistoryInfoDataSource extends DataGridSource {
           ),
           // Village , Commune , District , Province
           DataGridCell<String>(
-            columnName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+            columnName: 'អាសយដ្ឋានបច្ចុប្បន្ន',
             value: "${e.currentAddressVillage!.addressNameKh} "
                 "${e.currentAddressCommune!.addressNameKh} "
                 "${e.currentAddressDistrict!.addressNameKh} "

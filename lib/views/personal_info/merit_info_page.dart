@@ -65,7 +65,7 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
     'ប្រភេទមេដាយ',
     'ថ្នាក់',
     'កាលបរិច្ឆេទទទួល',
-    'សំគាល់',
+    'សម្គាល់',
     'ឯកសារភ្ជាប់',
   ];
 
@@ -104,7 +104,7 @@ class MeritInfoDataSource extends DataGridSource {
             value: formatDateTimeForView(e.recievedDate),
           ),
           DataGridCell<String>(
-            columnName: '	សំគាល់',
+            columnName: 'សម្គាល់',
             value: e.remark,
           ),
           DataGridCell<int>(
