@@ -54,6 +54,9 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: SliverSafeArea(
                   top: false,
+                  bottom: (GetPlatform.isIOS) ? false : true,
+                  left: false,
+                  right: false,
                   sliver: SliverAppBar(
                     title: Text(widget.title),
                     floating: true,

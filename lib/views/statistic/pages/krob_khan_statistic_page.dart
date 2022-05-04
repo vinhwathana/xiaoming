@@ -125,7 +125,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
             ),
             child: SfDataGrid(
               source: TwoColumnDataGridSource(
-                tableData: krobKhanData ??[],
+                tableData: krobKhanData ?? [],
                 firstColumnName: headerTitles[0],
                 secondColumnName: headerTitles[1],
               ),
@@ -172,7 +172,8 @@ class KrobKhanPeopleDataGrid extends StatefulWidget {
   State<KrobKhanPeopleDataGrid> createState() => _KrobKhanPeopleDataGridState();
 }
 
-class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
+class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final List<String> peopleHeaderTitles = [
@@ -190,6 +191,7 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getKrobKhanPeople(
         widget.org,
@@ -236,6 +238,9 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class KrobKhanPeopleDataGridSource extends DataGridSource {

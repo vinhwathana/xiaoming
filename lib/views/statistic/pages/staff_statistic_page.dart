@@ -178,7 +178,8 @@ class StaffPeopleDataGrid extends StatefulWidget {
   State<StaffPeopleDataGrid> createState() => _StaffPeopleDataGridState();
 }
 
-class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
+class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final List<String> peopleHeaderTitles = [
@@ -193,6 +194,7 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getStaffPeople(
         widget.org,
@@ -251,6 +253,9 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class StaffPeopleDataGridSource extends DataGridSource {

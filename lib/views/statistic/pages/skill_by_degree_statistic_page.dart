@@ -78,7 +78,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
         dept,
         degree,
       ),
-      onDataRetrieved: (context, data,connectionState) {
+      onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? certificateData = data;
         if (certificateData == null || certificateData.length == 0) {
           return const Center(child: Text("No Data Available"));
@@ -192,7 +192,8 @@ class SkillByDegreePeopleDataGrid extends StatefulWidget {
 }
 
 class _SkillByDegreePeopleDataGridState
-    extends State<SkillByDegreePeopleDataGrid> {
+    extends State<SkillByDegreePeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final autoCompleteService = AutocompleteService();
@@ -229,6 +230,7 @@ class _SkillByDegreePeopleDataGridState
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getSkillByDegreePeople(
         widget.org,
@@ -377,6 +379,9 @@ class _SkillByDegreePeopleDataGridState
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class SkillByDegreePeopleDataGridSource extends DataGridSource {

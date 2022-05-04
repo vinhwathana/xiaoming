@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/views/personal_info/additional_position_info_page.dart';
@@ -90,6 +91,9 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               sliver: SliverSafeArea(
                 top: false,
+                bottom: (GetPlatform.isIOS) ? false : true,
+                left: false,
+                right: false,
                 sliver: SliverAppBar(
                   title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
                   floating: true,

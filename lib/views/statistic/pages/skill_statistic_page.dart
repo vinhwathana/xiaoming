@@ -180,7 +180,8 @@ class SkillPeopleDataGrid extends StatefulWidget {
   State<SkillPeopleDataGrid> createState() => _SkillPeopleDataGridState();
 }
 
-class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
+class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final autoCompleteService = AutocompleteService();
@@ -217,6 +218,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getSkillPeople(
         widget.org,
@@ -520,6 +522,9 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class SkillPeopleDataGridSource extends DataGridSource {

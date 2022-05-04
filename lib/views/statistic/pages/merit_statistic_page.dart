@@ -170,7 +170,8 @@ class MeritPeopleDataGrid extends StatefulWidget {
   State<MeritPeopleDataGrid> createState() => _MeritPeopleDataGridState();
 }
 
-class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
+class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final List<String> peopleHeaderTitles = [
@@ -189,6 +190,7 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getMeritPeople(
         widget.org,
@@ -235,6 +237,9 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class MeritPeopleDataGridSource extends DataGridSource {

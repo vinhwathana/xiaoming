@@ -49,16 +49,6 @@ class _PeopleStatisticDataGridState extends State<PeopleStatisticDataGrid> {
               totalAmount: widget.totalAmount ?? 0,
               selectedPage: widget.selectedPage,
               onChange: widget.onChangePage,
-              //     (index) {
-              //   int tempStart = start;
-              //   tempStart = rowsPerPage * (index);
-              //   setState(() {
-              //     if (tempStart >= 0) {
-              //       start = tempStart;
-              //     }
-              //     selectedPage = index;
-              //   });
-              // },
             ),
           ),
           Visibility(

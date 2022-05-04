@@ -167,7 +167,8 @@ class CertificatePeopleDataGrid extends StatefulWidget {
       _CertificatePeopleDataGridState();
 }
 
-class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
+class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid>
+    with AutomaticKeepAliveClientMixin {
   // bool isLoading = false;
   final statService = StatisticService();
   final List<String> peopleHeaderTitles = [
@@ -199,6 +200,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CustomFutureBuilder<StatisticPeopleResponse?>(
       future: statService.getCertificatePeople(
         widget.org,
@@ -262,6 +264,9 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class CertificatePeopleDataGridSource extends DataGridSource {
