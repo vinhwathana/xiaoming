@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       key: widget.key,
-      title: 'MPTC HR App Training',
+      title: 'MPTC HR App Dev',
       locale: LocalizationService.locale,
       fallbackLocale: LocalizationService.fallbackLocale,
       translations: LocalizationService(),

@@ -135,7 +135,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
                   );
                 },
               ),
-              columnWidthMode: ColumnWidthMode.auto,
+              columnWidthMode: ColumnWidthMode.fill,
               allowSorting: true,
               sortingGestureType: SortingGestureType.tap,
             ),
