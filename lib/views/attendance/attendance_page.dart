@@ -16,10 +16,10 @@ class AttendancePage extends StatefulWidget {
 class _AttendancePageState extends State<AttendancePage> {
   final attendanceService = AttendanceService();
 
-  final now = DateTime.now();
+  // final now = DateTime.now();
 
-  // final now = DateTime(2022, 4, 26);
-  late DateTime start = validateDate(now.subtract(const Duration(days: 1)));
+  final now = DateTime(2022, 4, 26);
+  late DateTime start = validateDate(now.subtract(const Duration(days: 8)));
   late DateTime end = validateDate(now.subtract(const Duration(days: 1)));
 
   DateTime validateDate(DateTime date) {
