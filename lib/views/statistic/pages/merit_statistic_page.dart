@@ -6,6 +6,7 @@ import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/statistic/utils/custom_data_grid_filter.dart';
 import 'package:xiaoming/views/statistic/utils/people_statistic_data_grid.dart';
 import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
@@ -38,7 +39,7 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       textStyle: const TextStyle(
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: khmerFont,
       ),
     );
     super.initState();
@@ -83,12 +84,12 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
             title: ChartTitle(
               text: widget.chartTitle,
               textStyle: const TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             primaryXAxis: CategoryAxis(
               labelStyle: const TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             primaryYAxis: NumericAxis(
@@ -277,7 +278,7 @@ class MeritPeopleDataGridSource extends DataGridSource {
               (dataGridCell.value == null) ? "" : dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

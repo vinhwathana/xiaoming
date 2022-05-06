@@ -116,7 +116,8 @@ class _FilterDialogState extends State<FilterDialog>
                                 GestureDetector(
                                   onTap: () {
                                     controller.updateOrgRegion(
-                                        controller.radioValues[index]);
+                                      controller.radioValues[index],
+                                    );
                                   },
                                   child: Text(controller.radioText[index]),
                                 ),

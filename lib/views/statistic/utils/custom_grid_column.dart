@@ -20,21 +20,3 @@ class CustomGridColumn extends GridColumn {
           visible: true,
         );
 }
-// return GridColumn(
-//   columnName: headerTitles[index],
-//   // columnWidthMode: ColumnWidthMode.auto,
-//   label: Container(
-//     padding: const EdgeInsets.all(8.0),
-//     alignment: Alignment.centerLeft,
-//     child: Text(
-//       headerTitles[index],
-//       style: const TextStyle(
-//         color: Colors.black,
-//         fontFamily: "KhmerOSBattambong",
-//         fontWeight: FontWeight.bold,
-//       ),
-//       overflow: TextOverflow.ellipsis,
-//     ),
-//   ),
-//   allowSorting: true,
-// );

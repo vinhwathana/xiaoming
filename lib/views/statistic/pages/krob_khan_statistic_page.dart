@@ -6,6 +6,7 @@ import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/statistic/utils/custom_data_grid_filter.dart';
 import 'package:xiaoming/views/statistic/utils/custom_grid_column.dart';
 import 'package:xiaoming/views/statistic/utils/people_statistic_data_grid.dart';
@@ -79,7 +80,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
             title: ChartTitle(
               text: widget.chartTitle,
               textStyle: const TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             legend: Legend(
@@ -91,7 +92,7 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
               alignment: ChartAlignment.center,
               textStyle: const TextStyle(
                 fontSize: 18,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             tooltipBehavior: _tooltipBehavior,
@@ -277,7 +278,7 @@ class KrobKhanPeopleDataGridSource extends DataGridSource {
               (dataGridCell.value == null) ? "" : dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

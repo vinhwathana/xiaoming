@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: 'KhmerMPTC',
         textTheme: const TextTheme(
           bodyText1: TextStyle(fontSize: 16),
         ),

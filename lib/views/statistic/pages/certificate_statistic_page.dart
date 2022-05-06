@@ -44,7 +44,7 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       textStyle: const TextStyle(
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: khmerFont,
       ),
     );
     super.initState();
@@ -305,7 +305,7 @@ class CertificatePeopleDataGridSource extends DataGridSource {
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

@@ -19,15 +19,3 @@ class CustomBarSeries<T,D> extends BarSeries {
           animationDuration: 500,
         );
 }
-// return BarSeries(
-// name: widget.chartTitle,
-// dataSource: certificateData,
-// xValueMapper: (datum, index) => datum.name,
-// yValueMapper: (datum, index) => datum.amount,
-// pointColorMapper: (datum, index) => datum.color,
-// dataLabelSettings: const DataLabelSettings(
-// isVisible: true,
-// ),
-// enableTooltip: true,
-// animationDuration: 500,
-// );

@@ -45,7 +45,7 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       textStyle: const TextStyle(
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: khmerFont,
       ),
     );
 
@@ -420,7 +420,7 @@ class SkillByDegreePeopleDataGridSource extends DataGridSource {
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

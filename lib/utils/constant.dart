@@ -83,13 +83,15 @@ final dummyFamilyInfo = FamilyInfo(
 );
 
 const String allKeyword = "(ទាំងអស់)";
+const String khmerFont = "KhmerMPTC";
+const String khmerFontBold = "KhmerMPTC";
 const TextStyle fontKhmerTextStyle = TextStyle(
-  fontFamily: "KhmerOSBattambong",
+  fontFamily: khmerFont,
 );
 
 const TextStyle columnHeaderTextStyle = TextStyle(
   color: Colors.black,
-  fontFamily: "KhmerOSBattambong",
+  fontFamily: khmerFont,
   fontWeight: FontWeight.bold,
 );
 
@@ -147,7 +149,7 @@ Future<void> storeToken(String token) async {
   return await storage.write(key: tokenKeyName, value: token);
 }
 
-final formatNameOfDate = DateFormat("EEEE","en");
+final formatNameOfDate = DateFormat("EEEE", "en");
 
 String formatDateTimeForView(DateTime? date) {
   if (date == null) {

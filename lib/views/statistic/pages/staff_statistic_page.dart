@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:xiaoming/components/custom_future_builder.dart';
-import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/data_grid_pager.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/models/statistic/number/staff_statistic.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
 import 'package:xiaoming/services/statistic_service.dart';
+import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/statistic/utils/custom_data_grid_filter.dart';
-import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/views/statistic/utils/custom_pie_series.dart';
+import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
 
 import '../utils/custom_grid_column.dart';
 
@@ -43,7 +44,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       textStyle: const TextStyle(
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: khmerFont,
       ),
     );
     super.initState();
@@ -84,7 +85,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
               text: widget.chartTitle,
               textStyle: const TextStyle(
                 fontSize: 24,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             legend: Legend(
@@ -96,7 +97,7 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
               alignment: ChartAlignment.center,
               textStyle: const TextStyle(
                 fontSize: 18,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             tooltipBehavior: _tooltipBehavior,
@@ -289,7 +290,7 @@ class StaffPeopleDataGridSource extends DataGridSource {
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),
@@ -367,7 +368,7 @@ class StaffTableDataSource extends DataGridSource {
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

@@ -45,7 +45,7 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       textStyle: const TextStyle(
-        fontFamily: 'KhmerOSBattambong',
+        fontFamily: khmerFont,
       ),
     );
     super.initState();
@@ -90,12 +90,12 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
             title: ChartTitle(
               text: widget.chartTitle,
               textStyle: const TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             primaryXAxis: CategoryAxis(
               labelStyle: const TextStyle(
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
               ),
             ),
             primaryYAxis: NumericAxis(
@@ -408,7 +408,7 @@ class SkillPeopleDataGridSource extends DataGridSource {
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
+                fontFamily: khmerFont,
                 height: 1.5,
               ),
             ),

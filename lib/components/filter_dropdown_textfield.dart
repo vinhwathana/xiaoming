@@ -144,5 +144,3 @@ class _FilterDropdownTextFieldState extends State<FilterDropdownTextField> {
     );
   }
 }
-
-

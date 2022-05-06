@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class CustomDataGridWidget extends StatelessWidget {
   const CustomDataGridWidget({
@@ -67,7 +68,7 @@ class CustomDataGridWidget extends StatelessWidget {
                           headerTitles[index],
                           style: const TextStyle(
                             color: Colors.black,
-                            fontFamily: "KhmerOSBattambong",
+                            fontFamily: khmerFont,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
