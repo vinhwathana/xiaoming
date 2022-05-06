@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
@@ -11,13 +11,12 @@ import 'package:xiaoming/models/statistic/people/statistic_people_response.dart'
 import 'package:xiaoming/models/utils/list_value.dart';
 import 'package:xiaoming/services/autocomplete_service.dart';
 import 'package:xiaoming/services/statistic_service.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/statistic/utils/custom_bar_series.dart';
 import 'package:xiaoming/views/statistic/utils/custom_data_grid_filter.dart';
+import 'package:xiaoming/views/statistic/utils/custom_grid_column.dart';
 import 'package:xiaoming/views/statistic/utils/people_statistic_data_grid.dart';
 import 'package:xiaoming/views/statistic/utils/statistics_page_wrapper.dart';
-import 'package:xiaoming/views/statistic/utils/custom_bar_series.dart';
-import 'package:xiaoming/views/statistic/utils/custom_grid_column.dart';
 
 class SkillStatisticPage extends StatefulWidget {
   const SkillStatisticPage({
