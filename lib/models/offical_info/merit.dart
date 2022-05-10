@@ -12,12 +12,12 @@ class Merit {
     required this.attachmentList,
   });
 
-  int id;
-  ListValue meritType;
-  ListValue medalType;
-  ListValue rank;
-  DateTime recievedDate;
-  String remark;
+  int? id;
+  ListValue? meritType;
+  ListValue? medalType;
+  ListValue? rank;
+  DateTime? recievedDate;
+  String? remark;
   List<Attachment?>? attachmentList;
 
   factory Merit.fromMap(Map<String, dynamic> json) => Merit(
@@ -33,11 +33,11 @@ class Merit {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "meritType": meritType.toMap(),
-        "medalType": medalType.toMap(),
-        "rank": rank.toMap(),
+        "meritType": meritType?.toMap(),
+        "medalType": medalType?.toMap(),
+        "rank": rank?.toMap(),
         "recievedDate":
-            "${recievedDate.year.toString().padLeft(4, '0')}-${recievedDate.month.toString().padLeft(2, '0')}-${recievedDate.day.toString().padLeft(2, '0')}",
+            "${recievedDate?.year.toString().padLeft(4, '0')}-${recievedDate?.month.toString().padLeft(2, '0')}-${recievedDate?.day.toString().padLeft(2, '0')}",
         "remark": remark,
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),

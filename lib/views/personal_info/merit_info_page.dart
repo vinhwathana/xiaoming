@@ -89,15 +89,15 @@ class MeritInfoDataSource extends DataGridSource {
         cells: [
           DataGridCell<String>(
             columnName: 'ប្រភេទគឿងឥស្សរិយយស្ស',
-            value: e.meritType.nameKh,
+            value: e.meritType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ប្រភេទមេដាយ',
-            value: e.medalType.nameKh,
+            value: e.medalType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ថ្នាក់',
-            value: e.rank.nameKh,
+            value: e.rank?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'កាលបរិច្ឆេទទទួល',

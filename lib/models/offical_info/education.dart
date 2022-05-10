@@ -20,21 +20,21 @@ class Education {
     required this.remark,
   });
 
-  int id;
-  DateTime startDate;
-  bool isStartDateYear;
-  DateTime endDate;
-  bool isEndDateYear;
-  ListValue educationType;
-  ListValue educationLevel;
-  ListValue certificationType;
-  ListValue specialize;
-  String schoolName;
-  bool isAbroad;
-  ListValue country;
-  String city;
+  int? id;
+  DateTime? startDate;
+  bool? isStartDateYear;
+  DateTime? endDate;
+  bool? isEndDateYear;
+  ListValue? educationType;
+  ListValue? educationLevel;
+  ListValue? certificationType;
+  ListValue? specialize;
+  String? schoolName;
+  bool? isAbroad;
+  ListValue? country;
+  String? city;
   List<Attachment?>? attachmentList;
-  String remark;
+  String? remark;
 
   factory Education.fromMap(Map<String, dynamic> json) => Education(
         id: json["id"],
@@ -58,18 +58,18 @@ class Education {
   Map<String, dynamic> toMap() => {
         "id": id,
         "startDate":
-            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+            "${startDate?.year.toString().padLeft(4, '0')}-${startDate?.month.toString().padLeft(2, '0')}-${startDate?.day.toString().padLeft(2, '0')}",
         "isStartDateYear": isStartDateYear,
         "endDate":
-            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+            "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
         "isEndDateYear": isEndDateYear,
-        "educationType": educationType.toMap(),
-        "educationLevel": educationLevel.toMap(),
-        "certificationType": certificationType.toMap(),
-        "specialize": specialize.toMap(),
+        "educationType": educationType?.toMap(),
+        "educationLevel": educationLevel?.toMap(),
+        "certificationType": certificationType?.toMap(),
+        "specialize": specialize?.toMap(),
         "schoolName": schoolName,
         "isAbroad": isAbroad,
-        "country": country.toMap(),
+        "country": country?.toMap(),
         "city": city,
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),

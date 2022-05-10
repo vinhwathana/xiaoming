@@ -91,23 +91,23 @@ class LanguageDataSource extends DataGridSource {
         cells: [
           DataGridCell<String>(
             columnName: 'ភាសា',
-            value: e.languageName.nameKh,
+            value: e.languageName?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'អាន',
-            value: e.reading.nameKh,
+            value: e.reading?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សរសេរ',
-            value: e.reading.nameKh,
+            value: e.reading?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សរសេរ',
-            value: e.writing.nameKh,
+            value: e.writing?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: '	និយាយ',
-            value: e.listening.nameKh,
+            value: e.listening?.nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',

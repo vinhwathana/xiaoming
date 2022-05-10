@@ -21,18 +21,18 @@ class WorkHistory {
     required this.attachmentList,
   });
 
-  int id;
-  Ministry ministry;
-  String startDate;
-  bool isStartDateYear;
+  int? id;
+  Ministry? ministry;
+  String? startDate;
+  bool? isStartDateYear;
   String? endDate;
-  bool isEndDateYear;
-  bool ongoing;
-  List<Organization> organization;
-  ListValue workStatus;
-  Position position;
+  bool? isEndDateYear;
+  bool? ongoing;
+  List<Organization>? organization;
+  ListValue? workStatus;
+  Position? position;
   dynamic positionEqual;
-  String remark;
+  String? remark;
   List<Attachment?>? attachmentList;
 
   factory WorkHistory.fromMap(Map<String, dynamic> json) => WorkHistory(
@@ -55,15 +55,16 @@ class WorkHistory {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "ministry": ministry.toMap(),
+        "ministry": ministry?.toMap(),
         "startDate": startDate,
         "isStartDateYear": isStartDateYear,
         "endDate": endDate,
         "isEndDateYear": isEndDateYear,
         "ongoing": ongoing,
-        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
-        "workStatus": workStatus.toMap(),
-        "position": position.toMap(),
+        "organization":
+            List<dynamic>.from(organization?.map((x) => x.toMap()) ?? []),
+        "workStatus": workStatus?.toMap(),
+        "position": position?.toMap(),
         "positionEqual": positionEqual,
         "remark": remark,
         "attachmentList":

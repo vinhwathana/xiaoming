@@ -90,7 +90,7 @@ class WorkHistoryInfoDataSource extends DataGridSource {
         cells: [
           DataGridCell<String>(
             columnName: 'មុខតំណែង',
-            value: e.position.title,
+            value: e.position?.title ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
@@ -102,11 +102,11 @@ class WorkHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',
-            value: e.ministry.nameKh,
+            value: e.ministry?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'អង្គភាព',
-            value: e.organization[0].nameKh,
+            value: e.organization?[0].nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',

@@ -104,19 +104,19 @@ class EducationHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'វត្គឬកម្រិតសិក្សា',
-            value: e.educationType.nameKh,
+            value: e.educationType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ថ្នាក់សិក្សា',
-            value: e.educationLevel.nameKh,
+            value: e.educationLevel?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ជំនាញ',
-            value: e.specialize.nameKh,
+            value: e.specialize?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សញ្ញាប័ត្រ',
-            value: e.certificationType.nameKh,
+            value: e.certificationType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'គ្រឹះស្ថានសិក្សា',
@@ -128,7 +128,7 @@ class EducationHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ប្រទេស',
-            value: e.country.nameKh,
+            value: e.country?.nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',

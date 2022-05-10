@@ -56,25 +56,25 @@ final dummyFamilyInfo = FamilyInfo(
     nameKh: "ពាណិជ្ជករ",
     nameEn: "",
   ),
-  currentAddressProvince: const Address(
+  currentAddressProvince: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressDistrict: const Address(
+  currentAddressDistrict: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressCommune: const Address(
+  currentAddressCommune: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Spe Province",
   ),
-  currentAddressVillage: const Address(
+  currentAddressVillage: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",

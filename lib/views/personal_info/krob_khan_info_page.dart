@@ -89,7 +89,7 @@ class KrobKhanInfoDataSource extends DataGridSource {
           DataGridCell<String>(
             columnName: 'កាំប្រាក់',
             value:
-                "${e.krobKhanType.nameKh}. ${e.rank.nameKh}. ${e.level.nameKh}.",
+                "${e.krobKhanType?.nameKh ?? ""}. ${e.rank?.nameKh ?? ""}. ${e.level?.nameKh ?? ""}.",
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
@@ -101,11 +101,11 @@ class KrobKhanInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឡើងតាម',
-            value: e.upgradedBy.nameKh,
+            value: e.upgradedBy?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: '	ប្រភេទ',
-            value: e.officialType.nameKh,
+            value: e.officialType?.nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',

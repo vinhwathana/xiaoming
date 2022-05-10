@@ -104,11 +104,11 @@ class AdditionalPositionInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',
-            value: e.ministry.nameKh,
+            value: e.ministry?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'អង្គភាព',
-            value: e.organization[0].nameKh,
+            value: e.organization?[0].nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',

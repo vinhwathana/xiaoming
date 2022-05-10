@@ -25,12 +25,12 @@ class ListValue {
 
   String toJson() => json.encode(toMap());
 
-  factory ListValue.fromMap(Map<String, dynamic> json) => ListValue(
-        parentLov: json["parentLov"],
-        lovCode: json["lovCode"],
-        lovType: json["lovType"],
-        nameKh: json["nameKH"],
-        nameEn: json["nameEN"],
+  factory ListValue.fromMap(Map<String, dynamic>? json) => ListValue(
+        parentLov: json?["parentLov"],
+        lovCode: json?["lovCode"],
+        lovType: json?["lovType"],
+        nameKh: json?["nameKH"],
+        nameEn: json?["nameEN"],
       );
 
   Map<String, dynamic> toMap() {

@@ -15,15 +15,15 @@ class KrobKhan {
     required this.attachmentList,
   });
 
-  int id;
-  ListValue officialType;
-  DateTime startDate;
-  DateTime endDate;
-  bool ongoing;
-  ListValue krobKhanType;
-  ListValue level;
-  ListValue rank;
-  ListValue upgradedBy;
+  int? id;
+  ListValue? officialType;
+  DateTime? startDate;
+  DateTime? endDate;
+  bool? ongoing;
+  ListValue? krobKhanType;
+  ListValue? level;
+  ListValue? rank;
+  ListValue? upgradedBy;
   List<Attachment?>? attachmentList;
 
   factory KrobKhan.fromMap(Map<String, dynamic> json) => KrobKhan(
@@ -42,16 +42,16 @@ class KrobKhan {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "officialType": officialType.toMap(),
+        "officialType": officialType?.toMap(),
         "startDate":
-            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+            "${startDate?.year.toString().padLeft(4, '0')}-${startDate?.month.toString().padLeft(2, '0')}-${startDate?.day.toString().padLeft(2, '0')}",
         "endDate":
-            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+            "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
         "ongoing": ongoing,
-        "krobKhanType": krobKhanType.toMap(),
-        "level": level.toMap(),
-        "rank": rank.toMap(),
-        "upgradedBy": upgradedBy.toMap(),
+        "krobKhanType": krobKhanType?.toMap(),
+        "level": level?.toMap(),
+        "rank": rank?.toMap(),
+        "upgradedBy": upgradedBy?.toMap(),
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };

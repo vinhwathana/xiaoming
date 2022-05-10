@@ -22,13 +22,13 @@ class Attachment {
 
   String toJson() => json.encode(toMap());
 
-  factory Attachment.fromMap(Map<String, dynamic> json) => Attachment(
-        id: json["id"],
-        attachmentType: json["attachmentType"],
-        entityId: json["entityId"],
-        fileName: json["fileName"],
-        extension: json["extension"],
-        filePath: json["filePath"],
+  factory Attachment.fromMap(Map<String, dynamic>? json) => Attachment(
+        id: json?["id"],
+        attachmentType: json?["attachmentType"],
+        entityId: json?["entityId"],
+        fileName: json?["fileName"],
+        extension: json?["extension"],
+        filePath: json?["filePath"],
       );
 
   Map<String, dynamic> toMap() => {

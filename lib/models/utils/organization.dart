@@ -16,11 +16,11 @@ class Organization {
   int? id;
   Organization? parent;
   Ministry? ministry;
-  ListValue organizationType;
-  ListValue region;
-  String nameKh;
-  String nameEn;
-  String description;
+  ListValue? organizationType;
+  ListValue? region;
+  String? nameKh;
+  String? nameEn;
+  String? description;
 
   factory Organization.fromMap(Map<String, dynamic> json) => Organization(
         id: json["id"],
@@ -39,8 +39,8 @@ class Organization {
         "id": id,
         "parent": parent == null ? null : parent!.toMap(),
         "ministry": ministry,
-        "organizationType": organizationType.toMap(),
-        "region": region.toMap(),
+        "organizationType": organizationType?.toMap(),
+        "region": region?.toMap(),
         "nameKH": nameKh,
         "nameEN": nameEn,
         "description": description,
