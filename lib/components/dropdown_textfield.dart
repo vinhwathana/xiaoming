@@ -113,6 +113,7 @@ class _DropDownTextFieldState extends State<DropDownTextField> {
           height: 1,
         ),
       ),
+
       value: widget.currentSelectedValue,
       items: widget.listString.map((String value) {
         return DropdownMenuItem<String>(
