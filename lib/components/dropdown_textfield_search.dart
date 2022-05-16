@@ -53,7 +53,7 @@ class _DropdownTextFieldSearchState extends State<DropdownTextFieldSearch> {
         },
         value: widget.currentSelectedValue,
         selectedValueWidgetFn: (item) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             child: Text(
               item,

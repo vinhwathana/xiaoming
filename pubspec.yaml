@@ -1,9 +1,7 @@
 name: xiaoming
 description: A new Flutter application.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -32,8 +30,8 @@ dependencies:
   intl: ^0.17.0
   bloc: ^8.0.2
   http: ^0.13.4
-  geolocator: ^8.0.1
-  qr_code_scanner: ^0.7.0
+  #  geolocator: ^8.0.1
+  #  qr_code_scanner: ^0.7.0
   permission_handler: ^9.2.0
   get: ^4.3.8
   location: ^4.3.0
