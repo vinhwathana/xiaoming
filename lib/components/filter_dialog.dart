@@ -12,7 +12,12 @@ class FilterDialog extends StatefulWidget {
     this.showDegreeField = false,
   }) : super(key: key);
 
-  final Function(String org, String dept, String degree) onConfirm;
+  final Function(
+    String org,
+    String dept,
+    String degree,
+    String region,
+  ) onConfirm;
   final bool showDegreeField;
 
   @override
@@ -60,7 +65,16 @@ class _FilterDialogState extends State<FilterDialog>
     final selectedOrg = filterDialogController.getSelectedOrganizationId();
     final selectedDept = filterDialogController.getSelectedDepartmentId();
     final selectedDegree = filterDialogController.getSelectedDegreeKey();
-    widget.onConfirm(selectedOrg ?? "00", selectedDept ?? "00", selectedDegree);
+    final selectedRegion = filterDialogController.selectedOrgRegion;
+
+
+
+    widget.onConfirm(
+      selectedOrg ?? "00",
+      selectedDept ?? "00",
+      selectedDegree,
+      selectedRegion,
+    );
   }
 
   @override
@@ -143,9 +157,7 @@ class _FilterDialogState extends State<FilterDialog>
                         },
                         controller: organizationTextCon,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       FilterDropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "នាយកដ្ឋាន",
@@ -159,9 +171,7 @@ class _FilterDialogState extends State<FilterDialog>
                         },
                         controller: departmentTextCon,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       if (widget.showDegreeField)
                         Column(
                           children: [

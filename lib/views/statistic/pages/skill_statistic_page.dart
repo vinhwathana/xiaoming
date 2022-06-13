@@ -56,22 +56,22 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
         return TabBarView(
           controller: controller,
           children: [
-            skillChart(org, dept),
-            skillDataGrid(org, dept),
-            skillPeopleDataGrid(org, dept),
+            skillChart(org, dept, region),
+            skillDataGrid(org, dept, region),
+            skillPeopleDataGrid(org, dept, region),
           ],
         );
       },
     );
   }
 
-  Widget skillChart(String org, String dept) {
+  Widget skillChart(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getSkills(org, dept),
+      future: statService.getSkills(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? skillData = data;
         if (skillData == null || skillData.length == 0) {
@@ -115,9 +115,9 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
     );
   }
 
-  Widget skillDataGrid(String org, String dept) {
+  Widget skillDataGrid(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getSkills(org, dept),
+      future: statService.getSkills(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? skillData = data;
 
@@ -158,8 +158,8 @@ class _SkillStatisticPageState extends State<SkillStatisticPage>
     );
   }
 
-  Widget skillPeopleDataGrid(String org, String dept) {
-    return SkillPeopleDataGrid(org: org, dept: dept);
+  Widget skillPeopleDataGrid(String org, String dept, String region) {
+    return SkillPeopleDataGrid(org: org, dept: dept, region: region);
   }
 
   @override
@@ -171,10 +171,12 @@ class SkillPeopleDataGrid extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String region;
 
   @override
   State<SkillPeopleDataGrid> createState() => _SkillPeopleDataGridState();
@@ -224,6 +226,7 @@ class _SkillPeopleDataGridState extends State<SkillPeopleDataGrid>
         widget.org,
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",

@@ -17,7 +17,12 @@ class StatisticsPageWrapper extends StatefulWidget {
   final String title;
   final bool showDegree;
   final Widget Function(
-      TabController controller, String org, String dept, String degree) builder;
+    TabController controller,
+    String org,
+    String dept,
+    String degree,
+    String region,
+  ) builder;
 
   @override
   _StatisticsPageWrapperState createState() => _StatisticsPageWrapperState();
@@ -25,10 +30,11 @@ class StatisticsPageWrapper extends StatefulWidget {
 
 class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     with SingleTickerProviderStateMixin {
-  final filterDialogController = Get.put(FilterDialogController());
+  final filterDialogController = Get.find<FilterDialogController>();
   String dept = "00";
   String org = "00";
   String degree = "P";
+  String region = "00";
   late final tabController = TabController(
     length: tabs.length,
     vsync: this,
@@ -39,6 +45,26 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     const Tab(text: "តារាងព័ត៌មាន"),
     const Tab(text: "តារាងព័ត៌មានលម្អិត"),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    setFilterData();
+  }
+
+  void setFilterData() {
+    setState(() {
+      if (filterDialogController.getSelectedDepartmentId() != null) {
+        dept = filterDialogController.getSelectedDepartmentId()!;
+      }
+      if (filterDialogController.getSelectedOrganizationId() != null) {
+        org = filterDialogController.getSelectedOrganizationId()!;
+      }
+      if (filterDialogController.getSelectedDepartmentId() != null) {
+        region = filterDialogController.selectedOrgRegion;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +120,7 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
             data: SfDataGridThemeData(
               sortIconColor: Colors.black,
             ),
-            child: widget.builder(tabController, org, dept, degree),
+            child: widget.builder(tabController, org, dept, degree, region),
           ),
         ),
       ),
@@ -105,11 +131,12 @@ class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     Get.dialog(
       FilterDialog(
         showDegreeField: widget.showDegree,
-        onConfirm: (org, dept, degree) {
+        onConfirm: (org, dept, degree, region) {
           setState(() {
             this.org = org;
             this.dept = dept;
             this.degree = degree;
+            this.region = region;
           });
         },
       ),

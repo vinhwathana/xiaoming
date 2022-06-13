@@ -11,7 +11,6 @@ class FilterDialogController extends GetxController {
   late String selectedDegrees = degrees.keys.first;
   String? selectedOrganization;
   String? selectedDepartment;
-
   String selectedOrgRegion = "00";
   RadioValue selectedRadioValue = RadioValue.all;
   final List<RadioValue> radioValues = [
@@ -81,13 +80,12 @@ class FilterDialogController extends GetxController {
 
   void updateSelectedOrganization(String selected) {
     selectedOrganization = selected;
-    final int id = organizations
-        .where((e) => e.displayText == selected)
-        .toList()[0]
-        .id;
+    final int id =
+        organizations.where((e) => e.displayText == selected).toList()[0].id;
     getDepartments(id.toString());
     update();
   }
+
   void updateSelectedDepartment(String selected) {
     selectedDepartment = selected;
     // final int id = departments

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
 import 'package:xiaoming/views/cells_rows/card_tile.dart';
 import 'package:xiaoming/views/statistic/pages/certificate_statistic_page.dart';
@@ -20,13 +19,15 @@ class ListStatisticPage extends StatefulWidget {
 class _ListStatisticPageState extends State<ListStatisticPage>
     with SingleTickerProviderStateMixin {
   final filterDialogController = Get.put(FilterDialogController());
-  String dept = "00";
-  String org = "00";
-  String degree = "P";
-  late final tabController = TabController(
-    length: tabs.length,
-    vsync: this,
-  );
+
+  // String dept = "00";
+  // String org = "00";
+  // String degree = "P";
+  // String region = "00";
+  // late final tabController = TabController(
+  //   length: tabs.length,
+  //   vsync: this,
+  // );
 
   final statNames = [
     "កម្រិតសញ្ញាបត្រ",
@@ -129,20 +130,21 @@ class _ListStatisticPageState extends State<ListStatisticPage>
     );
   }
 
-  void openFilterDialog() {
-    Get.dialog(
-      FilterDialog(
-        showDegreeField: tabController.index == 2,
-        onConfirm: (org, dept, degree) {
-          setState(() {
-            this.org = org;
-            this.dept = dept;
-            this.degree = degree;
-          });
-        },
-      ),
-      useSafeArea: true,
-      transitionCurve: Curves.ease,
-    );
-  }
+// void openFilterDialog() {
+//   Get.dialog(
+//     FilterDialog(
+//       showDegreeField: tabController.index == 2,
+//       onConfirm: (org, dept, degree,region) {
+//         setState(() {
+//           this.org = org;
+//           this.dept = dept;
+//           this.degree = degree;
+//           this.region = region;
+//         });
+//       },
+//     ),
+//     useSafeArea: true,
+//     transitionCurve: Curves.ease,
+//   );
+// }
 }

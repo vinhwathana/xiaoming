@@ -51,22 +51,22 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
         return TabBarView(
           controller: controller,
           children: [
-            krobKhanChart(org, dept),
-            krobKhanDataGrid(org, dept),
-            krobKhanPeopleDataGrid(org, dept),
+            krobKhanChart(org, dept, region),
+            krobKhanDataGrid(org, dept, region),
+            krobKhanPeopleDataGrid(org, dept, region),
           ],
         );
       },
     );
   }
 
-  Widget krobKhanChart(String org, String dept) {
+  Widget krobKhanChart(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getKrobKhans(org, dept),
+      future: statService.getKrobKhans(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final krobKhanData = data;
         if (krobKhanData == null || krobKhanData.isEmpty) {
@@ -108,9 +108,9 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
     );
   }
 
-  Widget krobKhanDataGrid(String org, String dept) {
+  Widget krobKhanDataGrid(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getKrobKhans(org, dept),
+      future: statService.getKrobKhans(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final krobKhanData = data;
         // if (krobKhanData == null || krobKhanData.isEmpty) {
@@ -151,8 +151,12 @@ class _KrobKhanStatisticPageState extends State<KrobKhanStatisticPage>
     );
   }
 
-  Widget krobKhanPeopleDataGrid(String org, String dept) {
-    return KrobKhanPeopleDataGrid(org: org, dept: dept);
+  Widget krobKhanPeopleDataGrid(String org, String dept, String region) {
+    return KrobKhanPeopleDataGrid(
+      org: org,
+      dept: dept,
+      region: region,
+    );
   }
 
   @override
@@ -164,10 +168,12 @@ class KrobKhanPeopleDataGrid extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String region;
 
   @override
   State<KrobKhanPeopleDataGrid> createState() => _KrobKhanPeopleDataGridState();
@@ -197,6 +203,7 @@ class _KrobKhanPeopleDataGridState extends State<KrobKhanPeopleDataGrid>
       future: statService.getKrobKhanPeople(
         widget.org,
         widget.dept,
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",

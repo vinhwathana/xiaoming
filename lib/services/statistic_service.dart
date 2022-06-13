@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -109,6 +108,7 @@ class StatisticService {
     String org,
     String dept,
     String degree,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -119,13 +119,20 @@ class StatisticService {
       return null;
     }
 
+    // print("""
+    // String org $org,
+    // String dept $dept,
+    // String degree $degree,
+    // """);
+
     try {
       final uri = Uri.parse(
         "${api_url.statSkillByDegree}?"
         "MinistryCode=$ministryCode"
         "&Org=$org"
         "&Dept=$dept"
-        "&degree=$degree",
+        "&degree=$degree"
+        "&region=$region",
       );
       final response = await http.get(
         uri,
@@ -134,6 +141,8 @@ class StatisticService {
               "Bearer ${authController.accessToken!}",
         },
       );
+
+      // log(response.body);
 
       if (response.statusCode == 200) {
         final skillByDegreeStatistic =
@@ -160,6 +169,7 @@ class StatisticService {
   Future<List<ChartModel>?> getSkills(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -175,7 +185,8 @@ class StatisticService {
         "${api_url.statSkills}?"
         "MinistryCode=$ministryCode"
         "&Org=$org"
-        "&Dept=$dept",
+        "&Dept=$dept"
+        "&region=$region",
       );
       final response = await http.get(
         uri,
@@ -209,6 +220,7 @@ class StatisticService {
   Future<List<ChartModel>?> getCertificates(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -221,7 +233,15 @@ class StatisticService {
 
     try {
       final uri = Uri.parse(
-          "${api_url.statCertificate}?MinistryCode=$ministryCode&Org=$org&Dept=$dept");
+        "${api_url.statCertificate}"
+        "?MinistryCode=$ministryCode"
+        "&Org=$org"
+        "&Dept=$dept"
+        "&region=$region"
+        "&length="
+        "&search"
+        "&start=",
+      );
       final response = await http.get(
         uri,
         headers: {
@@ -263,6 +283,7 @@ class StatisticService {
   Future<List<ChartModel>?> getStaffCount(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -278,7 +299,8 @@ class StatisticService {
         "${api_url.statStaff}?"
         "MinistryCode=$ministryCode"
         "&Org=$org"
-        "&Dept=$dept",
+        "&Dept=$dept"
+        "&region=$region",
       );
       final response = await http.get(
         uri,
@@ -309,6 +331,7 @@ class StatisticService {
   Future<StaffStatistic?> getStaffCountByGender(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -324,7 +347,8 @@ class StatisticService {
         "${api_url.statStaff}?"
         "MinistryCode=$ministryCode"
         "&Org=$org"
-        "&Dept=$dept",
+        "&Dept=$dept"
+        "&region=$region",
       );
       final response = await http.get(
         uri,
@@ -348,6 +372,7 @@ class StatisticService {
   Future<List<ChartModel>?> getMerits(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -359,8 +384,11 @@ class StatisticService {
     }
 
     try {
-      final uri = Uri.parse(
-          "${api_url.statMerit}?MinistryCode=$ministryCode&Org=$org&Dept=$dept");
+      final uri = Uri.parse("${api_url.statMerit}"
+          "?MinistryCode=$ministryCode"
+          "&Org=$org"
+          "&Dept=$dept"
+          "&region=$region");
       final response = await http.get(
         uri,
         headers: {
@@ -394,6 +422,7 @@ class StatisticService {
   Future<List<ChartModel>?> getKrobKhans(
     String org,
     String dept,
+    String region,
   ) async {
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -409,7 +438,8 @@ class StatisticService {
         "${api_url.statKrobKhan}?"
         "MinistryCode=$ministryCode"
         "&Org=$org"
-        "&Dept=$dept",
+        "&Dept=$dept"
+        "&region=$region",
       );
       final response = await http.get(
         uri,
@@ -469,7 +499,8 @@ class StatisticService {
   Future<StatisticPeopleResponse?> getCertificatePeople(
     String org,
     String dept,
-    String degree, {
+    String degree,
+    String region, {
     int? start,
     int? length,
     String? search = "",
@@ -490,6 +521,7 @@ class StatisticService {
         "&Org=$org"
         "&Dept=$dept"
         "&degree=$degree"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search",
@@ -519,7 +551,8 @@ class StatisticService {
   Future<StatisticPeopleResponse?> getSkillPeople(
     String org,
     String dept,
-    String degree, {
+    String degree,
+    String region, {
     int? start = 0,
     int? length = 0,
     String? search = "",
@@ -542,6 +575,7 @@ class StatisticService {
         "&Org=$org"
         "&Dept=$dept"
         "&degree=$degree"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search"
@@ -571,7 +605,8 @@ class StatisticService {
   Future<StatisticPeopleResponse?> getSkillByDegreePeople(
     String org,
     String dept,
-    String degree, {
+    String degree,
+    String region, {
     int? start = 0,
     int? length = 0,
     String? search = "",
@@ -594,6 +629,7 @@ class StatisticService {
         "&Org=$org"
         "&Dept=$dept"
         "&degree=$degree"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search"
@@ -607,8 +643,6 @@ class StatisticService {
               "Bearer ${authController.accessToken!}",
         },
       );
-
-      log(response.body);
 
       if (response.statusCode == 200) {
         final responseData = statisticPeopleResponseFromJson(response.body);
@@ -626,7 +660,8 @@ class StatisticService {
 
   Future<StatisticPeopleResponse?> getStaffPeople(
     String org,
-    String dept, {
+    String dept,
+    String region, {
     int? start = 0,
     int? length = 0,
     String? search = "",
@@ -648,6 +683,7 @@ class StatisticService {
         "MinistryCode=$ministryCode"
         "&Org=$org"
         "&Dept=$dept"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search",
@@ -676,7 +712,8 @@ class StatisticService {
 
   Future<StatisticPeopleResponse?> getMeritPeople(
     String org,
-    String dept, {
+    String dept,
+    String region, {
     int? start = 0,
     int? length = 0,
     String? search = "",
@@ -698,6 +735,7 @@ class StatisticService {
         "MinistryCode=$ministryCode"
         "&Org=$org"
         "&Dept=$dept"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search",
@@ -726,7 +764,8 @@ class StatisticService {
 
   Future<StatisticPeopleResponse?> getKrobKhanPeople(
     String org,
-    String dept, {
+    String dept,
+    String region, {
     int? start = 0,
     int? length = 0,
     String? search = "",
@@ -748,6 +787,7 @@ class StatisticService {
         "MinistryCode=$ministryCode"
         "&Org=$org"
         "&Dept=$dept"
+        "&region=$region"
         "&start=$start"
         "&length=$length"
         "&search=$search",

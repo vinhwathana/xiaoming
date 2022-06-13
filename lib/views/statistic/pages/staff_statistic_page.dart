@@ -55,22 +55,22 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
         return TabBarView(
           controller: controller,
           children: [
-            staffChart(org, dept),
-            staffDataGrid(org, dept),
-            staffPeopleDataGrid(org, dept),
+            staffChart(org, dept, region),
+            staffDataGrid(org, dept, region),
+            staffPeopleDataGrid(org, dept, region),
           ],
         );
       },
     );
   }
 
-  Widget staffChart(String org, String dept) {
+  Widget staffChart(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getStaffCount(org, dept),
+      future: statService.getStaffCount(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final staffData = data;
         if (staffData == null || staffData.length == 0) {
@@ -113,9 +113,9 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
     );
   }
 
-  Widget staffDataGrid(String org, String dept) {
+  Widget staffDataGrid(String org, String dept, String region) {
     return CustomFutureBuilder<StaffStatistic?>(
-      future: statService.getStaffCountByGender(org, dept),
+      future: statService.getStaffCountByGender(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final staffData = data;
         if (staffData == null) {
@@ -157,8 +157,8 @@ class _StaffStatisticPageState extends State<StaffStatisticPage>
     );
   }
 
-  Widget staffPeopleDataGrid(String org, String dept) {
-    return StaffPeopleDataGrid(org: org, dept: dept);
+  Widget staffPeopleDataGrid(String org, String dept, String region) {
+    return StaffPeopleDataGrid(org: org, dept: dept, region: region);
   }
 
   @override
@@ -170,10 +170,12 @@ class StaffPeopleDataGrid extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String region;
 
   @override
   State<StaffPeopleDataGrid> createState() => _StaffPeopleDataGridState();
@@ -200,6 +202,7 @@ class _StaffPeopleDataGridState extends State<StaffPeopleDataGrid>
       future: statService.getStaffPeople(
         widget.org,
         widget.dept,
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",

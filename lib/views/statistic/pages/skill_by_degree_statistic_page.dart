@@ -59,25 +59,27 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     return StatisticsPageWrapper(
       title: widget.chartTitle,
       showDegree: true,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
         return TabBarView(
           controller: controller,
           children: [
-            skillByDegreeChart(org, dept, degree),
-            skillByDegreeDataGrid(org, dept, degree),
-            skillByDegreePeopleDataGrid(org, dept, degree),
+            skillByDegreeChart(org, dept, degree, region),
+            skillByDegreeDataGrid(org, dept, degree, region),
+            skillByDegreePeopleDataGrid(org, dept, degree, region),
           ],
         );
       },
     );
   }
 
-  Widget skillByDegreeChart(String org, String dept, String degree) {
+  Widget skillByDegreeChart(
+      String org, String dept, String degree, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
       future: statService.getSkillByDegree(
         org,
         dept,
         degree,
+        region,
       ),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? certificateData = data;
@@ -118,12 +120,14 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     );
   }
 
-  Widget skillByDegreeDataGrid(String org, String dept, String degree) {
+  Widget skillByDegreeDataGrid(
+      String org, String dept, String degree, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
       future: statService.getSkillByDegree(
         org,
         dept,
         degree,
+        region,
       ),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? certificateData = data;
@@ -163,11 +167,13 @@ class _SkillByDegreeStatisticPageState extends State<SkillByDegreeStatisticPage>
     );
   }
 
-  Widget skillByDegreePeopleDataGrid(String org, String dept, String degree) {
+  Widget skillByDegreePeopleDataGrid(
+      String org, String dept, String degree, String region) {
     return SkillByDegreePeopleDataGrid(
       org: org,
       dept: dept,
       degree: degree,
+      region: region,
     );
   }
 
@@ -181,11 +187,13 @@ class SkillByDegreePeopleDataGrid extends StatefulWidget {
     required this.org,
     required this.dept,
     required this.degree,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
   final String degree;
+  final String region;
 
   @override
   State<SkillByDegreePeopleDataGrid> createState() =>
@@ -237,6 +245,7 @@ class _SkillByDegreePeopleDataGridState
         widget.org,
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",

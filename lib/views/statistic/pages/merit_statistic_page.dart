@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:xiaoming/components/custom_error_widget.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people.dart';
 import 'package:xiaoming/models/statistic/people/statistic_people_response.dart';
@@ -50,26 +51,26 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
         return TabBarView(
           controller: controller,
           children: [
-            meritChart(org, dept),
-            meritDataGrid(org, dept),
-            meritPeopleDataGrid(org, dept),
+            meritChart(org, dept,region),
+            meritDataGrid(org, dept,region),
+            meritPeopleDataGrid(org, dept,region),
           ],
         );
       },
     );
   }
 
-  Widget meritChart(String org, String dept) {
+  Widget meritChart(String org, String dept,String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getMerits(org, dept),
+      future: statService.getMerits(org, dept,region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? meritData = data;
         if (meritData == null || meritData.length == 0) {
-          return const Center(child: Text("No Data Available"));
+          return const CustomErrorWidget(text: "No Data Available",);
         }
         double max = meritData[0].amount;
         for (var element in meritData) {
@@ -109,9 +110,9 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
     );
   }
 
-  Widget meritDataGrid(String org, String dept) {
+  Widget meritDataGrid(String org, String dept,String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getMerits(org, dept),
+      future: statService.getMerits(org, dept,region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? meritData = data;
         return Card(
@@ -146,10 +147,11 @@ class _MeritStatisticPageState extends State<MeritStatisticPage>
     );
   }
 
-  Widget meritPeopleDataGrid(String org, String dept) {
+  Widget meritPeopleDataGrid(String org, String dept,String region) {
     return MeritPeopleDataGrid(
       org: org,
       dept: dept,
+      region: region,
     );
   }
 
@@ -162,10 +164,12 @@ class MeritPeopleDataGrid extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String region;
 
   @override
   State<MeritPeopleDataGrid> createState() => _MeritPeopleDataGridState();
@@ -196,6 +200,7 @@ class _MeritPeopleDataGridState extends State<MeritPeopleDataGrid>
       future: statService.getMeritPeople(
         widget.org,
         widget.dept,
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",

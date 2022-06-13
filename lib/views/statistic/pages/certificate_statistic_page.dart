@@ -31,7 +31,6 @@ class CertificateStatisticPage extends StatefulWidget {
 class _CertificateStatisticPageState extends State<CertificateStatisticPage>
     with AutomaticKeepAliveClientMixin {
   late final TooltipBehavior _tooltipBehavior;
-
   bool isLoading = false;
   final statService = StatisticService();
   final List<String> headerTitles = [
@@ -55,26 +54,35 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
     super.build(context);
     return StatisticsPageWrapper(
       title: widget.chartTitle,
-      builder: (controller, org, dept, degree) {
+      builder: (controller, org, dept, degree, region) {
+        // print("""org: $org,
+        // dept: $dept,
+        // degree: $degree,
+        // region: $region,
+        // """);
         return TabBarView(
           controller: controller,
           children: [
-            certificateChart(org, dept),
-            certificateDataGrid(org, dept),
-            certificatePeople(org, dept),
+            certificateChart(org, dept, region),
+            certificateDataGrid(org, dept, region),
+            certificatePeople(org, dept, region),
           ],
         );
       },
     );
   }
 
-  Widget certificatePeople(String org, String dept) {
-    return CertificatePeopleDataGrid(org: org, dept: dept);
+  Widget certificatePeople(String org, String dept, String region) {
+    return CertificatePeopleDataGrid(
+      org: org,
+      dept: dept,
+      region: region,
+    );
   }
 
-  Widget certificateChart(String org, String dept) {
+  Widget certificateChart(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getCertificates(org, dept),
+      future: statService.getCertificates(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? certificateData = data;
         if (certificateData == null || certificateData.length == 0) {
@@ -114,9 +122,9 @@ class _CertificateStatisticPageState extends State<CertificateStatisticPage>
     );
   }
 
-  Widget certificateDataGrid(String org, String dept) {
+  Widget certificateDataGrid(String org, String dept, String region) {
     return CustomFutureBuilder<List<ChartModel>?>(
-      future: statService.getCertificates(org, dept),
+      future: statService.getCertificates(org, dept, region),
       onDataRetrieved: (context, data, connectionState) {
         final List<ChartModel>? certificateData = data;
         return Card(
@@ -157,10 +165,12 @@ class CertificatePeopleDataGrid extends StatefulWidget {
     Key? key,
     required this.org,
     required this.dept,
+    required this.region,
   }) : super(key: key);
 
   final String dept;
   final String org;
+  final String region;
 
   @override
   State<CertificatePeopleDataGrid> createState() =>
@@ -206,6 +216,7 @@ class _CertificatePeopleDataGridState extends State<CertificatePeopleDataGrid>
         widget.org,
         widget.dept,
         filterController.degrees[selectedCertificate] ?? "P",
+        widget.region,
         start: start,
         length: rowsPerPage,
         search: "",
