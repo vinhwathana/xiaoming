@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
 
       final response = await authService.login(authModel);
       if (response == null) {
-        showToast("Something Went Wrong");
+        showToast("បញ្ហាបានកើតឡើង");
         return;
       }
       if (response.statusCode == 200) {
@@ -59,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       } else if (response.statusCode == 401) {
         showToast("ពិនិត្យអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នកម្តងទៀត");
       } else {
+        log(response.body);
         showToast("${response.statusCode}: Something Went Wrong");
       }
     }
