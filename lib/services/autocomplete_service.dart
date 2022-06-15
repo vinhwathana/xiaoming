@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -56,7 +55,7 @@ class AutocompleteService {
         uri,
         headers: {
           HttpHeaders.authorizationHeader:
-          "Bearer ${authController.accessToken!}",
+              "Bearer ${authController.accessToken!}",
         },
       );
 

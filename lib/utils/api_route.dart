@@ -1,6 +1,7 @@
 // BASE SERVICE URL
-const String baseUrl = 'https://edps.ddns.net/hrmis_api_mptc_training/v1';
-// const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
+// const String baseUrl = 'https://edps.ddns.net/hrmis_api_mptc_training/v1';
+const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
+// const String baseUrl = "https://hrmisapi.mptc.gov.kh/v1";
 
 // ENDPOINT: AUTHENTICATION
 const String authLogin = '$baseUrl/user/login';
@@ -34,24 +35,47 @@ const String getOrganization = "$baseUrl/ac/organization";
 ///degree = B,P,M,U
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statCertificate = "$baseUrl/statistics/certificates";
+const String statCertificate = "$baseUrl/statistics/Certificates";
 
 ///?MinistryCode=20&Org=00&Dept=00&degree=B
-const String statSkillByDegree = "$baseUrl/statistics/skillbydegree";
+const String statSkillByDegree = "$baseUrl/statistics/SkillByDegree";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statSkills = "$baseUrl/statistics/skills";
+const String statSkills = "$baseUrl/statistics/Skills";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statMerit = "$baseUrl/CountMeritByOrg/getcount_merit_by_org";
+const String statMerit = "$baseUrl/CountMeritByOrg/Getcount_merit_by_org";
 
 ///?MinistryCode=20&Org=80&Dept=93
-const String statStaff = "$baseUrl/CountStaff/getcountstaff";
+const String statStaff = "$baseUrl/CountStaff/Getcountstaff";
 
-///?MinistryCode=20&Org=80&Dept=93
+///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
 const String statKrobKhan =
-    "$baseUrl/CountKrobkhanByOrg/getcount_krob_khan_by_org";
+    "$baseUrl/CountKrobkhanByOrg/Getcount_krob_khan_by_org";
 
+///?MinistryCode=20&Org=80&Dept=87&degree=B&start=0&length=10&search
+const String statCertificatePeople = "$baseUrl/statistics/CertificatesPeople";
+
+///?MinistryCode=20&Org=80&Dept=87&degree=P&start=0&length=10&search=&country=&skill=
+const String statSkillPeople = "$baseUrl/statistics/SkillsPeople";
+
+///?MinistryCode=20&Org=00&Dept=00&degree=B&start=0&search&length=10&&skill=&country
+const String statSkillByDegreePeople =
+    "$baseUrl/statistics/SkillByDegreePeople";
+
+///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
+const String statStaffPeople = "$baseUrl/CountStaff/Getcountstaffpeople";
+
+///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
+const String statMeritPeople =
+    "$baseUrl/CountMeritByOrg/Getcount_merit_by_org_people";
+
+///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
+const String statKrobKhanPeople =
+    "$baseUrl/CountKrobkhanByOrg/Getcount_krob_khan_by_org_people";
+
+///ATTENDANCE
+///
 ///https://{{domain}}/attendances/personal-attd-by-date-ranges?dateFrom=2022-02-9&dateTo=2022-02-11
 const String personalAttendance =
     "$baseUrl/attendances/personal-attd-by-date-ranges";
@@ -66,3 +90,11 @@ const String personalAttendanceByDate =
 ///https://{{domain}}/attendances/personal-attd-log-by-date/2022-02-10
 const String personalAttendanceLog =
     "$baseUrl/attendances/personal-attd-log-by-date";
+
+///AUTOCOMPLETE
+
+///FOR GETTING COUNTRIES
+const String countryUrl = "$baseUrl/ac/data-lov/COUNTRY";
+
+///FOR GETTING SPECIALIZES
+const String specializeUrl = "$baseUrl/ac/data-lov/SPECIALIZE";
