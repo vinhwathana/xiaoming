@@ -4,10 +4,12 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class WorkHistoryInfoPage extends StatelessWidget {
-  const WorkHistoryInfoPage({Key? key}) : super(key: key);
+  const WorkHistoryInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class _WorkHistoryInfoTableState extends State<WorkHistoryInfoTable> {
   );
 
   final List<String> headerTitles = [
-    "មុខតំណែងបច្ចុប្បន្ន",
+    "មុខតំណែង",
     'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
     'ក្រសួង',
@@ -87,8 +89,8 @@ class WorkHistoryInfoDataSource extends DataGridSource {
       return DataGridRow(
         cells: [
           DataGridCell<String>(
-            columnName: 'មុខតំណែងបច្ចុប្បន្ន',
-            value: e.position.title,
+            columnName: 'មុខតំណែង',
+            value: e.position?.title ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
@@ -100,11 +102,11 @@ class WorkHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',
-            value: e.ministry.nameKh,
+            value: e.ministry?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'អង្គភាព',
-            value: e.organization[0].nameKh,
+            value: e.organization?[0].nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
@@ -125,38 +127,38 @@ class WorkHistoryInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value as int;
-          final attachmentList = workHistories[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value as int;
+            final attachmentList = workHistories[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              // height: 1.3,
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+              ),
             ),
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/education.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class EducationHistoryInfoPage extends StatelessWidget {
   const EducationHistoryInfoPage({Key? key}) : super(key: key);
@@ -21,7 +21,6 @@ class EducationHistoryInfoPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            // color: Colors.red,
             child: const EducationHistoryInfoTable(),
           ),
         ),
@@ -31,7 +30,9 @@ class EducationHistoryInfoPage extends StatelessWidget {
 }
 
 class EducationHistoryInfoTable extends StatefulWidget {
-  const EducationHistoryInfoTable({Key? key}) : super(key: key);
+  const EducationHistoryInfoTable({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _EducationHistoryInfoTableState createState() =>
@@ -65,7 +66,7 @@ class _EducationHistoryInfoTableState extends State<EducationHistoryInfoTable> {
   final List<String> headerTitles = [
     'ឆ្នាំចាប់ផ្តើម',
     'ឆ្នាំបញ្ចប់',
-    'វត្គឬកំរិតសិក្សា',
+    'វត្គឬកម្រិតសិក្សា',
     'ថ្នាក់សិក្សា',
     'ជំនាញ',
     'សញ្ញាប័ត្រ',
@@ -102,20 +103,20 @@ class EducationHistoryInfoDataSource extends DataGridSource {
             value: formatDateTimeForView(e.endDate),
           ),
           DataGridCell<String>(
-            columnName: 'វត្គឬកំរិតសិក្សា',
-            value: e.educationType.nameKh,
+            columnName: 'វត្គឬកម្រិតសិក្សា',
+            value: e.educationType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ថ្នាក់សិក្សា',
-            value: e.educationLevel.nameKh,
+            value: e.educationLevel?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ជំនាញ',
-            value: e.specialize.nameKh,
+            value: e.specialize?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សញ្ញាប័ត្រ',
-            value: e.certificationType.nameKh,
+            value: e.certificationType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'គ្រឹះស្ថានសិក្សា',
@@ -127,7 +128,7 @@ class EducationHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ប្រទេស',
-            value: e.country.nameKh,
+            value: e.country?.nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
@@ -148,37 +149,38 @@ class EducationHistoryInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = educationInfos[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value;
+            final attachmentList = educationInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
             ),
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }

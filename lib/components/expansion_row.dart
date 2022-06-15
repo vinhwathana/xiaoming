@@ -5,7 +5,8 @@ class ExpansionRow extends StatelessWidget {
   final String label;
   final String value;
 
-   const ExpansionRow({Key? key,
+  const ExpansionRow({
+    Key? key,
     required this.label,
     required this.value,
   }) : super(key: key);

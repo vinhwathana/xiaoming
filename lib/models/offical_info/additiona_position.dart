@@ -19,8 +19,8 @@ class AttachmentList {
 
   factory AttachmentList.fromMap(Map<String, dynamic> json) => AttachmentList(
         additionalPositions: List<AdditionalPosition>.from(
-            json["additionalPositions"]
-                .map((x) => AdditionalPosition.fromMap(x))),
+          json["additionalPositions"].map((x) => AdditionalPosition.fromMap(x)),
+        ),
       );
 
   Map<String, dynamic> toMap() => {
@@ -46,18 +46,18 @@ class AdditionalPosition {
     required this.attachmentList,
   });
 
-  int id;
-  Ministry ministry;
-  String startDate;
-  bool isStartDateYear;
-  String endDate;
-  bool isEndDateYear;
-  bool ongoing;
-  List<Organization> organization;
-  ListValue workStatus;
-  String position;
-  ListValue positionEqual;
-  String remark;
+  int? id;
+  Ministry? ministry;
+  String? startDate;
+  bool? isStartDateYear;
+  String? endDate;
+  bool? isEndDateYear;
+  bool? ongoing;
+  List<Organization>? organization;
+  ListValue? workStatus;
+  String? position;
+  ListValue? positionEqual;
+  String? remark;
   List<Attachment?>? attachmentList;
 
   factory AdditionalPosition.fromMap(Map<String, dynamic> json) =>
@@ -81,16 +81,17 @@ class AdditionalPosition {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "ministry": ministry.toMap(),
+        "ministry": ministry?.toMap(),
         "startDate": startDate,
         "isStartDateYear": isStartDateYear,
         "endDate": endDate,
         "isEndDateYear": isEndDateYear,
         "ongoing": ongoing,
-        "organization": List<dynamic>.from(organization.map((x) => x.toMap())),
-        "workStatus": workStatus.toMap(),
+        "organization":
+            List<dynamic>.from(organization?.map((x) => x.toMap()) ?? []),
+        "workStatus": workStatus?.toMap(),
         "position": position,
-        "positionEqual": positionEqual.toMap(),
+        "positionEqual": positionEqual?.toMap(),
         "remark": remark,
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),

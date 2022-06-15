@@ -6,10 +6,12 @@ import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/family_info.dart';
 import 'package:xiaoming/services/file_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class FamilyHistoryInfoPage extends StatelessWidget {
-  const FamilyHistoryInfoPage({Key? key}) : super(key: key);
+  const FamilyHistoryInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class _FamilyHistoryInfoTableState extends State<FamilyHistoryInfoTable> {
     'ជនជាតិ',
     'សញ្ជាតិ',
     'មុខរបរ',
-    'អាស័យដ្ឋានបច្ចុប្បន្ន',
+    'អាសយដ្ឋានបច្ចុប្បន្ន',
     'ឯកសារភ្ជាប់',
   ];
 
@@ -134,7 +136,7 @@ class FamilyHistoryInfoDataSource extends DataGridSource {
           ),
           // Village , Commune , District , Province
           DataGridCell<String>(
-            columnName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+            columnName: 'អាសយដ្ឋានបច្ចុប្បន្ន',
             value: "${e.currentAddressVillage!.addressNameKh} "
                 "${e.currentAddressCommune!.addressNameKh} "
                 "${e.currentAddressDistrict!.addressNameKh} "

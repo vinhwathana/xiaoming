@@ -1,17 +1,16 @@
 import 'package:get/get.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
-import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/result_organization.dart';
 import 'package:xiaoming/services/statistic_service.dart';
 
 class FilterDialogController extends GetxController {
-  final organizations = [].obs;
-  final departments = [].obs;
+  final List<Datum> organizations = [];
+  final List<Datum> departments = [];
   final orgRegion = "00";
   final statService = StatisticService();
   late String selectedDegrees = degrees.keys.first;
   String? selectedOrganization;
   String? selectedDepartment;
-
   String selectedOrgRegion = "00";
   RadioValue selectedRadioValue = RadioValue.all;
   final List<RadioValue> radioValues = [
@@ -59,6 +58,10 @@ class FilterDialogController extends GetxController {
 
   void updateOrgRegion(RadioValue value) {
     selectedRadioValue = value;
+    selectedOrganization = null;
+    selectedDepartment = null;
+    organizations.clear();
+    departments.clear();
     switch (value) {
       case RadioValue.all:
         selectedOrgRegion = "00";
@@ -70,33 +73,36 @@ class FilterDialogController extends GetxController {
         selectedOrgRegion = "026000";
         break;
     }
-    selectedDepartment = null;
+
     getOrganizations();
     update();
   }
 
   void updateSelectedOrganization(String selected) {
     selectedOrganization = selected;
-    final int id = organizations
-        .cast<Datum>()
-        .where((e) => e.displayText == selected)
-        .toList()[0]
-        .id;
+    final int id =
+        organizations.where((e) => e.displayText == selected).toList()[0].id;
     getDepartments(id.toString());
     update();
   }
 
-  void updateSelectedDepartment(String selected) {}
+  void updateSelectedDepartment(String selected) {
+    selectedDepartment = selected;
+    // final int id = departments
+    //     .where((e) => e.displayText == selected)
+    //     .toList()[0]
+    //     .id;
+    // getDepartments(id.toString());
+    update();
+  }
 
   Future<void> getOrganizations() async {
     final result =
         await statService.getOrganization(orgRegion: selectedOrgRegion);
     selectedOrganization = null;
+    organizations.clear();
     if (result != null && result.isNotEmpty) {
-      organizations.clear();
       organizations.addAll(result);
-    } else {
-      organizations.clear();
     }
     update();
   }
@@ -109,11 +115,9 @@ class FilterDialogController extends GetxController {
       parentId: selectedOrgId,
     );
     selectedDepartment = null;
+    departments.clear();
     if (result != null && result.isNotEmpty) {
-      departments.clear();
       departments.addAll(result);
-    } else {
-      departments.clear();
     }
     update();
   }

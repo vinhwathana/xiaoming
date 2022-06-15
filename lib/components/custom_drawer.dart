@@ -2,17 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/attendance/attendance_page.dart';
-import 'package:xiaoming/views/big_image_page.dart';
+import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
+import 'package:xiaoming/views/utils/image_preview_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/personal_info/user_info_page.dart';
-import 'package:xiaoming/views/statistic/statistics_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -36,7 +36,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           return InkWell(
             onTap: () {
               Get.to(
-                () => BigImagePage(
+                () => ImagePreviewPage(
                   imageBase64: user.imageBase64!,
                   imageProvider: MemoryImage(
                     base64Decode(user.imageBase64!),
@@ -44,20 +44,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               );
             },
-            child: Hero(
-              tag: user.imageBase64!,
-              child: CircleAvatar(
-                radius: 45,
-                backgroundColor: Colors.white,
-                foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-              ),
+            child: CircleAvatar(
+              radius: 45,
+              backgroundColor: Colors.white,
+              foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
             ),
           );
         }
         return InkWell(
           onTap: () {
             Get.to(
-              () => const BigImagePage(
+              () => const ImagePreviewPage(
                 imageBase64: dummyNetworkImage,
                 imageProvider: NetworkImage(
                   dummyNetworkImage,
@@ -79,45 +76,61 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          userProfile(),
-          const SizedBox(
-            height: 7,
-          ),
-          GetBuilder<UserController>(
-            builder: (controller) {
-              final user = controller.users?.value;
-              if (user != null &&
-                  user.officialInfo != null &&
-                  (user.officialInfo!.firstNameKh != null ||
-                      user.officialInfo!.lastNameKh != null)) {
-                return Text(
-                  '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 16,
                   ),
-                );
-              }
-              return const Text(
-                // 'វិញ វឌ្ឍនា',
-                "",
-                textAlign: TextAlign.center,
+                  userProfile(),
+                  const SizedBox(height: 8),
+                  GetBuilder<UserController>(
+                    builder: (controller) {
+                      final user = controller.users?.value;
+                      if (user != null &&
+                          user.officialInfo != null &&
+                          (user.officialInfo!.firstNameKh != null ||
+                              user.officialInfo!.lastNameKh != null)) {
+                        return Text(
+                          '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        );
+                      }
+                      return const Text(
+                        "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  const _DrawerItem(),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                "ជំនាន់ ១.០",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
                   fontSize: 18,
+                  color: CompanyColors.yellow.shade500,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            },
-          ),
-          const Divider(),
-          const _DrawerItem(),
-        ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -147,10 +160,10 @@ class _DrawerItemState extends State<_DrawerItem> {
         isVisible = false;
       });
       if (value) {
-        Get.offAll(
-          () => const LandingPage(),
-          transition: Transition.rightToLeft,
-        );
+        authController.clearToken();
+        // Get.offAll(
+        //   () => const LandingPage(),
+        // );
       }
     });
   }
@@ -171,12 +184,8 @@ class _DrawerItemState extends State<_DrawerItem> {
           leading: const Icon(Icons.person),
           title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
           onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const UserInfoPage(),
-                ));
+            Get.back();
+            Get.to(() => const UserInfoPage());
           },
         ),
         ListTile(
@@ -191,8 +200,8 @@ class _DrawerItemState extends State<_DrawerItem> {
           leading: const Icon(Icons.pie_chart),
           title: const Text('ស្ថិតិ'),
           onTap: () {
-            Get.back();
-            Get.to(() => const StatisticsPage());
+            Get.back(closeOverlays: true);
+            Get.to(() => const ListStatisticPage());
           },
         ),
         const Divider(),

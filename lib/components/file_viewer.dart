@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
@@ -25,7 +26,6 @@ class FileViewer {
                   left: 20,
                   right: 20,
                 ),
-                // color: Colors.transparent,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -43,19 +43,22 @@ class FileViewer {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    ...List.generate(attachmentList.length, (index) {
-                      if (attachmentList[index] != null) {
-                        return ListTile(
-                          title: Text(attachmentList[index]!.fileName ?? ""),
-                          onTap: () {
-                            attachment = attachmentList[index];
-                            Get.back();
-                          },
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
+                    ...List.generate(
+                      attachmentList.length,
+                      (index) {
+                        if (attachmentList[index] != null) {
+                          return ListTile(
+                            title: Text(attachmentList[index]!.fileName ?? ""),
+                            onTap: () {
+                              attachment = attachmentList[index];
+                              Get.back();
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -70,24 +73,28 @@ class FileViewer {
     if (attachment == null ||
         attachment!.id == null ||
         attachment!.fileName == null) {
-      print("Attachment null");
+      if (kDebugMode) {
+        print("Attachment null");
+      }
       return;
     }
-    await fileService.getFile(attachment!.id.toString()).then((response) async {
-      if (response == null) {
-        return;
-      }
-      if (response.statusCode == 200) {
-        final bytes = response.bodyBytes;
-        final fileName = attachment!.fileName;
+    await fileService.getFile(attachment!.id.toString()).then(
+      (response) async {
+        if (response == null) {
+          return;
+        }
+        if (response.statusCode == 200) {
+          final bytes = response.bodyBytes;
+          final fileName = attachment!.fileName;
 
-        //Find applicationDirectory
-        final documentsDir = (await getApplicationDocumentsDirectory()).path;
-        //Create file with file name in the Application dir
-        final file = await File('$documentsDir/$fileName').create();
-        file.writeAsBytesSync(bytes);
-        await OpenFile.open(file.path);
-      }
-    });
+          //Find applicationDirectory
+          final documentsDir = (await getApplicationDocumentsDirectory()).path;
+          //Create file with file name in the Application dir
+          final file = await File('$documentsDir/$fileName').create();
+          file.writeAsBytesSync(bytes);
+          await OpenFile.open(file.path);
+        }
+      },
+    );
   }
 }

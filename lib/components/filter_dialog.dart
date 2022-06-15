@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/components/dropdown_textfield.dart';
+import 'package:xiaoming/components/filter_dropdown_textfield.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/models/statistic/result_organization.dart';
+import 'package:xiaoming/models/statistic/number/result_organization.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({
@@ -13,7 +12,12 @@ class FilterDialog extends StatefulWidget {
     this.showDegreeField = false,
   }) : super(key: key);
 
-  final Function(String org, String dept, String degree) onConfirm;
+  final Function(
+    String org,
+    String dept,
+    String degree,
+    String region,
+  ) onConfirm;
   final bool showDegreeField;
 
   @override
@@ -37,10 +41,12 @@ class _FilterDialogState extends State<FilterDialog>
     slideAnimation = Tween<Offset>(
       begin: const Offset(0.0, -4.0),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.decelerate,
+      ),
+    );
     controller.addListener(() {
       setState(() {});
     });
@@ -59,7 +65,16 @@ class _FilterDialogState extends State<FilterDialog>
     final selectedOrg = filterDialogController.getSelectedOrganizationId();
     final selectedDept = filterDialogController.getSelectedDepartmentId();
     final selectedDegree = filterDialogController.getSelectedDegreeKey();
-    widget.onConfirm(selectedOrg ?? "00", selectedDept ?? "00", selectedDegree);
+    final selectedRegion = filterDialogController.selectedOrgRegion;
+
+
+
+    widget.onConfirm(
+      selectedOrg ?? "00",
+      selectedDept ?? "00",
+      selectedDegree,
+      selectedRegion,
+    );
   }
 
   @override
@@ -76,7 +91,6 @@ class _FilterDialogState extends State<FilterDialog>
             onTap: () {},
             child: Container(
               padding: const EdgeInsets.all(12.0),
-              // height: Get.height / 2.7,
               width: Get.width,
               decoration: const BoxDecoration(color: Colors.white),
               child: GetBuilder<FilterDialogController>(
@@ -113,13 +127,23 @@ class _FilterDialogState extends State<FilterDialog>
                                     controller.updateOrgRegion(value);
                                   },
                                 ),
-                                Text(controller.radioText[index]),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.updateOrgRegion(
+                                      controller.radioValues[index],
+                                    );
+                                  },
+                                  child: Text(controller.radioText[index]),
+                                ),
                               ],
                             );
                           },
                         ),
                       ),
-                      DropdownTextField(
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      FilterDropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "អគ្គនាយកដ្ឋាន",
                         listString: organizations.cast(),
@@ -133,10 +157,8 @@ class _FilterDialogState extends State<FilterDialog>
                         },
                         controller: organizationTextCon,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      DropdownTextField(
+                      const SizedBox(height: 20),
+                      FilterDropdownTextField(
                         autoValidateMode: AutovalidateMode.disabled,
                         labelText: "នាយកដ្ឋាន",
                         currentSelectedValue: controller.selectedDepartment,
@@ -145,17 +167,15 @@ class _FilterDialogState extends State<FilterDialog>
                           if (value == null) {
                             return;
                           }
-                          controller.selectedDepartment = value.toString();
+                          controller.updateSelectedDepartment(value.toString());
                         },
                         controller: departmentTextCon,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       if (widget.showDegreeField)
                         Column(
                           children: [
-                            DropdownTextField(
+                            FilterDropdownTextField(
                               labelText: "ប្រភេទវិញ្ញាបនបត្រ",
                               listString: controller.degrees.keys.toList(),
                               onChange: (value) {

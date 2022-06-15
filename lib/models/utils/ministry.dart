@@ -1,21 +1,21 @@
 class Ministry {
   Ministry({
-    required this.code,
-    required this.nameKh,
-    required this.nameEn,
-    required this.description,
+    this.code,
+    this.nameKh,
+    this.nameEn,
+    this.description,
   });
 
-  String code;
-  String nameKh;
-  String nameEn;
-  String description;
+  String? code;
+  String? nameKh;
+  String? nameEn;
+  String? description;
 
-  factory Ministry.fromMap(Map<String, dynamic> json) => Ministry(
-        code: json["code"],
-        nameKh: json["nameKH"],
-        nameEn: json["nameEN"],
-        description: json["description"],
+  factory Ministry.fromMap(Map<String, dynamic>? json) => Ministry(
+        code: json?["code"],
+        nameKh: json?["nameKH"],
+        nameEn: json?["nameEN"],
+        description: json?["description"],
       );
 
   Map<String, dynamic> toMap() => {

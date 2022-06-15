@@ -1,9 +1,7 @@
 name: xiaoming
 description: A new Flutter application.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -27,18 +25,14 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   path_provider: ^2.0.8
   intl: ^0.17.0
   bloc: ^8.0.2
   http: ^0.13.4
-  geolocator: ^8.0.1
-  qr_code_scanner: ^0.6.1
-  permission_handler: ^8.1.6
+  #  geolocator: ^8.0.1
+  #  qr_code_scanner: ^0.7.0
+  permission_handler: ^9.2.0
   get: ^4.3.8
   location: ^4.3.0
   fluttertoast: ^8.0.8
@@ -48,12 +42,13 @@ dependencies:
   jwt_decoder: ^2.0.1
   khmer_date: ^0.0.3
   photo_view: ^0.13.0
-  syncfusion_flutter_datagrid: ^19.4.42
-  syncfusion_flutter_charts: ^19.4.42
+  syncfusion_flutter_datagrid: ^20.1.52
+  syncfusion_flutter_charts: ^20.1.52
   open_file: ^3.2.1
-  syncfusion_flutter_datepicker: ^19.4.52
-#  scrollable_list_tabview: ^0.2.0-nullsafety
+  syncfusion_flutter_datepicker: ^20.1.52
+  #  scrollable_list_tabview: ^0.2.0-nullsafety
   scrollable_positioned_list: ^0.2.3
+  search_choices: ^2.0.20
 
 
 dev_dependencies:
@@ -72,11 +67,17 @@ flutter:
     - family: KhmerOSMuol
       fonts:
         - asset: assets/fonts/KhmerOS_muol.ttf
+    - family: KhmerMPTC
+      fonts:
+        - asset: assets/fonts/KhmerMPTC.ttf
+    - family: KhmerMPTCMoul
+      fonts:
+        - asset: assets/fonts/KhmerMPTCMoul.ttf
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/
-     - assets/images/mptc_logo_l.png
+    - assets/images/
+    - assets/images/mptc_logo_l.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

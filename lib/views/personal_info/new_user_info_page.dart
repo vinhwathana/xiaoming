@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/views/personal_info/additional_position_info_page.dart';
@@ -11,7 +12,9 @@ import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 import 'package:xiaoming/views/personal_info/work_history_info_page.dart';
 
 class NewUserInfoPage extends StatefulWidget {
-  const NewUserInfoPage({Key? key}) : super(key: key);
+  const NewUserInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NewUserInfoPage> createState() => _NewUserInfoPageState();
@@ -71,7 +74,6 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
   }
 
   void onClickTabBar(int index) {
-    // changeTabBarPosition(index);
     itemScrollController.scrollTo(
       index: index,
       duration: const Duration(milliseconds: 300),
@@ -89,6 +91,9 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               sliver: SliverSafeArea(
                 top: false,
+                bottom: (GetPlatform.isIOS) ? false : true,
+                left: false,
+                right: false,
                 sliver: SliverAppBar(
                   title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
                   floating: true,
@@ -124,13 +129,6 @@ class _NewUserInfoPageState extends State<NewUserInfoPage>
           itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
           shrinkWrap: true,
-
-          // separatorBuilder: (context, index) {
-          //   return Divider(
-          //     thickness: 3,
-          //     color: CompanyColors.yellow,
-          //   );
-          // },
           itemCount: personalInfoViews.length,
           itemBuilder: (context, index) {
             return personalInfoViews[index];

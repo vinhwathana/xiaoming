@@ -4,39 +4,67 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/filter_dialog.dart';
 import 'package:xiaoming/controllers/filter_dialog_controller.dart';
-import 'package:xiaoming/views/statistic/krob_khan_statistic_page.dart';
-import 'package:xiaoming/views/statistic/merit_statistic_page.dart';
-import 'package:xiaoming/views/statistic/skill_by_degree_statistic_page.dart';
-import 'package:xiaoming/views/statistic/certificate_statistic_page.dart';
-import 'package:xiaoming/views/statistic/skill_statistic_page.dart';
-import 'package:xiaoming/views/statistic/staff_statistic_page.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:xiaoming/utils/constant.dart';
 
-class StatisticsPage extends StatefulWidget {
-  const StatisticsPage({Key? key}) : super(key: key);
+class StatisticsPageWrapper extends StatefulWidget {
+  const StatisticsPageWrapper({
+    Key? key,
+    required this.builder,
+    required this.title,
+    this.showDegree = false,
+  }) : super(key: key);
+  final String title;
+  final bool showDegree;
+  final Widget Function(
+    TabController controller,
+    String org,
+    String dept,
+    String degree,
+    String region,
+  ) builder;
 
   @override
-  _StatisticsPageState createState() => _StatisticsPageState();
+  _StatisticsPageWrapperState createState() => _StatisticsPageWrapperState();
 }
 
-class _StatisticsPageState extends State<StatisticsPage>
+class _StatisticsPageWrapperState extends State<StatisticsPageWrapper>
     with SingleTickerProviderStateMixin {
-  final filterDialogController = Get.put(FilterDialogController());
+  final filterDialogController = Get.find<FilterDialogController>();
   String dept = "00";
   String org = "00";
   String degree = "P";
+  String region = "00";
   late final tabController = TabController(
     length: tabs.length,
     vsync: this,
   );
 
   final tabs = <Tab>[
-    const Tab(text: "កម្រិតសញ្ញាបត្រ និងជំនាញ"),
-    const Tab(text: "ជំនាញ"),
-    const Tab(text: "កម្រិតសញ្ញាបត្រ"),
-    const Tab(text: "ភេទ"),
-    const Tab(text: "ឥស្សរិយយស្ស"),
-    const Tab(text: "កាំបៀវត្ស"),
+    const Tab(text: "តារាងស្ថិតិ"),
+    const Tab(text: "តារាងព័ត៌មាន"),
+    const Tab(text: "តារាងព័ត៌មានលម្អិត"),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    setFilterData();
+  }
+
+  void setFilterData() {
+    setState(() {
+      if (filterDialogController.getSelectedDepartmentId() != null) {
+        dept = filterDialogController.getSelectedDepartmentId()!;
+      }
+      if (filterDialogController.getSelectedOrganizationId() != null) {
+        org = filterDialogController.getSelectedOrganizationId()!;
+      }
+      if (filterDialogController.getSelectedDepartmentId() != null) {
+        region = filterDialogController.selectedOrgRegion;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +81,11 @@ class _StatisticsPageState extends State<StatisticsPage>
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: SliverSafeArea(
                   top: false,
+                  bottom: (GetPlatform.isIOS) ? false : true,
+                  left: false,
+                  right: false,
                   sliver: SliverAppBar(
-                    title: const Text('ស្ថិតិ'),
+                    title: Text(widget.title),
                     floating: true,
                     pinned: true,
                     snap: false,
@@ -85,60 +116,27 @@ class _StatisticsPageState extends State<StatisticsPage>
               ),
             ];
           },
-          body: tabBarView(),
+          body: SfDataGridTheme(
+            data: SfDataGridThemeData(
+              sortIconColor: Colors.black,
+            ),
+            child: widget.builder(tabController, org, dept, degree, region),
+          ),
         ),
       ),
-    );
-  }
-
-  Widget tabBarView() {
-    return TabBarView(
-      controller: tabController,
-      children: <Widget>[
-        SkillByDegreeStatisticPage(
-          chartTitle: tabs[0].text ?? "",
-          org: org,
-          dept: dept,
-          degree: degree,
-        ),
-        SkillStatisticPage(
-          chartTitle: tabs[1].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        CertificateStatisticPage(
-          chartTitle: tabs[2].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        StaffStatisticPage(
-          chartTitle: tabs[3].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        MeritStatisticPage(
-          chartTitle: tabs[4].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-        KrobKhanStatisticPage(
-          chartTitle: tabs[5].text ?? "",
-          org: org,
-          dept: dept,
-        ),
-      ],
     );
   }
 
   void openFilterDialog() {
     Get.dialog(
       FilterDialog(
-        showDegreeField: (tabController.index == 0),
-        onConfirm: (org, dept, degree) {
+        showDegreeField: widget.showDegree,
+        onConfirm: (org, dept, degree, region) {
           setState(() {
             this.org = org;
             this.dept = dept;
             this.degree = degree;
+            this.region = region;
           });
         },
       ),
@@ -182,14 +180,17 @@ class TwoColumnDataGridSource extends DataGridSource {
       cells: row.getCells().map<Widget>(
         (dataGridCell) {
           return Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 8,
+            ),
             alignment: Alignment.centerLeft,
             child: Text(
               dataGridCell.value.toString(),
               style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
+                fontFamily: khmerFont,
+                // height: 1.5,
               ),
             ),
           );

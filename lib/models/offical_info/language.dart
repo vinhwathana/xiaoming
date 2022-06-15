@@ -12,12 +12,12 @@ class Language {
     required this.attachmentList,
   });
 
-  int id;
-  ListValue languageName;
-  ListValue reading;
-  ListValue listening;
-  ListValue writing;
-  ListValue speaking;
+  int? id;
+  ListValue? languageName;
+  ListValue? reading;
+  ListValue? listening;
+  ListValue? writing;
+  ListValue? speaking;
   List<Attachment?>? attachmentList;
 
   factory Language.fromMap(Map<String, dynamic> json) => Language(
@@ -33,11 +33,11 @@ class Language {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "languageName": languageName.toMap(),
-        "reading": reading.toMap(),
-        "listening": listening.toMap(),
-        "writing": writing.toMap(),
-        "speaking": speaking.toMap(),
+        "languageName": languageName?.toMap(),
+        "reading": reading?.toMap(),
+        "listening": listening?.toMap(),
+        "writing": writing?.toMap(),
+        "speaking": speaking?.toMap(),
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };

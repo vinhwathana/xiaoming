@@ -23,7 +23,9 @@ class PersonalAttendanceRangeResponse {
       PersonalAttendanceRangeResponse(
         statusCode: json["statusCode"],
         message: json["message"],
-        data: List<Attendance>.from(json["data"].map((x) => Attendance.fromMap(x))),
+        data: List<Attendance>.from(
+          json["data"].map((x) => Attendance.fromMap(x)),
+        ),
       );
 
   Map<String, dynamic> toMap() => {

@@ -102,10 +102,8 @@ class FamilyInfo {
             ? null
             : Address.fromMap(json["currentAddressVillage"]),
         currentAddressDetail: json["currentAddressDetail"],
-        contactPhone:
-            json["contactPhone"],
-        contactEmail:
-            json["contactEmail"],
+        contactPhone: json["contactPhone"],
+        contactEmail: json["contactEmail"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -113,9 +111,9 @@ class FamilyInfo {
         "relation": relation == null ? null : relation!.toMap(),
         "job": job == null ? null : job!.toMap(),
         "workPlace": workPlace,
-        "isGovermentOfficial":
-            isGovernmentOfficial,
-        "attachmentList": List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
+        "isGovermentOfficial": isGovernmentOfficial,
+        "attachmentList":
+            List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
         "nationalId": nationalId,
         "firstNameKH": firstNameKh,
         "lastNameKH": lastNameKh,
@@ -141,8 +139,7 @@ class FamilyInfo {
         "currentAddressVillage": currentAddressVillage == null
             ? null
             : currentAddressVillage!.toMap(),
-        "currentAddressDetail":
-            currentAddressDetail,
+        "currentAddressDetail": currentAddressDetail,
         "contactPhone": contactPhone,
         "contactEmail": contactEmail,
       };

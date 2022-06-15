@@ -5,10 +5,12 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/merit.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class MeritInfoPage extends StatelessWidget {
-  const MeritInfoPage({Key? key}) : super(key: key);
+  const MeritInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class MeritInfoPage extends StatelessWidget {
 }
 
 class MeritInfoTable extends StatefulWidget {
-  const MeritInfoTable({Key? key}) : super(key: key);
+  const MeritInfoTable({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MeritInfoTableState createState() => _MeritInfoTableState();
@@ -56,13 +60,12 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
     return userController.users!.value.merits!;
   }
 
-
   final List<String> headerTitles = [
     "ប្រភេទគឿងឥស្សរិយយស្ស",
     'ប្រភេទមេដាយ',
     'ថ្នាក់',
     'កាលបរិច្ឆេទទទួល',
-    'សំគាល់',
+    'សម្គាល់',
     'ឯកសារភ្ជាប់',
   ];
 
@@ -86,22 +89,22 @@ class MeritInfoDataSource extends DataGridSource {
         cells: [
           DataGridCell<String>(
             columnName: 'ប្រភេទគឿងឥស្សរិយយស្ស',
-            value: e.meritType.nameKh,
+            value: e.meritType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ប្រភេទមេដាយ',
-            value: e.medalType.nameKh,
+            value: e.medalType?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'ថ្នាក់',
-            value: e.rank.nameKh,
+            value: e.rank?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'កាលបរិច្ឆេទទទួល',
             value: formatDateTimeForView(e.recievedDate),
           ),
           DataGridCell<String>(
-            columnName: '	សំគាល់',
+            columnName: 'សម្គាល់',
             value: e.remark,
           ),
           DataGridCell<int>(
@@ -123,39 +126,40 @@ class MeritInfoDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = meritInfos[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value;
+            final attachmentList = meritInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          // padding: const EdgeInsets.all(8.0),
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+          return Container(
+            alignment: Alignment.center,
+            // padding: const EdgeInsets.all(8.0),
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
+              textAlign: TextAlign.start,
             ),
-            textAlign: TextAlign.start,
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }

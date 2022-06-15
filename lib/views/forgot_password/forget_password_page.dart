@@ -7,7 +7,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/forgot_password/verify_otp_page.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+  const ForgetPasswordPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
@@ -57,53 +59,54 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   children: <Widget>[
                     const LogoTitleWidget(),
                     Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        key: _formStateKey,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              TypeTextField(
-                                controller: emailCon,
-                                hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
-                                iconData: Icons.email,
-                                autofillHints: const [AutofillHints.email],
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) => validateEmail(value!),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'យើងនឹងផ្ញើពាក្យសម្ចាត់ដើម្បីកំណត់តំណទៅអ៊ីមែលរបស់អ្នក',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      key: _formStateKey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            TypeTextField(
+                              controller: emailCon,
+                              hintText: 'ឈ្មោះគណនី (អ៊ីមែល)',
+                              iconData: Icons.email,
+                              autofillHints: const [AutofillHints.email],
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) => validateEmail(value!),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'យើងនឹងផ្ញើពាក្យសម្ចាត់ដើម្បីកំណត់តំណទៅអ៊ីមែលរបស់អ្នក',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.grey,
                                   ),
-                                ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 35.0),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 18,
+                              child: ElevatedButton(
+                                child: const Text('ផ្ញើរ OTP'),
+                                onPressed: () => submitEmail(),
                               ),
-                              const SizedBox(height: 35.0),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height / 18,
-                                  child: ElevatedButton(
-                                    child: const Text('ផ្ញើរ OTP'),
-                                    onPressed: () => submitEmail(),
-                                  )),
-                              TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: const Text('ត្រឡប់ទៅចូលវិញ'),
-                              )
-                            ],
-                          ),
-                        )),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text('ត្រឡប់ទៅចូលវិញ'),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

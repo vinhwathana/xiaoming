@@ -8,7 +8,9 @@ import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class PersonalInfoPage extends StatelessWidget {
-  const PersonalInfoPage({Key? key}) : super(key: key);
+  const PersonalInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class PersonalInfoPage extends StatelessWidget {
                 "ព័ត៌មានផ្ទាល់ខ្លួន",
                 style: TextStyle(
                   fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -59,11 +62,14 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                          label: 'ជនជាតិ', value: user.race?.nameKh ?? ""),
+                        label: 'ជនជាតិ',
+                        value: user.race?.nameKh ?? "",
+                      ),
                       const Divider(),
                       ExpansionRow(
-                          label: 'សញ្ជាតិ',
-                          value: user.nationality?.nameKh ?? ""),
+                        label: 'សញ្ជាតិ',
+                        value: user.nationality?.nameKh ?? "",
+                      ),
                       const Divider(),
                       ExpansionRow(
                         label: 'ទីកន្លែងកំណើត',
@@ -81,7 +87,7 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+                        label: 'អាសយដ្ឋានបច្ចុប្បន្ន',
                         value: generateAddress(
                           province: user.currentAddressProvince,
                           commune: user.currentAddressCommune,
@@ -96,12 +102,17 @@ class PersonalInfoPage extends StatelessWidget {
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'អត្តលេខ',
+                        label: 'អ៊ីមែល',
+                        value: formatPhoneNumber(user.contactEmail),
+                      ),
+                      const Divider(),
+                      ExpansionRow(
+                        label: 'អត្តលេខមន្រ្តី',
                         value: KhmerDate.khmerNumber(user.officialId ?? ""),
                       ),
                       const Divider(),
                       ExpansionRow(
-                        label: 'ថ្ងៃបម្រើការងារ',
+                        label: 'កាលបរិច្ឆេទបម្រើការងារ',
                         value: formatDateTimeForView(user.internshipDate),
                       ),
                       const Divider(),

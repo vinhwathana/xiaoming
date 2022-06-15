@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,9 @@ import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/login_page.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -78,28 +81,40 @@ class _LandingPageState extends State<LandingPage> {
             return FutureBuilder<String?>(
               future: storage.read(key: tokenKeyName),
               builder: (context, snapshot) {
-                print("Check user token is expire or not");
+                if (kDebugMode) {
+                  print("Check user token is expire or not");
+                }
                 if (snapshot.hasData ||
                     snapshot.connectionState == ConnectionState.done) {
                   final token = snapshot.data;
 
                   if (token == null) {
                     authController.clearToken();
-                    print("Saved Token null");
+                    if (kDebugMode) {
+                      print("Saved Token null");
+                    }
                   } else {
-                    print("Have Token in Controller");
+                    if (kDebugMode) {
+                      print("Have Token in Controller");
+                    }
                     authController.updateToken(token);
                   }
-                  print("Get token to check with server if it is expired");
+                  if (kDebugMode) {
+                    print("Get token to check with server if it is expired");
+                  }
                   return GetBuilder<AuthenticationController>(
                     builder: (controller) {
                       return FutureBuilder<http.Response?>(
                         future: userService.getUserProfile(),
                         builder: (context, snapshot) {
-                          print("Getting user profile...");
+                          if (kDebugMode) {
+                            print("Getting user profile...");
+                          }
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            print("Checking token and user data...");
+                            if (kDebugMode) {
+                              print("Checking token and user data...");
+                            }
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
@@ -108,19 +123,26 @@ class _LandingPageState extends State<LandingPage> {
                             final response = snapshot.data;
                             if (response == null ||
                                 response.statusCode != 200) {
-                              print("Landing Page: invalid Token");
+                              if (kDebugMode) {
+                                print("Landing Page: invalid Token");
+                                // showToast("Please login again");
+                              }
                               return const LoginPage();
                             }
 
                             userController.setData(response);
-                            print("User Data store in controller");
+                            if (kDebugMode) {
+                              print("User Data store in controller");
+                            }
                             return const HomePage();
                           } else if (snapshot.hasError) {
                             return const Center(
                               child: Text("Error"),
                             );
                           } else {
-                            print("Token invalid / expire");
+                            if (kDebugMode) {
+                              print("Token invalid / expire");
+                            }
                             return const LoginPage();
                           }
                         },

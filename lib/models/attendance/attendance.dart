@@ -37,8 +37,6 @@ class Attendance {
         attendanceStatus: json["attendanceStatus"],
       );
 
-
-
   Map<String, dynamic> toMap() => {
         "timeRuleId": timeRuleId,
         "authDate":
@@ -51,7 +49,3 @@ class Attendance {
         "attendanceStatus": attendanceStatus,
       };
 }
-
-
-
-

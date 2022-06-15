@@ -11,7 +11,9 @@ import 'package:xiaoming/views/personal_info/work_history_info_page.dart';
 import 'package:xiaoming/views/personal_info/personal_info_page.dart';
 
 class UserInfoPage extends StatelessWidget {
-  const UserInfoPage({Key? key}) : super(key: key);
+  const UserInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +47,20 @@ class UserInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: const Text('ប្រវត្តិការងារ'),
                   trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const WorkHistoryInfoPage(),
-                      arguments: "ប្រវត្តិការងារ"),
+                  onTap: () => Get.to(
+                    () => const WorkHistoryInfoPage(),
+                    arguments: "ប្រវត្តិការងារ",
+                  ),
                 ),
               ),
               Card(
                 child: ListTile(
                   title: const Text('មុខងារបន្ថែម'),
                   trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const AdditionalPositionInfoPage(),
-                      arguments: "មុខងារបន្ថែម"),
+                  onTap: () => Get.to(
+                    () => const AdditionalPositionInfoPage(),
+                    arguments: "មុខងារបន្ថែម",
+                  ),
                 ),
               ),
 
@@ -62,8 +68,10 @@ class UserInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: const Text('ប្រវត្តិការរសិក្សា'),
                   trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () => Get.to(() => const EducationHistoryInfoPage(),
-                      arguments: "ប្រវត្តិការរសិក្សា"),
+                  onTap: () => Get.to(
+                    () => const EducationHistoryInfoPage(),
+                    arguments: "ប្រវត្តិការរសិក្សា",
+                  ),
                 ),
               ),
               Card(
@@ -90,50 +98,12 @@ class UserInfoPage extends StatelessWidget {
                 child: ListTile(
                   title: const Text('ឥស្សរិយយស្ស'),
                   trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () =>
-                      Get.to(() => const MeritInfoPage(), arguments: "ឥស្សរិយយស្ស"),
+                  onTap: () => Get.to(
+                    () => const MeritInfoPage(),
+                    arguments: "ឥស្សរិយយស្ស",
+                  ),
                 ),
               ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ប្រវត្តិការងារ'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ប្រវត្តិការរសិក្សា'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ភាសា'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('កាំបៀវត្ស'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
-              // Card(
-              //   child: ExpansionTile(
-              //     title: Text('ឥស្សរិយយស្ស'),
-              //     children: [
-              //       FamilyInfoPage(),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),

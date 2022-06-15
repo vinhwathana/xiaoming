@@ -1,77 +1,68 @@
-//Homepage dashboard for gridview
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
-import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/big_image_page.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
+import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
 
 import 'attendance/attendance_page.dart';
-import 'statistic/statistics_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget userProfile() {
-    return GetBuilder<UserController>(
-      builder: (controller) {
-        if (controller.users != null &&
-            controller.users!.value.officialInfo != null) {
-          final user = controller.users!.value.officialInfo;
-          if (user!.imageBase64 == null) {
-            return Container();
-          }
-          return InkWell(
-            onTap: () {
-              Get.to(
-                () => BigImagePage(
-                  imageBase64: user.imageBase64!,
-                  imageProvider: MemoryImage(
-                    base64Decode(user.imageBase64!),
-                  ),
-                ),
-              );
-            },
-            child: Hero(
-              tag: user.imageBase64!,
-              child: CircleAvatar(
-                foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-              ),
-            ),
-          );
-        }
-        return InkWell(
-          onTap: () {
-            Get.to(
-              () => const BigImagePage(
-                imageBase64: dummyNetworkImage,
-                imageProvider: NetworkImage(
-                  dummyNetworkImage,
-                ),
-              ),
-            );
-          },
-          child: const Hero(
-            tag: dummyNetworkImage,
-            child: CircleAvatar(
-              foregroundImage: NetworkImage(
-                dummyNetworkImage,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // Widget userProfile() {
+  //   return GetBuilder<UserController>(
+  //     builder: (controller) {
+  //       if (controller.users != null &&
+  //           controller.users!.value.officialInfo != null) {
+  //         final user = controller.users!.value.officialInfo;
+  //         if (user!.imageBase64 == null) {
+  //           return Container();
+  //         }
+  //         return InkWell(
+  //           onTap: () {
+  //             Get.to(
+  //               () => ImagePreviewPage(
+  //                 imageBase64: user.imageBase64!,
+  //                 imageProvider: MemoryImage(
+  //                   base64Decode(user.imageBase64!),
+  //                 ),
+  //               ),
+  //             );
+  //           },
+  //           child: CircleAvatar(
+  //             foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
+  //           ),
+  //         );
+  //       }
+  //       return InkWell(
+  //         onTap: () {
+  //           Get.to(
+  //             () => const ImagePreviewPage(
+  //               imageBase64: dummyNetworkImage,
+  //               imageProvider: NetworkImage(
+  //                 dummyNetworkImage,
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //         child: const CircleAvatar(
+  //           foregroundImage: NetworkImage(
+  //             dummyNetworkImage,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +76,11 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
-            actions: [
-              IconButton(
-                onPressed: () async {},
-                icon: const Icon(Icons.settings),
-              ),
+            actions: const [
+              // IconButton(
+              //   onPressed: () async {},
+              //   icon: const Icon(Icons.settings),
+              // ),
             ],
           ),
           drawer: const CustomDrawer(),
@@ -114,7 +105,6 @@ class HomePageGridView extends StatelessWidget {
         title: "ព័ត៌មានផ្ទាល់ខ្លួន",
         icon: Icons.person,
         destination: NewUserInfoPage(),
-        // destination: UserInfoPage(),
       ),
       const _HomePageItem(
         title: "វត្តមានផ្ទាល់ខ្លួន",
@@ -124,7 +114,8 @@ class HomePageGridView extends StatelessWidget {
       const _HomePageItem(
         title: "ស្ថិតិ",
         icon: Icons.pie_chart,
-        destination: StatisticsPage(),
+        destination: ListStatisticPage(),
+        // destination: StatisticsPage(),
       ),
     ];
     return GridView.builder(
@@ -138,8 +129,9 @@ class HomePageGridView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Theme.of(context).primaryColor),
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).primaryColor,
+          ),
           margin: const EdgeInsets.all(8.0),
           child: Material(
             color: Colors.transparent,

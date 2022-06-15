@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
@@ -21,7 +22,9 @@ class AuthenticationService {
       );
       return response;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }
@@ -40,7 +43,9 @@ class AuthenticationService {
       }
       return false;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
   }
@@ -48,14 +53,16 @@ class AuthenticationService {
   Future<bool> recoveryUserPassword(String email) async {
     try {
       final uri = Uri.parse(api_url.recoverUserPassword);
-      final response = await http.post(uri,
-          headers: {
-            HttpHeaders.authorizationHeader: 'Bearer $changePasswordToken',
-            HttpHeaders.contentTypeHeader: 'application/json',
-          },
-          body: jsonEncode({
-            "email": email,
-          }));
+      final response = await http.post(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $changePasswordToken',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: jsonEncode({
+          "email": email,
+        }),
+      );
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 400) {
@@ -63,7 +70,9 @@ class AuthenticationService {
       }
       return false;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
   }

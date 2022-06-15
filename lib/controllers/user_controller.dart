@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/models/employee_list_result.dart';
@@ -11,15 +12,17 @@ class UserController extends GetxController {
 
   List<String> getListOfKey(/*String responseBody*/) {
     if (response == null) {
-      print("response == null");
+      if (kDebugMode) {
+        print("response == null");
+      }
     }
     final decoded = jsonDecode(response!.body) as Map;
     final List<String> tempList = [];
     decoded["data"]["officialInfo"].keys.forEach((element) {
       final value = decoded["data"]["officialInfo"][element];
-      if(value.runtimeType == String){
+      if (value.runtimeType == String) {
         final valueAsString = value as String;
-        if(valueAsString.isNotEmpty){
+        if (valueAsString.isNotEmpty) {
           tempList.add(element.toString());
         }
         return;
@@ -38,5 +41,4 @@ class UserController extends GetxController {
     this.response = response;
     update();
   }
-
 }

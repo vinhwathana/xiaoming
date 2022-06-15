@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
 import 'package:xiaoming/models/attendance/time_rule.dart';
@@ -27,6 +28,40 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   final attendanceService = AttendanceService();
   String? attendanceRuleId;
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("ម៉ោងស្កេន"),
+      ),
+      body: FutureBuilder<AttendanceLog?>(
+        future: attendanceService.getAttendanceLog(
+          formatDateTimeForApi(widget.date),
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingWidget();
+          }
+          if (snapshot.hasData && snapshot.data != null) {
+            final attendanceLog = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  attendanceDetailView(attendanceLog),
+                  attendanceRuleView(attendanceLog.timeRule),
+                  workingHoursViews(),
+                ],
+              ),
+            );
+          }
+          return const Center(
+            child: Text("មិនមានព័ត៌មាន"),
+          );
+        },
+      ),
+    );
+  }
+
   Widget highLevelCardWidget({required Widget child}) {
     return Container(
       width: double.maxFinite,
@@ -41,7 +76,44 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
     );
   }
 
-  Widget customRow(String firstText, String secondText) {
+  Widget workingHoursViews() {
+    return highLevelCardWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "ពេលវេលាបំពេញការងារ",
+            style: boldTitleStyle,
+          ),
+          const Divider(
+            thickness: 1,
+          ),
+          Column(
+            children: [
+              attendanceRuleRow(
+                "ច្រើនជាង ៨ម៉ោង/ថ្ងៃ",
+                "វត្តមានល្អប្រសើរ",
+              ),
+              attendanceRuleRow(
+                "ច្រើនជាង ៧ម៉ោង/ថ្ងៃ",
+                "វត្តមានមួយថ្ងៃ",
+              ),
+              attendanceRuleRow(
+                "ច្រើនជាង ៣ម៉ោងកន្លះ/ថ្ងៃ",
+                "អវត្តមានកន្លះថ្ងៃ",
+              ),
+              attendanceRuleRow(
+                "តិចជាង ៣ម៉ោងកន្លះ/ថ្ងៃ ",
+                "អវត្តមានមួយថ្ងៃ",
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget attendanceRuleRow(String firstText, String secondText) {
     return Container(
       width: double.maxFinite,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -72,19 +144,19 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           ),
           Column(
             children: [
-              customRow(
+              attendanceRuleRow(
                 "ព្រឹក(ស្កេនចូល)",
                 "${timeRule.timeCheckIn1From} ដល់ ${timeRule.timeCheckIn1To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ព្រឹក(ស្កេនចេញ)",
                 "${timeRule.timeCheckOut1From} ដល់ ${timeRule.timeCheckOut1To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ថ្ងៃ(ស្កេនចូល)",
                 "${timeRule.timeCheckIn2From} ដល់ ${timeRule.timeCheckIn2To}",
               ),
-              customRow(
+              attendanceRuleRow(
                 "ថ្ងៃ(ស្កេនចេញ)",
                 "${timeRule.timeCheckOut2From} ដល់ ${timeRule.timeCheckOut2To}",
               ),
@@ -96,8 +168,6 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
   }
 
   Widget attendanceDetailView(AttendanceLog attendanceLog) {
-    final name = userController.users?.value.officialInfo?.getFullNameKh();
-
     return highLevelCardWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +179,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
               spacing: 8,
               children: [
                 Text(
-                  name ?? "",
+                  "កាលបរិច្ឆេទស្កេនវត្តមាន",
                   style: boldTitleStyle,
                 ),
                 Text(
@@ -126,21 +196,23 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: attendanceLog.logs.length,
-            separatorBuilder: (context, index) => const Divider(
-              thickness: 1,
-              height: 0,
-            ),
+            separatorBuilder: (context, index) {
+              return const Divider(
+                thickness: 1,
+                height: 0,
+              );
+            },
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  showDetailDialog(attendanceLog.logs[index]);
+                  // showDetailDialog(attendanceLog.logs[index]);
                 },
                 child: Container(
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
                     child: Text(
-                      attendanceLog.logs[index].authTime ??"",
+                      attendanceLog.logs[index].authTime ?? "",
                     ),
                   ),
                 ),
@@ -158,7 +230,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            log.authTime??"",
+            log.authTime ?? "",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -171,42 +243,6 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
           ),
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("ម៉ោងស្កេន"),
-      ),
-      body: SingleChildScrollView(
-        child: FutureBuilder<AttendanceLog?>(
-          future: attendanceService.getAttendanceLog(
-            formatDateTimeForApi(widget.date),
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasData && snapshot.data != null) {
-
-              final attendanceLog = snapshot.data!;
-              return Column(
-                children: [
-                  attendanceRuleView(attendanceLog.timeRule),
-                  attendanceDetailView(attendanceLog),
-                ],
-              );
-            }
-            return const Center(
-              child: Text("No Information Available"),
-            );
-          },
-        ),
-      ),
     );
   }
 }

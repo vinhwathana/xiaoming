@@ -56,31 +56,46 @@ final dummyFamilyInfo = FamilyInfo(
     nameKh: "ពាណិជ្ជករ",
     nameEn: "",
   ),
-  currentAddressProvince: const Address(
+  currentAddressProvince: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressDistrict: const Address(
+  currentAddressDistrict: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
-  currentAddressCommune: const Address(
+  currentAddressCommune: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Spe Province",
   ),
-  currentAddressVillage: const Address(
+  currentAddressVillage: Address(
     parentsCode: "",
     addressCode: "05",
     addressNameKh: "ខេត្តកំពង់ស្ពឺ",
     addressNameEn: "Kampong Speu Province",
   ),
 );
+
+const String allKeyword = "(ទាំងអស់)";
+const String khmerFont = "KhmerMPTC";
+const String khmerFontBold = "KhmerMPTC";
+const TextStyle fontKhmerTextStyle = TextStyle(
+  fontFamily: khmerFont,
+);
+
+const TextStyle columnHeaderTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: khmerFont,
+  fontWeight: FontWeight.bold,
+);
+
+final List<int> typeOfEntries = [10, 25, 50, 100];
 
 String? validateEmail(String value) {
   if (value.isEmpty) {
@@ -134,6 +149,8 @@ Future<void> storeToken(String token) async {
   return await storage.write(key: tokenKeyName, value: token);
 }
 
+final formatNameOfDate = DateFormat("EEEE", "en");
+
 String formatDateTimeForView(DateTime? date) {
   if (date == null) {
     return "";
@@ -143,6 +160,7 @@ String formatDateTimeForView(DateTime? date) {
   return formattedDate;
 }
 
+//For attendance
 String formatDateTimeForApi(DateTime? date) {
   if (date == null) {
     return "";
@@ -170,9 +188,9 @@ String decideEnumValue(ListValue? value) {
     return "";
   }
   if (Get.locale == const Locale('en', 'US')) {
-    return value.nameEn;
+    return value.nameEn ?? "";
   }
-  return value.nameKh;
+  return value.nameKh ?? "";
 }
 
 String formatPhoneNumber(String? phoneNumber) {
@@ -188,10 +206,14 @@ String formatPhoneNumber(String? phoneNumber) {
 }
 
 String addSpacePerThreeChar(String value) {
-  // const int perChar = 4;
   if (value.length < 9) {
     return value;
   }
   return value.replaceAllMapped(
       RegExp(r".{3}"), (match) => "${match.group(0)} ");
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

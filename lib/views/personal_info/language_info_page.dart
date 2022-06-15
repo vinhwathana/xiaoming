@@ -4,10 +4,12 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/language.dart';
-import 'package:xiaoming/views/personal_info/custom_data_grid_widget.dart';
+import 'package:xiaoming/components/custom_data_grid_widget.dart';
 
 class LanguageInfoPage extends StatelessWidget {
-  const LanguageInfoPage({Key? key}) : super(key: key);
+  const LanguageInfoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,23 +91,23 @@ class LanguageDataSource extends DataGridSource {
         cells: [
           DataGridCell<String>(
             columnName: 'ភាសា',
-            value: e.languageName.nameKh,
+            value: e.languageName?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'អាន',
-            value: e.reading.nameKh,
+            value: e.reading?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សរសេរ',
-            value: e.reading.nameKh,
+            value: e.reading?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: 'សរសេរ',
-            value: e.writing.nameKh,
+            value: e.writing?.nameKh ?? "",
           ),
           DataGridCell<String>(
             columnName: '	និយាយ',
-            value: e.listening.nameKh,
+            value: e.listening?.nameKh ?? "",
           ),
           DataGridCell<int>(
             columnName: 'ឯកសារភ្ជាប់',
@@ -126,39 +128,39 @@ class LanguageDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>(
-      (dataGridCell) {
-        if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
-          final index = dataGridCell.value;
-          final attachmentList = languageInfos[index].attachmentList;
-          if (attachmentList == null ||
-              attachmentList.isEmpty ||
-              attachmentList.length == 0) {
-            return Container();
+      cells: row.getCells().map<Widget>(
+        (dataGridCell) {
+          if (dataGridCell.columnName == "ឯកសារភ្ជាប់") {
+            final index = dataGridCell.value;
+            final attachmentList = languageInfos[index].attachmentList;
+            if (attachmentList == null ||
+                attachmentList.isEmpty ||
+                attachmentList.length == 0) {
+              return Container();
+            }
+            return IconButton(
+              onPressed: () {
+                final fileViewer = FileViewer();
+                fileViewer.displayFile(context, attachmentList);
+              },
+              padding: const EdgeInsets.all(0),
+              icon: const Icon(Icons.description),
+            );
           }
-          return IconButton(
-            onPressed: () {
-              final fileViewer = FileViewer();
-              fileViewer.displayFile(context, attachmentList);
-            },
-            padding: const EdgeInsets.all(0),
-            icon: const Icon(Icons.description),
-          );
-        }
-        return Container(
-          alignment: Alignment.center,
-          // padding: const EdgeInsets.all(8.0),
-          child: Text(
-            dataGridCell.value.toString(),
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'KhmerOSBattambong',
-              height: 1.5,
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              dataGridCell.value.toString(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'KhmerOSBattambong',
+                height: 1.5,
+              ),
+              textAlign: TextAlign.start,
             ),
-            textAlign: TextAlign.start,
-          ),
-        );
-      },
-    ).toList());
+          );
+        },
+      ).toList(),
+    );
   }
 }
