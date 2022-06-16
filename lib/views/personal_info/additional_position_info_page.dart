@@ -55,7 +55,7 @@ class _AdditionalPositionInfoTableState
   }
 
   List<AdditionalPosition> getAdditionalPosition() {
-    return userController.users!.value.additionalPositions!;
+    return userController.user!.value.additionalPositions!;
   }
 
   final textStyle = const TextStyle(

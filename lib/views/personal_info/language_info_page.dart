@@ -54,7 +54,7 @@ class _LanguageInfoTableState extends State<LanguageInfoTable> {
   }
 
   List<Language> getLanguageInfo() {
-    return userController.users!.value.languages!;
+    return userController.user!.value.languages!;
   }
 
   final textStyle = const TextStyle(

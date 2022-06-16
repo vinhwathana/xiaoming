@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -84,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           drawer: const CustomDrawer(),
-          body: const SafeArea(
+          body: SafeArea(
             child: HomePageGridView(),
           ),
         ),
@@ -94,68 +96,71 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageGridView extends StatelessWidget {
-  const HomePageGridView({
+  HomePageGridView({
     Key? key,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-    final List<_HomePageItem> homePageItems = [
-      const _HomePageItem(
-        title: "ព័ត៌មានផ្ទាល់ខ្លួន",
-        icon: Icons.person,
-        destination: NewUserInfoPage(),
-      ),
-      const _HomePageItem(
-        title: "វត្តមានផ្ទាល់ខ្លួន",
-        icon: Icons.calendar_today,
-        destination: AttendancePage(),
-      ),
-      const _HomePageItem(
-        title: "ស្ថិតិ",
-        icon: Icons.pie_chart,
-        destination: ListStatisticPage(),
-        // destination: StatisticsPage(),
-      ),
-    ];
     return GridView.builder(
       itemCount: homePageItems.length,
       padding: const EdgeInsets.all(20.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).primaryColor,
+        return Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
           ),
-          margin: const EdgeInsets.all(8.0),
           child: Material(
             color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
             child: InkWell(
               onTap: () {
                 Get.to(() => homePageItems[index].destination);
               },
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: [
+                  const SizedBox(
+                    height: 4,
+                  ),
                   Icon(
                     homePageItems[index].icon,
-                    size: 70.0,
-                    color: Colors.white,
+                    size: 75,
+                    color: CompanyColors.blue,
                   ),
-                  const Divider(),
-                  Text(
-                    homePageItems[index].title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        homePageItems[index].title,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        maxFontSize: 18,
+                        minFontSize: 14,
+                        style: TextStyle(
+                          height: 1.5,
+                          fontSize: 18,
+                          color: CompanyColors.blue,
+                        ),
+                      ),
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
@@ -165,6 +170,25 @@ class HomePageGridView extends StatelessWidget {
     );
   }
 }
+
+final List<_HomePageItem> homePageItems = [
+  const _HomePageItem(
+    title: "ព័ត៌មានផ្ទាល់ខ្លួន",
+    icon: Icons.account_circle,
+    destination: NewUserInfoPage(),
+  ),
+  const _HomePageItem(
+    title: "វត្តមានផ្ទាល់ខ្លួន",
+    icon: Icons.calendar_today,
+    destination: AttendancePage(),
+  ),
+  const _HomePageItem(
+    title: "ស្ថិតិ",
+    icon: Icons.pie_chart,
+    destination: ListStatisticPage(),
+    // destination: StatisticsPage(),
+  ),
+];
 
 class _HomePageItem {
   final String title;

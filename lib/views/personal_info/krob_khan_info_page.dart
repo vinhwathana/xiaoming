@@ -56,7 +56,7 @@ class _KrobKhanInfoTableState extends State<KrobKhanInfoTable> {
   }
 
   List<KrobKhan> getKrobKhan() {
-    return userController.users!.value.krobKhans!;
+    return userController.user!.value.krobKhans!;
   }
 
   final List<String> headerTitles = [

@@ -55,7 +55,7 @@ class _EducationHistoryInfoTableState extends State<EducationHistoryInfoTable> {
   }
 
   List<Education> getEducationInfo() {
-    return userController.users!.value.educations!;
+    return userController.user!.value.educations!;
   }
 
   final textStyle = const TextStyle(

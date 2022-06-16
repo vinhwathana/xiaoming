@@ -7,8 +7,13 @@ import 'package:xiaoming/models/employee_list_result.dart';
 import 'package:xiaoming/models/user.dart';
 
 class UserController extends GetxController {
-  Rx<User>? users;
+  Rx<User>? user;
   http.Response? response;
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
   List<String> getListOfKey(/*String responseBody*/) {
     if (response == null) {
@@ -37,7 +42,7 @@ class UserController extends GetxController {
   void setData(http.Response response) {
     final EmployeeListResult result =
         EmployeeListResult.fromJson(response.body);
-    users = result.data!.obs;
+    user = result.data!.obs;
     this.response = response;
     update();
   }

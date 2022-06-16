@@ -27,9 +27,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget userProfile() {
     return GetBuilder<UserController>(
       builder: (controller) {
-        if (controller.users != null &&
-            controller.users!.value.officialInfo != null) {
-          final user = controller.users!.value.officialInfo;
+        if (controller.user != null &&
+            controller.user!.value.officialInfo != null) {
+          final user = controller.user!.value.officialInfo;
           if (user!.imageBase64 == null) {
             return Container();
           }
@@ -89,24 +89,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   const SizedBox(height: 8),
                   GetBuilder<UserController>(
                     builder: (controller) {
-                      final user = controller.users?.value;
-                      if (user != null &&
-                          user.officialInfo != null &&
-                          (user.officialInfo!.firstNameKh != null ||
-                              user.officialInfo!.lastNameKh != null)) {
-                        return Text(
-                          '${user.officialInfo!.firstNameKh} ${user.officialInfo!.lastNameKh}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        );
-                      }
-                      return const Text(
-                        "",
+                      final user = controller.user?.value;
+                      return Text(
+                        user?.officialInfo?.getFullNameKh() ?? "",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -180,30 +167,16 @@ class _DrawerItemState extends State<_DrawerItem> {
             Get.to(() => const HomePage());
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.person),
-          title: const Text('ព័ត៌មានផ្ទាល់ខ្លួន'),
-          onTap: () {
-            Get.back();
-            Get.to(() => const UserInfoPage());
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.calendar_today),
-          title: const Text('វត្តមាន'),
-          onTap: () {
-            Get.back();
-            Get.to(() => const AttendancePage());
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.pie_chart),
-          title: const Text('ស្ថិតិ'),
-          onTap: () {
-            Get.back(closeOverlays: true);
-            Get.to(() => const ListStatisticPage());
-          },
-        ),
+        ...List.generate(homePageItems.length, (index) {
+          return ListTile(
+            leading: Icon(homePageItems[index].icon),
+            title: Text(homePageItems[index].title),
+            onTap: () {
+              Get.back(closeOverlays: true);
+              Get.to(() => homePageItems[index].destination);
+            },
+          );
+        }),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.password),

@@ -38,10 +38,10 @@ class PersonalInfoPage extends StatelessWidget {
             ),
             GetBuilder<UserController>(
               builder: (controller) {
-                if (controller.users == null) {
+                if (controller.user == null) {
                   return const LoginPage();
                 }
-                final user = controller.users!.value.officialInfo!;
+                final user = controller.user!.value.officialInfo!;
                 return Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Column(

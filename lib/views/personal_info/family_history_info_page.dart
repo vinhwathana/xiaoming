@@ -58,7 +58,7 @@ class _FamilyHistoryInfoTableState extends State<FamilyHistoryInfoTable> {
   }
 
   List<FamilyInfo> getFamilyInfo() {
-    return userController.users!.value.familyInfos!;
+    return userController.user!.value.familyInfos!;
   }
 
   final textStyle = const TextStyle(

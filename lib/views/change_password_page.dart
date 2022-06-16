@@ -40,7 +40,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       return;
     }
 
-    final user = userController.users?.value;
+    final user = userController.user?.value;
 
     if (user == null) {
       await authController.clearToken();

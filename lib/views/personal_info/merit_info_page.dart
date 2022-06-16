@@ -57,7 +57,7 @@ class _MeritInfoTableState extends State<MeritInfoTable> {
   }
 
   List<Merit> getMeritInfo() {
-    return userController.users!.value.merits!;
+    return userController.user!.value.merits!;
   }
 
   final List<String> headerTitles = [

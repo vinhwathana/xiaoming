@@ -49,6 +49,7 @@ dependencies:
   #  scrollable_list_tabview: ^0.2.0-nullsafety
   scrollable_positioned_list: ^0.2.3
   search_choices: ^2.0.20
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:

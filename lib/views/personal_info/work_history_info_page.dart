@@ -53,7 +53,7 @@ class _WorkHistoryInfoTableState extends State<WorkHistoryInfoTable> {
   }
 
   List<WorkHistory> getWorkHistory() {
-    return userController.users!.value.workHistories!;
+    return userController.user!.value.workHistories!;
   }
 
   final textStyle = const TextStyle(
