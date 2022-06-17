@@ -19,7 +19,7 @@ class ClickableTextField extends StatefulWidget {
   final String labelText;
   final TextEditingController controller;
   final IconData? icon;
-  final Icon? suffixIcon;
+  final Widget? suffixIcon;
   final String? prefix;
   final TextInputType? inputType;
   final Function()? onPrefixIconClicked;

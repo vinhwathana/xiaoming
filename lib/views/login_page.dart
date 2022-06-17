@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
@@ -95,9 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               maintainSize: true,
               maintainAnimation: true,
               maintainState: true,
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
+              child: const LoadingWidget(),
             ),
           ),
           Form(

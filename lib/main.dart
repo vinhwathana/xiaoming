@@ -79,8 +79,6 @@ class _MyAppState extends State<MyApp> {
         // ),
       ),
       themeMode: ThemeMode.light,
-      //TODO:asdas
-      // home: HomePage(),
       home: const LandingPage(),
     );
   }

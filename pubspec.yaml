@@ -50,6 +50,8 @@ dependencies:
   scrollable_positioned_list: ^0.2.3
   search_choices: ^2.0.20
   auto_size_text: ^3.0.0
+  dotted_border: ^2.0.0+2
+  file_picker: ^4.6.1
 
 
 dev_dependencies:

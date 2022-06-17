@@ -6,6 +6,7 @@ import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
+import 'package:xiaoming/views/request_leave/request_leave_page.dart';
 import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
 
 import 'attendance/attendance_page.dart';
@@ -96,10 +97,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageGridView extends StatelessWidget {
-  HomePageGridView({
+  const HomePageGridView({
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class HomePageGridView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: 4,
+                    height: 16,
                   ),
                   Icon(
                     homePageItems[index].icon,
@@ -186,7 +186,11 @@ final List<_HomePageItem> homePageItems = [
     title: "ស្ថិតិ",
     icon: Icons.pie_chart,
     destination: ListStatisticPage(),
-    // destination: StatisticsPage(),
+  ),
+  const _HomePageItem(
+    title: "ស្នើសុំច្បាប់",
+    icon: Icons.event_note_sharp,
+    destination: RequestLeavePage(),
   ),
 ];
 
