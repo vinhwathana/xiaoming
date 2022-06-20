@@ -1,0 +1,392 @@
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/utils/constant.dart';
+
+class IdCardPage extends StatefulWidget {
+  const IdCardPage({Key? key}) : super(key: key);
+
+  @override
+  State<IdCardPage> createState() => _IdCardPageState();
+}
+
+class _IdCardPageState extends State<IdCardPage> {
+  final cardDir = "assets/images/card";
+  final mptcMoul = "KhmerMPTCMoul";
+  final khmerMptc = "KhmerMPTC";
+  final khmerOSSiemReap = "KhmerOSSiemReap";
+  final groundControl = "GroundControl";
+  final defaultTextStyle = TextStyle(
+    fontFamily: "KhmerMPTC",
+    fontSize: (Get.width > 400) ? 17 : 15,
+    color: CompanyColors.blue,
+    fontWeight: FontWeight.bold,
+    height: 1.6,
+  );
+
+  bool isVisible = false;
+
+  final flipCardController = FlipCardController();
+
+  @override
+  Widget build(BuildContext context) {
+    // print("Device Height: ${Get.height}");
+    // print("Device Width: ${Get.width}");
+    //Pixel 3XL and 4XL : 411, 797.71 / 820
+    //Nexus: 360, 592.0
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ប័ណ្ណសម្គាល់ផ្ទាល់ខ្លួន"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              flipCardController.toggleCard();
+            },
+            icon: Icon(Icons.flip),
+          )
+        ],
+      ),
+      body: SafeArea(
+        child: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          alignment: Alignment.topCenter,
+          child: Builder(
+            builder: (context) {
+              final deviceWidth = Get.width;
+              final deviceHeight = Get.height;
+
+              double width = 330;
+              double height = 508;
+
+              double paddingFront = 150;
+              double paddingBack = 39;
+
+              if (deviceWidth > 400) {
+                width = 375;
+                height = 592;
+                paddingFront = 170;
+                paddingBack = 54;
+              }
+
+              return FlipCard(
+                controller: flipCardController,
+                flipOnTouch: true,
+                speed: 400,
+                front: cardFront(width, height, paddingFront),
+                back: cardBack(width, height, paddingBack),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget cardBack(double width, double height, padding) {
+    return Card(
+      elevation: 5,
+      child: Stack(
+        children: [
+          Container(
+            width: width,
+            height: height,
+            padding: EdgeInsets.only(top: padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: width / 3.2,
+                  width: width / 3.2,
+                  child: Image.network(
+                    dummyNetworkImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: isVisible,
+            child: Container(
+              width: width,
+              height: height,
+              child: Image.asset(
+                '$cardDir/background_back_text.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Visibility(
+            visible: !isVisible,
+            child: Container(
+              width: width,
+              height: height,
+              child: Image.asset(
+                '$cardDir/background_back.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            width: width,
+            height: height,
+            padding: EdgeInsets.only(top: padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: width / 3.2,
+                  width: width / 3.2,
+                ),
+                Container(
+                  width: width,
+                  padding: EdgeInsets.only(right: 15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: (Get.width > 400) ? 97 : 83,
+                      ),
+                      Text(
+                        "ថ្ងៃសុក្រ ១៥រោច ខែផល្គុន ឆ្នាំឆ្លូវ ត្រីស័ក ព.ស.២៥៦៥"
+                        "\nរាជធានីភ្នំពេញ ថ្ងៃទី១ ខែមេសា ឆ្នាំ២០២២",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          height: 1.9,
+                          fontSize: 10.2,
+                          fontFamily: khmerMptc,
+                          color: CompanyColors.blue,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          right: (Get.width > 400) ? 100 : 75,
+                          top: (Get.width > 400) ? 6 : 3,
+                        ),
+                        child: Text(
+                          "រដ្ឋមន្ត្រី",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: mptcMoul,
+                            color: CompanyColors.blue,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          right: (Get.width > 400) ? 50 : 35,
+                          top: (Get.width > 400) ? 56 : 46,
+                        ),
+                        child: Text(
+                          "ជា វ៉ាន់ដេត",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: mptcMoul,
+                            color: CompanyColors.blue,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: width,
+                  padding: EdgeInsets.only(left: 16.5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "លេខបណ្ណ/Card No.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.5,
+                              fontSize: 11,
+                              fontFamily: khmerMptc,
+                              color: CompanyColors.blue,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            "1220003",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.5,
+                              fontSize: 11,
+                              fontFamily: khmerOSSiemReap,
+                              color: CompanyColors.blue,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "ផុតសុពលភាព/Expiry Date.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.5,
+                              fontSize: 11,
+                              fontFamily: khmerMptc,
+                              color: CompanyColors.blue,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            "31-12-2024",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.5,
+                              fontSize: 11,
+                              fontFamily: khmerOSSiemReap,
+                              color: CompanyColors.blue,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget cardFront(double width, double height, padding) {
+    return Card(
+      elevation: 5,
+      child: Stack(
+        children: [
+          Container(
+            width: width,
+            height: height,
+            padding: EdgeInsets.only(top: padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: width / 1.9,
+                  width: width / 1.9,
+                  child: Image.network(
+                    dummyNetworkImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: width,
+            height: height,
+            child: Image.asset(
+              '$cardDir/background_front.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            width: width,
+            height: height,
+            padding: EdgeInsets.only(top: padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: width / 1.9,
+                  width: width / 1.9,
+                ),
+                Text(
+                  "សាន់ ចេស្តា",
+                  style: TextStyle(
+                    fontSize: (Get.width > 400) ? 24 : 21,
+                    fontFamily: mptcMoul,
+                    color: CompanyColors.blue,
+                    height: (Get.width > 400) ? null : 1.2,
+                  ),
+                ),
+                Text(
+                  "Chesda Sann",
+                  style: TextStyle(
+                    fontSize: (Get.width > 400) ? 26 : 23,
+                    fontFamily: groundControl,
+                    color: CompanyColors.blue,
+                    height: 0.9,
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...List.generate(8, (index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        child: CircleAvatar(
+                          radius: 2.5,
+                          backgroundColor: CompanyColors.yellow,
+                        ),
+                      );
+                    })
+                  ],
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  "មន្ត្រី",
+                  style: defaultTextStyle,
+                ),
+                Text(
+                  "Official",
+                  style: defaultTextStyle,
+                ),
+                Text(
+                  "ក្រសួងប្រៃសណីយ៍និងទូរគមនាគមន៍",
+                  style: defaultTextStyle,
+                ),
+                Text(
+                  "Ministry of Post and Telecommunications",
+                  style: defaultTextStyle,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget something(double width, double height) {
+    return Stack(
+      children: [
+        Container(
+          width: width,
+          height: height,
+          color: Colors.black,
+          child: Image.asset(
+            '$cardDir/background_front.png',
+          ),
+        )
+      ],
+    );
+  }
+}

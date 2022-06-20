@@ -52,6 +52,7 @@ dependencies:
   auto_size_text: ^3.0.0
   dotted_border: ^2.0.0+2
   file_picker: ^4.6.1
+  flip_card: ^0.6.0
 
 
 dev_dependencies:
@@ -76,10 +77,17 @@ flutter:
     - family: KhmerMPTCMoul
       fonts:
         - asset: assets/fonts/KhmerMPTCMoul.ttf
+    - family: GroundControl
+      fonts:
+        - asset: assets/fonts/GroundControl.ttf
+    - family: KhmerOSSiemReap
+      fonts:
+        - asset: assets/fonts/KhmerOSSiemreap.ttf
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/card/
     - assets/images/mptc_logo_l.png
   #   - images/a_dot_ham.jpeg
 

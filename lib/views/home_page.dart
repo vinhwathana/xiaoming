@@ -5,6 +5,7 @@ import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/id_card/id_card_page.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
 import 'package:xiaoming/views/request_leave/request_leave_page.dart';
 import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
@@ -186,6 +187,11 @@ final List<_HomePageItem> homePageItems = [
     title: "ស្ថិតិ",
     icon: Icons.pie_chart,
     destination: ListStatisticPage(),
+  ),
+  const _HomePageItem(
+    title: "ប័ណ្ណសម្គាល់ផ្ទាល់ខ្លួន",
+    icon: Icons.badge_outlined,
+    destination: IdCardPage(),
   ),
   const _HomePageItem(
     title: "ស្នើសុំច្បាប់",
