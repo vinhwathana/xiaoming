@@ -1,9 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
+import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
+import 'package:xiaoming/models/dashboard/today_work_period.dart';
+import 'package:xiaoming/services/dashboard_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/id_card/id_card_page.dart';
 import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
@@ -43,17 +49,180 @@ class _HomePageState extends State<HomePage> {
           ),
           drawer: const CustomDrawer(),
           body: SafeArea(
-            child: Column(
-              children: [
-
-                HomePageGridView(),
-              ],
+            child: Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    WorkHourChart(),
+                    HomePageGridView(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+class WorkHourChart extends StatefulWidget {
+  const WorkHourChart({Key? key}) : super(key: key);
+
+  @override
+  State<WorkHourChart> createState() => _WorkHourChartState();
+}
+
+class _WorkHourChartState extends State<WorkHourChart> {
+  final List<ChartData> chartData = [
+    ChartData('David', 70, CompanyColors.blue),
+    ChartData('Steve', 30, Colors.grey),
+    // ChartData('Jack', 34, Color.fromRGBO(228, 0, 124, 1)),
+    // ChartData('Others', 52, Color.fromRGBO(255, 189, 57, 1))
+  ];
+  final dashboardService = DashboardService();
+
+  @override
+  Widget build(BuildContext context) {
+    // final TodayWorkPeriod todayWorkPeriod = TodayWorkPeriod(
+    //   lastScan: "14:38:20",
+    //   periodInHour: "9",
+    // );
+    return Card(
+      elevation: 3,
+      margin: EdgeInsets.symmetric(horizontal: 24),
+      child: CustomFutureBuilder<TodayWorkPeriod?>(
+        future: dashboardService.getTodayWorkPeriod(),
+        onLoading: donutChart(workPeriod: null),
+        onDataRetrieved: (context, result, connectionState) {
+          return donutChart(workPeriod: result);
+        },
+      ),
+    );
+  }
+
+  String stringToTimeOfDay(String tod) {
+    final timeFormat = DateFormat('HH:mm:ss');
+    final time = timeFormat.parse(tod);
+    return TimeOfDay.fromDateTime(time).format(context);
+    //for 24 hour fomat
+    // return "${time.hour}:${time.minute}";
+  }
+
+  Widget donutChart({TodayWorkPeriod? workPeriod}) {
+    final List<ChartData> defaultChartData = [
+      ChartData('David', 0, CompanyColors.blue),
+      ChartData('Steve', 100, Colors.grey),
+    ];
+    List<ChartData>? chartData;
+    final String periodInHour = workPeriod?.periodInHour ?? "0";
+    final lastScanTime = (workPeriod?.lastScan == null)
+        ? ""
+        : stringToTimeOfDay(workPeriod?.lastScan ?? "");
+
+    if (workPeriod != null) {
+      final workHours = (workPeriod.periodInHour == null)
+          ? 0.0
+          : double.parse(workPeriod.periodInHour);
+      final workHourPercentage = workHours * 100 / 8;
+      final remainingPercentage = 100 - workHourPercentage;
+      chartData = [
+        ChartData(lastScanTime, workHourPercentage, CompanyColors.blue),
+        ChartData("Total", remainingPercentage, Colors.grey),
+      ];
+      if (workHourPercentage >= 100 || remainingPercentage <= 0) {
+        final extra = workHours - 8;
+        chartData = [
+          ChartData(lastScanTime, 8, CompanyColors.blue),
+          ChartData("Extra", extra, CompanyColors.yellow),
+        ];
+      }
+    }
+
+    return Stack(
+      children: [
+        Positioned(
+          top: 8,
+          left: 8,
+          child: Text(
+            "រយះពេលធ្វើការ",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'KhmerMPTC',
+            ),
+          ),
+        ),
+        Positioned.fill(
+          bottom: 8,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              "ម៉ោងស្កេនចុងក្រោយ $lastScanTime",
+              style: TextStyle(
+                fontSize: 16,
+                // fontFamily: 'KhmerOSBattambong',
+              ),
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 16),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                top: 30,
+                child: Center(
+                  child: Text(
+                    periodInHour,
+                    style: TextStyle(
+                      fontSize: 36,
+                      color: CompanyColors.blue,
+                    ),
+                  ),
+                ),
+              ),
+              SfCircularChart(
+                title: ChartTitle(
+                  text: "ថ្ងៃនេះ",
+                  textStyle: TextStyle(
+                    fontFamily: 'KhmerMPTC',
+                    fontSize: 16,
+                  ),
+                ),
+                series: <CircularSeries>[
+                  DoughnutSeries<ChartData, String>(
+                    dataSource: chartData ?? defaultChartData,
+                    pointColorMapper: (ChartData data, _) => data.color,
+                    xValueMapper: (ChartData data, _) => data.name,
+                    yValueMapper: (ChartData data, _) => data.amount,
+                    animationDuration: 300,
+                    innerRadius: "80",
+                    radius: "120",
+                    endAngle: 120,
+                    startAngle: 240,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ChartData {
+  final String name;
+  final double amount;
+  final Color color;
+
+  ChartData(this.name, this.amount, this.color);
 }
 
 class HomePageGridView extends StatelessWidget {
@@ -66,6 +235,8 @@ class HomePageGridView extends StatelessWidget {
     return GridView.builder(
       itemCount: homePageItems.length,
       padding: const EdgeInsets.all(20.0),
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 8,

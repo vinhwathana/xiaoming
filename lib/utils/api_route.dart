@@ -94,6 +94,10 @@ const String personalAttendanceLog =
 ///https://{{domain}}/employees/card/11
 const String getCardInfoUrl = "$baseUrl/employees/card";
 
+///Dashboard
+///https://{{domain}}/attendances/dashboard-today-worked-period
+const String todayWorkPeriodUrl = "$baseUrl/attendances/dashboard-today-worked-period";
+
 ///AUTOCOMPLETE
 ///FOR GETTING COUNTRIES
 const String countryUrl = "$baseUrl/ac/data-lov/COUNTRY";

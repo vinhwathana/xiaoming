@@ -102,12 +102,16 @@ dynamic processResponse(http.Response response) {
 
 void processError(dynamic response) {
   if (response is String) {
-    showToast(response);
+    if (response.isNotEmpty) {
+      showToast(response);
+    }
     log(response);
   } else if (response is DefaultResponse) {
     final errorMessage = """${response.message ?? ""}\n
     ${response.errors.toString()}""";
-    showToast(errorMessage);
+    if (errorMessage.isNotEmpty) {
+      showToast(errorMessage);
+    }
   } else {
     showToast("errorOccurred".tr);
     log(response.toString());
