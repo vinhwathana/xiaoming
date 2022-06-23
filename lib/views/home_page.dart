@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 8,
                     ),
-                    WorkHourChart(),
+                    // WorkHourChart(),
                     HomePageGridView(),
                   ],
                 ),
@@ -234,13 +234,13 @@ class HomePageGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: homePageItems.length,
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(16.0),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
+        mainAxisSpacing: 6,
+        crossAxisSpacing: 6,
       ),
       itemBuilder: (BuildContext context, int index) {
         return Card(
@@ -266,28 +266,29 @@ class HomePageGridView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   Icon(
                     homePageItems[index].icon,
                     size: 75,
                     color: CompanyColors.blue,
                   ),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      alignment: Alignment.center,
-                      child: AutoSizeText(
-                        homePageItems[index].title,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        maxFontSize: 18,
-                        minFontSize: 14,
-                        style: TextStyle(
-                          height: 1.5,
-                          fontSize: 18,
-                          color: CompanyColors.blue,
-                        ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      homePageItems[index].title,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      maxFontSize: 18,
+                      minFontSize: 14,
+                      style: TextStyle(
+                        height: 1.2,
+                        fontSize: 18,
+                        color: CompanyColors.blue,
                       ),
                     ),
                   ),
