@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/id_card/id_card_page.dart';
-import 'package:xiaoming/views/landing_page2.dart';
+
 import 'controllers/initial_binding.dart';
 import 'language/khmer_cupertino_localization_delegate.dart';
 import 'services/localization_service.dart';
@@ -84,8 +82,8 @@ class _MyAppState extends State<MyApp> {
         // ),
       ),
       themeMode: ThemeMode.light,
-      home: HomePage(),
-      // home: const LandingPage(),
+      // home: HomePage(),
+      home: const LandingPage(),
     );
   }
 }

@@ -7,12 +7,9 @@ import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/attendance/attendance_page.dart';
-import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
-import 'package:xiaoming/views/utils/image_preview_page.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/personal_info/user_info_page.dart';
+import 'package:xiaoming/views/utils/image_preview_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({

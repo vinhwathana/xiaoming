@@ -1,21 +1,15 @@
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/internet_check_controller.dart';
-import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/user.dart';
-import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/services/users_service.dart';
-import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/home_page.dart';
-import 'package:xiaoming/views/login_page.dart';
 
 class LandingPage2 extends StatefulWidget {
   const LandingPage2({

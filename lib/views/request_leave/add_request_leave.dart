@@ -6,7 +6,6 @@ import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/clickable_textfield.dart';
 import 'package:xiaoming/components/custom_type_text_field.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
-import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class AddRequestLeavePage extends StatefulWidget {
