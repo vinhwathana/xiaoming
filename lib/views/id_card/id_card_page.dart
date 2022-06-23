@@ -46,13 +46,13 @@ class _IdCardPageState extends State<IdCardPage> {
     //Nexus: 360, 592.0
     return Scaffold(
       appBar: AppBar(
-        title: Text("ប័ណ្ណសម្គាល់ផ្ទាល់ខ្លួន"),
+        title: const Text("ប័ណ្ណសម្គាល់ផ្ទាល់ខ្លួន"),
         actions: [
           IconButton(
             onPressed: () {
               flipCardController.toggleCard();
             },
-            icon: Icon(Icons.flip),
+            icon: const Icon(Icons.flip),
           )
         ],
       ),
@@ -64,7 +64,7 @@ class _IdCardPageState extends State<IdCardPage> {
           child: Builder(
             builder: (context) {
               final deviceWidth = Get.width;
-              final deviceHeight = Get.height;
+              // final deviceHeight = Get.height;
 
               double width = 330;
               double height = 508;
@@ -111,7 +111,7 @@ class _IdCardPageState extends State<IdCardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: width / 2.8,
                   width: width / 2.8,
                   child: Image.memory(
@@ -124,7 +124,7 @@ class _IdCardPageState extends State<IdCardPage> {
           ),
           Visibility(
             visible: isVisible,
-            child: Container(
+            child: SizedBox(
               width: width,
               height: height,
               child: Image.asset(
@@ -135,7 +135,7 @@ class _IdCardPageState extends State<IdCardPage> {
           ),
           Visibility(
             visible: !isVisible,
-            child: Container(
+            child: SizedBox(
               width: width,
               height: height,
               child: Image.asset(
@@ -151,13 +151,13 @@ class _IdCardPageState extends State<IdCardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: width / 3.2,
                   width: width / 3.2,
                 ),
                 Container(
                   width: width,
-                  padding: EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -214,12 +214,12 @@ class _IdCardPageState extends State<IdCardPage> {
                 ),
                 Container(
                   width: width,
-                  padding: EdgeInsets.only(left: 16.5),
+                  padding: const EdgeInsets.only(left: 16.5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -297,7 +297,7 @@ class _IdCardPageState extends State<IdCardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: width / 1.9,
                   width: width / 1.9,
                   child: Image.memory(
@@ -308,7 +308,7 @@ class _IdCardPageState extends State<IdCardPage> {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: width,
             height: height,
             child: Image.asset(
@@ -323,7 +323,7 @@ class _IdCardPageState extends State<IdCardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: width / 1.9,
                   width: width / 1.9,
                 ),
@@ -345,7 +345,7 @@ class _IdCardPageState extends State<IdCardPage> {
                     height: 0.9,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Row(
@@ -353,7 +353,7 @@ class _IdCardPageState extends State<IdCardPage> {
                   children: [
                     ...List.generate(8, (index) {
                       return Padding(
-                        padding: EdgeInsets.only(right: 4),
+                        padding: const EdgeInsets.only(right: 4),
                         child: CircleAvatar(
                           radius: 2.5,
                           backgroundColor: CompanyColors.yellow,
@@ -362,7 +362,7 @@ class _IdCardPageState extends State<IdCardPage> {
                     })
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Expanded(

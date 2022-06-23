@@ -63,7 +63,7 @@ class _LandingPageState extends State<LandingPage> {
     subscription.cancel();
   }
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _LandingPageState extends State<LandingPage> {
               onDataRetrieved: (context, result, connectionState) {
                 if (result == null) {
                   authController.clearToken();
-                  return LoginPage();
+                  return const LoginPage();
                 }
                 final token = result;
                 authController.updateToken(token);
@@ -94,10 +94,10 @@ class _LandingPageState extends State<LandingPage> {
                   future: userService.getUserProfile(),
                   onDataRetrieved: (context, result, connectionState) {
                     if (result == null) {
-                      return LoginPage();
+                      return const LoginPage();
                     }
                     userController.updateUser(result);
-                    return HomePage();
+                    return const HomePage();
                   },
                 );
               },

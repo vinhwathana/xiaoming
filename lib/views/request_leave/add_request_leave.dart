@@ -36,18 +36,18 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ការស្នើសុំច្បាប់"),
+        title: const Text("ការស្នើសុំច្បាប់"),
       ),
       body: Card(
         elevation: 5,
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 DropDownTextField(
                   labelText: "ប្រភេទ",
                   controller: categoryTextCon,
@@ -59,14 +59,14 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     });
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ClickableTextField(
                   controller: rangeOfDateTextCon,
                   labelText: "ចាប់ពីថ្ងៃទី - ដល់ថ្ងៃទី",
                   suffixIcon: Wrap(
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         "10 ថ្ងៃ",
                         style: TextStyle(
@@ -82,7 +82,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     pickDateRange();
                   },
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Row(
@@ -91,7 +91,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                           value: false,
                           onChanged: (bool? value) {},
                         ),
-                        Text("កន្លះថ្ងៃល្ងាច"),
+                        const Text("កន្លះថ្ងៃល្ងាច"),
                       ],
                     ),
                     Row(
@@ -100,19 +100,19 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                           value: false,
                           onChanged: (bool? value) {},
                         ),
-                        Text("កន្លះថ្ងៃព្រឹក"),
+                        const Text("កន្លះថ្ងៃព្រឹក"),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 CustomTypeTextField(
                   labelText: "មូលហេតុ",
                   controller: reasonTextCon,
                   maxLines: 4,
                   textInputAction: TextInputAction.newline,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 InkWell(
                   onTap: () async {
                     await FilePicker.platform.pickFiles(
@@ -122,20 +122,20 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                   },
                   child: DottedBorder(
                     borderType: BorderType.RRect,
-                    radius: Radius.circular(8),
+                    radius: const Radius.circular(8),
                     strokeCap: StrokeCap.round,
-                    dashPattern: [5],
+                    dashPattern: const [5],
                     strokeWidth: 2,
                     color: CompanyColors.blue,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      child: Container(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: SizedBox(
                         height: 150,
                         width: double.maxFinite,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
-                          children: [
+                          children: const [
                             Text("ឯកសារភ្ជាប់"),
                             Text("ប្រភេទឯកសារ (.PDF, .JPG, .PNG)"),
                           ],
@@ -144,7 +144,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             ),
           ),

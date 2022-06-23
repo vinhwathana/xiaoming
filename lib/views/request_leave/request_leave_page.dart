@@ -16,20 +16,20 @@ class _RequestLeavePageState extends State<RequestLeavePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ការស្នើសុំច្បាប់"),
+        title: const Text("ការស្នើសុំច្បាប់"),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: 2,
         itemBuilder: (context, index) {
-          return RequestLeaveCard();
+          return const RequestLeaveCard();
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => AddRequestLeavePage());
+          Get.to(() => const AddRequestLeavePage());
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
@@ -42,7 +42,7 @@ class RequestLeaveCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       shadowColor: Colors.orange,
       elevation: 6,
       child: InkWell(
@@ -59,17 +59,17 @@ class RequestLeaveCard extends StatelessWidget {
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
                   spacing: 8,
-                  children: [
+                  children: const [
                     Text(
                       "តិចជាង៥ថ្ងៃ",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "26-05-2022 10:41:44",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -82,30 +82,30 @@ class RequestLeaveCard extends StatelessWidget {
                 thickness: 1.5,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 width: double.maxFinite,
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
                   spacing: 8,
                   children: [
-                    Text(
+                    const Text(
                       "ចំនួនថ្ងៃ: ៥",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                       ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
+                      children: const [
                         Text(
                           "ស្ថានភាព: ",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                           ),
                         ),
                         Text(
                           "កំពុងរង់ចាំ",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             color: Colors.orange,
                           ),
@@ -120,21 +120,21 @@ class RequestLeaveCard extends StatelessWidget {
                 thickness: 1.5,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
-                          children: [
-                            const Text("ចាប់ពីថ្ងៃទី"),
+                          children: const [
+                            Text("ចាប់ពីថ្ងៃទី"),
                             Text("01-05-2022"),
                           ],
                         ),
                         Column(
-                          children: [
-                            const Text("ចាប់ពីថ្ងៃទី"),
+                          children: const [
+                            Text("ចាប់ពីថ្ងៃទី"),
                             Text("01-05-2022"),
                           ],
                         ),

@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/components/default_user_image.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
-import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/change_password_page.dart';
 import 'package:xiaoming/views/home_page.dart';
+import 'package:xiaoming/views/landing_page.dart';
 import 'package:xiaoming/views/utils/image_preview_page.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -24,47 +25,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget userProfile() {
     return GetBuilder<UserController>(
       builder: (controller) {
-        if (controller.user != null &&
-            controller.user!.value.officialInfo != null) {
-          final user = controller.user!.value.officialInfo;
-          if (user!.imageBase64 == null) {
-            return Container();
-          }
-          return InkWell(
-            onTap: () {
+        final user = controller.user?.value.officialInfo;
+        return InkWell(
+          onTap: () {
+            if (user?.imageBase64 != null) {
               Get.to(
                 () => ImagePreviewPage(
-                  imageBase64: user.imageBase64!,
                   imageProvider: MemoryImage(
-                    base64Decode(user.imageBase64!),
+                    base64Decode(user?.imageBase64 ?? ""),
                   ),
                 ),
               );
-            },
-            child: CircleAvatar(
-              radius: 45,
-              backgroundColor: Colors.white,
-              foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-            ),
-          );
-        }
-        return InkWell(
-          onTap: () {
-            Get.to(
-              () => const ImagePreviewPage(
-                imageBase64: dummyNetworkImage,
-                imageProvider: NetworkImage(
-                  dummyNetworkImage,
-                ),
-              ),
-            );
+            }
           },
-          child: const CircleAvatar(
-            radius: 45,
-            foregroundImage: NetworkImage(
-              dummyNetworkImage,
-            ),
-          ),
+          child: (user?.imageBase64 == null)
+              ? DefaultUserImage(
+                  fullName: user?.getFullNameKh() ?? "",
+                  height: 90,
+                  width: 90,
+                )
+              : CircleAvatar(
+                  radius: 45,
+                  backgroundColor: Colors.white,
+                  foregroundImage:
+                      MemoryImage(base64Decode(user?.imageBase64 ?? "")),
+                ),
         );
       },
     );
@@ -90,9 +75,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       return Text(
                         user?.officialInfo?.getFullNameKh() ?? "",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
+                          color: CompanyColors.blue,
                         ),
                       );
                     },
@@ -145,9 +131,7 @@ class _DrawerItemState extends State<_DrawerItem> {
       });
       if (value) {
         authController.clearToken();
-        // Get.offAll(
-        //   () => const LandingPage(),
-        // );
+        Get.offAll(() => const LandingPage());
       }
     });
   }
@@ -157,8 +141,14 @@ class _DrawerItemState extends State<_DrawerItem> {
     return Column(
       children: [
         ListTile(
-          leading: const Icon(Icons.home),
-          title: const Text('ទំព័រដើម'),
+          leading: Icon(
+            Icons.home,
+            color: CompanyColors.yellow,
+          ),
+          title: Text(
+            'ទំព័រដើម',
+            style: TextStyle(color: CompanyColors.blue),
+          ),
           onTap: () {
             Get.back();
             Get.to(() => const HomePage());
@@ -166,8 +156,14 @@ class _DrawerItemState extends State<_DrawerItem> {
         ),
         ...List.generate(homePageItems.length, (index) {
           return ListTile(
-            leading: Icon(homePageItems[index].icon),
-            title: Text(homePageItems[index].title),
+            leading: Icon(
+              homePageItems[index].icon,
+              color: CompanyColors.yellow,
+            ),
+            title: Text(
+              homePageItems[index].title,
+              style: TextStyle(color: CompanyColors.blue),
+            ),
             onTap: () {
               Get.back(closeOverlays: true);
               Get.to(() => homePageItems[index].destination);
@@ -176,8 +172,14 @@ class _DrawerItemState extends State<_DrawerItem> {
         }),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.password),
-          title: const Text('ផ្លាស់ប្តូរពាក្យសម្ងាត់'),
+          leading: Icon(
+            Icons.password,
+            color: CompanyColors.yellow,
+          ),
+          title: Text(
+            'ផ្លាស់ប្តូរពាក្យសម្ងាត់',
+            style: TextStyle(color: CompanyColors.blue),
+          ),
           onTap: () {
             Get.back();
             Get.to(() => const ChangePasswordPage());
@@ -185,8 +187,14 @@ class _DrawerItemState extends State<_DrawerItem> {
         ),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.logout),
-          title: const Text('ចាកចេញ'),
+          leading: Icon(
+            Icons.logout,
+            color: CompanyColors.yellow,
+          ),
+          title: Text(
+            'ចាកចេញ',
+            style: TextStyle(color: CompanyColors.blue),
+          ),
           trailing: Visibility(
             visible: isVisible,
             child: const CircularProgressIndicator(),

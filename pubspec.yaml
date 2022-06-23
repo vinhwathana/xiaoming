@@ -53,6 +53,7 @@ dependencies:
   dotted_border: ^2.0.0+2
   file_picker: ^4.6.1
   flip_card: ^0.6.0
+  avatars: ^3.0.2
 
 
 dev_dependencies:

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -7,8 +6,6 @@ import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/services/utils.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-
-import '../models/employee_list_result.dart';
 
 class UserService {
   Future<http.Response?> preGetUserProfile() async {
@@ -41,9 +38,8 @@ class UserService {
     final url = "${api_url.userProfile}/${authController.getEmployeeId()}";
     final response = await callingApiMethod(url: url, method: Method.GET);
     if (response is Map<String, dynamic>) {
-      final EmployeeListResult result = EmployeeListResult.fromMap(response);
-      final user = result.data;
-      return user;
+      final result = User.fromMap(response);
+      return result;
     }
     processError(response);
     return null;

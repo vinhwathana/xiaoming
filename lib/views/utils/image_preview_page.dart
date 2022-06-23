@@ -5,11 +5,9 @@ import 'package:photo_view/photo_view.dart';
 class ImagePreviewPage extends StatelessWidget {
   const ImagePreviewPage({
     Key? key,
-    required this.imageBase64,
     required this.imageProvider,
   }) : super(key: key);
 
-  final String imageBase64;
   final ImageProvider imageProvider;
 
   @override

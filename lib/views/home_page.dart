@@ -6,7 +6,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_drawer.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
-import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/dashboard/today_work_period.dart';
 import 'package:xiaoming/services/dashboard_service.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -33,30 +32,21 @@ class _HomePageState extends State<HomePage> {
       onWillPop: onWillPop,
       child: RefreshIndicator(
         onRefresh: () async {
-          final authCon = Get.find<AuthenticationController>();
-          authCon.update();
+          setState(() {});
         },
         child: Scaffold(
           appBar: AppBar(
             title: const Text('ប្រព័ន្ធព័ត៌មានមន្ត្រីរាជការ'),
-            actions: const [
-              // IconButton(
-              //   onPressed: () async {},
-              //   icon: const Icon(Icons.settings),
-              // ),
-            ],
           ),
           drawer: const CustomDrawer(),
           body: SafeArea(
-            child: Container(
+            child: SizedBox(
               width: double.maxFinite,
               height: double.maxFinite,
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    SizedBox(
-                      height: 8,
-                    ),
+                  children: const [
+                    SizedBox(height: 8),
                     WorkHourChart(),
                     HomePageGridView(),
                     SizedBox(
@@ -84,8 +74,6 @@ class _WorkHourChartState extends State<WorkHourChart> {
   final List<ChartData> chartData = [
     ChartData('David', 70, CompanyColors.blue),
     ChartData('Steve', 30, Colors.grey),
-    // ChartData('Jack', 34, Color.fromRGBO(228, 0, 124, 1)),
-    // ChartData('Others', 52, Color.fromRGBO(255, 189, 57, 1))
   ];
   final dashboardService = DashboardService();
 
@@ -98,7 +86,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
     // return donutChart(workPeriod: todayWorkPeriod);
     return Card(
       elevation: 3,
-      margin: EdgeInsets.symmetric(horizontal: 24),
+      margin: const EdgeInsets.symmetric(horizontal: 24),
       child: CustomFutureBuilder<TodayWorkPeriod?>(
         future: dashboardService.getTodayWorkPeriod(),
         onLoading: donutChart(workPeriod: null),
@@ -147,7 +135,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
 
     return Stack(
       children: [
-        Positioned(
+        const Positioned(
           top: 8,
           left: 8,
           child: Text(
@@ -165,7 +153,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
             alignment: Alignment.bottomCenter,
             child: Text(
               "ម៉ោងស្កេនចុងក្រោយ $lastScanTime",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 // fontFamily: 'KhmerOSBattambong',
               ),
@@ -173,7 +161,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
           ),
         ),
         Container(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: 16),
           child: Stack(
             children: [
               Positioned.fill(
@@ -191,7 +179,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
               SfCircularChart(
                 title: ChartTitle(
                   text: "ថ្ងៃនេះ",
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontFamily: 'KhmerMPTC',
                     fontSize: 16,
                   ),
@@ -236,7 +224,7 @@ class HomePageGridView extends StatelessWidget {
     return GridView.builder(
       itemCount: homePageItems.length,
       padding: const EdgeInsets.all(16.0),
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -246,15 +234,15 @@ class HomePageGridView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Card(
           elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
           child: Material(
             color: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
             ),
@@ -274,7 +262,7 @@ class HomePageGridView extends StatelessWidget {
                     size: 75,
                     color: CompanyColors.blue,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Container(
