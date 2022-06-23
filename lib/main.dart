@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/views/home_page.dart';
 import 'package:xiaoming/views/id_card/id_card_page.dart';
-import 'package:xiaoming/views/landing_page2.dart';
+import 'package:xiaoming/views/landing_page.dart';
 
 import 'controllers/initial_binding.dart';
 import 'language/khmer_cupertino_localization_delegate.dart';
 import 'services/localization_service.dart';
-import 'views/landing_page.dart';
+import 'views/prev_landing_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
         Locale('km'),
       ],
       initialBinding: InitialBinding(),
-      // defaultTransition: Transition.cupertino,
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerMPTC',
@@ -77,16 +76,10 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
         iconTheme: IconThemeData(color: CompanyColors.yellow),
-        // pageTransitionsTheme: const PageTransitionsTheme(
-        //   builders: {
-        //     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-        //     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-        //   },
-        // ),
       ),
       themeMode: ThemeMode.light,
-      // home: HomePage(),
-      home: const LandingPage(),
+      home: LandingPage(),
+      // home: const LandingPage(),
     );
   }
 }

@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/default_response.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/landing_page.dart';
+import 'package:xiaoming/views/prev_landing_page.dart';
 
 Future<dynamic> callingApiMethod({
   required String url,
@@ -97,7 +97,7 @@ dynamic processResponse(http.Response response) {
       return defaultResponse;
     }
   } else if (response.statusCode == 401) {
-    Get.offAll(() => LandingPage());
+    Get.offAll(() => PrevLandingPage());
   }
   return response.body;
 }

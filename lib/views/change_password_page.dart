@@ -6,7 +6,7 @@ import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/landing_page.dart';
+import 'package:xiaoming/views/prev_landing_page.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({
@@ -44,13 +44,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
     if (user == null) {
       await authController.clearToken();
-      Get.offAll(() => const LandingPage());
+      Get.offAll(() => const PrevLandingPage());
       return;
     }
     final userEmail = user.officialInfo?.contactEmail;
     if (userEmail == null) {
       await authController.clearToken();
-      Get.offAll(() => const LandingPage());
+      Get.offAll(() => const PrevLandingPage());
       return;
     }
 
@@ -62,13 +62,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     if (response == null) {
       showToast("Something went wrong");
       await authController.clearToken();
-      Get.offAll(() => const LandingPage());
+      Get.offAll(() => const PrevLandingPage());
       return;
     }
     if (response.statusCode == 200) {
       showToast("ពាក្យសម្ងាត់កែសម្រួលបានសម្រេច\nសូមចូលម្តងទៀត");
       await authController.clearToken();
-      Get.offAll(() => const LandingPage());
+      Get.offAll(() => const PrevLandingPage());
     } else {
       showToast("ប្រតិបត្តិបរាជ័យ");
     }

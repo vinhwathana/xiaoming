@@ -4,7 +4,7 @@ import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
-import 'package:xiaoming/views/landing_page.dart';
+import 'package:xiaoming/views/prev_landing_page.dart';
 
 class VerifyOtpPage extends StatefulWidget {
   const VerifyOtpPage({
@@ -37,7 +37,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
       otp,
     );
     if (response.statusCode == 200) {
-      Get.offAll(() => const LandingPage());
+      Get.offAll(() => const PrevLandingPage());
     } else {
       showToast("Error Occurred");
     }

@@ -10,10 +10,6 @@ class UserController extends GetxController {
   Rx<User>? user;
   http.Response? response;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
 
   List<String> getListOfKey(/*String responseBody*/) {
     if (response == null) {
@@ -44,6 +40,10 @@ class UserController extends GetxController {
         EmployeeListResult.fromJson(response.body);
     user = result.data!.obs;
     this.response = response;
+    update();
+  }
+  void updateUser(User user){
+    this.user = user.obs;
     update();
   }
 }

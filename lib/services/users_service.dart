@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/user.dart';
+import 'package:xiaoming/services/utils.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 
 import '../models/employee_list_result.dart';
 
 class UserService {
-  Future<http.Response?> getUserProfile() async {
+  Future<http.Response?> preGetUserProfile() async {
     final authController = Get.find<AuthenticationController>();
     if (authController.accessToken == null ||
         authController.accessToken!.isEmpty) {
@@ -34,33 +35,17 @@ class UserService {
     }
   }
 
-  Future<User?> getUserProfile2() async {
+  Future<User?> getUserProfile() async {
     final authController = Get.find<AuthenticationController>();
-    if (authController.accessToken == null ||
-        authController.accessToken!.isEmpty) {
-      return null;
-    }
 
-    try {
-      final uri =
-          Uri.parse("${api_url.userProfile}/${authController.getEmployeeId()}");
-      final response = await http.get(
-        uri,
-        headers: {
-          HttpHeaders.authorizationHeader:
-              "Bearer ${authController.accessToken!}",
-          'Cookie': 'culture=Ar',
-        },
-      );
-      if (response.statusCode == 200) {
-        final EmployeeListResult result =
-            EmployeeListResult.fromJson(response.body);
-        final user = result.data!;
-        return user;
-      }
-    } catch (e) {
-      log(e.toString());
+    final url = "${api_url.userProfile}/${authController.getEmployeeId()}";
+    final response = await callingApiMethod(url: url, method: Method.GET);
+    if (response is Map<String, dynamic>) {
+      final EmployeeListResult result = EmployeeListResult.fromMap(response);
+      final user = result.data;
+      return user;
     }
+    processError(response);
     return null;
   }
 }
