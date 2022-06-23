@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
-import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/components/custom_future_builder.dart';
+import 'package:xiaoming/models/card/id_card_info.dart';
+import 'package:xiaoming/services/card_service.dart';
 
 class IdCardPage extends StatefulWidget {
   const IdCardPage({Key? key}) : super(key: key);
@@ -17,6 +21,8 @@ class _IdCardPageState extends State<IdCardPage> {
   final mptcMoul = "KhmerMPTCMoul";
   final khmerMptc = "KhmerMPTC";
   final khmerOSSiemReap = "KhmerOSSiemReap";
+  final niDASowannaphum = 'NiDASowannaphum';
+  final niDAFunan = 'NiDAFunan';
   final groundControl = "GroundControl";
   final defaultTextStyle = TextStyle(
     fontFamily: "KhmerMPTC",
@@ -29,6 +35,8 @@ class _IdCardPageState extends State<IdCardPage> {
   bool isVisible = false;
 
   final flipCardController = FlipCardController();
+  final cardService = CardService();
+  IdCardInfo? cardInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +76,21 @@ class _IdCardPageState extends State<IdCardPage> {
                 width = 375;
                 height = 592;
                 paddingFront = 170;
-                paddingBack = 54;
+                paddingBack = 45;
               }
 
-              return FlipCard(
-                controller: flipCardController,
-                flipOnTouch: true,
-                speed: 400,
-                front: cardFront(width, height, paddingFront),
-                back: cardBack(width, height, paddingBack),
+              return CustomFutureBuilder<IdCardInfo?>(
+                future: cardService.getCardInfo(),
+                onDataRetrieved: (context, result, connectionState) {
+                  cardInfo = result;
+                  return FlipCard(
+                    controller: flipCardController,
+                    flipOnTouch: true,
+                    speed: 400,
+                    front: cardFront(width, height, paddingFront),
+                    back: cardBack(width, height, paddingBack),
+                  );
+                },
               );
             },
           ),
@@ -98,10 +112,10 @@ class _IdCardPageState extends State<IdCardPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: width / 3.2,
-                  width: width / 3.2,
-                  child: Image.network(
-                    dummyNetworkImage,
+                  height: width / 2.8,
+                  width: width / 2.8,
+                  child: Image.memory(
+                    base64Decode(cardInfo?.getQrCode ?? ""),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -173,7 +187,7 @@ class _IdCardPageState extends State<IdCardPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 11,
-                            fontFamily: mptcMoul,
+                            fontFamily: niDAFunan,
                             color: CompanyColors.blue,
                             fontWeight: FontWeight.w600,
                           ),
@@ -189,7 +203,7 @@ class _IdCardPageState extends State<IdCardPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 11,
-                            fontFamily: mptcMoul,
+                            fontFamily: niDAFunan,
                             color: CompanyColors.blue,
                             fontWeight: FontWeight.w600,
                           ),
@@ -222,7 +236,7 @@ class _IdCardPageState extends State<IdCardPage> {
                             ),
                           ),
                           Text(
-                            "1220003",
+                            cardInfo?.cardId ?? "",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               height: 1.5,
@@ -286,8 +300,8 @@ class _IdCardPageState extends State<IdCardPage> {
                 Container(
                   height: width / 1.9,
                   width: width / 1.9,
-                  child: Image.network(
-                    dummyNetworkImage,
+                  child: Image.memory(
+                    base64Decode(cardInfo?.getPhoto ?? ""),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -314,7 +328,7 @@ class _IdCardPageState extends State<IdCardPage> {
                   width: width / 1.9,
                 ),
                 Text(
-                  "សាន់ ចេស្តា",
+                  cardInfo?.fullNameKh ?? "",
                   style: TextStyle(
                     fontSize: (Get.width > 400) ? 24 : 21,
                     fontFamily: mptcMoul,
@@ -322,8 +336,9 @@ class _IdCardPageState extends State<IdCardPage> {
                     height: (Get.width > 400) ? null : 1.2,
                   ),
                 ),
+
                 Text(
-                  "Chesda Sann",
+                  cardInfo?.fullNameEn ?? "",
                   style: TextStyle(
                     fontSize: (Get.width > 400) ? 26 : 23,
                     fontFamily: groundControl,
@@ -351,22 +366,53 @@ class _IdCardPageState extends State<IdCardPage> {
                 SizedBox(
                   height: 4,
                 ),
-                Text(
-                  "មន្ត្រី",
-                  style: defaultTextStyle,
-                ),
-                Text(
-                  "Official",
-                  style: defaultTextStyle,
-                ),
-                Text(
-                  "ក្រសួងប្រៃសណីយ៍និងទូរគមនាគមន៍",
-                  style: defaultTextStyle,
-                ),
-                Text(
-                  "Ministry of Post and Telecommunications",
-                  style: defaultTextStyle,
-                ),
+                Expanded(
+                  child: (cardInfo?.cardType == "TYPE_B")
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              cardInfo?.positionKh ?? "",
+                              style: defaultTextStyle,
+                            ),
+                            Text(
+                              cardInfo?.positionEn ?? "",
+                              style: defaultTextStyle,
+                            ),
+                            Text(
+                              cardInfo?.unitTitle ?? "",
+                              style: defaultTextStyle,
+                            ),
+                            Text(
+                              cardInfo?.unitTitleEn ?? "",
+                              style: defaultTextStyle,
+                            ),
+                          ],
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              cardInfo?.positionKh ?? "",
+                              style: TextStyle(
+                                fontFamily: mptcMoul,
+                                fontSize: 22,
+                                color: CompanyColors.blue,
+                                height: 1.6,
+                              ),
+                            ),
+                            Text(
+                              cardInfo?.positionEn ?? "",
+                              style: TextStyle(
+                                fontFamily: groundControl,
+                                fontSize: 22,
+                                color: CompanyColors.blue,
+                                height: 1.6,
+                              ),
+                            ),
+                          ],
+                        ),
+                )
               ],
             ),
           ),

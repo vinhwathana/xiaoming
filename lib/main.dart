@@ -84,8 +84,8 @@ class _MyAppState extends State<MyApp> {
         // ),
       ),
       themeMode: ThemeMode.light,
-      // home: IdCardPage(),
-      home: const LandingPage(),
+      home: HomePage(),
+      // home: const LandingPage(),
     );
   }
 }

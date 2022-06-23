@@ -9,7 +9,6 @@ import 'package:xiaoming/models/user.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
 
 import '../models/employee_list_result.dart';
-import '../utils/constant.dart';
 
 class UserService {
   Future<http.Response?> getUserProfile() async {

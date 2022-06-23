@@ -213,6 +213,23 @@ String addSpacePerThreeChar(String value) {
       RegExp(r".{3}"), (match) => "${match.group(0)} ");
 }
 
+int? checkDynamicId(dynamic data) {
+  if (data == null) {
+    return null;
+  }
+  if (data is int) {
+    return data;
+  }
+  if (data is String) {
+    if (data.isEmpty) {
+      return null;
+    }
+    return int.parse(data);
+  }
+  return null;
+}
+
+
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;

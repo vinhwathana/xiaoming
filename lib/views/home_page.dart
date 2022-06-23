@@ -22,52 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Widget userProfile() {
-  //   return GetBuilder<UserController>(
-  //     builder: (controller) {
-  //       if (controller.users != null &&
-  //           controller.users!.value.officialInfo != null) {
-  //         final user = controller.users!.value.officialInfo;
-  //         if (user!.imageBase64 == null) {
-  //           return Container();
-  //         }
-  //         return InkWell(
-  //           onTap: () {
-  //             Get.to(
-  //               () => ImagePreviewPage(
-  //                 imageBase64: user.imageBase64!,
-  //                 imageProvider: MemoryImage(
-  //                   base64Decode(user.imageBase64!),
-  //                 ),
-  //               ),
-  //             );
-  //           },
-  //           child: CircleAvatar(
-  //             foregroundImage: MemoryImage(base64Decode(user.imageBase64!)),
-  //           ),
-  //         );
-  //       }
-  //       return InkWell(
-  //         onTap: () {
-  //           Get.to(
-  //             () => const ImagePreviewPage(
-  //               imageBase64: dummyNetworkImage,
-  //               imageProvider: NetworkImage(
-  //                 dummyNetworkImage,
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //         child: const CircleAvatar(
-  //           foregroundImage: NetworkImage(
-  //             dummyNetworkImage,
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -89,7 +43,12 @@ class _HomePageState extends State<HomePage> {
           ),
           drawer: const CustomDrawer(),
           body: SafeArea(
-            child: HomePageGridView(),
+            child: Column(
+              children: [
+
+                HomePageGridView(),
+              ],
+            ),
           ),
         ),
       ),

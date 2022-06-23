@@ -90,8 +90,11 @@ const String personalAttendanceByDate =
 const String personalAttendanceLog =
     "$baseUrl/attendances/personal-attd-log-by-date";
 
-///AUTOCOMPLETE
+///Card
+///https://{{domain}}/employees/card/11
+const String getCardInfoUrl = "$baseUrl/employees/card";
 
+///AUTOCOMPLETE
 ///FOR GETTING COUNTRIES
 const String countryUrl = "$baseUrl/ac/data-lov/COUNTRY";
 

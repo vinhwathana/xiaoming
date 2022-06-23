@@ -83,6 +83,12 @@ flutter:
     - family: KhmerOSSiemReap
       fonts:
         - asset: assets/fonts/KhmerOSSiemreap.ttf
+    - family: NiDAFunan
+      fonts:
+        - asset: assets/fonts/NiDAFunan.ttf
+    - family: NiDASowannaphum
+      fonts:
+        - asset: assets/fonts/NiDASowannaphum.ttf
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
