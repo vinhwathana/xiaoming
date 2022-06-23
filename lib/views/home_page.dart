@@ -93,8 +93,9 @@ class _WorkHourChartState extends State<WorkHourChart> {
   Widget build(BuildContext context) {
     // final TodayWorkPeriod todayWorkPeriod = TodayWorkPeriod(
     //   lastScan: "14:38:20",
-    //   periodInHour: "9",
+    //   periodInHour: 6.9,
     // );
+    // return donutChart(workPeriod: todayWorkPeriod);
     return Card(
       elevation: 3,
       margin: EdgeInsets.symmetric(horizontal: 24),
@@ -111,9 +112,9 @@ class _WorkHourChartState extends State<WorkHourChart> {
   String stringToTimeOfDay(String tod) {
     final timeFormat = DateFormat('HH:mm:ss');
     final time = timeFormat.parse(tod);
-    return TimeOfDay.fromDateTime(time).format(context);
+    // return TimeOfDay.fromDateTime(time).format(context);
     //for 24 hour fomat
-    // return "${time.hour}:${time.minute}";
+    return "${time.hour}:${time.minute}";
   }
 
   Widget donutChart({TodayWorkPeriod? workPeriod}) {
@@ -122,26 +123,24 @@ class _WorkHourChartState extends State<WorkHourChart> {
       ChartData('Steve', 100, Colors.grey),
     ];
     List<ChartData>? chartData;
-    final String periodInHour = workPeriod?.periodInHour ?? "0";
+    final String periodInHour = workPeriod?.periodInHour?.toString() ?? "0.0";
     final lastScanTime = (workPeriod?.lastScan == null)
         ? ""
         : stringToTimeOfDay(workPeriod?.lastScan ?? "");
 
     if (workPeriod != null) {
-      final workHours = (workPeriod.periodInHour == null)
-          ? 0.0
-          : double.parse(workPeriod.periodInHour);
-      final workHourPercentage = workHours * 100 / 8;
+      final workHours = workPeriod.periodInHour ?? 0.0;
+      final workHourPercentage = workHours * 100 / 7;
       final remainingPercentage = 100 - workHourPercentage;
       chartData = [
         ChartData(lastScanTime, workHourPercentage, CompanyColors.blue),
         ChartData("Total", remainingPercentage, Colors.grey),
       ];
       if (workHourPercentage >= 100 || remainingPercentage <= 0) {
-        final extra = workHours - 8;
+        // final extra = workHours - 8;
         chartData = [
-          ChartData(lastScanTime, 8, CompanyColors.blue),
-          ChartData("Extra", extra, CompanyColors.yellow),
+          ChartData(lastScanTime, 7, CompanyColors.blue),
+          // ChartData("Extra", extra, Colors.green),
         ];
       }
     }
@@ -181,7 +180,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
                 top: 30,
                 child: Center(
                   child: Text(
-                    periodInHour,
+                    "${periodInHour}h",
                     style: TextStyle(
                       fontSize: 36,
                       color: CompanyColors.blue,

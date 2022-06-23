@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 TodayWorkPeriod todayWorkPeriodFromJson(String str) =>
@@ -10,12 +9,12 @@ String todayWorkPeriodToJson(TodayWorkPeriod data) =>
 class TodayWorkPeriod {
   TodayWorkPeriod({
     this.lastScan,
-    this.periodInHour,
+    this.periodInHour = 0.0,
     this.logInfo,
   });
 
   dynamic lastScan;
-  dynamic periodInHour;
+  double? periodInHour;
   LogInfo? logInfo;
 
   factory TodayWorkPeriod.fromJson(Map<String, dynamic> json) =>
@@ -30,6 +29,11 @@ class TodayWorkPeriod {
         "periodInHour": periodInHour,
         "logInfo": logInfo?.toJson(),
       };
+
+  @override
+  String toString() {
+    return 'TodayWorkPeriod{lastScan: $lastScan, periodInHour: $periodInHour, logInfo: $logInfo}';
+  }
 }
 
 class LogInfo {
