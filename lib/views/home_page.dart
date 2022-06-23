@@ -57,8 +57,11 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 8,
                     ),
-                    // WorkHourChart(),
+                    WorkHourChart(),
                     HomePageGridView(),
+                    SizedBox(
+                      height: 8,
+                    ),
                   ],
                 ),
               ),
@@ -325,7 +328,7 @@ final List<_HomePageItem> homePageItems = [
   ),
   const _HomePageItem(
     title: "ស្នើសុំច្បាប់",
-    icon: Icons.event_note_sharp,
+    icon: Icons.event_note_rounded,
     destination: RequestLeavePage(),
   ),
 ];

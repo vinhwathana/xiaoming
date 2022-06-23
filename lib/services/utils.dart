@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/default_response.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/landing_page.dart';
@@ -16,8 +17,9 @@ Future<dynamic> callingApiMethod({
   required Method method,
   bool returnResponse = false,
 }) async {
-  final storage = FlutterSecureStorage();
-  final String? accessToken = await storage.read(key: tokenKeyName);
+  // final storage = FlutterSecureStorage();
+  final authController = Get.find<AuthenticationController>();
+  final String? accessToken = authController.accessToken;
   final uri = Uri.parse(url);
 
   final headers = {

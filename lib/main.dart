@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/views/home_page.dart';
+import 'package:xiaoming/views/id_card/id_card_page.dart';
+import 'package:xiaoming/views/landing_page2.dart';
 
 import 'controllers/initial_binding.dart';
 import 'language/khmer_cupertino_localization_delegate.dart';
@@ -61,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         Locale('km'),
       ],
       initialBinding: InitialBinding(),
-      defaultTransition: Transition.cupertino,
+      // defaultTransition: Transition.cupertino,
       theme: ThemeData(
         primarySwatch: CompanyColors.blue,
         fontFamily: 'KhmerMPTC',

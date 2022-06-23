@@ -69,13 +69,13 @@ class _IdCardPageState extends State<IdCardPage> {
               double width = 330;
               double height = 508;
 
-              double paddingFront = 150;
-              double paddingBack = 39;
+              double paddingFront = 155;
+              double paddingBack = 32;
 
               if (deviceWidth > 400) {
                 width = 375;
                 height = 592;
-                paddingFront = 170;
+                paddingFront = 190;
                 paddingBack = 45;
               }
 
@@ -162,8 +162,8 @@ class _IdCardPageState extends State<IdCardPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Container(
-                        height: (Get.width > 400) ? 97 : 83,
+                      SizedBox(
+                        height: (Get.width > 400) ? 105 : 90,
                       ),
                       Text(
                         "ថ្ងៃសុក្រ ១៥រោច ខែផល្គុន ឆ្នាំឆ្លូវ ត្រីស័ក ព.ស.២៥៦៥"
@@ -302,7 +302,7 @@ class _IdCardPageState extends State<IdCardPage> {
                   width: width / 1.9,
                   child: Image.memory(
                     base64Decode(cardInfo?.getPhoto ?? ""),
-                    fit: BoxFit.cover,
+                    // fit: BoxFit.cover,
                   ),
                 ),
               ],
@@ -333,10 +333,9 @@ class _IdCardPageState extends State<IdCardPage> {
                     fontSize: (Get.width > 400) ? 24 : 21,
                     fontFamily: mptcMoul,
                     color: CompanyColors.blue,
-                    height: (Get.width > 400) ? null : 1.2,
+                    height: (Get.width > 400) ? 1 : 1.2,
                   ),
                 ),
-
                 Text(
                   cardInfo?.fullNameEn ?? "",
                   style: TextStyle(
