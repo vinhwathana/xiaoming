@@ -87,6 +87,7 @@ Future<dynamic> callingApiMethod({
 }
 
 dynamic processResponse(http.Response response) {
+
   if (response.statusCode < 300) {
     final defaultResponse = defaultResponseFromJson(response.body);
 

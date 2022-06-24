@@ -8,9 +8,11 @@ import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/components/logo_title_widget.dart';
 import 'package:xiaoming/components/type_textfield.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
+import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
+import 'package:xiaoming/services/users_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/home_page.dart';
 
@@ -34,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       passwordCon = TextEditingController();
 
   final authService = AuthenticationService();
+  final userService = UserService();
 
   Future<void> _submitLogin() async {
     FocusScope.of(context).requestFocus(FocusNode());
@@ -59,7 +62,13 @@ class _LoginPageState extends State<LoginPage> {
         final String token = responseJson['_token'];
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
-        Get.offAll(() => const HomePage());
+        final userController = Get.find<UserController>();
+        final user = await userService.getUserProfile();
+        print(user.toString());
+        if (user != null) {
+          userController.setUser(user);
+        }
+        Get.to(() => const HomePage());
       } else if (response.statusCode == 401) {
         showToast("ពិនិត្យអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នកម្តងទៀត");
       } else {

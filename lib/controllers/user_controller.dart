@@ -10,7 +10,6 @@ class UserController extends GetxController {
   Rx<User>? user;
   http.Response? response;
 
-
   List<String> getListOfKey(/*String responseBody*/) {
     if (response == null) {
       if (kDebugMode) {
@@ -42,8 +41,9 @@ class UserController extends GetxController {
     this.response = response;
     update();
   }
-  void setUser(User user){
+
+  void setUser(User user) {
     this.user = user.obs;
-    // update();
+    update();
   }
 }

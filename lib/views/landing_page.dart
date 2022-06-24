@@ -30,7 +30,7 @@ class _LandingPageState extends State<LandingPage> {
   bool isDialogOpen = false;
 
   final authController = Get.put(AuthenticationController(), permanent: true);
-  final userController = Get.put(UserController(), permanent: true);
+  final userController = Get.put(UserController());
 
   //
   @override

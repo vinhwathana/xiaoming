@@ -127,12 +127,13 @@ class _DrawerItemState extends State<_DrawerItem> {
     final authService = AuthenticationService();
     final authController = Get.find<AuthenticationController>();
     final token = authController.accessToken!;
-    authService.signOut(token: token).then((value) {
+    authService.signOut(token: token).then((value) async {
       setState(() {
         isVisible = false;
       });
       if (value) {
         authController.clearToken();
+        await Get.delete<UserController>();
         Get.offAll(() => const LandingPage());
       }
     });

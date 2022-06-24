@@ -37,11 +37,12 @@ class UserService {
 
     final url = "${api_url.userProfile}/${authController.getEmployeeId()}";
     final response = await callingApiMethod(url: url, method: Method.GET);
+
     if (response is Map<String, dynamic>) {
       final result = User.fromMap(response);
       return result;
     }
-    // processError(response);
+    processError(response);
     return null;
   }
 }
