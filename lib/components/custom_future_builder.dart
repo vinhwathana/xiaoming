@@ -15,7 +15,7 @@ class CustomFutureBuilder<T> extends StatefulWidget {
   final Widget? onLoading;
   final Widget? onError;
   final Widget Function(
-          BuildContext context, T result, ConnectionState connectionState)
+          BuildContext context, T? result, ConnectionState connectionState)
       onDataRetrieved;
 
   @override
@@ -43,7 +43,13 @@ class _CustomFutureBuilderState<T> extends State<CustomFutureBuilder<T>> {
           }
 
           return Text("errorOccurred".tr);
-        } else {
+        } else if(snapshot.connectionState == ConnectionState.done){
+          return widget.onDataRetrieved(
+            context,
+            null,
+            snapshot.connectionState,
+          );
+        }else {
           return widget.onLoading ?? const LoadingWidget();
         }
       },

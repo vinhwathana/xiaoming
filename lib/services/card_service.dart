@@ -19,7 +19,7 @@ class CardService {
       final cardInfo = IdCardInfo.fromJson(response);
       return cardInfo;
     }
-    processError(response);
+    processError(response,isAutomaticLogout: true);
     return null;
   }
 }

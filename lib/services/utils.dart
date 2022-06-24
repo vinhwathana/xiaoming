@@ -87,7 +87,7 @@ Future<dynamic> callingApiMethod({
 }
 
 dynamic processResponse(http.Response response) {
-  if (response.statusCode == 200) {
+  if (response.statusCode < 300) {
     final defaultResponse = defaultResponseFromJson(response.body);
 
     if (defaultResponse.statusCode == 200) {
@@ -95,18 +95,24 @@ dynamic processResponse(http.Response response) {
     } else {
       return defaultResponse;
     }
-  } else if (response.statusCode == 401) {
-    Get.offAll(() => const LandingPage());
   }
-  return response.body;
+
+  return response;
 }
 
-void processError(dynamic response) {
+void processError(
+  dynamic response, {
+  bool isAutomaticLogout = false,
+}) {
   if (response is String) {
     if (response.isNotEmpty) {
       showToast(response);
     }
     log(response);
+  } else if (response is http.Response) {
+    if (isAutomaticLogout) {
+      Get.offAll(() => const LandingPage());
+    }
   } else if (response is DefaultResponse) {
     final errorMessage = """${response.message ?? ""}\n
     ${response.errors.toString()}""";

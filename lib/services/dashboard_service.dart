@@ -12,7 +12,7 @@ class DashboardService {
       return todayWorkPeriod;
     }
 
-    processError(response);
+    processError(response,isAutomaticLogout: true);
     return null;
   }
 }

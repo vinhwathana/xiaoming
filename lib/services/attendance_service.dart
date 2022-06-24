@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
 import 'package:xiaoming/models/attendance/attendance_log_response.dart';
-import 'package:xiaoming/models/attendance/personal_attendance_by_date_response.dart';
-import 'package:xiaoming/models/attendance/personal_attendance_range_response.dart';
-import 'package:xiaoming/models/attendance/time_rule.dart';
 import 'package:xiaoming/models/attendance/attendance_rule_response.dart';
+import 'package:xiaoming/models/attendance/personal_attendance_by_date_response.dart';
+import 'package:xiaoming/models/attendance/time_rule.dart';
+import 'package:xiaoming/services/utils.dart';
 import 'package:xiaoming/utils/api_route.dart' as api_url;
-import 'package:xiaoming/controllers/authentication_controller.dart';
 
 class AttendanceService {
   final authController = Get.find<AuthenticationController>();
@@ -21,32 +21,22 @@ class AttendanceService {
         authController.accessToken!.isEmpty) {
       return null;
     }
-    // from?dateFrom=2022-02-9&dateTo=2022-02-11
-    try {
-      final url = "${api_url.personalAttendance}"
-          "?dateFrom=$from"
-          "&dateTo=$to";
+    final url = "${api_url.personalAttendance}"
+        "?dateFrom=$from"
+        "&dateTo=$to";
 
-      final uri = Uri.parse(url);
-      final response = await http.get(
-        uri,
-        headers: {
-          HttpHeaders.authorizationHeader:
-              "Bearer ${authController.accessToken!}",
-        },
+    final response = await callingApiMethod(
+      url: url,
+      method: Method.GET,
+    );
+
+    if (response is List<dynamic>) {
+      final listOfAttendance = List<Attendance>.from(
+        response.map((x) => Attendance.fromMap(x)),
       );
-
-      if (response.statusCode == 200) {
-        final PersonalAttendanceRangeResponse attendanceResponse =
-            attendanceResponseRangeFromMap(response.body);
-        return attendanceResponse.data;
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return null;
+      return listOfAttendance;
     }
+    processError(response, isAutomaticLogout: true);
     return null;
   }
 

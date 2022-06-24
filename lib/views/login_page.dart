@@ -12,6 +12,7 @@ import 'package:xiaoming/models/authentication.dart';
 import 'package:xiaoming/models/login.dart';
 import 'package:xiaoming/services/authentication_service.dart';
 import 'package:xiaoming/utils/constant.dart';
+import 'package:xiaoming/views/home_page.dart';
 
 import 'forgot_password/forget_password_page.dart';
 
@@ -58,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
         final String token = responseJson['_token'];
         final controller = Get.find<AuthenticationController>();
         await controller.updateToken(token);
+        Get.offAll(() => const HomePage());
       } else if (response.statusCode == 401) {
         showToast("ពិនិត្យអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នកម្តងទៀត");
       } else {

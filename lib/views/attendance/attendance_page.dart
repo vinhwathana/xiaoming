@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/components/loading_widget.dart';
 import 'package:xiaoming/models/attendance/attendance.dart';
 import 'package:xiaoming/services/attendance_service.dart';
 import 'package:xiaoming/utils/constant.dart';
@@ -19,7 +20,7 @@ class _AttendancePageState extends State<AttendancePage> {
   final now = DateTime.now();
 
   // final now = DateTime(2022, 4, 26);
-  late DateTime start = validateDate(now.subtract(const Duration(days: 8)));
+  late DateTime start = validateDate(now.subtract(const Duration(days: 7)));
   late DateTime end = validateDate(now.subtract(const Duration(days: 1)));
 
   DateTime validateDate(DateTime date) {
@@ -104,9 +105,7 @@ class _AttendancePageState extends State<AttendancePage> {
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const LoadingWidget();
         }
 
         if (snapshot.hasData && snapshot.data != null) {
@@ -287,11 +286,24 @@ class AttendanceCard extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    Text(
-                      "វត្តមានកន្លះថ្ងៃ: ${attendance.attendanceStatus}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "ស្ថានភាព: ",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          attendance.attendanceStatus,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: determineShadowColor(
+                                attendance.attendanceStatus),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
