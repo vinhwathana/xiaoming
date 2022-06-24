@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
@@ -12,30 +13,30 @@ class ImagePreviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      direction: DismissDirection.vertical,
-      onDismissed: (direction) {
-        Get.back();
-      },
-      key: const Key('key'),
+    return ExtendedImageSlidePage(
+      slideAxis: SlideAxis.both,
+      slideType: SlideType.onlyImage,
+      resetPageDuration: const Duration(milliseconds: 100),
       child: Scaffold(
+        backgroundColor: Colors.black,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          elevation: 0,
         ),
         body: SafeArea(
           child: Container(
             color: Colors.black,
             width: double.maxFinite,
             height: double.maxFinite,
-            child: Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: PhotoView(
-                  imageProvider: imageProvider,
-                  minScale: 0.1,
-                ),
-              ),
+            child: ExtendedImage(
+              // imageProvider: imageProvider,
+              // minScale: 0.1,
+              image: imageProvider,
+              mode: ExtendedImageMode.gesture,
+              enableMemoryCache: true,
+              enableSlideOutPage: true,
             ),
           ),
         ),

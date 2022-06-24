@@ -70,6 +70,7 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       body: GetBuilder<InternetCheckController>(
         builder: (controller) {
+          print("controller.connectionStatus.value : ${controller.connectionStatus.value}");
           if (controller.connectionStatus.value == ConnectivityResult.none) {
             return Center(
               child: ElevatedButton(
@@ -93,10 +94,11 @@ class _LandingPageState extends State<LandingPage> {
                 return CustomFutureBuilder<User?>(
                   future: userService.getUserProfile(),
                   onDataRetrieved: (context, result, connectionState) {
+
                     if (result == null) {
                       return const LoginPage();
                     }
-                    userController.updateUser(result);
+                    userController.setUser(result);
                     return const HomePage();
                   },
                 );

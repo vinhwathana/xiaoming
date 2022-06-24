@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
@@ -31,8 +32,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             if (user?.imageBase64 != null) {
               Get.to(
                 () => ImagePreviewPage(
-                  imageProvider: MemoryImage(
+                  imageProvider: ExtendedMemoryImageProvider(
                     base64Decode(user?.imageBase64 ?? ""),
+                    scale: 0.1,
                   ),
                 ),
               );

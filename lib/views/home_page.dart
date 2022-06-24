@@ -10,7 +10,7 @@ import 'package:xiaoming/models/dashboard/today_work_period.dart';
 import 'package:xiaoming/services/dashboard_service.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/id_card/id_card_page.dart';
-import 'package:xiaoming/views/personal_info/new_user_info_page.dart';
+import 'package:xiaoming/views/personal_info/user_info_page.dart';
 import 'package:xiaoming/views/request_leave/request_leave_page.dart';
 import 'package:xiaoming/views/statistic/pages/list_statistic_page.dart';
 
@@ -296,7 +296,7 @@ final List<_HomePageItem> homePageItems = [
   const _HomePageItem(
     title: "ព័ត៌មានផ្ទាល់ខ្លួន",
     icon: Icons.account_circle,
-    destination: NewUserInfoPage(),
+    destination: UserInfoPage(),
   ),
   const _HomePageItem(
     title: "វត្តមានផ្ទាល់ខ្លួន",

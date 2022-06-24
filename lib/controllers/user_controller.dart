@@ -42,8 +42,8 @@ class UserController extends GetxController {
     this.response = response;
     update();
   }
-  void updateUser(User user){
+  void setUser(User user){
     this.user = user.obs;
-    update();
+    // update();
   }
 }
