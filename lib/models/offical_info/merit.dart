@@ -1,5 +1,6 @@
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class Merit {
   Merit({
@@ -16,7 +17,7 @@ class Merit {
   ListValue? meritType;
   ListValue? medalType;
   ListValue? rank;
-  DateTime? recievedDate;
+  String? recievedDate;
   String? remark;
   List<Attachment?>? attachmentList;
 
@@ -25,7 +26,7 @@ class Merit {
         meritType: ListValue.fromMap(json["meritType"]),
         medalType: ListValue.fromMap(json["medalType"]),
         rank: ListValue.fromMap(json["rank"]),
-        recievedDate: DateTime.parse(json["recievedDate"]),
+        recievedDate: json["recievedDate"],
         remark: json["remark"],
         attachmentList: List<Attachment?>.from(
             json["attachmentList"].map((x) => Attachment.fromMap(x))),
@@ -36,8 +37,7 @@ class Merit {
         "meritType": meritType?.toMap(),
         "medalType": medalType?.toMap(),
         "rank": rank?.toMap(),
-        "recievedDate":
-            "${recievedDate?.year.toString().padLeft(4, '0')}-${recievedDate?.month.toString().padLeft(2, '0')}-${recievedDate?.day.toString().padLeft(2, '0')}",
+        "recievedDate": formatStringForApi(recievedDate),
         "remark": remark,
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),

@@ -1,5 +1,6 @@
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class Education {
   Education({
@@ -21,9 +22,9 @@ class Education {
   });
 
   int? id;
-  DateTime? startDate;
+  String? startDate;
   bool? isStartDateYear;
-  DateTime? endDate;
+  String? endDate;
   bool? isEndDateYear;
   ListValue? educationType;
   ListValue? educationLevel;
@@ -38,9 +39,9 @@ class Education {
 
   factory Education.fromMap(Map<String, dynamic> json) => Education(
         id: json["id"],
-        startDate: DateTime.parse(json["startDate"]),
+        startDate: json["startDate"],
         isStartDateYear: json["isStartDateYear"],
-        endDate: DateTime.parse(json["endDate"]),
+        endDate: json["endDate"],
         isEndDateYear: json["isEndDateYear"],
         educationType: ListValue.fromMap(json["educationType"]),
         educationLevel: ListValue.fromMap(json["educationLevel"]),
@@ -57,11 +58,9 @@ class Education {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "startDate":
-            "${startDate?.year.toString().padLeft(4, '0')}-${startDate?.month.toString().padLeft(2, '0')}-${startDate?.day.toString().padLeft(2, '0')}",
+        "startDate": formatStringForApi(startDate),
         "isStartDateYear": isStartDateYear,
-        "endDate":
-            "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
+        "endDate": formatStringForApi(endDate),
         "isEndDateYear": isEndDateYear,
         "educationType": educationType?.toMap(),
         "educationLevel": educationLevel?.toMap(),

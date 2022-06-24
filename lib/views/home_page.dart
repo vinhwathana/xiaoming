@@ -107,7 +107,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
 
   Widget donutChart({TodayWorkPeriod? workPeriod}) {
     final List<ChartData> defaultChartData = [
-      ChartData('David', 0, CompanyColors.blue),
+      ChartData('David', 0, Colors.green),
       ChartData('Steve', 100, Colors.grey),
     ];
     List<ChartData>? chartData;
@@ -121,13 +121,13 @@ class _WorkHourChartState extends State<WorkHourChart> {
       final workHourPercentage = workHours * 100 / 7;
       final remainingPercentage = 100 - workHourPercentage;
       chartData = [
-        ChartData(lastScanTime, workHourPercentage, CompanyColors.blue),
+        ChartData(lastScanTime, workHourPercentage, Colors.green),
         ChartData("Total", remainingPercentage, Colors.grey),
       ];
       if (workHourPercentage >= 100 || remainingPercentage <= 0) {
         // final extra = workHours - 8;
         chartData = [
-          ChartData(lastScanTime, 7, CompanyColors.blue),
+          ChartData(lastScanTime, 7, Colors.green),
           // ChartData("Extra", extra, Colors.green),
         ];
       }
@@ -190,7 +190,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
                     pointColorMapper: (ChartData data, _) => data.color,
                     xValueMapper: (ChartData data, _) => data.name,
                     yValueMapper: (ChartData data, _) => data.amount,
-                    animationDuration: 300,
+                    animationDuration: 800,
                     innerRadius: "80",
                     radius: "120",
                     endAngle: 120,

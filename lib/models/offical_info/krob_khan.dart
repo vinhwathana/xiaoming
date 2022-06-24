@@ -1,5 +1,6 @@
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class KrobKhan {
   KrobKhan({
@@ -17,8 +18,8 @@ class KrobKhan {
 
   int? id;
   ListValue? officialType;
-  DateTime? startDate;
-  DateTime? endDate;
+  String? startDate;
+  String? endDate;
   bool? ongoing;
   ListValue? krobKhanType;
   ListValue? level;
@@ -29,8 +30,8 @@ class KrobKhan {
   factory KrobKhan.fromMap(Map<String, dynamic> json) => KrobKhan(
         id: json["id"],
         officialType: ListValue.fromMap(json["officialType"]),
-        startDate: DateTime.parse(json["startDate"]),
-        endDate: DateTime.parse(json["endDate"]),
+        startDate: json["startDate"],
+        endDate: json["endDate"],
         ongoing: json["ongoing"],
         krobKhanType: ListValue.fromMap(json["krobKhanType"]),
         level: ListValue.fromMap(json["level"]),
@@ -43,10 +44,8 @@ class KrobKhan {
   Map<String, dynamic> toMap() => {
         "id": id,
         "officialType": officialType?.toMap(),
-        "startDate":
-            "${startDate?.year.toString().padLeft(4, '0')}-${startDate?.month.toString().padLeft(2, '0')}-${startDate?.day.toString().padLeft(2, '0')}",
-        "endDate":
-            "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
+        "startDate": formatStringForApi(startDate),
+        "endDate": formatStringForApi(endDate),
         "ongoing": ongoing,
         "krobKhanType": krobKhanType?.toMap(),
         "level": level?.toMap(),

@@ -18,75 +18,21 @@ const String changePasswordToken =
 
 const String dummyNetworkImage = "https://wallpaperaccess.com/full/1313700.jpg";
 
-final dummyFamilyInfo = FamilyInfo(
-  relation: ListValue(
-    lovCode: "005002",
-    lovType: "RELATION",
-    nameKh: "កូន",
-    nameEn: "Son",
-  ),
-  firstNameEn: "Sann",
-  lastNameEn: "Chesda",
-  firstNameKh: "សាន់",
-  lastNameKh: "ចេស្តា",
-  dateOfBirth: DateTime.now(),
-  gender: "M",
-  maritalStatus: ListValue(
-    lovCode: "005002",
-    lovType: "RELATION",
-    nameKh: "កូន",
-    nameEn: "Son",
-  ),
-  status: "AL",
-  race: ListValue(
-    lovCode: "002001",
-    lovType: "RACE",
-    nameKh: "ខ្មែរ",
-    nameEn: "Khmer",
-  ),
-  nationality: ListValue(
-    lovCode: "003001",
-    lovType: "NATIONALITY",
-    nameKh: "ខ្មែរ",
-    nameEn: "Khmer",
-  ),
-  job: ListValue(
-    lovCode: "006007",
-    lovType: "JOB",
-    nameKh: "ពាណិជ្ជករ",
-    nameEn: "",
-  ),
-  currentAddressProvince: Address(
-    parentsCode: "",
-    addressCode: "05",
-    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
-    addressNameEn: "Kampong Speu Province",
-  ),
-  currentAddressDistrict: Address(
-    parentsCode: "",
-    addressCode: "05",
-    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
-    addressNameEn: "Kampong Speu Province",
-  ),
-  currentAddressCommune: Address(
-    parentsCode: "",
-    addressCode: "05",
-    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
-    addressNameEn: "Kampong Spe Province",
-  ),
-  currentAddressVillage: Address(
-    parentsCode: "",
-    addressCode: "05",
-    addressNameKh: "ខេត្តកំពង់ស្ពឺ",
-    addressNameEn: "Kampong Speu Province",
-  ),
-);
-
 const String allKeyword = "(ទាំងអស់)";
 const String khmerFont = "KhmerMPTC";
 const String khmerFontBold = "KhmerMPTC";
-const TextStyle fontKhmerTextStyle = TextStyle(
+const fontKhmerTextStyle = TextStyle(
   fontFamily: khmerFont,
+);
+const tableHeaderTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: khmerFont,
+  fontWeight: FontWeight.bold,
+);
+const tableDataTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: khmerFont,
+  height: 1.5,
 );
 
 const TextStyle columnHeaderTextStyle = TextStyle(
@@ -151,13 +97,27 @@ Future<void> storeToken(String token) async {
 
 final formatNameOfDate = DateFormat("EEEE", "en");
 
-String formatDateTimeForView(DateTime? date) {
+final intToMonth = DateFormat('dd-MMMM-yyyy', "km");
+
+String formatDateTimeForView(dynamic date) {
   if (date == null) {
     return "";
   }
-  final intToMonth = DateFormat('dd-MMMM-yyyy', "km");
-  final formattedDate = intToMonth.format(date);
-  return formattedDate;
+
+  if (date is String) {
+    final convertedDate = DateTime.tryParse(date);
+    if (convertedDate == null) {
+      return date;
+    }
+    final formattedDate = intToMonth.format(convertedDate);
+    return formattedDate;
+  }
+
+  if (date is DateTime) {
+    final formattedDate = intToMonth.format(date);
+    return formattedDate;
+  }
+  return date?.toString() ?? "";
 }
 
 //For attendance
@@ -167,6 +127,20 @@ String formatDateTimeForApi(DateTime? date) {
   }
   final intToMonth = DateFormat('yyyy-MM-dd');
   final formattedDate = intToMonth.format(date);
+  return formattedDate;
+}
+String formatStringForApi(String? date) {
+  if (date == null) {
+    return "";
+  }
+  final convertedDateTime = DateTime.tryParse(date);
+  if(convertedDateTime == null){
+    return "";
+  }
+
+
+  final intToMonth = DateFormat('yyyy-MM-dd');
+  final formattedDate = intToMonth.format(convertedDateTime);
   return formattedDate;
 }
 
@@ -228,7 +202,6 @@ int? checkDynamicId(dynamic data) {
   }
   return null;
 }
-
 
 class AlwaysDisabledFocusNode extends FocusNode {
   @override

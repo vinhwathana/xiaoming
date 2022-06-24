@@ -5,6 +5,7 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/work_history.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class WorkHistoryInfoPage extends StatelessWidget {
   const WorkHistoryInfoPage({
@@ -53,7 +54,7 @@ class _WorkHistoryInfoTableState extends State<WorkHistoryInfoTable> {
   }
 
   List<WorkHistory> getWorkHistory() {
-    return userController.user!.value.workHistories!;
+    return userController.user?.value.workHistories ?? [];
   }
 
   final textStyle = const TextStyle(
@@ -94,11 +95,11 @@ class WorkHistoryInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: e.startDate,
+            value: formatDateTimeForView(e.startDate),
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: e.endDate,
+            value: formatDateTimeForView(e.endDate),
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',
@@ -150,10 +151,7 @@ class WorkHistoryInfoDataSource extends DataGridSource {
             alignment: Alignment.center,
             child: Text(
               dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-              ),
+              style: tableDataTextStyle,
             ),
           );
         },

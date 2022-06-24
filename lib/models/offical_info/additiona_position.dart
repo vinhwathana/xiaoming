@@ -15,7 +15,7 @@ class AttachmentList {
     required this.additionalPositions,
   });
 
-  List<AdditionalPosition> additionalPositions;
+  List<AdditionalPosition>? additionalPositions;
 
   factory AttachmentList.fromMap(Map<String, dynamic> json) => AttachmentList(
         additionalPositions: List<AdditionalPosition>.from(
@@ -24,8 +24,8 @@ class AttachmentList {
       );
 
   Map<String, dynamic> toMap() => {
-        "additionalPositions":
-            List<dynamic>.from(additionalPositions.map((x) => x.toMap())),
+        "additionalPositions": List<dynamic>.from(
+            additionalPositions?.map((x) => x.toMap()) ?? []),
       };
 }
 
@@ -96,6 +96,11 @@ class AdditionalPosition {
         "attachmentList":
             List<Attachment>.from(attachmentList?.map((x) => x?.toMap()) ?? []),
       };
+
+  @override
+  String toString() {
+    return 'AdditionalPosition{id: $id, ministry: $ministry, startDate: $startDate, isStartDateYear: $isStartDateYear, endDate: $endDate, isEndDateYear: $isEndDateYear, ongoing: $ongoing, organization: $organization, workStatus: $workStatus, position: $position, positionEqual: $positionEqual, remark: $remark, attachmentList: $attachmentList}';
+  }
 }
 
 class AttachmentListElement {

@@ -281,7 +281,7 @@ class AttendanceCard extends StatelessWidget {
                   spacing: 8,
                   children: [
                     Text(
-                      "ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}",
+                      "ម៉ោងធ្វើការសរុប: ${attendance.periodInHour}h",
                       style: const TextStyle(
                         fontSize: 16,
                       ),

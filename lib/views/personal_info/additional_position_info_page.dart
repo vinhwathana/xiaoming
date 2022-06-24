@@ -5,6 +5,7 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/additiona_position.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class AdditionalPositionInfoPage extends StatelessWidget {
   const AdditionalPositionInfoPage({
@@ -55,13 +56,9 @@ class _AdditionalPositionInfoTableState
   }
 
   List<AdditionalPosition> getAdditionalPosition() {
-    return userController.user!.value.additionalPositions!;
+    return userController.user?.value.additionalPositions ?? [];
   }
 
-  final textStyle = const TextStyle(
-    color: Colors.black,
-    fontFamily: "KhmerOSBattambong",
-  );
 
   final List<String> headerTitles = [
     "មុខតំណែងបច្ចុប្បន្ន",
@@ -96,11 +93,11 @@ class AdditionalPositionInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: e.startDate,
+            value: formatDateTimeForView(e.startDate),
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: e.endDate,
+            value: formatDateTimeForView(e.endDate),
           ),
           DataGridCell<String>(
             columnName: 'ក្រសួង',
@@ -153,11 +150,7 @@ class AdditionalPositionInfoDataSource extends DataGridSource {
             child: Text(
               dataGridCell.value.toString(),
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
+              style: tableDataTextStyle,
             ),
           );
         },

@@ -5,6 +5,7 @@ import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/offical_info/language.dart';
 import 'package:xiaoming/components/custom_data_grid_widget.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class LanguageInfoPage extends StatelessWidget {
   const LanguageInfoPage({
@@ -151,11 +152,7 @@ class LanguageDataSource extends DataGridSource {
             alignment: Alignment.center,
             child: Text(
               dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
+              style: tableDataTextStyle,
               textAlign: TextAlign.start,
             ),
           );

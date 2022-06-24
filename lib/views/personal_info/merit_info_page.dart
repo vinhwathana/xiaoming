@@ -150,11 +150,7 @@ class MeritInfoDataSource extends DataGridSource {
             // padding: const EdgeInsets.all(8.0),
             child: Text(
               dataGridCell.value.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'KhmerOSBattambong',
-                height: 1.5,
-              ),
+              style: tableDataTextStyle,
               textAlign: TextAlign.start,
             ),
           );

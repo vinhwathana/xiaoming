@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:xiaoming/models/utils/address.dart';
 import 'package:xiaoming/models/utils/attachment.dart';
 import 'package:xiaoming/models/utils/list_value.dart';
+import 'package:xiaoming/utils/constant.dart';
 
 class OfficialInfo {
   OfficialInfo({
@@ -49,8 +50,8 @@ class OfficialInfo {
   String? birthAddressDetail;
   int? maleSibling;
   int? femaleSibling;
-  DateTime? internshipDate;
-  DateTime? officialWorkingDate;
+  String? internshipDate;
+  String? officialWorkingDate;
   ListValue? physicalStatus;
   String? physicalStatusRemark;
   String? profile;
@@ -61,7 +62,7 @@ class OfficialInfo {
   String? lastNameKh;
   String? firstNameEn;
   String? lastNameEn;
-  DateTime? dateOfBirth;
+  String? dateOfBirth;
   String? status;
   String? gender;
   ListValue? maritalStatus;
@@ -105,12 +106,8 @@ class OfficialInfo {
         birthAddressDetail: json["birthAddressDetail"],
         maleSibling: json["maleSibling"],
         femaleSibling: json["femaleSibling"],
-        internshipDate: json["internshipDate"] == null
-            ? null
-            : DateTime.parse(json["internshipDate"]),
-        officialWorkingDate: json["officialWorkingDate"] == null
-            ? null
-            : DateTime.parse(json["officialWorkingDate"]),
+        internshipDate: json["internshipDate"],
+        officialWorkingDate: json["officialWorkingDate"],
         physicalStatus: json["physicalStatus"] == null
             ? null
             : ListValue.fromMap(json["physicalStatus"]),
@@ -126,9 +123,7 @@ class OfficialInfo {
         lastNameKh: json["lastNameKH"],
         firstNameEn: json["firstNameEN"],
         lastNameEn: json["lastNameEN"],
-        dateOfBirth: json["dateOfBirth"] == null
-            ? null
-            : DateTime.parse(json["dateOfBirth"]),
+        dateOfBirth: json["dateOfBirth"],
         status: json["status"],
         gender: json["gender"],
         maritalStatus: json["maritalStatus"] == null
@@ -168,12 +163,8 @@ class OfficialInfo {
         "birthAddressDetail": birthAddressDetail,
         "maleSibling": maleSibling,
         "femaleSibling": femaleSibling,
-        "internshipDate": internshipDate == null
-            ? null
-            : "${internshipDate!.year.toString().padLeft(4, '0')}-${internshipDate!.month.toString().padLeft(2, '0')}-${internshipDate!.day.toString().padLeft(2, '0')}",
-        "officialWorkingDate": officialWorkingDate == null
-            ? null
-            : "${officialWorkingDate!.year.toString().padLeft(4, '0')}-${officialWorkingDate!.month.toString().padLeft(2, '0')}-${officialWorkingDate!.day.toString().padLeft(2, '0')}",
+        "internshipDate": formatStringForApi(internshipDate),
+        "officialWorkingDate": formatStringForApi(officialWorkingDate),
         "physicalStatus":
             physicalStatus == null ? null : physicalStatus!.toMap(),
         "physicalStatusRemark": physicalStatusRemark,
@@ -187,9 +178,7 @@ class OfficialInfo {
         "lastNameKH": lastNameKh,
         "firstNameEN": firstNameEn,
         "lastNameEN": lastNameEn,
-        "dateOfBirth": dateOfBirth == null
-            ? null
-            : "${dateOfBirth!.year.toString().padLeft(4, '0')}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}",
+        "dateOfBirth": formatStringForApi(dateOfBirth),
         "status": status,
         "gender": gender,
         "maritalStatus": maritalStatus == null ? null : maritalStatus!.toMap(),
