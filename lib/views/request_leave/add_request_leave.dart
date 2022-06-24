@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/clickable_textfield.dart';
 import 'package:xiaoming/components/custom_type_text_field.dart';
 import 'package:xiaoming/components/dropdown_textfield.dart';
+import 'package:xiaoming/components/file_viewer.dart';
 import 'package:xiaoming/utils/constant.dart';
 
 class AddRequestLeavePage extends StatefulWidget {
@@ -28,9 +32,21 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
     "មាតុភាព",
     "ឈឺ",
     "ភារះកិច្ចផ្តាល់ខ្លួន",
+    "ច្បាប់ឈប់សម្រាកប្រចាំឆ្នាំ",
   ];
 
   String? selectedTypeRequestLeave;
+  ShortLeaveType? selectedShortLeaveType;
+  bool firstEvening = false;
+  bool lastMorning = false;
+  double? totalAmountOfDay;
+  final List<PlatformFile> files = [];
+
+  void onChangeShortLeaveType(ShortLeaveType? value) {
+    setState(() {
+      selectedShortLeaveType = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,28 +75,60 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     });
                   },
                 ),
-                const SizedBox(height: 16),
-                ClickableTextField(
-                  controller: rangeOfDateTextCon,
-                  labelText: "ចាប់ពីថ្ងៃទី - ដល់ថ្ងៃទី",
-                  suffixIcon: Wrap(
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    children: const [
-                      Text(
-                        "10 ថ្ងៃ",
+                const SizedBox(height: 8),
+                Visibility(
+                  visible: (selectedTypeRequestLeave == typeOfRequestLeave[0]),
+                  maintainSize: false,
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          Radio<ShortLeaveType?>(
+                            groupValue: selectedShortLeaveType,
+                            value: ShortLeaveType.LESSTHAN5,
+                            onChanged: onChangeShortLeaveType,
+                          ),
+                          const Text("តិចជាង៥ថ្ងៃ"),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio<ShortLeaveType?>(
+                            groupValue: selectedShortLeaveType,
+                            value: ShortLeaveType.BETWEEN6AND15,
+                            onChanged: onChangeShortLeaveType,
+                          ),
+                          const Text("៦ថ្ងៃ ទៅ១៥ថ្ងៃ"),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 20,
+                      child: ClickableTextField(
+                        controller: rangeOfDateTextCon,
+                        labelText: "ចាប់ពីថ្ងៃទី - ដល់ថ្ងៃទី",
+                        onClickTextField: () {
+                          pickDateRange();
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        "${totalAmountOfDay?.toStringAsFixed(0) ?? ""} ថ្ងៃ",
                         style: TextStyle(
                           height: 1,
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(width: 4),
-                    ],
-                  ),
-                  onClickTextField: () {
-                    pickDateRange();
-                  },
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -88,8 +136,12 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     Row(
                       children: [
                         Checkbox(
-                          value: false,
-                          onChanged: (bool? value) {},
+                          value: firstEvening,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              firstEvening = value ?? false;
+                            });
+                          },
                         ),
                         const Text("កន្លះថ្ងៃល្ងាច"),
                       ],
@@ -97,8 +149,12 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                     Row(
                       children: [
                         Checkbox(
-                          value: false,
-                          onChanged: (bool? value) {},
+                          value: lastMorning,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              lastMorning = value ?? false;
+                            });
+                          },
                         ),
                         const Text("កន្លះថ្ងៃព្រឹក"),
                       ],
@@ -115,10 +171,15 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                 const SizedBox(height: 16),
                 InkWell(
                   onTap: () async {
-                    await FilePicker.platform.pickFiles(
+                    final result = await FilePicker.platform.pickFiles(
                       allowedExtensions: ['jpg', 'png', 'pdf'],
                       type: FileType.custom,
+                      allowMultiple: true,
                     );
+                    if (result != null) {
+                      files.addAll(result.files);
+                      setState(() {});
+                    }
                   },
                   child: DottedBorder(
                     borderType: BorderType.RRect,
@@ -145,6 +206,30 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: files.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () async {
+                        final result = await OpenFile.open(files[index].path);
+
+                      },
+                      title: Text(files[index].name),
+                      trailing: IconButton(
+                        onPressed: () {
+                          files.removeAt(index);
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.clear,
+                          color: CompanyColors.yellow,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -166,10 +251,10 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
       lastDate: lastDate,
       locale: Get.locale,
       currentDate: now,
-      // initialDateRange: DateTimeRange(
-      //   start: start,
-      //   end: end,
-      // ),
+      initialDateRange: DateTimeRange(
+        start: start ?? now,
+        end: end ?? now,
+      ),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -188,6 +273,38 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
         rangeOfDateTextCon.text =
             "${formatDateTimeForView(start)} - ${formatDateTimeForView(end)}";
       });
+      calculateAmountOfDay();
     }
   }
+
+  void calculateAmountOfDay() {
+    if (end == null || start == null) {
+      return;
+    }
+    final difference = end!.difference(start!);
+    totalAmountOfDay = difference.inDays.toDouble() + 1;
+    DateTime tempStart = start!;
+    final tempEnd = end!;
+
+    while (tempStart != tempEnd) {
+      tempStart = tempStart.add(Duration(days: 1));
+      if (formatNameOfDate.format(tempStart) == "Sunday" ||
+          formatNameOfDate.format(tempStart) == "Saturday") {
+        totalAmountOfDay = totalAmountOfDay! - 1.0;
+      }
+    }
+    setState(() {});
+  }
+}
+
+enum RequestLeaveType {
+  SHORT,
+  MATERNITY,
+  SICK,
+  PERSONAL,
+  ANNUAL,
+}
+enum ShortLeaveType {
+  LESSTHAN5,
+  BETWEEN6AND15,
 }
