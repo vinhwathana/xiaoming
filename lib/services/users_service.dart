@@ -34,7 +34,6 @@ class UserService {
 
   Future<User?> getUserProfile() async {
     final authController = Get.find<AuthenticationController>();
-
     final url = "${api_url.userProfile}/${authController.getEmployeeId()}";
     final response = await callingApiMethod(url: url, method: Method.GET);
 

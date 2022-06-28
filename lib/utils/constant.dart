@@ -97,24 +97,44 @@ Future<void> storeToken(String token) async {
 
 final formatNameOfDate = DateFormat("EEEE", "en");
 
-final intToMonth = DateFormat('dd-MMMM-yyyy', "km");
+final dateMonthNameFormat = DateFormat('dd-MMMM-yyyy', "km");
+final dateTimeMonthNameFormat = DateFormat('dd-MMMM-yyyy hh:mm:ss', "km");
 
-String formatDateTimeForView(dynamic date) {
+String formatDateForView(dynamic date) {
   if (date == null) {
     return "";
   }
-
   if (date is String) {
     final convertedDate = DateTime.tryParse(date);
     if (convertedDate == null) {
       return date;
     }
-    final formattedDate = intToMonth.format(convertedDate);
+    final formattedDate = dateMonthNameFormat.format(convertedDate);
     return formattedDate;
   }
 
   if (date is DateTime) {
-    final formattedDate = intToMonth.format(date);
+    final formattedDate = dateMonthNameFormat.format(date);
+    return formattedDate;
+  }
+  return date?.toString() ?? "";
+}
+
+String formatDateTimeForView(dynamic date) {
+  if (date == null) {
+    return "";
+  }
+  if (date is String) {
+    final convertedDate = DateTime.tryParse(date);
+    if (convertedDate == null) {
+      return date;
+    }
+    final formattedDate = dateTimeMonthNameFormat.format(convertedDate);
+    return formattedDate;
+  }
+
+  if (date is DateTime) {
+    final formattedDate = dateTimeMonthNameFormat.format(date);
     return formattedDate;
   }
   return date?.toString() ?? "";
@@ -129,15 +149,15 @@ String formatDateTimeForApi(DateTime? date) {
   final formattedDate = intToMonth.format(date);
   return formattedDate;
 }
+
 String formatStringForApi(String? date) {
   if (date == null) {
     return "";
   }
   final convertedDateTime = DateTime.tryParse(date);
-  if(convertedDateTime == null){
+  if (convertedDateTime == null) {
     return "";
   }
-
 
   final intToMonth = DateFormat('yyyy-MM-dd');
   final formattedDate = intToMonth.format(convertedDateTime);

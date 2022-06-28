@@ -364,7 +364,7 @@ class CertificatePeopleDataGridSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: peopleHeaderTitles[8],
-            value: formatDateTimeForView(e.endDate),
+            value: formatDateForView(e.endDate),
           ),
         ],
       );

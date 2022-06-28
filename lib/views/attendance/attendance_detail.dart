@@ -183,7 +183,7 @@ class _AttendanceDetailState extends State<AttendanceDetail> {
                   style: boldTitleStyle,
                 ),
                 Text(
-                  formatDateTimeForView(widget.date),
+                  formatDateForView(widget.date),
                   style: boldTitleStyle,
                 ),
               ],

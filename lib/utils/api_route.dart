@@ -3,7 +3,6 @@
 const String baseUrl = "https://edps.ddns.net/hrmis_api_mptc_dev/v1";
 // const String baseUrl = "https://hrmisapi.mptc.gov.kh/v1";
 
-
 // ENDPOINT: AUTHENTICATION
 const String authLogin = '$baseUrl/user/login';
 const String authLogout = '$baseUrl/user/logout';
@@ -61,17 +60,19 @@ const String statCertificatePeople = "$baseUrl/statistics/CertificatesPeople";
 const String statSkillPeople = "$baseUrl/statistics/SkillsPeople";
 
 ///?MinistryCode=20&Org=00&Dept=00&degree=B&start=0&search&length=10&&skill=&country
-const String statSkillByDegreePeople = "$baseUrl/statistics/SkillByDegreePeople";
+const String statSkillByDegreePeople =
+    "$baseUrl/statistics/SkillByDegreePeople";
 
 ///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
 const String statStaffPeople = "$baseUrl/CountStaff/Getcountstaffpeople";
 
 ///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
-const String statMeritPeople = "$baseUrl/CountMeritByOrg/Getcount_merit_by_org_people";
+const String statMeritPeople =
+    "$baseUrl/CountMeritByOrg/Getcount_merit_by_org_people";
 
 ///?MinistryCode=20&Org=80&Dept=87&start=0&length=10&search
-const String statKrobKhanPeople = "$baseUrl/CountKrobkhanByOrg/Getcount_krob_khan_by_org_people";
-
+const String statKrobKhanPeople =
+    "$baseUrl/CountKrobkhanByOrg/Getcount_krob_khan_by_org_people";
 
 ///ATTENDANCE
 ///
@@ -96,7 +97,8 @@ const String getCardInfoUrl = "$baseUrl/employees/card";
 
 ///Dashboard
 ///https://{{domain}}/attendances/dashboard-today-worked-period
-const String todayWorkPeriodUrl = "$baseUrl/attendances/dashboard-today-worked-period";
+const String todayWorkPeriodUrl =
+    "$baseUrl/attendances/dashboard-today-worked-period";
 
 ///AUTOCOMPLETE
 ///FOR GETTING COUNTRIES
@@ -104,3 +106,18 @@ const String countryUrl = "$baseUrl/ac/data-lov/COUNTRY";
 
 ///FOR GETTING SPECIALIZES
 const String specializeUrl = "$baseUrl/ac/data-lov/SPECIALIZE";
+
+///REQUEST LEAVE
+
+///CREATE REQUEST LEAVE
+///https://{{domain}}/request_leave/create
+const String createRequestLeaveUrl = "$baseUrl/request_leave/create";
+
+///GET PERSONAL REQUEST LEAVE
+///https://{{domain}}/request_leave/List?start=0&length=10&search&EmployeeID=1728&Ministry=20
+const String personalRequestLeaveUrl =
+    "$baseUrl/request_leave/List";
+
+///DELETE PERSONAL REQUEST LEAVE
+///https://{{domain}}/request_leave/delete?id=49
+const String deleteRequestLeave = "$baseUrl/request_leave/delete?id=49";

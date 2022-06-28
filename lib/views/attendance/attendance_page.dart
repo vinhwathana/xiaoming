@@ -87,7 +87,7 @@ class _AttendancePageState extends State<AttendancePage> {
                 pickDateRange();
               },
               child: Text(
-                "${formatDateTimeForView(start)} - ${formatDateTimeForView(end)}",
+                "${formatDateForView(start)} - ${formatDateForView(end)}",
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -264,7 +264,7 @@ class AttendanceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                formatDateTimeForView(attendance.authDate),
+                formatDateForView(attendance.authDate),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

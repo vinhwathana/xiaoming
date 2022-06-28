@@ -37,20 +37,26 @@ class WorkHistory {
 
   factory WorkHistory.fromMap(Map<String, dynamic> json) => WorkHistory(
         id: json["id"],
-        ministry: Ministry.fromMap(json["ministry"]),
+        ministry: (json["ministry"] == null)
+            ? json["ministry"]
+            : Ministry.fromMap(json["ministry"]),
         startDate: json["startDate"],
         isStartDateYear: json["isStartDateYear"],
         endDate: json["endDate"],
         isEndDateYear: json["isEndDateYear"],
         ongoing: json["ongoing"],
         organization: List<Organization>.from(
-            json["organization"].map((x) => Organization.fromMap(x))),
-        workStatus: ListValue.fromMap(json["workStatus"]),
-        position: Position.fromMap(json["position"]),
+            json["organization"]?.map((x) => Organization.fromMap(x)) ?? []),
+        workStatus: (json["workStatus"] == null)
+            ? null
+            : ListValue.fromMap(json["workStatus"]),
+        position: (json["position"] == null)
+            ? null
+            : Position.fromMap(json["position"]),
         positionEqual: json["positionEqual"],
         remark: json["remark"],
         attachmentList: List<Attachment>.from(
-            json["attachmentList"].map((x) => Attachment.fromMap(x))),
+            json["attachmentList"]?.map((x) => Attachment.fromMap(x)) ?? []),
       );
 
   Map<String, dynamic> toMap() => {

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:xiaoming/controllers/authentication_controller.dart';
+import 'package:xiaoming/controllers/user_controller.dart';
 import 'package:xiaoming/models/default_response.dart';
 import 'package:xiaoming/utils/constant.dart';
 import 'package:xiaoming/views/landing_page.dart';
@@ -87,24 +88,30 @@ Future<dynamic> callingApiMethod({
 }
 
 dynamic processResponse(http.Response response) {
-
   if (response.statusCode < 300) {
-    final defaultResponse = defaultResponseFromJson(response.body);
+    try {
+      final defaultResponse = defaultResponseFromJson(response.body);
 
-    if (defaultResponse.statusCode == 200) {
-      return defaultResponse.data;
-    } else {
-      return defaultResponse;
+      if (defaultResponse.statusCode == 200) {
+        return defaultResponse.data;
+      } else {
+        return defaultResponse;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return response;
   }
 
   return response;
 }
 
-void processError(
+Future<void> processError(
   dynamic response, {
   bool isAutomaticLogout = false,
-}) {
+}) async {
   if (response is String) {
     if (response.isNotEmpty) {
       showToast(response);
@@ -112,6 +119,7 @@ void processError(
     log(response);
   } else if (response is http.Response) {
     if (isAutomaticLogout) {
+      await Get.delete<UserController>();
       Get.offAll(() => const LandingPage());
     }
   } else if (response is DefaultResponse) {

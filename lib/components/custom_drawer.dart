@@ -4,6 +4,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
+import 'package:xiaoming/components/custom_alert_dialog.dart';
 import 'package:xiaoming/components/default_user_image.dart';
 import 'package:xiaoming/controllers/authentication_controller.dart';
 import 'package:xiaoming/controllers/user_controller.dart';
@@ -34,7 +35,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 () => ImagePreviewPage(
                   imageProvider: ExtendedMemoryImageProvider(
                     base64Decode(user?.imageBase64 ?? ""),
-                    scale: 0.1,
                   ),
                 ),
               );
@@ -46,11 +46,35 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 90,
                   width: 90,
                 )
-              : CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Colors.white,
-                  foregroundImage:
-                      MemoryImage(base64Decode(user?.imageBase64 ?? "")),
+              : Stack(
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 90,
+                          width: 90,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: MemoryImage(
+                                base64Decode(user?.imageBase64 ?? ""),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomPaint(
+                      painter: HolePainter(),
+                      child: Container(
+                        height: 90,
+                        width: 90,
+                      ),
+                    ),
+                  ],
                 ),
         );
       },
@@ -60,6 +84,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
       child: SafeArea(
         child: Column(
           children: [
@@ -70,7 +95,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     height: 16,
                   ),
                   userProfile(),
-                  const SizedBox(height: 8),
                   GetBuilder<UserController>(
                     builder: (controller) {
                       final user = controller.user?.value;
@@ -105,6 +129,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ),
       ),
     );
+  }
+}
+
+class HolePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+    paint.color = Colors.white;
+    canvas.drawPath(
+      Path.combine(
+        PathOperation.difference,
+        Path()
+          ..addRRect(RRect.fromLTRBR(-10, -10, 100, 100, Radius.circular(10))),
+        Path()
+          ..addOval(Rect.fromCircle(center: Offset(45, 45), radius: 45))
+          ..close(),
+      ),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
 
@@ -157,7 +205,7 @@ class _DrawerItemState extends State<_DrawerItem> {
             Get.to(() => const HomePage());
           },
         ),
-        ...List.generate(homePageItems.length, (index) {
+        ...List.generate(homePageItems.length - 1, (index) {
           return ListTile(
             leading: Icon(
               homePageItems[index].icon,
@@ -173,6 +221,41 @@ class _DrawerItemState extends State<_DrawerItem> {
             },
           );
         }),
+        ExpansionTile(
+          title: Text(
+            homePageItems[homePageItems.length - 1].title,
+            style: TextStyle(color: CompanyColors.blue),
+          ),
+          textColor: CompanyColors.blue,
+          iconColor: Colors.red,
+          leading: Icon(
+            homePageItems[homePageItems.length - 1].icon,
+            color: CompanyColors.yellow,
+          ),
+          childrenPadding: EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            ListTile(
+              leading: Icon(
+                homePageItems[homePageItems.length - 1].icon,
+                color: Colors.transparent,
+              ),
+              title: Text(
+                "ការស្នើសុំច្បាប់",
+                style: TextStyle(color: CompanyColors.blue),
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                homePageItems[homePageItems.length - 1].icon,
+                color: Colors.transparent,
+              ),
+              title: Text(
+                "បញ្ជីស្នើសុំច្បាប់",
+                style: TextStyle(color: CompanyColors.blue),
+              ),
+            ),
+          ],
+        ),
         const Divider(),
         ListTile(
           leading: Icon(
@@ -203,7 +286,13 @@ class _DrawerItemState extends State<_DrawerItem> {
             child: const CircularProgressIndicator(),
           ),
           onTap: () {
-            onSignOut();
+            showCustomDialog(
+              context,
+              title: "តើអ្នកពិតជាចង់ចាកចេញមែនទេ?",
+              onConfirm: () {
+                onSignOut();
+              },
+            );
           },
         )
       ],

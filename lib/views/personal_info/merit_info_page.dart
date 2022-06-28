@@ -101,7 +101,7 @@ class MeritInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'កាលបរិច្ឆេទទទួល',
-            value: formatDateTimeForView(e.recievedDate),
+            value: formatDateForView(e.recievedDate),
           ),
           DataGridCell<String>(
             columnName: 'សម្គាល់',

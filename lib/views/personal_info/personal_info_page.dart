@@ -53,12 +53,12 @@ class PersonalInfoPage extends StatelessWidget {
                       const Divider(),
                       ExpansionRow(
                         label: 'ភេទ',
-                        value: user.gender ?? "(No Gender)",
+                        value: user.getGender(),
                       ),
                       const Divider(),
                       ExpansionRow(
                         label: 'ថ្ងៃ ខែ ឆ្នាំ កំណើត',
-                        value: formatDateTimeForView(user.dateOfBirth!),
+                        value: formatDateForView(user.dateOfBirth!),
                       ),
                       const Divider(),
                       ExpansionRow(
@@ -98,12 +98,12 @@ class PersonalInfoPage extends StatelessWidget {
                       const Divider(),
                       ExpansionRow(
                         label: 'លេខទូរស័ព្ទ',
-                        value: formatPhoneNumber(user.contactPhone),
+                        value: user.contactPhone ?? "",
                       ),
                       const Divider(),
                       ExpansionRow(
                         label: 'អ៊ីមែល',
-                        value: formatPhoneNumber(user.contactEmail),
+                        value: user.contactEmail ?? "",
                       ),
                       const Divider(),
                       ExpansionRow(
@@ -113,12 +113,12 @@ class PersonalInfoPage extends StatelessWidget {
                       const Divider(),
                       ExpansionRow(
                         label: 'កាលបរិច្ឆេទបម្រើការងារ',
-                        value: formatDateTimeForView(user.internshipDate),
+                        value: formatDateForView(user.internshipDate),
                       ),
                       const Divider(),
                       ExpansionRow(
                         label: 'ថ្ងៃតាំងស៊ប់',
-                        value: formatDateTimeForView(user.officialWorkingDate),
+                        value: formatDateForView(user.officialWorkingDate),
                       ),
                     ],
                   ),

@@ -80,13 +80,13 @@ class _WorkHourChartState extends State<WorkHourChart> {
   @override
   Widget build(BuildContext context) {
     // final TodayWorkPeriod todayWorkPeriod = TodayWorkPeriod(
-    //   lastScan: "14:38:20",
+    //   lastScan: "14:30:00",
     //   periodInHour: 6.9,
     // );
     // return donutChart(workPeriod: todayWorkPeriod);
     return Card(
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(horizontal: 24),
+      // elevation: 3,
+      // margin: const EdgeInsets.symmetric(horizontal: 24),
       child: CustomFutureBuilder<TodayWorkPeriod?>(
         future: dashboardService.getTodayWorkPeriod(),
         onLoading: donutChart(workPeriod: null),
@@ -101,7 +101,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
     final timeFormat = DateFormat('HH:mm:ss');
     final time = timeFormat.parse(tod);
     // return TimeOfDay.fromDateTime(time).format(context);
-    //for 24 hour fomat
+    //for 24 hour format
     return "${time.hour}:${time.minute}";
   }
 
@@ -143,7 +143,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              fontFamily: 'KhmerMPTC',
+              fontFamily: khmerFont,
             ),
           ),
         ),
@@ -161,7 +161,7 @@ class _WorkHourChartState extends State<WorkHourChart> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: 12),
           child: Stack(
             children: [
               Positioned.fill(
@@ -223,20 +223,22 @@ class HomePageGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: homePageItems.length,
-      padding: const EdgeInsets.all(16.0),
+      // padding: const EdgeInsets.all(16.0),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         mainAxisSpacing: 6,
         crossAxisSpacing: 6,
+        // mainAxisExtent: 110,
+        childAspectRatio: 1/1
       ),
       itemBuilder: (BuildContext context, int index) {
         return Card(
-          elevation: 5,
+          elevation: 2,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(8),
             ),
           ),
           child: Material(
@@ -259,7 +261,7 @@ class HomePageGridView extends StatelessWidget {
                   ),
                   Icon(
                     homePageItems[index].icon,
-                    size: 75,
+                    size: 50,
                     color: CompanyColors.blue,
                   ),
                   const SizedBox(
@@ -276,7 +278,7 @@ class HomePageGridView extends StatelessWidget {
                       minFontSize: 14,
                       style: TextStyle(
                         height: 1.2,
-                        fontSize: 18,
+                        fontSize: 16,
                         color: CompanyColors.blue,
                       ),
                     ),

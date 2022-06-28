@@ -48,6 +48,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -212,8 +213,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       onTap: () async {
-                        final result = await OpenFile.open(files[index].path);
-
+                        await OpenFile.open(files[index].path);
                       },
                       title: Text(files[index].name),
                       trailing: IconButton(
@@ -271,7 +271,7 @@ class _AddRequestLeaveState extends State<AddRequestLeavePage> {
         start = picked.start;
         end = picked.end;
         rangeOfDateTextCon.text =
-            "${formatDateTimeForView(start)} - ${formatDateTimeForView(end)}";
+            "${formatDateForView(start)} - ${formatDateForView(end)}";
       });
       calculateAmountOfDay();
     }

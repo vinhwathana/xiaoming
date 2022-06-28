@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -70,7 +71,9 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       body: GetBuilder<InternetCheckController>(
         builder: (controller) {
-          print("controller.connectionStatus.value : ${controller.connectionStatus.value}");
+          if (kDebugMode) {
+            print("controller.connectionStatus.value : ${controller.connectionStatus.value}");
+          }
           if (controller.connectionStatus.value == ConnectivityResult.none) {
             return Center(
               child: ElevatedButton(

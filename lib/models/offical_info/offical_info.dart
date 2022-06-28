@@ -84,6 +84,10 @@ class OfficialInfo {
     return "$firstNameKh $lastNameKh";
   }
 
+  String getGender() {
+    return (gender == "M") ? "ប្រុស" : "ស្រី";
+  }
+
   factory OfficialInfo.fromJson(String str) =>
       OfficialInfo.fromMap(json.decode(str));
 

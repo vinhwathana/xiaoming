@@ -93,11 +93,11 @@ class KrobKhanInfoDataSource extends DataGridSource {
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំចាប់ផ្តើម',
-            value: formatDateTimeForView(e.startDate),
+            value: formatDateForView(e.startDate),
           ),
           DataGridCell<String>(
             columnName: 'ឆ្នាំបញ្ចប់',
-            value: formatDateTimeForView(e.endDate),
+            value: formatDateForView(e.endDate),
           ),
           DataGridCell<String>(
             columnName: 'ឡើងតាម',
