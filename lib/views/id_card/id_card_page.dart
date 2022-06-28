@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:xiaoming/colors/company_colors.dart';
 import 'package:xiaoming/components/custom_future_builder.dart';
@@ -39,11 +40,32 @@ class _IdCardPageState extends State<IdCardPage> {
   IdCardInfo? cardInfo;
 
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // print("Device Height: ${Get.height}");
     // print("Device Width: ${Get.width}");
     //Pixel 3XL and 4XL : 411, 797.71 / 820
     //Nexus: 360, 592.0
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("ប័ណ្ណសម្គាល់ផ្ទាល់ខ្លួន"),
