@@ -115,9 +115,12 @@ const String createRequestLeaveUrl = "$baseUrl/request_leave/create";
 
 ///GET PERSONAL REQUEST LEAVE
 ///https://{{domain}}/request_leave/List?start=0&length=10&search&EmployeeID=1728&Ministry=20
-const String personalRequestLeaveUrl =
-    "$baseUrl/request_leave/List";
+const String personalRequestLeaveUrl = "$baseUrl/request_leave/List";
 
 ///DELETE PERSONAL REQUEST LEAVE
 ///https://{{domain}}/request_leave/delete?id=49
 const String deleteRequestLeave = "$baseUrl/request_leave/delete?id=49";
+
+///HOLIDAY
+///https://{{domain}}/holiday/list?start=0&length=1&search=&ministryCode=20&All=1
+const String getHolidayUrl = "$baseUrl/holiday/list";

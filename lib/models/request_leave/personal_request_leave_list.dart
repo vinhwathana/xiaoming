@@ -135,7 +135,6 @@ class RequestLeaveData {
   }
 
   String getDateFrom() {
-    print(dateFrom);
     return formatDate(dateFrom);
   }
 
